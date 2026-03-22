@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ELT Lesson Library</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:      #0E1F3D;
+    --navy-mid:  #1A3461;
+    --gold:      #C8960A;
+    --gold-lt:   #F5C842;
+    --gold-pale: #FDF6E3;
+    --cream:     #F8F5EE;
+    --cream-dk:  #EDE8DC;
+    --ink:       #1A1A2E;
+    --mid-grey:  #666677;
+    --lt-grey:   #D0CFC8;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--navy);
+    font-family: 'Source Sans 3', Georgia, sans-serif;
+    color: var(--ink);
+    min-height: 100vh;
+  }
+
+  /* ── Header ── */
+  .site-header {
+    background: linear-gradient(160deg, var(--navy) 0%, var(--navy-mid) 100%);
+    border-bottom: 3px solid var(--gold);
+    padding: 52px 40px 44px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .site-header::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      repeating-linear-gradient(90deg, transparent, transparent 80px, rgba(200,150,10,0.04) 80px, rgba(200,150,10,0.04) 81px),
+      repeating-linear-gradient(0deg,  transparent, transparent 80px, rgba(200,150,10,0.04) 80px, rgba(200,150,10,0.04) 81px);
+  }
+  .site-badge {
+    display: inline-block;
+    border: 1px solid rgba(200,150,10,0.5);
+    color: var(--gold-lt);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 4px 18px;
+    margin-bottom: 20px;
+    position: relative;
+  }
+  .site-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 700;
+    color: var(--gold-lt);
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+    position: relative;
+  }
+  .site-subtitle {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 16px;
+    color: rgba(248,245,238,0.7);
+    margin-bottom: 28px;
+    position: relative;
+  }
+  .level-pills {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    position: relative;
+  }
+  .level-pill {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(200,150,10,0.35);
+    color: rgba(248,245,238,0.8);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 5px 16px;
+    border-radius: 20px;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .level-pill:hover {
+    background: var(--gold);
+    color: var(--navy);
+    border-color: var(--gold);
+  }
+
+  /* ── Main content ── */
+  .main {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 40px 24px 60px;
+  }
+
+  /* ── Level section ── */
+  .level-section {
+    margin-bottom: 48px;
+  }
+  .level-heading {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .level-badge {
+    background: var(--gold);
+    color: var(--navy);
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    padding: 6px 18px;
+    border-radius: 4px;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+  }
+  .level-label {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: rgba(248,245,238,0.6);
+  }
+  .level-rule {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, var(--gold), transparent);
+  }
+
+  /* ── Source type label ── */
+  .source-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(245,200,66,0.5);
+    margin-bottom: 12px;
+    padding-left: 2px;
+  }
+
+  /* ── Lesson cards ── */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+  .lesson-card {
+    background: var(--cream);
+    border-radius: 8px;
+    border: 1px solid var(--cream-dk);
+    border-top: 3px solid var(--gold);
+    overflow: hidden;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .lesson-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+  }
+  .card-body {
+    padding: 18px 20px 14px;
+  }
+  .card-topic {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--mid-grey);
+    margin-bottom: 6px;
+  }
+  .card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 1.3;
+    margin-bottom: 8px;
+  }
+  .card-meta {
+    font-size: 12px;
+    color: var(--mid-grey);
+    margin-bottom: 14px;
+    line-height: 1.5;
+  }
+  .card-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 12px 20px;
+    background: var(--cream-dk);
+    border-top: 1px solid var(--lt-grey);
+  }
+  .card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 3px;
+    text-decoration: none;
+    transition: all 0.15s;
+  }
+  .card-link.html {
+    background: var(--navy);
+    color: var(--gold-lt);
+  }
+  .card-link.html:hover { background: var(--navy-mid); }
+  .card-link.pdf {
+    background: transparent;
+    border: 1px solid var(--lt-grey);
+    color: var(--mid-grey);
+  }
+  .card-link.pdf:hover { border-color: var(--gold); color: var(--gold); }
+  .card-link.doc {
+    background: transparent;
+    border: 1px solid var(--lt-grey);
+    color: var(--mid-grey);
+  }
+  .card-link.doc:hover { border-color: var(--navy-mid); color: var(--navy-mid); }
+
+  /* ── Empty state ── */
+  .empty-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px dashed rgba(200,150,10,0.2);
+    border-radius: 8px;
+    padding: 24px 20px;
+    color: rgba(248,245,238,0.3);
+    font-size: 13px;
+    font-style: italic;
+    text-align: center;
+  }
+
+  /* ── About section ── */
+  .about-section {
+    background: var(--cream);
+    border-radius: 8px;
+    border-left: 4px solid var(--gold);
+    padding: 24px 28px;
+    margin-top: 48px;
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--ink);
+  }
+  .about-section h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 10px;
+  }
+  .about-section p { margin-bottom: 8px; }
+  .about-section p:last-child { margin-bottom: 0; }
+  .about-section a { color: var(--gold); }
+
+  /* ── Footer ── */
+  .site-footer {
+    background: var(--navy);
+    border-top: 2px solid var(--gold);
+    padding: 20px 40px;
+    text-align: center;
+    color: rgba(248,245,238,0.4);
+    font-size: 12px;
+    letter-spacing: 0.5px;
+  }
+  .site-footer span { color: var(--gold-lt); }
+
+  @media (max-width: 600px) {
+    .site-header { padding: 36px 20px 32px; }
+    .main { padding: 28px 16px 40px; }
+    .card-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="site-header">
+  <div class="site-badge">English Language Assistant Suite</div>
+  <h1 class="site-title">ELT Lesson Library</h1>
+  <p class="site-subtitle">Multimedia lesson resources for English language students</p>
+  <div class="level-pills">
+    <a href="#b1" class="level-pill">B1 Intermediate</a>
+    <a href="#b2" class="level-pill">B2 Upper Intermediate</a>
+    <a href="#c1" class="level-pill">C1 Advanced</a>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- ── B1 ── -->
+  <div class="level-section" id="b1">
+    <div class="level-heading">
+      <div class="level-badge">B1</div>
+      <div class="level-label">Intermediate</div>
+      <div class="level-rule"></div>
+    </div>
+    <div class="source-label">Reading Room</div>
+    <div class="card-grid">
+      <div class="empty-card">No B1 lessons yet &mdash; coming soon.</div>
+    </div>
+  </div>
+
+  <!-- ── B2 ── -->
+  <div class="level-section" id="b2">
+    <div class="level-heading">
+      <div class="level-badge">B2</div>
+      <div class="level-label">Upper Intermediate</div>
+      <div class="level-rule"></div>
+    </div>
+
+    <div class="source-label">Reading Room &mdash; Gem-generated passages</div>
+    <div class="card-grid">
+
+      <div class="lesson-card">
+        <div class="card-body">
+          <div class="card-topic">Persian cuisine &middot; Culture</div>
+          <div class="card-title">The Alchemy of the Persian Kitchen</div>
+          <div class="card-meta">
+            Grammar: Conditionals &amp; Wish<br>
+            Norwegian L1 &middot; The Reading Room
+          </div>
+        </div>
+        <div class="card-links">
+          <a href="b2/reading-room/persian-kitchen-lesson.html" class="card-link html">&#9654; Lesson</a>
+          <a href="b2/reading-room/persian-kitchen-word-families.pdf" class="card-link pdf">Word Families</a>
+          <a href="b2/reading-room/persian-kitchen-collocations.pdf" class="card-link pdf">Collocations</a>
+        </div>
+      </div>
+
+      <div class="lesson-card">
+        <div class="card-body">
+          <div class="card-topic">Silent cinema &middot; Biography</div>
+          <div class="card-title">The Girl in the Black Helmet</div>
+          <div class="card-meta">
+            Grammar: Must vs Have To<br>
+            Italian L1 &middot; The Reading Room
+          </div>
+        </div>
+        <div class="card-links">
+          <a href="b2/reading-room/louise-brooks-lesson.html" class="card-link html">&#9654; Lesson</a>
+          <a href="b2/reading-room/louise-brooks-word-families.pdf" class="card-link pdf">Word Families</a>
+          <a href="b2/reading-room/louise-brooks-collocations.pdf" class="card-link pdf">Collocations</a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="source-label">Authentic Text &mdash; Newspaper &amp; Webpage articles</div>
+    <div class="card-grid">
+
+      <div class="lesson-card">
+        <div class="card-body">
+          <div class="card-topic">Italian politics &middot; Current affairs</div>
+          <div class="card-title">Italy is voting on whether to change its constitution</div>
+          <div class="card-meta">
+            Grammar: Reporting Verbs<br>
+            Italian L1 &middot; BBC News, 22 March 2026
+          </div>
+        </div>
+        <div class="card-links">
+          <a href="b2/authentic-text/italy-referendum-lesson.html" class="card-link html">&#9654; Lesson</a>
+          <a href="b2/authentic-text/italy-referendum-word-families.pdf" class="card-link pdf">Word Families</a>
+          <a href="b2/authentic-text/italy-referendum-collocations.pdf" class="card-link pdf">Collocations</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── C1 ── -->
+  <div class="level-section" id="c1">
+    <div class="level-heading">
+      <div class="level-badge">C1</div>
+      <div class="level-label">Advanced</div>
+      <div class="level-rule"></div>
+    </div>
+    <div class="source-label">Reading Room</div>
+    <div class="card-grid">
+      <div class="empty-card">No C1 lessons yet &mdash; coming soon.</div>
+    </div>
+  </div>
+
+  <!-- ── About ── -->
+  <div class="about-section">
+    <h3>About this library</h3>
+    <p>These lesson resources are produced using the <strong>English Language Assistant Suite</strong> &mdash; a set of AI-powered tools built in Google Gemini and Claude. Each lesson includes a self-contained HTML lesson page with embedded audio and an interactive pronunciation coach, alongside printable PDF vocabulary reference sheets.</p>
+    <p>Lesson pages are designed to be opened directly in any browser. PDF sheets are formatted for A4 printing. Google Doc versions of each lesson are available for upload to Google Notebook LM.</p>
+  </div>
+
+</div>
+
+<div class="site-footer">
+  <span>English Language Assistant Suite</span> &nbsp;&middot;&nbsp; ELT Lesson Library
+</div>
+
+</body>
+</html>
