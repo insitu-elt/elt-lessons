@@ -44,6 +44,15 @@
       repeating-linear-gradient(90deg, transparent, transparent 80px, rgba(200,150,10,0.04) 80px, rgba(200,150,10,0.04) 81px),
       repeating-linear-gradient(0deg,  transparent, transparent 80px, rgba(200,150,10,0.04) 80px, rgba(200,150,10,0.04) 81px);
   }
+  .site-subtitle-badge {
+    display: block;
+    color: rgba(245,200,66,0.55);
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    position: relative;
+  }
   .site-badge {
     display: inline-block;
     border: 1px solid rgba(200,150,10,0.5);
@@ -290,11 +299,37 @@
     .card-grid { grid-template-columns: 1fr; }
   }
 </style>
+<style>
+  html { scroll-behavior: smooth; }
+  .back-to-top {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: var(--gold);
+    color: var(--navy);
+    border: none;
+    border-radius: 50%;
+    width: 42px;
+    height: 42px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.2s, transform 0.2s;
+    z-index: 999;
+    text-decoration: none;
+  }
+  .back-to-top:hover { opacity: 0.85; transform: translateY(-2px); }
+  .back-to-top.visible { display: flex; }
+</style>
 </head>
 <body>
 
 <div class="site-header">
-  <div class="site-badge">English Language Assistant Suite</div>
+  <div class="site-badge">BELLA</div>
+  <div class="site-subtitle-badge">British English Language Learning Assistants</div>
   <h1 class="site-title">ELT Lesson Library</h1>
   <p class="site-subtitle">Multimedia lesson resources for English language students</p>
   <div class="level-pills">
@@ -402,15 +437,22 @@
   <!-- ── About ── -->
   <div class="about-section">
     <h3>About this library</h3>
-    <p>These lesson resources are produced using the <strong>English Language Assistant Suite</strong> &mdash; a set of AI-powered tools built in Google Gemini and Claude. Each lesson includes a self-contained HTML lesson page with embedded audio and an interactive pronunciation coach, alongside printable PDF vocabulary reference sheets.</p>
+    <p>These lesson resources are produced using <strong>BELLA</strong> &mdash; British English Language Learning Assistants &mdash; a set of AI-powered tools built in Google Gemini and Claude. Each lesson includes a self-contained HTML lesson page with embedded audio and an interactive pronunciation coach, alongside printable PDF vocabulary reference sheets.</p>
     <p>Lesson pages are designed to be opened directly in any browser. PDF sheets are formatted for A4 printing. Google Doc versions of each lesson are available for upload to Google Notebook LM.</p>
   </div>
 
 </div>
 
 <div class="site-footer">
-  <span>English Language Assistant Suite</span> &nbsp;&middot;&nbsp; ELT Lesson Library
+  <span>BELLA</span> &nbsp;&middot;&nbsp; British English Language Learning Assistants &nbsp;&middot;&nbsp; Lesson Library
 </div>
 
+<a href="#" class="back-to-top" id="backToTop" title="Back to top">&#8679;</a>
+<script>
+  const btn = document.getElementById('backToTop');
+  window.addEventListener('scroll', () => {
+    btn.classList.toggle('visible', window.scrollY > 300);
+  });
+</script>
 </body>
 </html>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Italy is voting on whether to change its constitution — English Language Assistant Suite</title>
+<title>Italy is voting on whether to change its constitution — BELLA</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
@@ -132,12 +132,71 @@
 </style>
 </head>
 <body>
+<nav class="site-nav">
+  <a class="nav-home" href="../../index.html">
+    <span class="nav-home-icon">&#8962;</span>
+    <span class="nav-home-label">Lesson Library</span>
+  </a>
+  <span class="nav-title">Italy: Constitutional Referendum</span>
+</nav>
+<style>
+  .site-nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 44px;
+    background: #0E1F3D;
+    border-bottom: 2px solid #C8960A;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 18px;
+    z-index: 1000;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  }
+  .nav-home {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: #C8960A;
+    text-decoration: none;
+    font-family: 'Source Sans 3', Georgia, sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: opacity 0.15s;
+    white-space: nowrap;
+  }
+  .nav-home:hover { opacity: 0.75; }
+  .nav-home-icon { font-size: 1.1rem; line-height: 1; }
+  .nav-title {
+    color: #F8F5EE;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 0.82rem;
+    font-style: italic;
+    opacity: 0.7;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 55%;
+    text-align: right;
+  }
+  body { padding-top: 44px; }
+  @media (max-width: 500px) {
+    .nav-title { display: none; }
+    .nav-home-label { display: none; }
+  }
+  @media print {
+    .site-nav { display: none !important; }
+    body { padding-top: 0 !important; }
+  }
+</style>
 
 <div class="tricolour-band"></div>
 
 <header class="site-header">
   <div class="header-source">BBC News &mdash; 22 March 2026 &mdash; Sarah Rainsford</div>
-  <div class="header-badge">English Language Assistant Suite &middot; Authentic Text</div>
+  <div class="header-badge">BELLA &middot; Authentic Text</div>
   <h1>Italy is voting on whether to change its constitution</h1>
   <div class="meta-pills">
     <span class="meta-pill">B2 &mdash; Upper Intermediate</span>
@@ -263,7 +322,7 @@
 <div class="tricolour-band"></div>
 
 <footer class="site-footer">
-  <span>English Language Assistant Suite</span> &middot; Authentic Text &middot; B2 &middot; Italian Politics
+  <span>BELLA</span> &middot; Authentic Text &middot; B2 &middot; Italian Politics
   <br><button class="print-btn" onclick="window.print()">&#128438; Print / Save as PDF</button>
 </footer>
 
