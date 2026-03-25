@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Sentence Lab · BELLA</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy:      #0E1F3D;
+      --navy-mid:  #1A3461;
+      --gold:      #C8960A;
+      --gold-lt:   #F5C842;
+      --gold-pale: #FDF6E3;
+      --cream:     #F8F5EE;
+      --cream-dk:  #EDE8DC;
+      --ink:       #1A1A2E;
+      --mid-grey:  #666677;
+      --lt-grey:   #D0CFC8;
+
+      --c-noun:        #0D7C7C;
+      --c-verb:        #B8860B;
+      --c-adjective:   #C0392B;
+      --c-adverb:      #7D3C98;
+      --c-preposition: #2471A3;
+      --c-determiner:  #7D6608;
+      --c-pronoun:     #CA6F1E;
+      --c-conjunction: #1E8449;
+      --c-punctuation: #999999;
+
+      --cl-main:       #0E1F3D;
+      --cl-relative:   #1E8449;
+      --cl-adverbial:  #B7950B;
+      --cl-noun:       #943126;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Source Sans 3', sans-serif;
+      font-weight: 400;
+      background: var(--cream);
+      color: var(--ink);
+      padding-top: 44px;
+      min-height: 100vh;
+    }
+
+    /* NAVBAR */
+    .site-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 44px;
+      background: var(--navy);
+      border-bottom: 2px solid var(--gold);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      z-index: 1000;
+    }
+    .nav-home {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      color: var(--gold);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      flex-shrink: 0;
+    }
+    .nav-home:hover { color: var(--gold-lt); }
+    .nav-home-icon { font-size: 1.1rem; line-height: 1; }
+    .nav-title {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1rem;
+      color: rgba(248,245,238,0.70);
+      letter-spacing: 0.01em;
+      text-align: right;
+      flex: 1;
+      padding-left: 12px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* PAGE HEADER */
+    .page-header {
+      background: var(--navy);
+      border-bottom: 3px solid var(--gold);
+      padding: 28px 24px 24px;
+      text-align: center;
+    }
+    .page-badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid rgba(200,150,10,0.45);
+      border-radius: 3px;
+      padding: 2px 10px;
+      margin-bottom: 12px;
+    }
+    .page-header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      color: var(--gold-lt);
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 6px;
+    }
+    .page-header .subtitle {
+      font-style: italic;
+      color: rgba(248,245,238,0.70);
+      font-size: 1rem;
+      font-weight: 300;
+    }
+
+    /* MAIN CONTAINER */
+    .main-container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 28px 20px 60px;
+    }
+
+    /* INPUT AREA */
+    .input-section { margin-bottom: 16px; }
+
+    textarea#sentence-input {
+      width: 100%;
+      min-height: 100px;
+      background: var(--gold-pale);
+      border: 2px solid var(--navy-mid);
+      border-radius: 4px;
+      padding: 12px 14px;
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 1rem;
+      color: var(--ink);
+      resize: vertical;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      line-height: 1.6;
+    }
+    textarea#sentence-input::placeholder { color: var(--mid-grey); font-style: italic; }
+    textarea#sentence-input:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(200,150,10,0.18);
+    }
+
+    /* TOOLBAR */
+    .toolbar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
+    .btn-analyse {
+      background: var(--navy);
+      color: var(--gold-lt);
+      border: 1.5px solid var(--gold);
+      border-radius: 4px;
+      padding: 8px 22px;
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      cursor: pointer;
+      transition: background 0.18s, color 0.18s;
+    }
+    .btn-analyse:hover:not(:disabled) { background: var(--navy-mid); color: var(--gold-lt); }
+    .btn-analyse:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .btn-glossary {
+      background: transparent;
+      color: var(--navy);
+      border: 1.5px solid var(--lt-grey);
+      border-radius: 4px;
+      padding: 8px 16px;
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: border-color 0.18s, color 0.18s;
+      margin-left: auto;
+    }
+    .btn-glossary:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* GLOSSARY PANEL */
+    .glossary-panel {
+      display: none;
+      background: var(--cream);
+      border: 1px solid var(--lt-grey);
+      border-radius: 5px;
+      box-shadow: 0 4px 18px rgba(14,31,61,0.13);
+      padding: 20px 22px 22px;
+      margin-top: 14px;
+      position: relative;
+      animation: fadeIn 0.18s ease;
+    }
+    .glossary-panel.open { display: block; }
+    .glossary-panel-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px 32px;
+    }
+    @media (max-width: 600px) {
+      .glossary-panel-inner { grid-template-columns: 1fr; }
+    }
+    .glossary-col h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      color: var(--navy);
+      border-bottom: 2px solid var(--gold);
+      padding-bottom: 5px;
+      margin-bottom: 12px;
+    }
+    .glossary-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 10px;
+      font-size: 0.88rem;
+      line-height: 1.45;
+    }
+    .g-swatch {
+      flex-shrink: 0;
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      margin-top: 2px;
+    }
+    .g-label { font-weight: 600; color: var(--ink); }
+    .g-def { color: var(--mid-grey); }
+    .btn-close-glossary {
+      position: absolute;
+      top: 10px; right: 14px;
+      background: none;
+      border: none;
+      font-size: 1.3rem;
+      cursor: pointer;
+      color: var(--mid-grey);
+      line-height: 1;
+      padding: 2px 4px;
+    }
+    .btn-close-glossary:hover { color: var(--ink); }
+
+    /* ERROR PANEL */
+    .error-panel {
+      display: none;
+      background: var(--cream);
+      border-left: 4px solid var(--gold);
+      border-radius: 3px;
+      padding: 12px 16px;
+      margin-top: 14px;
+      color: var(--ink);
+      font-size: 0.92rem;
+      font-style: italic;
+    }
+    .error-panel.visible { display: block; }
+
+    /* DISPLAY AREA */
+    .display-area {
+      display: none;
+      margin-top: 22px;
+      animation: fadeIn 0.25s ease;
+    }
+    .display-area.visible { display: block; }
+
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
+    .display-area.loading {
+      opacity: 0.5;
+      animation: pulse 1.2s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%,100% { opacity: 0.5; } 50% { opacity: 0.25; } }
+
+    /* MODE TOGGLES */
+    .mode-toggle {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 16px;
+      background: var(--cream-dk);
+      border-radius: 20px;
+      padding: 3px;
+      width: fit-content;
+    }
+    .mode-btn {
+      background: none;
+      border: none;
+      border-radius: 18px;
+      padding: 5px 18px;
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      color: var(--mid-grey);
+      transition: background 0.18s, color 0.18s;
+    }
+    .mode-btn.active {
+      background: var(--gold);
+      color: var(--navy);
+    }
+    .mode-btn:not(.active):hover { color: var(--ink); }
+
+    /* SENTENCE RENDER */
+    .sentence-render {
+      padding: 16px 0 4px;
+    }
+
+    .word-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      gap: 0;
+      line-height: 2;
+      margin-bottom: 0;
+    }
+
+    .word-wrap {
+      position: relative;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .word-span {
+      display: inline-block;
+      font-size: 1.15rem;
+      padding: 2px 1px 4px;
+      border-bottom: 2px solid transparent;
+      cursor: default;
+      position: relative;
+      white-space: pre;
+    }
+    .word-span.has-space::after { content: '\00a0'; }
+
+    .word-span[data-class="noun"]        { border-bottom-color: var(--c-noun); }
+    .word-span[data-class="verb"]        { border-bottom-color: var(--c-verb); }
+    .word-span[data-class="adjective"]   { border-bottom-color: var(--c-adjective); }
+    .word-span[data-class="adverb"]      { border-bottom-color: var(--c-adverb); }
+    .word-span[data-class="preposition"] { border-bottom-color: var(--c-preposition); }
+    .word-span[data-class="determiner"]  { border-bottom-color: var(--c-determiner); }
+    .word-span[data-class="pronoun"]     { border-bottom-color: var(--c-pronoun); }
+    .word-span[data-class="conjunction"] { border-bottom-color: var(--c-conjunction); }
+    .word-span[data-class="punctuation"] { border-bottom-color: var(--c-punctuation); }
+
+    .word-span::after {
+      content: attr(data-label);
+      position: absolute;
+      bottom: calc(100% + 6px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--navy);
+      color: var(--gold-lt);
+      font-size: 0.72rem;
+      font-family: 'Source Sans 3', sans-serif;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      padding: 3px 8px;
+      border-radius: 3px;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.15s;
+      z-index: 100;
+    }
+    .word-span:hover::after { opacity: 1; }
+
+    /* CLAUSE BRACKETS */
+    .clause-area {
+      display: none;
+      position: relative;
+      margin-top: 6px;
+      margin-bottom: 8px;
+    }
+    .analyse-mode .clause-area { display: block; }
+
+    .clause-track {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    /* SENTENCE NAVIGATION */
+    .sentence-nav {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin-top: 18px;
+      flex-wrap: wrap;
+    }
+    .sentence-nav.visible { display: flex; }
+    .btn-nav {
+      background: var(--navy);
+      color: var(--gold-lt);
+      border: 1.5px solid var(--gold);
+      border-radius: 4px;
+      padding: 7px 16px;
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .btn-nav:hover:not(:disabled) { background: var(--navy-mid); }
+    .btn-nav:disabled { opacity: 0.35; cursor: not-allowed; }
+    .nav-counter {
+      font-size: 0.88rem;
+      color: var(--mid-grey);
+      font-weight: 600;
+      min-width: 110px;
+      text-align: center;
+    }
+    .dot-row {
+      display: flex;
+      gap: 6px;
+      justify-content: center;
+      flex-wrap: wrap;
+      width: 100%;
+      margin-top: 6px;
+    }
+    .dot {
+      width: 9px; height: 9px;
+      border-radius: 50%;
+      border: 1.5px solid var(--lt-grey);
+      background: transparent;
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .dot.visited   { background: var(--navy); border-color: var(--navy); }
+    .dot.current   { background: var(--gold); border-color: var(--gold); }
+
+    /* CROSS-REF TIP */
+    .cross-ref-tip {
+      display: none;
+      margin-top: 22px;
+      font-style: italic;
+      font-size: 0.85rem;
+      color: var(--mid-grey);
+      text-align: center;
+    }
+    .cross-ref-tip.visible { display: block; }
+
+    /* FOOTER */
+    .site-footer {
+      background: var(--navy);
+      border-top: 3px solid var(--gold);
+      text-align: center;
+      padding: 18px 20px;
+      font-size: 0.75rem;
+      letter-spacing: 0.07em;
+      color: rgba(248,245,238,0.40);
+      font-weight: 400;
+      margin-top: 60px;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 499px) {
+      .nav-title { display: none; }
+    }
+    @media (max-width: 500px) {
+      .word-span { font-size: 1rem; }
+    }
+
+    /* PRINT */
+    @media print {
+      .site-nav, .toolbar, .btn-glossary, .glossary-panel,
+      .mode-toggle, .sentence-nav, .cross-ref-tip, .site-footer,
+      textarea#sentence-input { display: none !important; }
+      body { padding-top: 0; }
+      .display-area { display: block !important; }
+      .sentence-render { page-break-inside: avoid; }
+      .clause-area { display: block !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="site-nav">
+    <a class="nav-home" href="../index.html">
+      <span class="nav-home-icon">&#8962;</span>
+      <span class="nav-home-label">Lesson Library</span>
+    </a>
+    <span class="nav-title">The Sentence Lab</span>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <header class="page-header">
+    <div class="page-badge">BELLA &middot; The Sentence Lab</div>
+    <h1>The Sentence Lab</h1>
+    <p class="subtitle">Explore the grammar of any sentence</p>
+  </header>
+
+  <!-- MAIN -->
+  <main class="main-container">
+
+    <!-- INPUT -->
+    <section class="input-section">
+      <textarea id="sentence-input" placeholder="Type or paste a sentence, or a short paragraph&hellip;" rows="4"></textarea>
+      <div class="toolbar">
+        <button class="btn-analyse" id="btn-analyse" disabled>Analyse</button>
+        <button class="btn-glossary" id="btn-glossary">Glossary</button>
+      </div>
+    </section>
+
+    <!-- GLOSSARY PANEL -->
+    <div class="glossary-panel" id="glossary-panel" role="dialog" aria-label="Glossary">
+      <button class="btn-close-glossary" id="btn-close-glossary" aria-label="Close glossary">&times;</button>
+      <div class="glossary-panel-inner">
+        <div class="glossary-col">
+          <h3>Word Classes</h3>
+          <div class="glossary-row"><span class="g-swatch" style="background:var(--c-noun)"></span><span><span class="g-label">Noun</span> &mdash; <span class="g-def">A word that names a person, place, thing, or idea</span></span></div>
+          <div class="glossary-row"><span class="g-swatch" style="background:var(--c-verb)"></span><span><span class="g-label">Verb</span> &mdash; <span class="g-def">A word that describes an action, state, or event</span></span></div>
+          <div class="glossary-row"><span class="g-swatch" style="background:var(--c-adjective)"></span><span><span class="g-label">Adjective</span> &mdash; <span class="g-def">A word that describes or modifies a noun</span></span></div>
+          <div class="glossary-row"><span class="g-swatch" style="background:var(--c-adverb)"></span><span><span class="g-label">Adverb</span> &mdash; <span class="g-def">A word that modifies a verb, adjective, or another adverb</span></span></div>
+          <div class="glossary-row"><span class="g-swatch" style="background:var(--c-preposition)"></span><span><span class="g-label">Preposition</span> &mdash; <span class="g-def">A word that shows the relationship between a noun and another part of the sentence</span></span></div>
+          <div class="glossary-row"><span class="g-swatch" style="background:var(--c-determiner)"></span><span><span class="g-label">Determiner</span> &mdash; <span class="g-def">A word that introduces a noun &mdash; such as <em>the</em>, <em>a</em>, <em>this</em>, or <em>my</em></span></span></div>
+          <div class="glossary-row"><span class="g-swatch" style="background:var(--c-pronoun)"></span><span><span class="g-label">Pronoun</span> &mdash; <span class="g-def">A word that takes the place of a noun &mdash; such as <em>he</em>, <em>she</em>, <em>it</em>, or <em>they</em></span></span></div>
+          <div class="glossary-row"><span class="g-swatch" style="background:var(--c-conjunction)"></span><span><span class="g-label">Conjunction</span> &mdash; <span class="g-def">A word that connects words, phrases, or clauses &mdash; such as <em>and</em>, <em>but</em>, or <em>because</em></span></span></div>
+        </div>
+        <div class="glossary-col">
+          <h3>Clause Types</h3>
+          <div class="glossary-row"><span class="g-swatch" style="background:var(--cl-main)"></span><span><span class="g-label">Main clause</span> &mdash; <span class="g-def">The core of the sentence &mdash; it makes sense on its own</span></span></div>
+          <div class="glossary-row"><span class="g-swatch" style="background:var(--cl-relative)"></span><span><span class="g-label">Relative clause</span> &mdash; <span class="g-def">A clause that gives more information about a noun &mdash; often introduced by <em>who</em>, <em>which</em>, or <em>that</em></span></span></div>
+          <div class="glossary-row"><span class="g-swatch" style="background:var(--cl-adverbial)"></span><span><span class="g-label">Adverbial clause</span> &mdash; <span class="g-def">A clause that tells us when, where, why, or how &mdash; often introduced by <em>because</em>, <em>although</em>, <em>when</em>, or <em>if</em></span></span></div>
+          <div class="glossary-row"><span class="g-swatch" style="background:var(--cl-noun)"></span><span><span class="g-label">Noun clause</span> &mdash; <span class="g-def">A clause that acts like a noun &mdash; it can be the subject or object of the sentence</span></span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ERROR -->
+    <div class="error-panel" id="error-panel">
+      Something went wrong &mdash; please check your connection and try again.
+    </div>
+
+    <!-- DISPLAY AREA -->
+    <div class="display-area" id="display-area">
+      <div class="mode-toggle" id="mode-toggle">
+        <button class="mode-btn active" data-mode="read">Read</button>
+        <button class="mode-btn" data-mode="analyse">Analyse</button>
+      </div>
+      <div id="sentence-render-container"></div>
+    </div>
+
+    <!-- SENTENCE NAVIGATION -->
+    <div class="sentence-nav" id="sentence-nav">
+      <button class="btn-nav" id="btn-prev">&larr; Prev</button>
+      <span class="nav-counter" id="nav-counter">Sentence 1 of 1</span>
+      <button class="btn-nav" id="btn-next">Next &rarr;</button>
+      <div class="dot-row" id="dot-row"></div>
+    </div>
+
+    <!-- CROSS-REF TIP -->
+    <p class="cross-ref-tip" id="cross-ref-tip">
+      Want to explore clause types further? Try <em>Clause and Effect</em> in your BELLA assistant suite.
+    </p>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    BELLA &nbsp;&middot;&nbsp; The Sentence Lab &nbsp;&middot;&nbsp; British English Language Learning Assistants
+  </footer>
+
+<script>
+  const ANTHROPIC_API_KEY = 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; // Replace before deploying
+
+  const SYSTEM_PROMPT = `You are a syntax analyser for English language learners. Analyse the input text and return ONLY valid JSON — no preamble, no markdown, no code fences.
+
+Return this structure:
+{
+  "sentences": [
+    {
+      "tokens": [
+        { "word": string, "class": string, "whitespace": boolean }
+      ],
+      "clauses": [
+        { "type": string, "startIndex": number, "endIndex": number }
+      ]
+    }
+  ]
+}
+
+Token "class" values (use exactly these strings): noun, verb, adjective, adverb, preposition, determiner, pronoun, conjunction, punctuation
+
+Clause "type" values (use exactly these strings): main, relative, adverbial, noun
+
+"startIndex" and "endIndex" refer to token array indices (inclusive). "whitespace" is true if a space follows the word, false for punctuation with no space.
+
+Analyse every sentence in the input separately. Be precise and consistent.`;
+
+  let analysisData = null;
+  let currentSentence = 0;
+  let visitedSentences = new Set();
+  let currentMode = 'read';
+
+  const textarea        = document.getElementById('sentence-input');
+  const btnAnalyse      = document.getElementById('btn-analyse');
+  const btnGlossary     = document.getElementById('btn-glossary');
+  const glossaryPanel   = document.getElementById('glossary-panel');
+  const btnCloseGloss   = document.getElementById('btn-close-glossary');
+  const errorPanel      = document.getElementById('error-panel');
+  const displayArea     = document.getElementById('display-area');
+  const modeToggle      = document.getElementById('mode-toggle');
+  const renderContainer = document.getElementById('sentence-render-container');
+  const sentenceNav     = document.getElementById('sentence-nav');
+  const btnPrev         = document.getElementById('btn-prev');
+  const btnNext         = document.getElementById('btn-next');
+  const navCounter      = document.getElementById('nav-counter');
+  const dotRow          = document.getElementById('dot-row');
+  const crossRefTip     = document.getElementById('cross-ref-tip');
+
+  textarea.addEventListener('input', () => {
+    btnAnalyse.disabled = textarea.value.trim().length === 0;
+  });
+
+  btnAnalyse.addEventListener('click', async () => {
+    const text = textarea.value.trim();
+    if (!text) return;
+
+    errorPanel.classList.remove('visible');
+    displayArea.classList.remove('visible');
+    sentenceNav.classList.remove('visible');
+    crossRefTip.classList.remove('visible');
+    displayArea.classList.add('visible', 'loading');
+    btnAnalyse.disabled = true;
+    btnAnalyse.textContent = 'Analysing\u2026';
+
+    try {
+      const response = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': ANTHROPIC_API_KEY,
+          'anthropic-version': '2023-06-01',
+          'anthropic-dangerous-direct-browser-access': 'true'
+        },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-6',
+          max_tokens: 4096,
+          system: SYSTEM_PROMPT,
+          messages: [{ role: 'user', content: text }]
+        })
+      });
+
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+      const data = await response.json();
+      const raw = data.content[0].text.trim();
+      analysisData = JSON.parse(raw);
+
+      if (!analysisData.sentences || analysisData.sentences.length === 0) {
+        throw new Error('No sentences returned');
+      }
+
+      currentSentence = 0;
+      visitedSentences = new Set([0]);
+      displayArea.classList.remove('loading');
+      renderCurrentSentence();
+      updateNav();
+      crossRefTip.classList.add('visible');
+
+    } catch (e) {
+      displayArea.classList.remove('visible', 'loading');
+      errorPanel.classList.add('visible');
+    } finally {
+      btnAnalyse.disabled = textarea.value.trim().length === 0;
+      btnAnalyse.textContent = 'Analyse';
+    }
+  });
+
+  modeToggle.addEventListener('click', e => {
+    const btn = e.target.closest('.mode-btn');
+    if (!btn) return;
+    currentMode = btn.dataset.mode;
+    modeToggle.querySelectorAll('.mode-btn').forEach(b => b.classList.toggle('active', b === btn));
+    renderCurrentSentence();
+  });
+
+  btnPrev.addEventListener('click', () => {
+    if (currentSentence > 0) {
+      currentSentence--;
+      visitedSentences.add(currentSentence);
+      renderCurrentSentence();
+      updateNav();
+    }
+  });
+  btnNext.addEventListener('click', () => {
+    if (currentSentence < analysisData.sentences.length - 1) {
+      currentSentence++;
+      visitedSentences.add(currentSentence);
+      renderCurrentSentence();
+      updateNav();
+    }
+  });
+
+  btnGlossary.addEventListener('click', () => {
+    glossaryPanel.classList.toggle('open');
+  });
+  btnCloseGloss.addEventListener('click', () => glossaryPanel.classList.remove('open'));
+  document.addEventListener('click', e => {
+    if (glossaryPanel.classList.contains('open') &&
+        !glossaryPanel.contains(e.target) &&
+        e.target !== btnGlossary) {
+      glossaryPanel.classList.remove('open');
+    }
+  });
+
+  function capitalize(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
+
+  function renderCurrentSentence() {
+    if (!analysisData) return;
+    const sentence = analysisData.sentences[currentSentence];
+    renderContainer.innerHTML = '';
+
+    const wrapper = document.createElement('div');
+    wrapper.className = 'sentence-render' + (currentMode === 'analyse' ? ' analyse-mode' : '');
+
+    const wordRow = document.createElement('div');
+    wordRow.className = 'word-row';
+
+    const tokenWrappers = [];
+
+    sentence.tokens.forEach((token) => {
+      const ww = document.createElement('span');
+      ww.className = 'word-wrap';
+
+      const span = document.createElement('span');
+      span.className = 'word-span';
+      if (token.whitespace) span.classList.add('has-space');
+      span.dataset.class = token.class;
+      span.dataset.label = capitalize(token.class);
+      span.textContent = token.word;
+
+      ww.appendChild(span);
+      wordRow.appendChild(ww);
+      tokenWrappers.push(ww);
+    });
+
+    wrapper.appendChild(wordRow);
+
+    if (sentence.clauses && sentence.clauses.length > 0) {
+      const clauseArea = document.createElement('div');
+      clauseArea.className = 'clause-area';
+      wrapper.appendChild(clauseArea);
+    }
+
+    renderContainer.appendChild(wrapper);
+
+    if (sentence.clauses && sentence.clauses.length > 0 && currentMode === 'analyse') {
+      requestAnimationFrame(() => {
+        buildClauseBrackets(sentence, tokenWrappers, wrapper.querySelector('.clause-area'));
+      });
+    }
+  }
+
+  function clauseLabel(type) {
+    const labels = { main: 'Main clause', relative: 'Relative clause', adverbial: 'Adverbial clause', noun: 'Noun clause' };
+    return labels[type] || capitalize(type) + ' clause';
+  }
+
+  function clauseColor(type) {
+    const colors = { main: '#0E1F3D', relative: '#1E8449', adverbial: '#B7950B', noun: '#943126' };
+    return colors[type] || '#666677';
+  }
+
+  function buildClauseBrackets(sentence, tokenWrappers, clauseArea) {
+    if (!clauseArea) return;
+    clauseArea.innerHTML = '';
+
+    const clauses = [...sentence.clauses].sort((a, b) => a.startIndex - b.startIndex);
+
+    const tracks = [];
+    const assignments = clauses.map(clause => {
+      for (let t = 0; t < tracks.length; t++) {
+        if (tracks[t] <= clause.startIndex) {
+          tracks[t] = clause.endIndex + 1;
+          return t;
+        }
+      }
+      tracks.push(clause.endIndex + 1);
+      return tracks.length - 1;
+    });
+
+    const TRACK_HEIGHT = 22;
+    const totalTracks = Math.max(...assignments) + 1;
+    clauseArea.style.height = (totalTracks * TRACK_HEIGHT + 4) + 'px';
+
+    clauses.forEach((clause, i) => {
+      const si = clause.startIndex;
+      const ei = Math.min(clause.endIndex, tokenWrappers.length - 1);
+      if (si < 0 || si >= tokenWrappers.length) return;
+
+      const startEl = tokenWrappers[si];
+      const endEl   = tokenWrappers[ei];
+      if (!startEl || !endEl) return;
+
+      const startRect = startEl.getBoundingClientRect();
+      const endRect   = endEl.getBoundingClientRect();
+      const areaRect  = clauseArea.getBoundingClientRect();
+
+      const left  = startRect.left - areaRect.left;
+      const right = endRect.right  - areaRect.left;
+      const width = right - left;
+      const top   = assignments[i] * TRACK_HEIGHT;
+      const color = clauseColor(clause.type);
+
+      const bar = document.createElement('div');
+      bar.style.cssText = `
+        position: absolute;
+        left: ${left}px;
+        top: ${top + 6}px;
+        width: ${Math.max(width, 20)}px;
+        height: 2px;
+        background: ${color};
+        border-left: 2px solid ${color};
+        border-right: 2px solid ${color};
+        border-top: 2px solid ${color};
+      `;
+
+      const label = document.createElement('span');
+      label.textContent = clauseLabel(clause.type);
+      label.style.cssText = `
+        position: absolute;
+        left: 0;
+        top: -14px;
+        font-size: 0.68rem;
+        font-family: 'Source Sans 3', sans-serif;
+        font-weight: 600;
+        color: ${color};
+        white-space: nowrap;
+        letter-spacing: 0.02em;
+      `;
+
+      if (window.innerWidth < 500) label.style.display = 'none';
+
+      bar.appendChild(label);
+      clauseArea.appendChild(bar);
+    });
+  }
+
+  function updateNav() {
+    if (!analysisData) return;
+    const total = analysisData.sentences.length;
+
+    if (total <= 1) {
+      sentenceNav.classList.remove('visible');
+      return;
+    }
+
+    sentenceNav.classList.add('visible');
+    navCounter.textContent = `Sentence ${currentSentence + 1} of ${total}`;
+    btnPrev.disabled = currentSentence === 0;
+    btnNext.disabled = currentSentence === total - 1;
+
+    dotRow.innerHTML = '';
+    for (let i = 0; i < total; i++) {
+      const dot = document.createElement('span');
+      dot.className = 'dot';
+      if (i === currentSentence) dot.classList.add('current');
+      else if (visitedSentences.has(i)) dot.classList.add('visited');
+      dotRow.appendChild(dot);
+    }
+  }
+
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      if (analysisData && currentMode === 'analyse') renderCurrentSentence();
+    }, 150);
+  });
+</script>
+</body>
+</html>
