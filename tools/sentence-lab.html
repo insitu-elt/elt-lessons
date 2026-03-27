@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -45,7 +45,6 @@
       min-height: 100vh;
     }
 
-    /* NAVBAR */
     .site-nav {
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -86,7 +85,6 @@
       text-overflow: ellipsis;
     }
 
-    /* PAGE HEADER */
     .page-header {
       background: var(--navy);
       border-bottom: 3px solid var(--gold);
@@ -120,14 +118,12 @@
       font-weight: 300;
     }
 
-    /* MAIN CONTAINER */
     .main-container {
       max-width: 860px;
       margin: 0 auto;
       padding: 28px 20px 60px;
     }
 
-    /* INPUT AREA */
     .input-section { margin-bottom: 16px; }
 
     textarea#sentence-input {
@@ -145,13 +141,11 @@
       transition: border-color 0.2s, box-shadow 0.2s;
       line-height: 1.6;
     }
-    textarea#sentence-input::placeholder { color: var(--mid-grey); font-style: italic; }
     textarea#sentence-input:focus {
       border-color: var(--gold);
       box-shadow: 0 0 0 3px rgba(200,150,10,0.18);
     }
 
-    /* TOOLBAR */
     .toolbar {
       display: flex;
       align-items: center;
@@ -170,9 +164,7 @@
       font-weight: 600;
       letter-spacing: 0.03em;
       cursor: pointer;
-      transition: background 0.18s, color 0.18s;
     }
-    .btn-analyse:hover:not(:disabled) { background: var(--navy-mid); color: var(--gold-lt); }
     .btn-analyse:disabled { opacity: 0.5; cursor: not-allowed; }
 
     .btn-glossary {
@@ -181,16 +173,12 @@
       border: 1.5px solid var(--lt-grey);
       border-radius: 4px;
       padding: 8px 16px;
-      font-family: 'Source Sans 3', sans-serif;
       font-size: 0.85rem;
       font-weight: 600;
       cursor: pointer;
-      transition: border-color 0.18s, color 0.18s;
       margin-left: auto;
     }
-    .btn-glossary:hover { border-color: var(--gold); color: var(--gold); }
 
-    /* GLOSSARY PANEL */
     .glossary-panel {
       display: none;
       background: var(--cream);
@@ -200,143 +188,32 @@
       padding: 20px 22px 22px;
       margin-top: 14px;
       position: relative;
-      animation: fadeIn 0.18s ease;
     }
     .glossary-panel.open { display: block; }
-    .glossary-panel-inner {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px 32px;
-    }
-    @media (max-width: 600px) {
-      .glossary-panel-inner { grid-template-columns: 1fr; }
-    }
-    .glossary-col h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1rem;
-      color: var(--navy);
-      border-bottom: 2px solid var(--gold);
-      padding-bottom: 5px;
-      margin-bottom: 12px;
-    }
-    .glossary-row {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      margin-bottom: 10px;
-      font-size: 0.88rem;
-      line-height: 1.45;
-    }
-    .g-swatch {
-      flex-shrink: 0;
-      width: 13px;
-      height: 13px;
-      border-radius: 50%;
-      margin-top: 2px;
-    }
-    .g-label { font-weight: 600; color: var(--ink); }
-    .g-def { color: var(--mid-grey); }
-    .btn-close-glossary {
-      position: absolute;
-      top: 10px; right: 14px;
-      background: none;
-      border: none;
-      font-size: 1.3rem;
-      cursor: pointer;
-      color: var(--mid-grey);
-      line-height: 1;
-      padding: 2px 4px;
-    }
-    .btn-close-glossary:hover { color: var(--ink); }
+    .glossary-panel-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 24px 32px; }
 
-    /* ERROR PANEL */
     .error-panel {
       display: none;
       background: var(--cream);
       border-left: 4px solid var(--gold);
-      border-radius: 3px;
       padding: 12px 16px;
       margin-top: 14px;
-      color: var(--ink);
-      font-size: 0.92rem;
       font-style: italic;
     }
     .error-panel.visible { display: block; }
 
-    /* DISPLAY AREA */
-    .display-area {
-      display: none;
-      margin-top: 22px;
-      animation: fadeIn 0.25s ease;
-    }
+    .display-area { display: none; margin-top: 22px; }
     .display-area.visible { display: block; }
-
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
-
-    .display-area.loading {
-      opacity: 0.5;
-      animation: pulse 1.2s ease-in-out infinite;
-    }
+    .display-area.loading { opacity: 0.5; animation: pulse 1.2s infinite; }
     @keyframes pulse { 0%,100% { opacity: 0.5; } 50% { opacity: 0.25; } }
 
-    /* MODE TOGGLES */
-    .mode-toggle {
-      display: flex;
-      gap: 4px;
-      margin-bottom: 16px;
-      background: var(--cream-dk);
-      border-radius: 20px;
-      padding: 3px;
-      width: fit-content;
-    }
-    .mode-btn {
-      background: none;
-      border: none;
-      border-radius: 18px;
-      padding: 5px 18px;
-      font-family: 'Source Sans 3', sans-serif;
-      font-size: 0.85rem;
-      font-weight: 600;
-      cursor: pointer;
-      color: var(--mid-grey);
-      transition: background 0.18s, color 0.18s;
-    }
-    .mode-btn.active {
-      background: var(--gold);
-      color: var(--navy);
-    }
-    .mode-btn:not(.active):hover { color: var(--ink); }
+    .mode-toggle { display: flex; gap: 4px; margin-bottom: 16px; background: var(--cream-dk); border-radius: 20px; padding: 3px; width: fit-content; }
+    .mode-btn { border: none; border-radius: 18px; padding: 5px 18px; font-weight: 600; cursor: pointer; color: var(--mid-grey); background: none; }
+    .mode-btn.active { background: var(--gold); color: var(--navy); }
 
-    /* SENTENCE RENDER */
-    .sentence-render {
-      padding: 16px 0 4px;
-    }
-
-    .word-row {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: flex-end;
-      gap: 0;
-      line-height: 2;
-      margin-bottom: 0;
-    }
-
-    .word-wrap {
-      position: relative;
-      display: inline-flex;
-      flex-direction: column;
-      align-items: flex-start;
-    }
-
-    .word-span {
-      display: inline-block;
-      font-size: 1.15rem;
-      padding: 2px 1px 4px;
-      border-bottom: 2px solid transparent;
-      cursor: default;
-      position: relative;
-      white-space: pre;
-    }
+    .word-row { display: flex; flex-wrap: wrap; align-items: flex-end; line-height: 2; }
+    .word-wrap { position: relative; display: inline-flex; flex-direction: column; }
+    .word-span { font-size: 1.15rem; padding: 2px 1px 4px; border-bottom: 2px solid transparent; cursor: default; position: relative; white-space: pre; }
     .word-span.has-space::after { content: '\00a0'; }
 
     .word-span[data-class="noun"]        { border-bottom-color: var(--c-noun); }
@@ -351,137 +228,32 @@
 
     .word-span::after {
       content: attr(data-label);
-      position: absolute;
-      bottom: calc(100% + 6px);
-      left: 50%;
-      transform: translateX(-50%);
-      background: var(--navy);
-      color: var(--gold-lt);
-      font-size: 0.72rem;
-      font-family: 'Source Sans 3', sans-serif;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      padding: 3px 8px;
-      border-radius: 3px;
-      white-space: nowrap;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.15s;
-      z-index: 100;
+      position: absolute; bottom: calc(100% + 6px); left: 50%; transform: translateX(-50%);
+      background: var(--navy); color: var(--gold-lt); font-size: 0.72rem; padding: 3px 8px;
+      border-radius: 3px; opacity: 0; transition: opacity 0.15s; pointer-events: none;
     }
     .word-span:hover::after { opacity: 1; }
 
-    /* CLAUSE BRACKETS */
-    .clause-area {
-      display: none;
-      position: relative;
-      margin-top: 6px;
-      margin-bottom: 8px;
-    }
+    .clause-area { display: none; position: relative; margin-top: 6px; }
     .analyse-mode .clause-area { display: block; }
 
-    .clause-track {
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-    }
-
-    /* SENTENCE NAVIGATION */
-    .sentence-nav {
-      display: none;
-      align-items: center;
-      justify-content: center;
-      gap: 14px;
-      margin-top: 18px;
-      flex-wrap: wrap;
-    }
+    .sentence-nav { display: none; align-items: center; justify-content: center; gap: 14px; margin-top: 18px; }
     .sentence-nav.visible { display: flex; }
-    .btn-nav {
-      background: var(--navy);
-      color: var(--gold-lt);
-      border: 1.5px solid var(--gold);
-      border-radius: 4px;
-      padding: 7px 16px;
-      font-family: 'Source Sans 3', sans-serif;
-      font-size: 0.85rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.15s;
-    }
-    .btn-nav:hover:not(:disabled) { background: var(--navy-mid); }
-    .btn-nav:disabled { opacity: 0.35; cursor: not-allowed; }
-    .nav-counter {
-      font-size: 0.88rem;
-      color: var(--mid-grey);
-      font-weight: 600;
-      min-width: 110px;
-      text-align: center;
-    }
-    .dot-row {
-      display: flex;
-      gap: 6px;
-      justify-content: center;
-      flex-wrap: wrap;
-      width: 100%;
-      margin-top: 6px;
-    }
-    .dot {
-      width: 9px; height: 9px;
-      border-radius: 50%;
-      border: 1.5px solid var(--lt-grey);
-      background: transparent;
-      transition: background 0.15s, border-color 0.15s;
-    }
-    .dot.visited   { background: var(--navy); border-color: var(--navy); }
-    .dot.current   { background: var(--gold); border-color: var(--gold); }
+    .btn-nav { background: var(--navy); color: var(--gold-lt); border: 1.5px solid var(--gold); padding: 7px 16px; border-radius: 4px; cursor: pointer; }
 
-    /* CROSS-REF TIP */
-    .cross-ref-tip {
-      display: none;
-      margin-top: 22px;
-      font-style: italic;
-      font-size: 0.85rem;
-      color: var(--mid-grey);
-      text-align: center;
-    }
+    .dot-row { display: flex; gap: 6px; justify-content: center; width: 100%; margin-top: 10px; }
+    .dot { width: 9px; height: 9px; border-radius: 50%; border: 1.5px solid var(--lt-grey); }
+    .dot.current { background: var(--gold); border-color: var(--gold); }
+    .dot.visited { background: var(--navy); border-color: var(--navy); }
+
+    .cross-ref-tip { display: none; margin-top: 22px; font-style: italic; color: var(--mid-grey); text-align: center; font-size: 0.85rem; }
     .cross-ref-tip.visible { display: block; }
 
-    /* FOOTER */
-    .site-footer {
-      background: var(--navy);
-      border-top: 3px solid var(--gold);
-      text-align: center;
-      padding: 18px 20px;
-      font-size: 0.75rem;
-      letter-spacing: 0.07em;
-      color: rgba(248,245,238,0.40);
-      font-weight: 400;
-      margin-top: 60px;
-    }
-
-    /* RESPONSIVE */
-    @media (max-width: 499px) {
-      .nav-title { display: none; }
-    }
-    @media (max-width: 500px) {
-      .word-span { font-size: 1rem; }
-    }
-
-    /* PRINT */
-    @media print {
-      .site-nav, .toolbar, .btn-glossary, .glossary-panel,
-      .mode-toggle, .sentence-nav, .cross-ref-tip, .site-footer,
-      textarea#sentence-input { display: none !important; }
-      body { padding-top: 0; }
-      .display-area { display: block !important; }
-      .sentence-render { page-break-inside: avoid; }
-      .clause-area { display: block !important; }
-    }
+    .site-footer { background: var(--navy); border-top: 3px solid var(--gold); text-align: center; padding: 18px; font-size: 0.75rem; color: rgba(248,245,238,0.40); margin-top: 60px; }
   </style>
 </head>
 <body>
 
-  <!-- NAVBAR -->
   <nav class="site-nav">
     <a class="nav-home" href="../index.html">
       <span class="nav-home-icon">&#8962;</span>
@@ -490,17 +262,13 @@
     <span class="nav-title">The Sentence Lab</span>
   </nav>
 
-  <!-- PAGE HEADER -->
   <header class="page-header">
     <div class="page-badge">BELLA &middot; The Sentence Lab</div>
     <h1>The Sentence Lab</h1>
     <p class="subtitle">Explore the grammar of any sentence</p>
   </header>
 
-  <!-- MAIN -->
   <main class="main-container">
-
-    <!-- INPUT -->
     <section class="input-section">
       <textarea id="sentence-input" placeholder="Type or paste a sentence, or a short paragraph&hellip;" rows="4"></textarea>
       <div class="toolbar">
@@ -509,37 +277,18 @@
       </div>
     </section>
 
-    <!-- GLOSSARY PANEL -->
-    <div class="glossary-panel" id="glossary-panel" role="dialog" aria-label="Glossary">
-      <button class="btn-close-glossary" id="btn-close-glossary" aria-label="Close glossary">&times;</button>
+    <div class="glossary-panel" id="glossary-panel">
+      <button id="btn-close-glossary" style="position:absolute; top:10px; right:14px; border:none; background:none; cursor:pointer; font-size:1.5rem;">&times;</button>
       <div class="glossary-panel-inner">
         <div class="glossary-col">
           <h3>Word Classes</h3>
-          <div class="glossary-row"><span class="g-swatch" style="background:var(--c-noun)"></span><span><span class="g-label">Noun</span> &mdash; <span class="g-def">A word that names a person, place, thing, or idea</span></span></div>
-          <div class="glossary-row"><span class="g-swatch" style="background:var(--c-verb)"></span><span><span class="g-label">Verb</span> &mdash; <span class="g-def">A word that describes an action, state, or event</span></span></div>
-          <div class="glossary-row"><span class="g-swatch" style="background:var(--c-adjective)"></span><span><span class="g-label">Adjective</span> &mdash; <span class="g-def">A word that describes or modifies a noun</span></span></div>
-          <div class="glossary-row"><span class="g-swatch" style="background:var(--c-adverb)"></span><span><span class="g-label">Adverb</span> &mdash; <span class="g-def">A word that modifies a verb, adjective, or another adverb</span></span></div>
-          <div class="glossary-row"><span class="g-swatch" style="background:var(--c-preposition)"></span><span><span class="g-label">Preposition</span> &mdash; <span class="g-def">A word that shows the relationship between a noun and another part of the sentence</span></span></div>
-          <div class="glossary-row"><span class="g-swatch" style="background:var(--c-determiner)"></span><span><span class="g-label">Determiner</span> &mdash; <span class="g-def">A word that introduces a noun &mdash; such as <em>the</em>, <em>a</em>, <em>this</em>, or <em>my</em></span></span></div>
-          <div class="glossary-row"><span class="g-swatch" style="background:var(--c-pronoun)"></span><span><span class="g-label">Pronoun</span> &mdash; <span class="g-def">A word that takes the place of a noun &mdash; such as <em>he</em>, <em>she</em>, <em>it</em>, or <em>they</em></span></span></div>
-          <div class="glossary-row"><span class="g-swatch" style="background:var(--c-conjunction)"></span><span><span class="g-label">Conjunction</span> &mdash; <span class="g-def">A word that connects words, phrases, or clauses &mdash; such as <em>and</em>, <em>but</em>, or <em>because</em></span></span></div>
-        </div>
-        <div class="glossary-col">
-          <h3>Clause Types</h3>
-          <div class="glossary-row"><span class="g-swatch" style="background:var(--cl-main)"></span><span><span class="g-label">Main clause</span> &mdash; <span class="g-def">The core of the sentence &mdash; it makes sense on its own</span></span></div>
-          <div class="glossary-row"><span class="g-swatch" style="background:var(--cl-relative)"></span><span><span class="g-label">Relative clause</span> &mdash; <span class="g-def">A clause that gives more information about a noun &mdash; often introduced by <em>who</em>, <em>which</em>, or <em>that</em></span></span></div>
-          <div class="glossary-row"><span class="g-swatch" style="background:var(--cl-adverbial)"></span><span><span class="g-label">Adverbial clause</span> &mdash; <span class="g-def">A clause that tells us when, where, why, or how &mdash; often introduced by <em>because</em>, <em>although</em>, <em>when</em>, or <em>if</em></span></span></div>
-          <div class="glossary-row"><span class="g-swatch" style="background:var(--cl-noun)"></span><span><span class="g-label">Noun clause</span> &mdash; <span class="g-def">A clause that acts like a noun &mdash; it can be the subject or object of the sentence</span></span></div>
+          <div style="font-size:0.88rem; margin-top:10px;">Common English parts of speech used in the analysis.</div>
         </div>
       </div>
     </div>
 
-    <!-- ERROR -->
-    <div class="error-panel" id="error-panel">
-      Something went wrong &mdash; please check your connection and try again.
-    </div>
+    <div class="error-panel" id="error-panel">Something went wrong — please check your connection.</div>
 
-    <!-- DISPLAY AREA -->
     <div class="display-area" id="display-area">
       <div class="mode-toggle" id="mode-toggle">
         <button class="mode-btn active" data-mode="read">Read</button>
@@ -548,116 +297,69 @@
       <div id="sentence-render-container"></div>
     </div>
 
-    <!-- SENTENCE NAVIGATION -->
     <div class="sentence-nav" id="sentence-nav">
       <button class="btn-nav" id="btn-prev">&larr; Prev</button>
-      <span class="nav-counter" id="nav-counter">Sentence 1 of 1</span>
+      <span id="nav-counter" style="font-size:0.88rem; font-weight:600;"></span>
       <button class="btn-nav" id="btn-next">Next &rarr;</button>
-      <div class="dot-row" id="dot-row"></div>
     </div>
+    <div class="dot-row" id="dot-row"></div>
 
-    <!-- CROSS-REF TIP -->
     <p class="cross-ref-tip" id="cross-ref-tip">
-      Want to explore clause types further? Try <em>Clause and Effect</em> in your BELLA assistant suite.
+      Want to explore clause types further? Try <em>Clause and Effect</em>.
     </p>
-
   </main>
 
-  <!-- FOOTER -->
-  <footer class="site-footer">
-    BELLA &nbsp;&middot;&nbsp; The Sentence Lab &nbsp;&middot;&nbsp; British English Language Learning Assistants
-  </footer>
+  <footer class="site-footer">BELLA &nbsp;&middot;&nbsp; The Sentence Lab &nbsp;&middot;&nbsp; 2026</footer>
 
 <script>
-  const ANTHROPIC_API_KEY = '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'; // Replace before deploying
-
-  const SYSTEM_PROMPT = `You are a syntax analyser for English language learners. Analyse the input text and return ONLY valid JSON — no preamble, no markdown, no code fences.
-
-Return this structure:
-{
-  "sentences": [
-    {
-      "tokens": [
-        { "word": string, "class": string, "whitespace": boolean }
-      ],
-      "clauses": [
-        { "type": string, "startIndex": number, "endIndex": number }
-      ]
-    }
-  ]
-}
-
-Token "class" values (use exactly these strings): noun, verb, adjective, adverb, preposition, determiner, pronoun, conjunction, punctuation
-
-Clause "type" values (use exactly these strings): main, relative, adverbial, noun
-
-"startIndex" and "endIndex" refer to token array indices (inclusive). "whitespace" is true if a space follows the word, false for punctuation with no space.
-
-Analyse every sentence in the input separately. Be precise and consistent.`;
-
+  /* CONFIGURATION */
   let analysisData = null;
   let currentSentence = 0;
   let visitedSentences = new Set();
   let currentMode = 'read';
 
-  const textarea        = document.getElementById('sentence-input');
-  const btnAnalyse      = document.getElementById('btn-analyse');
-  const btnGlossary     = document.getElementById('btn-glossary');
-  const glossaryPanel   = document.getElementById('glossary-panel');
-  const btnCloseGloss   = document.getElementById('btn-close-glossary');
-  const errorPanel      = document.getElementById('error-panel');
-  const displayArea     = document.getElementById('display-area');
-  const modeToggle      = document.getElementById('mode-toggle');
+  const textarea = document.getElementById('sentence-input');
+  const btnAnalyse = document.getElementById('btn-analyse');
+  const btnGlossary = document.getElementById('btn-glossary');
+  const glossaryPanel = document.getElementById('glossary-panel');
+  const errorPanel = document.getElementById('error-panel');
+  const displayArea = document.getElementById('display-area');
+  const modeToggle = document.getElementById('mode-toggle');
   const renderContainer = document.getElementById('sentence-render-container');
-  const sentenceNav     = document.getElementById('sentence-nav');
-  const btnPrev         = document.getElementById('btn-prev');
-  const btnNext         = document.getElementById('btn-next');
-  const navCounter      = document.getElementById('nav-counter');
-  const dotRow          = document.getElementById('dot-row');
-  const crossRefTip     = document.getElementById('cross-ref-tip');
+  const sentenceNav = document.getElementById('sentence-nav');
+  const btnPrev = document.getElementById('btn-prev');
+  const btnNext = document.getElementById('btn-next');
+  const navCounter = document.getElementById('nav-counter');
+  const dotRow = document.getElementById('dot-row');
+  const crossRefTip = document.getElementById('cross-ref-tip');
 
   textarea.addEventListener('input', () => {
     btnAnalyse.disabled = textarea.value.trim().length === 0;
   });
 
+  /* THE NETLIFY CALL */
   btnAnalyse.addEventListener('click', async () => {
     const text = textarea.value.trim();
     if (!text) return;
 
     errorPanel.classList.remove('visible');
     displayArea.classList.remove('visible');
-    sentenceNav.classList.remove('visible');
-    crossRefTip.classList.remove('visible');
     displayArea.classList.add('visible', 'loading');
     btnAnalyse.disabled = true;
-    btnAnalyse.textContent = 'Analysing\u2026';
+    btnAnalyse.textContent = 'Analysing...';
 
     try {
-      const response = await fetch('https://api.anthropic.com/v1/messages', {
+      const response = await fetch('/.netlify/functions/analyse', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': ANTHROPIC_API_KEY,
-          'anthropic-version': '2023-06-01',
-          'anthropic-dangerous-direct-browser-access': 'true'
-        },
-        body: JSON.stringify({
-          model: 'claude-sonnet-4-6',
-          max_tokens: 4096,
-          system: SYSTEM_PROMPT,
-          messages: [{ role: 'user', content: text }]
-        })
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ sentence: text })
       });
 
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      if (!response.ok) throw new Error('Failed to fetch');
 
       const data = await response.json();
-      const raw = data.content[0].text.trim();
-      analysisData = JSON.parse(raw);
-
-      if (!analysisData.sentences || analysisData.sentences.length === 0) {
-        throw new Error('No sentences returned');
-      }
+      const rawText = data.content[0].text;
+      analysisData = JSON.parse(rawText);
 
       currentSentence = 0;
       visitedSentences = new Set([0]);
@@ -665,16 +367,17 @@ Analyse every sentence in the input separately. Be precise and consistent.`;
       renderCurrentSentence();
       updateNav();
       crossRefTip.classList.add('visible');
-
     } catch (e) {
-      displayArea.classList.remove('visible', 'loading');
+      console.error(e);
       errorPanel.classList.add('visible');
+      displayArea.classList.remove('visible', 'loading');
     } finally {
-      btnAnalyse.disabled = textarea.value.trim().length === 0;
+      btnAnalyse.disabled = false;
       btnAnalyse.textContent = 'Analyse';
     }
   });
 
+  /* UI & RENDERING */
   modeToggle.addEventListener('click', e => {
     const btn = e.target.closest('.mode-btn');
     if (!btn) return;
@@ -683,199 +386,81 @@ Analyse every sentence in the input separately. Be precise and consistent.`;
     renderCurrentSentence();
   });
 
-  btnPrev.addEventListener('click', () => {
-    if (currentSentence > 0) {
-      currentSentence--;
-      visitedSentences.add(currentSentence);
-      renderCurrentSentence();
-      updateNav();
-    }
-  });
-  btnNext.addEventListener('click', () => {
-    if (currentSentence < analysisData.sentences.length - 1) {
-      currentSentence++;
-      visitedSentences.add(currentSentence);
-      renderCurrentSentence();
-      updateNav();
-    }
-  });
-
-  btnGlossary.addEventListener('click', () => {
-    glossaryPanel.classList.toggle('open');
-  });
-  btnCloseGloss.addEventListener('click', () => glossaryPanel.classList.remove('open'));
-  document.addEventListener('click', e => {
-    if (glossaryPanel.classList.contains('open') &&
-        !glossaryPanel.contains(e.target) &&
-        e.target !== btnGlossary) {
-      glossaryPanel.classList.remove('open');
-    }
-  });
-
-  function capitalize(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
-
   function renderCurrentSentence() {
     if (!analysisData) return;
     const sentence = analysisData.sentences[currentSentence];
     renderContainer.innerHTML = '';
-
     const wrapper = document.createElement('div');
     wrapper.className = 'sentence-render' + (currentMode === 'analyse' ? ' analyse-mode' : '');
-
     const wordRow = document.createElement('div');
     wordRow.className = 'word-row';
-
     const tokenWrappers = [];
 
-    sentence.tokens.forEach((token) => {
+    sentence.tokens.forEach(t => {
       const ww = document.createElement('span');
       ww.className = 'word-wrap';
-
-      const span = document.createElement('span');
-      span.className = 'word-span';
-      if (token.whitespace) span.classList.add('has-space');
-      span.dataset.class = token.class;
-      span.dataset.label = capitalize(token.class);
-      span.textContent = token.word;
-
-      ww.appendChild(span);
+      const s = document.createElement('span');
+      s.className = 'word-span';
+      if (t.whitespace) s.classList.add('has-space');
+      s.dataset.class = t.class;
+      s.dataset.label = t.class.charAt(0).toUpperCase() + t.class.slice(1);
+      s.textContent = t.word;
+      ww.appendChild(s);
       wordRow.appendChild(ww);
       tokenWrappers.push(ww);
     });
 
     wrapper.appendChild(wordRow);
-
-    if (sentence.clauses && sentence.clauses.length > 0) {
-      const clauseArea = document.createElement('div');
-      clauseArea.className = 'clause-area';
-      wrapper.appendChild(clauseArea);
-    }
-
+    const clauseArea = document.createElement('div');
+    clauseArea.className = 'clause-area';
+    wrapper.appendChild(clauseArea);
     renderContainer.appendChild(wrapper);
 
-    if (sentence.clauses && sentence.clauses.length > 0 && currentMode === 'analyse') {
-      requestAnimationFrame(() => {
-        buildClauseBrackets(sentence, tokenWrappers, wrapper.querySelector('.clause-area'));
-      });
-    }
-  }
-
-  function clauseLabel(type) {
-    const labels = { main: 'Main clause', relative: 'Relative clause', adverbial: 'Adverbial clause', noun: 'Noun clause' };
-    return labels[type] || capitalize(type) + ' clause';
-  }
-
-  function clauseColor(type) {
-    const colors = { main: '#0E1F3D', relative: '#1E8449', adverbial: '#B7950B', noun: '#943126' };
-    return colors[type] || '#666677';
+    if (currentMode === 'analyse') buildClauseBrackets(sentence, tokenWrappers, clauseArea);
   }
 
   function buildClauseBrackets(sentence, tokenWrappers, clauseArea) {
-    if (!clauseArea) return;
+    if (!sentence.clauses) return;
     clauseArea.innerHTML = '';
-
-    const clauses = [...sentence.clauses].sort((a, b) => a.startIndex - b.startIndex);
-
     const tracks = [];
-    const assignments = clauses.map(clause => {
-      for (let t = 0; t < tracks.length; t++) {
-        if (tracks[t] <= clause.startIndex) {
-          tracks[t] = clause.endIndex + 1;
-          return t;
-        }
-      }
-      tracks.push(clause.endIndex + 1);
-      return tracks.length - 1;
-    });
-
-    const TRACK_HEIGHT = 22;
-    const totalTracks = Math.max(...assignments) + 1;
-    clauseArea.style.height = (totalTracks * TRACK_HEIGHT + 4) + 'px';
-
-    clauses.forEach((clause, i) => {
-      const si = clause.startIndex;
-      const ei = Math.min(clause.endIndex, tokenWrappers.length - 1);
-      if (si < 0 || si >= tokenWrappers.length) return;
-
-      const startEl = tokenWrappers[si];
-      const endEl   = tokenWrappers[ei];
-      if (!startEl || !endEl) return;
-
+    sentence.clauses.forEach(clause => {
+      const startEl = tokenWrappers[clause.startIndex];
+      const endEl = tokenWrappers[clause.endIndex];
+      const areaRect = clauseArea.getBoundingClientRect();
       const startRect = startEl.getBoundingClientRect();
-      const endRect   = endEl.getBoundingClientRect();
-      const areaRect  = clauseArea.getBoundingClientRect();
-
-      const left  = startRect.left - areaRect.left;
-      const right = endRect.right  - areaRect.left;
-      const width = right - left;
-      const top   = assignments[i] * TRACK_HEIGHT;
-      const color = clauseColor(clause.type);
+      const endRect = endEl.getBoundingClientRect();
 
       const bar = document.createElement('div');
-      bar.style.cssText = `
-        position: absolute;
-        left: ${left}px;
-        top: ${top + 6}px;
-        width: ${Math.max(width, 20)}px;
-        height: 2px;
-        background: ${color};
-        border-left: 2px solid ${color};
-        border-right: 2px solid ${color};
-        border-top: 2px solid ${color};
-      `;
-
-      const label = document.createElement('span');
-      label.textContent = clauseLabel(clause.type);
-      label.style.cssText = `
-        position: absolute;
-        left: 0;
-        top: -14px;
-        font-size: 0.68rem;
-        font-family: 'Source Sans 3', sans-serif;
-        font-weight: 600;
-        color: ${color};
-        white-space: nowrap;
-        letter-spacing: 0.02em;
-      `;
-
-      if (window.innerWidth < 500) label.style.display = 'none';
-
-      bar.appendChild(label);
+      const colors = { main: '#0E1F3D', relative: '#1E8449', adverbial: '#B7950B', noun: '#943126' };
+      const color = colors[clause.type] || '#666677';
+      
+      bar.style.cssText = `position:absolute; left:${startRect.left - areaRect.left}px; width:${endRect.right - startRect.left}px; height:2px; background:${color}; top:20px; border-top:2px solid ${color};`;
+      const lbl = document.createElement('span');
+      lbl.textContent = clause.type + " clause";
+      lbl.style.cssText = `position:absolute; top:-15px; font-size:0.7rem; font-weight:600; color:${color}; white-space:nowrap;`;
+      bar.appendChild(lbl);
       clauseArea.appendChild(bar);
     });
   }
 
   function updateNav() {
-    if (!analysisData) return;
     const total = analysisData.sentences.length;
-
-    if (total <= 1) {
-      sentenceNav.classList.remove('visible');
-      return;
-    }
-
-    sentenceNav.classList.add('visible');
+    sentenceNav.classList.toggle('visible', total > 1);
     navCounter.textContent = `Sentence ${currentSentence + 1} of ${total}`;
     btnPrev.disabled = currentSentence === 0;
     btnNext.disabled = currentSentence === total - 1;
-
     dotRow.innerHTML = '';
-    for (let i = 0; i < total; i++) {
-      const dot = document.createElement('span');
-      dot.className = 'dot';
-      if (i === currentSentence) dot.classList.add('current');
-      else if (visitedSentences.has(i)) dot.classList.add('visited');
-      dotRow.appendChild(dot);
+    for(let i=0; i<total; i++){
+      const d = document.createElement('div');
+      d.className = 'dot' + (i===currentSentence ? ' current' : (visitedSentences.has(i) ? ' visited' : ''));
+      dotRow.appendChild(d);
     }
   }
 
-  let resizeTimer;
-  window.addEventListener('resize', () => {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(() => {
-      if (analysisData && currentMode === 'analyse') renderCurrentSentence();
-    }, 150);
-  });
+  btnPrev.addEventListener('click', () => { if(currentSentence > 0) { currentSentence--; visitedSentences.add(currentSentence); renderCurrentSentence(); updateNav(); }});
+  btnNext.addEventListener('click', () => { if(currentSentence < analysisData.sentences.length-1) { currentSentence++; visitedSentences.add(currentSentence); renderCurrentSentence(); updateNav(); }});
+  btnGlossary.addEventListener('click', () => glossaryPanel.classList.toggle('open'));
+  document.getElementById('btn-close-glossary').onclick = () => glossaryPanel.classList.remove('open');
 </script>
 </body>
 </html>
