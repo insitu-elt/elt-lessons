@@ -1,20 +1,24 @@
 exports.handler = async (event) => {
-  // This is the part that was likely causing the 405 error
-  // We need to explicitly allow the POST method
+  // 1. THE OPEN DOOR POLICY (CORS)
+  // This tells the browser to allow the request regardless of "pre-flight" checks
+  const headers = {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Headers": "Content-Type",
+    "Access-Control-Allow-Methods": "POST, OPTIONS"
+  };
+
+  // 2. Handle the browser's "security check" (OPTIONS)
   if (event.httpMethod === "OPTIONS") {
-    return {
-      statusCode: 200,
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers": "Content-Type",
-        "Access-Control-Allow-Methods": "POST, OPTIONS"
-      },
-      body: ""
-    };
+    return { statusCode: 200, headers, body: "OK" };
   }
 
+  // 3. Only proceed if it's a POST
   if (event.httpMethod !== "POST") {
-    return { statusCode: 405, body: "Method Not Allowed" };
+    return { 
+      statusCode: 405, 
+      headers, 
+      body: JSON.stringify({ error: "Please use POST" }) 
+    };
   }
 
   try {
@@ -31,7 +35,7 @@ exports.handler = async (event) => {
       body: JSON.stringify({
         model: "claude-3-haiku-20240307",
         max_tokens: 1500,
-        system: "You are a syntax analyser. Return ONLY valid JSON with 'sentences', 'tokens', and 'clauses' keys.",
+        system: "You are a syntax analyser. Return ONLY valid JSON.",
         messages: [{ role: "user", content: sentence }]
       })
     });
@@ -40,16 +44,14 @@ exports.handler = async (event) => {
     
     return {
       statusCode: 200,
-      headers: { 
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*" 
-      },
+      headers,
       body: JSON.stringify(data)
     };
   } catch (error) {
     return { 
       statusCode: 500, 
-      body: JSON.stringify({ error: "Internal Server Error", details: error.message }) 
+      headers,
+      body: JSON.stringify({ error: error.message }) 
     };
   }
 };
