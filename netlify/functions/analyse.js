@@ -1,29 +1,57 @@
 exports.handler = async (event) => {
-  // 1. THE OPEN DOOR POLICY (CORS)
-  // This tells the browser to allow the request regardless of "pre-flight" checks
   const headers = {
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Headers": "Content-Type",
     "Access-Control-Allow-Methods": "POST, OPTIONS"
   };
 
-  // 2. Handle the browser's "security check" (OPTIONS)
   if (event.httpMethod === "OPTIONS") {
     return { statusCode: 200, headers, body: "OK" };
   }
 
-  // 3. Only proceed if it's a POST
   if (event.httpMethod !== "POST") {
-    return { 
-      statusCode: 405, 
-      headers, 
-      body: JSON.stringify({ error: "Please use POST" }) 
+    return {
+      statusCode: 405,
+      headers,
+      body: JSON.stringify({ error: "Please use POST" })
     };
   }
 
   try {
     const { sentence } = JSON.parse(event.body);
     const API_KEY = process.env.ANTHROPIC_API_KEY;
+
+    if (!API_KEY) {
+      return {
+        statusCode: 500,
+        headers,
+        body: JSON.stringify({ error: "API key not configured" })
+      };
+    }
+
+    const SYSTEM_PROMPT = `You are a syntax analyser for English language learners. Analyse the input text and return ONLY valid JSON — no preamble, no markdown, no code fences.
+
+Return this structure:
+{
+  "sentences": [
+    {
+      "tokens": [
+        { "word": string, "class": string, "whitespace": boolean }
+      ],
+      "clauses": [
+        { "type": string, "startIndex": number, "endIndex": number }
+      ]
+    }
+  ]
+}
+
+Token "class" values (use exactly these strings): noun, verb, adjective, adverb, preposition, determiner, pronoun, conjunction, punctuation
+
+Clause "type" values (use exactly these strings): main, relative, adverbial, noun
+
+"startIndex" and "endIndex" refer to token array indices (inclusive). "whitespace" is true if a space follows the word, false for punctuation with no space.
+
+Analyse every sentence in the input separately. Be precise and consistent.`;
 
     const response = await fetch("https://api.anthropic.com/v1/messages", {
       method: "POST",
@@ -33,25 +61,35 @@ exports.handler = async (event) => {
         "content-type": "application/json"
       },
       body: JSON.stringify({
-        model: "claude-3-haiku-20240307",
-        max_tokens: 1500,
-        system: "You are a syntax analyser. Return ONLY valid JSON.",
+        model: "claude-haiku-4-5-20251001",
+        max_tokens: 4096,
+        system: SYSTEM_PROMPT,
         messages: [{ role: "user", content: sentence }]
       })
     });
 
+    if (!response.ok) {
+      const errText = await response.text();
+      return {
+        statusCode: response.status,
+        headers,
+        body: JSON.stringify({ error: `Anthropic API error: ${errText}` })
+      };
+    }
+
     const data = await response.json();
-    
+
     return {
       statusCode: 200,
       headers,
       body: JSON.stringify(data)
     };
+
   } catch (error) {
-    return { 
-      statusCode: 500, 
+    return {
+      statusCode: 500,
       headers,
-      body: JSON.stringify({ error: error.message }) 
+      body: JSON.stringify({ error: error.message })
     };
   }
 };
