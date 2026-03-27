@@ -79,6 +79,16 @@ Analyse every sentence in the input separately. Be precise and consistent.`;
 
     const data = await response.json();
 
+    // Strip markdown fences if Claude wrapped the JSON
+    if (data.content && data.content[0] && data.content[0].text) {
+      const raw = data.content[0].text
+        .replace(/^```json\s*/i, '')
+        .replace(/^```\s*/i, '')
+        .replace(/```\s*$/i, '')
+        .trim();
+      data.content[0].text = raw;
+    }
+
     return {
       statusCode: 200,
       headers,
