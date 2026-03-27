@@ -213,29 +213,52 @@
 
     .word-row { display: flex; flex-wrap: wrap; align-items: flex-end; line-height: 2; }
     .word-wrap { position: relative; display: inline-flex; flex-direction: column; }
-    .word-span { font-size: 1.15rem; padding: 2px 1px 4px; border-bottom: 2px solid transparent; cursor: default; position: relative; white-space: pre; }
-    .word-span.has-space::after { content: '\00a0'; }
+    .word-span {
+      font-size: 1.15rem;
+      padding: 3px 6px;
+      border-radius: 3px;
+      cursor: default;
+      position: relative;
+      display: inline-block;
+      font-weight: 500;
+      transition: opacity 0.15s;
+    }
+    .word-span.has-space { margin-right: 5px; }
+    .word-span[data-class="noun"]        { color: var(--c-noun);        background: rgba(13,124,124,0.12); }
+    .word-span[data-class="verb"]        { color: var(--c-verb);        background: rgba(184,134,11,0.13); }
+    .word-span[data-class="adjective"]   { color: var(--c-adjective);   background: rgba(192,57,43,0.11); }
+    .word-span[data-class="adverb"]      { color: var(--c-adverb);      background: rgba(125,60,152,0.11); }
+    .word-span[data-class="preposition"] { color: var(--c-preposition); background: rgba(36,113,163,0.11); }
+    .word-span[data-class="determiner"]  { color: var(--c-determiner);  background: rgba(125,102,8,0.11); }
+    .word-span[data-class="pronoun"]     { color: var(--c-pronoun);     background: rgba(202,111,30,0.13); }
+    .word-span[data-class="conjunction"] { color: var(--c-conjunction); background: rgba(30,132,73,0.11); }
+    .word-span[data-class="punctuation"] { color: var(--c-punctuation); background: transparent; font-weight: 400; margin-right: 1px; }
 
-    .word-span[data-class="noun"]        { border-bottom-color: var(--c-noun); }
-    .word-span[data-class="verb"]        { border-bottom-color: var(--c-verb); }
-    .word-span[data-class="adjective"]   { border-bottom-color: var(--c-adjective); }
-    .word-span[data-class="adverb"]      { border-bottom-color: var(--c-adverb); }
-    .word-span[data-class="preposition"] { border-bottom-color: var(--c-preposition); }
-    .word-span[data-class="determiner"]  { border-bottom-color: var(--c-determiner); }
-    .word-span[data-class="pronoun"]     { border-bottom-color: var(--c-pronoun); }
-    .word-span[data-class="conjunction"] { border-bottom-color: var(--c-conjunction); }
-    .word-span[data-class="punctuation"] { border-bottom-color: var(--c-punctuation); }
-
+    /* Tooltip shows word class + clause type */
     .word-span::after {
-      content: attr(data-label);
-      position: absolute; bottom: calc(100% + 6px); left: 50%; transform: translateX(-50%);
-      background: var(--navy); color: var(--gold-lt); font-size: 0.72rem; padding: 3px 8px;
-      border-radius: 3px; opacity: 0; transition: opacity 0.15s; pointer-events: none;
+      content: attr(data-tooltip);
+      position: absolute;
+      bottom: calc(100% + 6px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--navy);
+      color: var(--gold-lt);
+      font-size: 0.72rem;
+      font-family: 'Source Sans 3', sans-serif;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      padding: 4px 10px;
+      border-radius: 3px;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.15s;
+      z-index: 100;
     }
     .word-span:hover::after { opacity: 1; }
 
     .clause-area { display: none; position: relative; margin-top: 6px; }
-    .analyse-mode .clause-area { display: block; }
+    .analyse-mode .clause-area { display: none; }
 
     .sentence-nav { display: none; align-items: center; justify-content: center; gap: 14px; margin-top: 18px; }
     .sentence-nav.visible { display: flex; }
@@ -404,51 +427,51 @@
     wordRow.className = 'word-row';
     const tokenWrappers = [];
 
-    sentence.tokens.forEach(t => {
-      const ww = document.createElement('span');
-      ww.className = 'word-wrap';
+    // Build a map of token index -> clause types
+    const clauseMap = {};
+    if (sentence.clauses) {
+      sentence.clauses.forEach(clause => {
+        for (let i = clause.startIndex; i <= clause.endIndex; i++) {
+          if (!clauseMap[i]) clauseMap[i] = [];
+          clauseMap[i].push(clause.type);
+        }
+      });
+    }
+
+    const CLAUSE_LABELS = {
+      main: 'Main clause',
+      relative: 'Relative clause',
+      adverbial: 'Adverbial clause',
+      noun: 'Noun clause'
+    };
+    const CLASS_LABELS = {
+      noun: 'Noun', verb: 'Verb', adjective: 'Adjective', adverb: 'Adverb',
+      preposition: 'Preposition', determiner: 'Determiner', pronoun: 'Pronoun',
+      conjunction: 'Conjunction', punctuation: 'Punctuation'
+    };
+
+    sentence.tokens.forEach((t, idx) => {
       const s = document.createElement('span');
       s.className = 'word-span';
       if (t.whitespace) s.classList.add('has-space');
       s.dataset.class = t.class;
-      s.dataset.label = t.class.charAt(0).toUpperCase() + t.class.slice(1);
       s.textContent = t.word;
-      ww.appendChild(s);
-      wordRow.appendChild(ww);
-      tokenWrappers.push(ww);
+
+      // Build tooltip: word class + clause types if in analyse mode
+      const classLabel = CLASS_LABELS[t.class] || t.class;
+      if (currentMode === 'analyse' && clauseMap[idx] && clauseMap[idx].length > 0) {
+        const clauseLabels = clauseMap[idx].map(c => CLAUSE_LABELS[c] || c).join(', ');
+        s.dataset.tooltip = classLabel + ' · ' + clauseLabels;
+      } else {
+        s.dataset.tooltip = classLabel;
+      }
+
+      wordRow.appendChild(s);
+      tokenWrappers.push(s);
     });
 
     wrapper.appendChild(wordRow);
-    const clauseArea = document.createElement('div');
-    clauseArea.className = 'clause-area';
-    wrapper.appendChild(clauseArea);
     renderContainer.appendChild(wrapper);
-
-    if (currentMode === 'analyse') buildClauseBrackets(sentence, tokenWrappers, clauseArea);
-  }
-
-  function buildClauseBrackets(sentence, tokenWrappers, clauseArea) {
-    if (!sentence.clauses) return;
-    clauseArea.innerHTML = '';
-    const tracks = [];
-    sentence.clauses.forEach(clause => {
-      const startEl = tokenWrappers[clause.startIndex];
-      const endEl = tokenWrappers[clause.endIndex];
-      const areaRect = clauseArea.getBoundingClientRect();
-      const startRect = startEl.getBoundingClientRect();
-      const endRect = endEl.getBoundingClientRect();
-
-      const bar = document.createElement('div');
-      const colors = { main: '#0E1F3D', relative: '#1E8449', adverbial: '#B7950B', noun: '#943126' };
-      const color = colors[clause.type] || '#666677';
-      
-      bar.style.cssText = `position:absolute; left:${startRect.left - areaRect.left}px; width:${endRect.right - startRect.left}px; height:2px; background:${color}; top:20px; border-top:2px solid ${color};`;
-      const lbl = document.createElement('span');
-      lbl.textContent = clause.type + " clause";
-      lbl.style.cssText = `position:absolute; top:-15px; font-size:0.7rem; font-weight:600; color:${color}; white-space:nowrap;`;
-      bar.appendChild(lbl);
-      clauseArea.appendChild(bar);
-    });
   }
 
   function updateNav() {
