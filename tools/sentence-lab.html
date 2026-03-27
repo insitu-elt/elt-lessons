@@ -337,7 +337,7 @@
     btnAnalyse.disabled = textarea.value.trim().length === 0;
   });
 
-  /* THE NETLIFY CALL - IMPROVED ERROR HANDLING */
+  /* THE NETLIFY CALL - UNIVERSAL DECODER VERSION */
   btnAnalyse.addEventListener('click', async () => {
     const text = textarea.value.trim();
     if (!text) return;
@@ -359,12 +359,15 @@
 
       const data = await response.json();
       
-      // Extract Claude's response text safely
-      let rawJson = (data.content && data.content[0]) ? data.content[0].text : data;
-      
-      // Parse if it's a string, or use directly if it's already an object
-      analysisData = (typeof rawJson === 'string') ? JSON.parse(rawJson) : rawJson;
+      // UNIVERSAL DECODER: Handles nested or flat JSON responses
+      let finalData;
+      if (data.content && data.content[0] && data.content[0].text) {
+          finalData = JSON.parse(data.content[0].text);
+      } else {
+          finalData = data;
+      }
 
+      analysisData = finalData;
       currentSentence = 0;
       visitedSentences = new Set([0]);
       displayArea.classList.remove('loading');
@@ -373,7 +376,6 @@
       crossRefTip.classList.add('visible');
     } catch (e) {
       console.error(e);
-      // Give a specific error message for easier troubleshooting
       alert("Almost there! Technical details: " + e.message);
       errorPanel.classList.add('visible');
       displayArea.classList.remove('visible', 'loading');
