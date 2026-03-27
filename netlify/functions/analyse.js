@@ -1,5 +1,21 @@
 exports.handler = async (event) => {
-  if (event.httpMethod !== "POST") return { statusCode: 405, body: "Method Not Allowed" };
+  // This is the part that was likely causing the 405 error
+  // We need to explicitly allow the POST method
+  if (event.httpMethod === "OPTIONS") {
+    return {
+      statusCode: 200,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Content-Type",
+        "Access-Control-Allow-Methods": "POST, OPTIONS"
+      },
+      body: ""
+    };
+  }
+
+  if (event.httpMethod !== "POST") {
+    return { statusCode: 405, body: "Method Not Allowed" };
+  }
 
   try {
     const { sentence } = JSON.parse(event.body);
@@ -9,7 +25,7 @@ exports.handler = async (event) => {
       method: "POST",
       headers: {
         "x-api-key": API_KEY,
-        "anthropic-version": "2023-06-01", // Strict versioning requirement
+        "anthropic-version": "2023-06-01",
         "content-type": "application/json"
       },
       body: JSON.stringify({
@@ -22,15 +38,15 @@ exports.handler = async (event) => {
 
     const data = await response.json();
     
-    // Ensure the function sends a clear 200 OK back to your HTML
     return {
       statusCode: 200,
-      headers: { "Content-Type": "application/json" },
+      headers: { 
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*" 
+      },
       body: JSON.stringify(data)
     };
   } catch (error) {
-    // This logs the specific error in your Netlify dashboard
-    console.error("Function Crash:", error.message);
     return { 
       statusCode: 500, 
       body: JSON.stringify({ error: "Internal Server Error", details: error.message }) 
