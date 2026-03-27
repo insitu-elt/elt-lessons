@@ -17,7 +17,6 @@
       --ink:       #1A1A2E;
       --mid-grey:  #666677;
       --lt-grey:   #D0CFC8;
-
       --c-noun:        #0D7C7C;
       --c-verb:        #B8860B;
       --c-adjective:   #C0392B;
@@ -27,471 +26,391 @@
       --c-pronoun:     #CA6F1E;
       --c-conjunction: #1E8449;
       --c-punctuation: #999999;
-
-      --cl-main:       #0E1F3D;
-      --cl-relative:   #1E8449;
-      --cl-adverbial:  #B7950B;
-      --cl-noun:       #943126;
     }
-
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Source Sans 3', sans-serif; background: var(--cream); color: var(--ink); padding-top: 44px; min-height: 100vh; }
 
-    body {
-      font-family: 'Source Sans 3', sans-serif;
-      font-weight: 400;
-      background: var(--cream);
-      color: var(--ink);
-      padding-top: 44px;
-      min-height: 100vh;
+    /* NAVBAR */
+    .site-nav { position: fixed; top:0; left:0; right:0; height:44px; background:var(--navy); border-bottom:2px solid var(--gold); box-shadow:0 2px 8px rgba(0,0,0,0.25); display:flex; align-items:center; justify-content:space-between; padding:0 18px; z-index:1000; }
+    .nav-home { display:flex; align-items:center; gap:7px; color:var(--gold); text-decoration:none; font-size:0.82rem; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; }
+    .nav-home:hover { color:var(--gold-lt); }
+    .nav-title { font-family:'Playfair Display',serif; font-style:italic; font-size:0.95rem; color:rgba(248,245,238,0.65); }
+    @media(max-width:499px){.nav-title{display:none;}}
+
+    /* PAGE HEADER */
+    .page-header { background:var(--navy); border-bottom:3px solid var(--gold); padding:28px 24px 22px; text-align:center; }
+    .page-badge { display:inline-block; font-size:0.68rem; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; color:var(--gold); border:1px solid rgba(200,150,10,0.4); border-radius:3px; padding:2px 10px; margin-bottom:12px; }
+    .page-header h1 { font-family:'Playfair Display',serif; font-size:clamp(1.7rem,4vw,2.5rem); color:var(--gold-lt); font-weight:700; margin-bottom:6px; }
+    .page-header .subtitle { font-style:italic; color:rgba(248,245,238,0.65); font-size:1rem; }
+
+    /* KEY OVERLAY */
+    .key-overlay { position:fixed; inset:0; background:rgba(14,31,61,0.88); display:flex; align-items:center; justify-content:center; z-index:2000; padding:20px; }
+    .key-overlay.hidden { display:none; }
+    .key-box { background:var(--cream); border-radius:6px; border-top:4px solid var(--gold); padding:28px 28px 24px; max-width:460px; width:100%; box-shadow:0 8px 32px rgba(0,0,0,0.4); }
+    .key-box h2 { font-family:'Playfair Display',serif; font-size:1.3rem; color:var(--navy); margin-bottom:8px; }
+    .key-box p { font-size:0.88rem; color:var(--mid-grey); line-height:1.55; margin-bottom:16px; }
+    .key-box input { width:100%; border:2px solid var(--lt-grey); border-radius:4px; padding:9px 12px; font-family:'Source Sans 3',sans-serif; font-size:0.92rem; color:var(--ink); background:var(--gold-pale); outline:none; margin-bottom:12px; transition:border-color 0.2s; }
+    .key-box input:focus { border-color:var(--gold); }
+    .key-box .btn-confirm { width:100%; background:var(--navy); color:var(--gold-lt); border:none; border-radius:4px; padding:10px; font-family:'Source Sans 3',sans-serif; font-size:0.92rem; font-weight:600; cursor:pointer; }
+    .key-box .btn-confirm:hover { background:var(--navy-mid); }
+    .key-error { font-size:0.82rem; color:#C0392B; margin-top:6px; display:none; }
+    .key-error.visible { display:block; }
+
+    /* MAIN */
+    .main-container { max-width:860px; margin:0 auto; padding:28px 20px 60px; }
+    textarea#sentence-input { width:100%; min-height:100px; background:var(--gold-pale); border:2px solid var(--navy-mid); border-radius:4px; padding:12px 14px; font-family:'Source Sans 3',sans-serif; font-size:1rem; color:var(--ink); resize:vertical; outline:none; line-height:1.6; transition:border-color 0.2s, box-shadow 0.2s; }
+    textarea#sentence-input::placeholder { color:var(--mid-grey); font-style:italic; }
+    textarea#sentence-input:focus { border-color:var(--gold); box-shadow:0 0 0 3px rgba(200,150,10,0.15); }
+
+    /* TOOLBAR */
+    .toolbar { display:flex; align-items:center; gap:10px; margin-top:10px; flex-wrap:wrap; }
+    .btn-analyse { background:var(--navy); color:var(--gold-lt); border:1.5px solid var(--gold); border-radius:4px; padding:8px 22px; font-family:'Source Sans 3',sans-serif; font-size:0.9rem; font-weight:600; cursor:pointer; transition:background 0.18s; }
+    .btn-analyse:hover:not(:disabled) { background:var(--navy-mid); }
+    .btn-analyse:disabled { opacity:0.45; cursor:not-allowed; }
+    .btn-glossary { background:transparent; color:var(--navy); border:1.5px solid var(--lt-grey); border-radius:4px; padding:8px 16px; font-family:'Source Sans 3',sans-serif; font-size:0.85rem; font-weight:600; cursor:pointer; transition:border-color 0.18s, color 0.18s; margin-left:auto; }
+    .btn-glossary:hover { border-color:var(--gold); color:var(--gold); }
+    .btn-change-key { background:transparent; color:var(--mid-grey); border:none; font-size:0.78rem; cursor:pointer; text-decoration:underline; padding:0; }
+    .btn-change-key:hover { color:var(--navy); }
+
+    /* GLOSSARY */
+    .glossary-panel { display:none; background:var(--cream); border:1px solid var(--lt-grey); border-radius:5px; box-shadow:0 4px 18px rgba(14,31,61,0.12); padding:20px 22px 22px; margin-top:14px; position:relative; animation:fadeIn 0.18s ease; }
+    .glossary-panel.open { display:block; }
+    .glossary-panel-inner { display:grid; grid-template-columns:1fr 1fr; gap:24px 32px; }
+    @media(max-width:580px){.glossary-panel-inner{grid-template-columns:1fr;}}
+    .glossary-col h3 { font-family:'Playfair Display',serif; font-size:1rem; color:var(--navy); border-bottom:2px solid var(--gold); padding-bottom:5px; margin-bottom:12px; }
+    .glossary-row { display:flex; align-items:flex-start; gap:10px; margin-bottom:10px; font-size:0.87rem; line-height:1.45; }
+    .g-swatch { flex-shrink:0; width:12px; height:12px; border-radius:50%; margin-top:3px; }
+    .g-label { font-weight:600; color:var(--ink); }
+    .g-def { color:var(--mid-grey); }
+    .btn-close-glossary { position:absolute; top:10px; right:14px; background:none; border:none; font-size:1.3rem; cursor:pointer; color:var(--mid-grey); }
+    .btn-close-glossary:hover { color:var(--ink); }
+
+    /* ERROR */
+    .error-panel { display:none; background:var(--cream); border-left:4px solid var(--gold); border-radius:3px; padding:12px 16px; margin-top:14px; color:var(--ink); font-size:0.92rem; font-style:italic; }
+    .error-panel.visible { display:block; }
+
+    /* DISPLAY */
+    .display-area { display:none; margin-top:24px; animation:fadeIn 0.25s ease; }
+    .display-area.visible { display:block; }
+    .display-area.loading { opacity:0.4; animation:pulse 1.1s ease-in-out infinite; }
+    @keyframes fadeIn { from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:translateY(0);} }
+    @keyframes pulse { 0%,100%{opacity:0.4;}50%{opacity:0.2;} }
+
+    /* MODE TOGGLE */
+    .mode-toggle { display:flex; gap:4px; margin-bottom:18px; background:var(--cream-dk); border-radius:20px; padding:3px; width:fit-content; }
+    .mode-btn { background:none; border:none; border-radius:18px; padding:5px 20px; font-family:'Source Sans 3',sans-serif; font-size:0.85rem; font-weight:600; cursor:pointer; color:var(--mid-grey); transition:background 0.18s, color 0.18s; }
+    .mode-btn.active { background:var(--gold); color:var(--navy); }
+    .mode-btn:not(.active):hover { color:var(--ink); }
+
+    /* SENTENCE */
+    .sentence-render { padding:8px 0 12px; line-height:2.6; }
+
+    /* WORD TOKENS */
+    .word-token { display:inline-block; font-size:1.15rem; font-weight:500; padding:3px 6px; border-radius:3px; cursor:default; position:relative; margin-bottom:4px; }
+    .word-token.has-space { margin-right:5px; }
+    .word-token.noun        { color:var(--c-noun);        background:rgba(13,124,124,0.13); }
+    .word-token.verb        { color:var(--c-verb);        background:rgba(184,134,11,0.14); }
+    .word-token.adjective   { color:var(--c-adjective);   background:rgba(192,57,43,0.11); }
+    .word-token.adverb      { color:var(--c-adverb);      background:rgba(125,60,152,0.11); }
+    .word-token.preposition { color:var(--c-preposition); background:rgba(36,113,163,0.11); }
+    .word-token.determiner  { color:var(--c-determiner);  background:rgba(125,102,8,0.12); }
+    .word-token.pronoun     { color:var(--c-pronoun);     background:rgba(202,111,30,0.13); }
+    .word-token.conjunction { color:var(--c-conjunction); background:rgba(30,132,73,0.11); }
+    .word-token.punctuation { color:var(--c-punctuation); background:transparent; font-weight:400; padding:3px 1px; margin-right:1px; }
+
+    /* Tooltip */
+    .word-token[data-tip]::after {
+      content: attr(data-tip);
+      position:absolute; bottom:calc(100% + 7px); left:50%; transform:translateX(-50%);
+      background:var(--navy); color:var(--gold-lt);
+      font-size:0.71rem; font-family:'Source Sans 3',sans-serif; font-weight:600; letter-spacing:0.05em;
+      padding:4px 10px; border-radius:3px; white-space:nowrap;
+      opacity:0; pointer-events:none; transition:opacity 0.15s; z-index:200;
     }
+    .word-token[data-tip]:hover::after { opacity:1; }
 
-    .site-nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      height: 44px;
-      background: var(--navy);
-      border-bottom: 2px solid var(--gold);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.25);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 16px;
-      z-index: 1000;
+    /* CLAUSE KEY */
+    .clause-key { display:none; margin-top:16px; padding:12px 16px; background:var(--gold-pale); border:1px solid var(--lt-grey); border-radius:4px; font-size:0.83rem; color:var(--mid-grey); flex-wrap:wrap; gap:10px 20px; align-items:center; }
+    .clause-key.visible { display:flex; }
+    .clause-key-label { font-weight:600; color:var(--navy); }
+    .clause-key-item { display:flex; align-items:center; gap:5px; }
+    .clause-dot { width:10px; height:10px; border-radius:50%; flex-shrink:0; }
+
+    /* NAV */
+    .sentence-nav { display:none; align-items:center; justify-content:center; gap:14px; margin-top:20px; flex-wrap:wrap; }
+    .sentence-nav.visible { display:flex; }
+    .btn-nav { background:var(--navy); color:var(--gold-lt); border:1.5px solid var(--gold); border-radius:4px; padding:7px 16px; font-family:'Source Sans 3',sans-serif; font-size:0.85rem; font-weight:600; cursor:pointer; transition:background 0.15s; }
+    .btn-nav:hover:not(:disabled) { background:var(--navy-mid); }
+    .btn-nav:disabled { opacity:0.35; cursor:not-allowed; }
+    .nav-counter { font-size:0.88rem; color:var(--mid-grey); font-weight:600; min-width:110px; text-align:center; }
+    .dot-row { display:flex; gap:6px; justify-content:center; flex-wrap:wrap; width:100%; margin-top:6px; }
+    .dot { width:9px; height:9px; border-radius:50%; border:1.5px solid var(--lt-grey); background:transparent; transition:background 0.15s, border-color 0.15s; }
+    .dot.visited { background:var(--navy); border-color:var(--navy); }
+    .dot.current { background:var(--gold); border-color:var(--gold); }
+
+    .cross-ref-tip { display:none; margin-top:22px; font-style:italic; font-size:0.85rem; color:var(--mid-grey); text-align:center; }
+    .cross-ref-tip.visible { display:block; }
+
+    /* FOOTER */
+    .site-footer { background:var(--navy); border-top:3px solid var(--gold); text-align:center; padding:18px 20px; font-size:0.75rem; letter-spacing:0.07em; color:rgba(248,245,238,0.38); margin-top:60px; }
+
+    /* PRINT */
+    @media print {
+      .site-nav,.key-overlay,.toolbar,.btn-glossary,.glossary-panel,.mode-toggle,.sentence-nav,.cross-ref-tip,.site-footer,textarea { display:none !important; }
+      body { padding-top:0; background:white; }
+      .display-area { display:block !important; }
+      .word-token { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
     }
-    .nav-home {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      color: var(--gold);
-      text-decoration: none;
-      font-size: 0.85rem;
-      font-weight: 600;
-      letter-spacing: 0.02em;
-      flex-shrink: 0;
-    }
-    .nav-home:hover { color: var(--gold-lt); }
-    .nav-home-icon { font-size: 1.1rem; line-height: 1; }
-    .nav-title {
-      font-family: 'Playfair Display', serif;
-      font-style: italic;
-      font-size: 1rem;
-      color: rgba(248,245,238,0.70);
-      letter-spacing: 0.01em;
-      text-align: right;
-      flex: 1;
-      padding-left: 12px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .page-header {
-      background: var(--navy);
-      border-bottom: 3px solid var(--gold);
-      padding: 28px 24px 24px;
-      text-align: center;
-    }
-    .page-badge {
-      display: inline-block;
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--gold);
-      border: 1px solid rgba(200,150,10,0.45);
-      border-radius: 3px;
-      padding: 2px 10px;
-      margin-bottom: 12px;
-    }
-    .page-header h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.6rem, 4vw, 2.4rem);
-      color: var(--gold-lt);
-      font-weight: 700;
-      line-height: 1.15;
-      margin-bottom: 6px;
-    }
-    .page-header .subtitle {
-      font-style: italic;
-      color: rgba(248,245,238,0.70);
-      font-size: 1rem;
-      font-weight: 300;
-    }
-
-    .main-container {
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 28px 20px 60px;
-    }
-
-    .input-section { margin-bottom: 16px; }
-
-    textarea#sentence-input {
-      width: 100%;
-      min-height: 100px;
-      background: var(--gold-pale);
-      border: 2px solid var(--navy-mid);
-      border-radius: 4px;
-      padding: 12px 14px;
-      font-family: 'Source Sans 3', sans-serif;
-      font-size: 1rem;
-      color: var(--ink);
-      resize: vertical;
-      outline: none;
-      transition: border-color 0.2s, box-shadow 0.2s;
-      line-height: 1.6;
-    }
-    textarea#sentence-input:focus {
-      border-color: var(--gold);
-      box-shadow: 0 0 0 3px rgba(200,150,10,0.18);
-    }
-
-    .toolbar {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-top: 10px;
-      flex-wrap: wrap;
-    }
-    .btn-analyse {
-      background: var(--navy);
-      color: var(--gold-lt);
-      border: 1.5px solid var(--gold);
-      border-radius: 4px;
-      padding: 8px 22px;
-      font-family: 'Source Sans 3', sans-serif;
-      font-size: 0.9rem;
-      font-weight: 600;
-      letter-spacing: 0.03em;
-      cursor: pointer;
-    }
-    .btn-analyse:disabled { opacity: 0.5; cursor: not-allowed; }
-
-    .btn-glossary {
-      background: transparent;
-      color: var(--navy);
-      border: 1.5px solid var(--lt-grey);
-      border-radius: 4px;
-      padding: 8px 16px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      cursor: pointer;
-      margin-left: auto;
-    }
-
-    .glossary-panel {
-      display: none;
-      background: var(--cream);
-      border: 1px solid var(--lt-grey);
-      border-radius: 5px;
-      box-shadow: 0 4px 18px rgba(14,31,61,0.13);
-      padding: 20px 22px 22px;
-      margin-top: 14px;
-      position: relative;
-    }
-    .glossary-panel.open { display: block; }
-    .glossary-panel-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 24px 32px; }
-
-    .error-panel {
-      display: none;
-      background: var(--cream);
-      border-left: 4px solid var(--gold);
-      padding: 12px 16px;
-      margin-top: 14px;
-      font-style: italic;
-    }
-    .error-panel.visible { display: block; }
-
-    .display-area { display: none; margin-top: 22px; }
-    .display-area.visible { display: block; }
-    .display-area.loading { opacity: 0.5; animation: pulse 1.2s infinite; }
-    @keyframes pulse { 0%,100% { opacity: 0.5; } 50% { opacity: 0.25; } }
-
-    .mode-toggle { display: flex; gap: 4px; margin-bottom: 16px; background: var(--cream-dk); border-radius: 20px; padding: 3px; width: fit-content; }
-    .mode-btn { border: none; border-radius: 18px; padding: 5px 18px; font-weight: 600; cursor: pointer; color: var(--mid-grey); background: none; }
-    .mode-btn.active { background: var(--gold); color: var(--navy); }
-
-    .word-row { display: flex; flex-wrap: wrap; align-items: flex-end; line-height: 2; }
-    .word-wrap { position: relative; display: inline-flex; flex-direction: column; }
-    .word-span {
-      font-size: 1.15rem;
-      padding: 3px 6px;
-      border-radius: 3px;
-      cursor: default;
-      position: relative;
-      display: inline-block;
-      font-weight: 500;
-      transition: opacity 0.15s;
-    }
-    .word-span.has-space { margin-right: 5px; }
-    .word-span[data-class="noun"]        { color: var(--c-noun);        background: rgba(13,124,124,0.12); }
-    .word-span[data-class="verb"]        { color: var(--c-verb);        background: rgba(184,134,11,0.13); }
-    .word-span[data-class="adjective"]   { color: var(--c-adjective);   background: rgba(192,57,43,0.11); }
-    .word-span[data-class="adverb"]      { color: var(--c-adverb);      background: rgba(125,60,152,0.11); }
-    .word-span[data-class="preposition"] { color: var(--c-preposition); background: rgba(36,113,163,0.11); }
-    .word-span[data-class="determiner"]  { color: var(--c-determiner);  background: rgba(125,102,8,0.11); }
-    .word-span[data-class="pronoun"]     { color: var(--c-pronoun);     background: rgba(202,111,30,0.13); }
-    .word-span[data-class="conjunction"] { color: var(--c-conjunction); background: rgba(30,132,73,0.11); }
-    .word-span[data-class="punctuation"] { color: var(--c-punctuation); background: transparent; font-weight: 400; margin-right: 1px; }
-
-    /* Tooltip shows word class + clause type */
-    .word-span::after {
-      content: attr(data-tooltip);
-      position: absolute;
-      bottom: calc(100% + 6px);
-      left: 50%;
-      transform: translateX(-50%);
-      background: var(--navy);
-      color: var(--gold-lt);
-      font-size: 0.72rem;
-      font-family: 'Source Sans 3', sans-serif;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      padding: 4px 10px;
-      border-radius: 3px;
-      white-space: nowrap;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.15s;
-      z-index: 100;
-    }
-    .word-span:hover::after { opacity: 1; }
-
-    .clause-area { display: none; position: relative; margin-top: 6px; }
-    .analyse-mode .clause-area { display: none; }
-
-    .sentence-nav { display: none; align-items: center; justify-content: center; gap: 14px; margin-top: 18px; }
-    .sentence-nav.visible { display: flex; }
-    .btn-nav { background: var(--navy); color: var(--gold-lt); border: 1.5px solid var(--gold); padding: 7px 16px; border-radius: 4px; cursor: pointer; }
-
-    .dot-row { display: flex; gap: 6px; justify-content: center; width: 100%; margin-top: 10px; }
-    .dot { width: 9px; height: 9px; border-radius: 50%; border: 1.5px solid var(--lt-grey); }
-    .dot.current { background: var(--gold); border-color: var(--gold); }
-    .dot.visited { background: var(--navy); border-color: var(--navy); }
-
-    .cross-ref-tip { display: none; margin-top: 22px; font-style: italic; color: var(--mid-grey); text-align: center; font-size: 0.85rem; }
-    .cross-ref-tip.visible { display: block; }
-
-    .site-footer { background: var(--navy); border-top: 3px solid var(--gold); text-align: center; padding: 18px; font-size: 0.75rem; color: rgba(248,245,238,0.40); margin-top: 60px; }
   </style>
 </head>
 <body>
 
-  <nav class="site-nav">
-    <a class="nav-home" href="../index.html">
-      <span class="nav-home-icon">&#8962;</span>
-      <span class="nav-home-label">Lesson Library</span>
-    </a>
-    <span class="nav-title">The Sentence Lab</span>
-  </nav>
 
-  <header class="page-header">
-    <div class="page-badge">BELLA &middot; The Sentence Lab</div>
-    <h1>The Sentence Lab</h1>
-    <p class="subtitle">Explore the grammar of any sentence</p>
-  </header>
 
-  <main class="main-container">
-    <section class="input-section">
-      <textarea id="sentence-input" placeholder="Type or paste a sentence, or a short paragraph&hellip;" rows="4"></textarea>
-      <div class="toolbar">
-        <button class="btn-analyse" id="btn-analyse" disabled>Analyse</button>
-        <button class="btn-glossary" id="btn-glossary">Glossary</button>
+<!-- NAVBAR -->
+<nav class="site-nav">
+  <a class="nav-home" href="../index.html">
+    <span style="font-size:1.1rem;">&#8962;</span>
+    <span>Lesson Library</span>
+  </a>
+  <span class="nav-title">The Sentence Lab</span>
+</nav>
+
+<!-- HEADER -->
+<header class="page-header">
+  <div class="page-badge">BELLA &middot; The Sentence Lab</div>
+  <h1>The Sentence Lab</h1>
+  <p class="subtitle">Explore the grammar of any sentence</p>
+</header>
+
+<main class="main-container">
+
+  <section style="margin-bottom:16px;">
+    <textarea id="sentence-input" placeholder="Type or paste a sentence, or a short paragraph&hellip;" rows="4"></textarea>
+    <div class="toolbar">
+      <button class="btn-analyse" id="btn-analyse" disabled>Analyse</button>
+      <button class="btn-glossary" id="btn-glossary">Glossary</button>
+    </div>
+  </section>
+
+  <!-- GLOSSARY -->
+  <div class="glossary-panel" id="glossary-panel">
+    <button class="btn-close-glossary" id="btn-close-glossary">&times;</button>
+    <div class="glossary-panel-inner">
+      <div class="glossary-col">
+        <h3>Word Classes</h3>
+        <div class="glossary-row"><span class="g-swatch" style="background:var(--c-noun)"></span><span><span class="g-label">Noun</span> &mdash; <span class="g-def">Names a person, place, thing, or idea</span></span></div>
+        <div class="glossary-row"><span class="g-swatch" style="background:var(--c-verb)"></span><span><span class="g-label">Verb</span> &mdash; <span class="g-def">Describes an action, state, or event</span></span></div>
+        <div class="glossary-row"><span class="g-swatch" style="background:var(--c-adjective)"></span><span><span class="g-label">Adjective</span> &mdash; <span class="g-def">Describes or modifies a noun</span></span></div>
+        <div class="glossary-row"><span class="g-swatch" style="background:var(--c-adverb)"></span><span><span class="g-label">Adverb</span> &mdash; <span class="g-def">Modifies a verb, adjective, or another adverb</span></span></div>
+        <div class="glossary-row"><span class="g-swatch" style="background:var(--c-preposition)"></span><span><span class="g-label">Preposition</span> &mdash; <span class="g-def">Shows the relationship between a noun and another part of the sentence</span></span></div>
+        <div class="glossary-row"><span class="g-swatch" style="background:var(--c-determiner)"></span><span><span class="g-label">Determiner</span> &mdash; <span class="g-def">Introduces a noun &mdash; such as <em>the</em>, <em>a</em>, <em>this</em>, or <em>my</em></span></span></div>
+        <div class="glossary-row"><span class="g-swatch" style="background:var(--c-pronoun)"></span><span><span class="g-label">Pronoun</span> &mdash; <span class="g-def">Takes the place of a noun &mdash; such as <em>he</em>, <em>she</em>, or <em>they</em></span></span></div>
+        <div class="glossary-row"><span class="g-swatch" style="background:var(--c-conjunction)"></span><span><span class="g-label">Conjunction</span> &mdash; <span class="g-def">Connects words, phrases, or clauses &mdash; such as <em>and</em>, <em>but</em>, or <em>because</em></span></span></div>
       </div>
-    </section>
-
-    <div class="glossary-panel" id="glossary-panel">
-      <button id="btn-close-glossary" style="position:absolute; top:10px; right:14px; border:none; background:none; cursor:pointer; font-size:1.5rem;">&times;</button>
-      <div class="glossary-panel-inner">
-        <div class="glossary-col">
-          <h3>Word Classes</h3>
-          <div style="font-size:0.88rem; margin-top:10px;">Common English parts of speech used in the analysis.</div>
-        </div>
+      <div class="glossary-col">
+        <h3>Clause Types</h3>
+        <div class="glossary-row"><span class="g-swatch" style="background:#0E1F3D"></span><span><span class="g-label">Main clause</span> &mdash; <span class="g-def">The core of the sentence &mdash; it makes sense on its own</span></span></div>
+        <div class="glossary-row"><span class="g-swatch" style="background:#1E8449"></span><span><span class="g-label">Relative clause</span> &mdash; <span class="g-def">Gives more information about a noun &mdash; often introduced by <em>who</em>, <em>which</em>, or <em>that</em></span></span></div>
+        <div class="glossary-row"><span class="g-swatch" style="background:#B7950B"></span><span><span class="g-label">Adverbial clause</span> &mdash; <span class="g-def">Tells us when, where, why, or how &mdash; often introduced by <em>because</em>, <em>although</em>, or <em>if</em></span></span></div>
+        <div class="glossary-row"><span class="g-swatch" style="background:#943126"></span><span><span class="g-label">Noun clause</span> &mdash; <span class="g-def">Acts like a noun &mdash; it can be the subject or object of the sentence</span></span></div>
       </div>
     </div>
+  </div>
 
-    <div class="error-panel" id="error-panel">Something went wrong — please check your connection.</div>
+  <div class="error-panel" id="error-panel">Something went wrong &mdash; please check your connection and try again.</div>
 
-    <div class="display-area" id="display-area">
-      <div class="mode-toggle" id="mode-toggle">
-        <button class="mode-btn active" data-mode="read">Read</button>
-        <button class="mode-btn" data-mode="analyse">Analyse</button>
-      </div>
-      <div id="sentence-render-container"></div>
+  <div class="display-area" id="display-area">
+    <div class="mode-toggle" id="mode-toggle">
+      <button class="mode-btn active" data-mode="read">Read</button>
+      <button class="mode-btn" data-mode="analyse">Analyse</button>
     </div>
+    <div id="sentence-render-container"></div>
+    <div class="clause-key" id="clause-key"></div>
+  </div>
 
-    <div class="sentence-nav" id="sentence-nav">
-      <button class="btn-nav" id="btn-prev">&larr; Prev</button>
-      <span id="nav-counter" style="font-size:0.88rem; font-weight:600;"></span>
-      <button class="btn-nav" id="btn-next">Next &rarr;</button>
-    </div>
+  <div class="sentence-nav" id="sentence-nav">
+    <button class="btn-nav" id="btn-prev">&larr; Prev</button>
+    <span class="nav-counter" id="nav-counter">Sentence 1 of 1</span>
+    <button class="btn-nav" id="btn-next">Next &rarr;</button>
     <div class="dot-row" id="dot-row"></div>
+  </div>
 
-    <p class="cross-ref-tip" id="cross-ref-tip">
-      Want to explore clause types further? Try <em>Clause and Effect</em>.
-    </p>
-  </main>
+  <p class="cross-ref-tip" id="cross-ref-tip">
+    Want to explore clause types further? Try <em>Clause and Effect</em> in your BELLA assistant suite.
+  </p>
 
-  <footer class="site-footer">BELLA &nbsp;&middot;&nbsp; The Sentence Lab &nbsp;&middot;&nbsp; 2026</footer>
+</main>
+
+<footer class="site-footer">
+  BELLA &nbsp;&middot;&nbsp; The Sentence Lab &nbsp;&middot;&nbsp; British English Language Learning Assistants
+</footer>
 
 <script>
-  /* CONFIGURATION */
-  let analysisData = null;
-  let currentSentence = 0;
-  let visitedSentences = new Set();
-  let currentMode = 'read';
+const CLASS_LABELS = { noun:'Noun', verb:'Verb', adjective:'Adjective', adverb:'Adverb', preposition:'Preposition', determiner:'Determiner', pronoun:'Pronoun', conjunction:'Conjunction', punctuation:'Punctuation' };
+const CLAUSE_LABELS = { main:'Main clause', relative:'Relative clause', adverbial:'Adverbial clause', noun:'Noun clause' };
+const CLAUSE_COLOURS = { main:'#0E1F3D', relative:'#1E8449', adverbial:'#B7950B', noun:'#943126' };
+const WORKER_URL = 'https://bella-analyse.si-charlesworth67.workers.dev';
 
-  const textarea = document.getElementById('sentence-input');
-  const btnAnalyse = document.getElementById('btn-analyse');
-  const btnGlossary = document.getElementById('btn-glossary');
-  const glossaryPanel = document.getElementById('glossary-panel');
-  const errorPanel = document.getElementById('error-panel');
-  const displayArea = document.getElementById('display-area');
-  const modeToggle = document.getElementById('mode-toggle');
-  const renderContainer = document.getElementById('sentence-render-container');
-  const sentenceNav = document.getElementById('sentence-nav');
-  const btnPrev = document.getElementById('btn-prev');
-  const btnNext = document.getElementById('btn-next');
-  const navCounter = document.getElementById('nav-counter');
-  const dotRow = document.getElementById('dot-row');
-  const crossRefTip = document.getElementById('cross-ref-tip');
+let analysisData = null;
+let currentSentence = 0;
+let visitedSentences = new Set();
+let currentMode = 'read';
 
-  textarea.addEventListener('input', () => {
-    btnAnalyse.disabled = textarea.value.trim().length === 0;
-  });
+const textarea      = document.getElementById('sentence-input');
+const btnAnalyse    = document.getElementById('btn-analyse');
+const btnGlossary   = document.getElementById('btn-glossary');
+const glossaryPanel = document.getElementById('glossary-panel');
+const btnCloseGloss = document.getElementById('btn-close-glossary');
+const errorPanel    = document.getElementById('error-panel');
+const displayArea   = document.getElementById('display-area');
+const modeToggle    = document.getElementById('mode-toggle');
+const renderCont    = document.getElementById('sentence-render-container');
+const clauseKey     = document.getElementById('clause-key');
+const sentenceNav   = document.getElementById('sentence-nav');
+const btnPrev       = document.getElementById('btn-prev');
+const btnNext       = document.getElementById('btn-next');
+const navCounter    = document.getElementById('nav-counter');
+const dotRow        = document.getElementById('dot-row');
+const crossRefTip   = document.getElementById('cross-ref-tip');
 
-  /* THE NETLIFY CALL - UNIVERSAL DECODER VERSION */
-  btnAnalyse.addEventListener('click', async () => {
-    const text = textarea.value.trim();
-    if (!text) return;
+textarea.addEventListener('input', () => { btnAnalyse.disabled = !textarea.value.trim(); });
 
-    errorPanel.classList.remove('visible');
-    displayArea.classList.remove('visible');
-    displayArea.classList.add('visible', 'loading');
-    btnAnalyse.disabled = true;
-    btnAnalyse.textContent = 'Analysing...';
+btnAnalyse.addEventListener('click', async () => {
+  const text = textarea.value.trim();
+  if (!text) return;
 
-    try {
-      const response = await fetch('/.netlify/functions/analyse', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ sentence: text })
-      });
+  errorPanel.classList.remove('visible');
+  crossRefTip.classList.remove('visible');
+  clauseKey.classList.remove('visible');
+  displayArea.classList.add('visible', 'loading');
+  btnAnalyse.disabled = true;
+  btnAnalyse.textContent = 'Analysing…';
 
-      if (!response.ok) throw new Error(`Server Error (${response.status})`);
-
-      const data = await response.json();
-      
-      // UNIVERSAL DECODER: Handles nested or flat JSON responses
-      let finalData;
-      if (data.content && data.content[0] && data.content[0].text) {
-          finalData = JSON.parse(data.content[0].text);
-      } else {
-          finalData = data;
-      }
-
-      analysisData = finalData;
-      currentSentence = 0;
-      visitedSentences = new Set([0]);
-      displayArea.classList.remove('loading');
-      renderCurrentSentence();
-      updateNav();
-      crossRefTip.classList.add('visible');
-    } catch (e) {
-      console.error(e);
-      alert("Almost there! Technical details: " + e.message);
-      errorPanel.classList.add('visible');
-      displayArea.classList.remove('visible', 'loading');
-    } finally {
-      btnAnalyse.disabled = textarea.value.trim().length === 0;
-      btnAnalyse.textContent = 'Analyse';
-    }
-  });
-
-  /* UI & RENDERING */
-  modeToggle.addEventListener('click', e => {
-    const btn = e.target.closest('.mode-btn');
-    if (!btn) return;
-    currentMode = btn.dataset.mode;
-    modeToggle.querySelectorAll('.mode-btn').forEach(b => b.classList.toggle('active', b === btn));
-    renderCurrentSentence();
-  });
-
-  function renderCurrentSentence() {
-    if (!analysisData || !analysisData.sentences) return;
-    const sentence = analysisData.sentences[currentSentence];
-    renderContainer.innerHTML = '';
-    const wrapper = document.createElement('div');
-    wrapper.className = 'sentence-render' + (currentMode === 'analyse' ? ' analyse-mode' : '');
-    const wordRow = document.createElement('div');
-    wordRow.className = 'word-row';
-    const tokenWrappers = [];
-
-    // Build a map of token index -> clause types
-    const clauseMap = {};
-    if (sentence.clauses) {
-      sentence.clauses.forEach(clause => {
-        for (let i = clause.startIndex; i <= clause.endIndex; i++) {
-          if (!clauseMap[i]) clauseMap[i] = [];
-          clauseMap[i].push(clause.type);
-        }
-      });
-    }
-
-    const CLAUSE_LABELS = {
-      main: 'Main clause',
-      relative: 'Relative clause',
-      adverbial: 'Adverbial clause',
-      noun: 'Noun clause'
-    };
-    const CLASS_LABELS = {
-      noun: 'Noun', verb: 'Verb', adjective: 'Adjective', adverb: 'Adverb',
-      preposition: 'Preposition', determiner: 'Determiner', pronoun: 'Pronoun',
-      conjunction: 'Conjunction', punctuation: 'Punctuation'
-    };
-
-    sentence.tokens.forEach((t, idx) => {
-      const s = document.createElement('span');
-      s.className = 'word-span';
-      if (t.whitespace) s.classList.add('has-space');
-      s.dataset.class = t.class;
-      s.textContent = t.word;
-
-      // Build tooltip: word class + clause types if in analyse mode
-      const classLabel = CLASS_LABELS[t.class] || t.class;
-      if (currentMode === 'analyse' && clauseMap[idx] && clauseMap[idx].length > 0) {
-        const clauseLabels = clauseMap[idx].map(c => CLAUSE_LABELS[c] || c).join(', ');
-        s.dataset.tooltip = classLabel + ' · ' + clauseLabels;
-      } else {
-        s.dataset.tooltip = classLabel;
-      }
-
-      wordRow.appendChild(s);
-      tokenWrappers.push(s);
+  try {
+    const resp = await fetch(WORKER_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text })
     });
 
-    wrapper.appendChild(wordRow);
-    renderContainer.appendChild(wrapper);
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
+
+    const data = await resp.json();
+    let raw = data.content[0].text.trim()
+      .replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/```\s*$/i, '').trim();
+
+    analysisData = JSON.parse(raw);
+    if (!analysisData.sentences?.length) throw new Error('Empty response');
+
+    currentSentence = 0;
+    visitedSentences = new Set([0]);
+    displayArea.classList.remove('loading');
+    renderCurrentSentence();
+    updateNav();
+    crossRefTip.classList.add('visible');
+
+  } catch(e) {
+    displayArea.classList.remove('visible', 'loading');
+    errorPanel.classList.add('visible');
+    console.error(e);
+  } finally {
+    btnAnalyse.disabled = !textarea.value.trim();
+    btnAnalyse.textContent = 'Analyse';
+  }
+});
+
+modeToggle.addEventListener('click', e => {
+  const btn = e.target.closest('.mode-btn');
+  if (!btn) return;
+  currentMode = btn.dataset.mode;
+  modeToggle.querySelectorAll('.mode-btn').forEach(b => b.classList.toggle('active', b === btn));
+  renderCurrentSentence();
+});
+
+btnPrev.addEventListener('click', () => { if (currentSentence > 0) { currentSentence--; visitedSentences.add(currentSentence); renderCurrentSentence(); updateNav(); } });
+btnNext.addEventListener('click', () => { if (currentSentence < analysisData.sentences.length - 1) { currentSentence++; visitedSentences.add(currentSentence); renderCurrentSentence(); updateNav(); } });
+
+btnGlossary.addEventListener('click', () => glossaryPanel.classList.toggle('open'));
+btnCloseGloss.addEventListener('click', () => glossaryPanel.classList.remove('open'));
+document.addEventListener('click', e => {
+  if (glossaryPanel.classList.contains('open') && !glossaryPanel.contains(e.target) && e.target !== btnGlossary)
+    glossaryPanel.classList.remove('open');
+});
+
+function renderCurrentSentence() {
+  if (!analysisData) return;
+  const sentence = analysisData.sentences[currentSentence];
+  renderCont.innerHTML = '';
+
+  const clauseMap = {};
+  const clauseTypesPresent = new Set();
+  if (sentence.clauses) {
+    sentence.clauses.forEach(cl => {
+      clauseTypesPresent.add(cl.type);
+      for (let i = cl.startIndex; i <= cl.endIndex; i++) {
+        if (!clauseMap[i]) clauseMap[i] = [];
+        clauseMap[i].push(cl.type);
+      }
+    });
   }
 
-  function updateNav() {
-    const total = analysisData.sentences.length;
-    sentenceNav.classList.toggle('visible', total > 1);
-    navCounter.textContent = `Sentence ${currentSentence + 1} of ${total}`;
-    btnPrev.disabled = currentSentence === 0;
-    btnNext.disabled = currentSentence === total - 1;
-    dotRow.innerHTML = '';
-    for(let i=0; i<total; i++){
-      const d = document.createElement('div');
-      d.className = 'dot' + (i===currentSentence ? ' current' : (visitedSentences.has(i) ? ' visited' : ''));
-      dotRow.appendChild(d);
+  const render = document.createElement('div');
+  render.className = 'sentence-render';
+
+  sentence.tokens.forEach((token, idx) => {
+    const span = document.createElement('span');
+    const cls = (token.class || 'punctuation').toLowerCase().trim();
+    span.className = 'word-token ' + cls;
+    if (token.whitespace && cls !== 'punctuation') span.classList.add('has-space');
+    span.textContent = token.word;
+
+    if (cls !== 'punctuation') {
+      const label = CLASS_LABELS[cls] || cls;
+      if (currentMode === 'analyse' && clauseMap[idx]?.length) {
+        const cl = clauseMap[idx].map(c => CLAUSE_LABELS[c] || c).join(' + ');
+        span.dataset.tip = label + ' · ' + cl;
+      } else {
+        span.dataset.tip = label;
+      }
     }
-  }
+    render.appendChild(span);
+  });
 
-  btnPrev.addEventListener('click', () => { if(currentSentence > 0) { currentSentence--; visitedSentences.add(currentSentence); renderCurrentSentence(); updateNav(); }});
-  btnNext.addEventListener('click', () => { if(currentSentence < analysisData.sentences.length-1) { currentSentence++; visitedSentences.add(currentSentence); renderCurrentSentence(); updateNav(); }});
-  btnGlossary.addEventListener('click', () => glossaryPanel.classList.toggle('open'));
-  document.getElementById('btn-close-glossary').onclick = () => glossaryPanel.classList.remove('open');
+  renderCont.appendChild(render);
+
+  clauseKey.innerHTML = '';
+  clauseKey.classList.remove('visible');
+  if (currentMode === 'analyse' && clauseTypesPresent.size > 0) {
+    const lbl = document.createElement('span');
+    lbl.className = 'clause-key-label';
+    lbl.textContent = 'Clause types:';
+    clauseKey.appendChild(lbl);
+    clauseTypesPresent.forEach(type => {
+      const item = document.createElement('span');
+      item.className = 'clause-key-item';
+      item.innerHTML = `<span class="clause-dot" style="background:${CLAUSE_COLOURS[type]||'#666'}"></span>${CLAUSE_LABELS[type]||type}`;
+      clauseKey.appendChild(item);
+    });
+    clauseKey.classList.add('visible');
+  }
+}
+
+function updateNav() {
+  if (!analysisData) return;
+  const total = analysisData.sentences.length;
+  sentenceNav.classList.toggle('visible', total > 1);
+  if (total <= 1) return;
+  navCounter.textContent = `Sentence ${currentSentence + 1} of ${total}`;
+  btnPrev.disabled = currentSentence === 0;
+  btnNext.disabled = currentSentence === total - 1;
+  dotRow.innerHTML = '';
+  for (let i = 0; i < total; i++) {
+    const d = document.createElement('span');
+    d.className = 'dot' + (i === currentSentence ? ' current' : visitedSentences.has(i) ? ' visited' : '');
+    dotRow.appendChild(d);
+  }
+}
 </script>
 </body>
 </html>
