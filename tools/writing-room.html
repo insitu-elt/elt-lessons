@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dr Lexi's Writing Room · BELLA</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy:      #0E1F3D;
+      --navy-mid:  #1A3461;
+      --gold:      #C8960A;
+      --gold-lt:   #F5C842;
+      --gold-pale: #FDF6E3;
+      --cream:     #F8F5EE;
+      --cream-dk:  #EDE8DC;
+      --ink:       #1A1A2E;
+      --mid-grey:  #666677;
+      --lt-grey:   #D0CFC8;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Source Sans 3', sans-serif; background: var(--cream); color: var(--ink); padding-top: 44px; min-height: 100vh; }
+
+    /* NAVBAR */
+    .site-nav { position:fixed; top:0; left:0; right:0; height:44px; background:var(--navy); border-bottom:2px solid var(--gold); box-shadow:0 2px 8px rgba(0,0,0,0.25); display:flex; align-items:center; justify-content:space-between; padding:0 18px; z-index:1000; }
+    .nav-home { display:flex; align-items:center; gap:7px; color:var(--gold); text-decoration:none; font-size:0.82rem; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; }
+    .nav-home:hover { color:var(--gold-lt); }
+    .nav-title { font-family:'Playfair Display',serif; font-style:italic; font-size:0.95rem; color:rgba(248,245,238,0.65); }
+    @media(max-width:499px){.nav-title{display:none;}}
+
+    /* PAGE HEADER */
+    .page-header { background:var(--navy); border-bottom:3px solid var(--gold); padding:28px 24px 22px; text-align:center; }
+    .page-badge { display:inline-block; font-size:0.68rem; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; color:var(--gold); border:1px solid rgba(200,150,10,0.4); border-radius:3px; padding:2px 10px; margin-bottom:12px; }
+    .page-header h1 { font-family:'Playfair Display',serif; font-size:clamp(1.7rem,4vw,2.5rem); color:var(--gold-lt); font-weight:700; margin-bottom:6px; }
+    .page-header .subtitle { font-style:italic; color:rgba(248,245,238,0.65); font-size:1rem; }
+
+    /* MAIN */
+    .main-container { max-width:800px; margin:0 auto; padding:28px 20px 60px; }
+
+    /* INPUT SECTION */
+    .input-section { margin-bottom:6px; }
+
+    textarea#writing-input {
+      width:100%; min-height:160px;
+      background:var(--gold-pale);
+      border:2px solid var(--navy-mid);
+      border-radius:4px;
+      padding:14px 16px;
+      font-family:'Source Sans 3',sans-serif;
+      font-size:1rem; color:var(--ink);
+      resize:vertical; outline:none; line-height:1.7;
+      transition:border-color 0.2s, box-shadow 0.2s;
+    }
+    textarea#writing-input::placeholder { color:var(--mid-grey); font-style:italic; }
+    textarea#writing-input:focus { border-color:var(--gold); box-shadow:0 0 0 3px rgba(200,150,10,0.15); }
+
+    /* WORD COUNT */
+    .word-count-row {
+      display:flex; align-items:center; justify-content:space-between;
+      margin-top:6px; margin-bottom:10px;
+      font-size:0.82rem; color:var(--mid-grey);
+    }
+    .word-count-row .count { font-weight:600; }
+    .word-count-row .count.over { color:#C0392B; }
+    .word-limit-msg {
+      display:none; font-size:0.83rem; font-style:italic;
+      color:#C0392B; margin-bottom:8px;
+    }
+    .word-limit-msg.visible { display:block; }
+
+    /* CONTEXT FIELD */
+    .context-toggle {
+      background:none; border:none; color:var(--mid-grey);
+      font-size:0.82rem; cursor:pointer; text-decoration:underline;
+      padding:0; margin-bottom:8px; display:block;
+    }
+    .context-toggle:hover { color:var(--navy); }
+    .context-field {
+      display:none; margin-bottom:10px;
+    }
+    .context-field.open { display:block; }
+    .context-field input {
+      width:100%; border:1.5px solid var(--lt-grey); border-radius:4px;
+      padding:8px 12px; font-family:'Source Sans 3',sans-serif;
+      font-size:0.9rem; color:var(--ink); background:var(--cream);
+      outline:none; transition:border-color 0.2s;
+    }
+    .context-field input:focus { border-color:var(--gold); }
+    .context-field label {
+      display:block; font-size:0.82rem; color:var(--mid-grey);
+      margin-bottom:4px; font-style:italic;
+    }
+
+    /* SUBMIT BUTTON */
+    .btn-submit {
+      background:var(--navy); color:var(--gold-lt);
+      border:1.5px solid var(--gold); border-radius:4px;
+      padding:10px 26px;
+      font-family:'Source Sans 3',sans-serif;
+      font-size:0.92rem; font-weight:600; cursor:pointer;
+      transition:background 0.18s; letter-spacing:0.02em;
+    }
+    .btn-submit:hover:not(:disabled) { background:var(--navy-mid); }
+    .btn-submit:disabled { opacity:0.45; cursor:not-allowed; }
+
+    /* ERROR */
+    .error-panel { display:none; background:var(--cream); border-left:4px solid var(--gold); border-radius:3px; padding:12px 16px; margin-top:14px; color:var(--ink); font-size:0.92rem; font-style:italic; }
+    .error-panel.visible { display:block; }
+
+    /* FEEDBACK PANEL */
+    .feedback-panel {
+      display:none; margin-top:24px;
+      background:var(--navy); border-radius:5px;
+      border-top:3px solid var(--gold);
+      padding:24px 26px 26px;
+      animation:fadeIn 0.3s ease;
+      color:var(--cream);
+    }
+    .feedback-panel.visible { display:block; }
+    .feedback-panel.loading { opacity:0.4; animation:pulse 1.1s ease-in-out infinite; }
+
+    @keyframes fadeIn { from{opacity:0;transform:translateY(5px);}to{opacity:1;transform:translateY(0);} }
+    @keyframes pulse { 0%,100%{opacity:0.4;}50%{opacity:0.2;} }
+
+    /* FEEDBACK SECTIONS */
+    .feedback-section { margin-bottom:22px; }
+    .feedback-section:last-of-type { margin-bottom:0; }
+
+    .section-rule {
+      border:none; border-top:1px solid rgba(200,150,10,0.25);
+      margin:18px 0;
+    }
+
+    .section-heading {
+      font-family:'Playfair Display',serif;
+      font-size:1rem; font-weight:700;
+      color:var(--gold-lt);
+      margin-bottom:12px;
+      letter-spacing:0.02em;
+    }
+
+    /* STRENGTHS */
+    .strength-item { margin-bottom:12px; }
+    .strength-heading { font-weight:600; font-size:0.9rem; color:var(--gold-lt); margin-bottom:3px; }
+    .strength-text { font-size:0.88rem; line-height:1.6; color:rgba(248,245,238,0.82); }
+
+    /* OBSERVATIONS */
+    .observation-item {
+      margin-bottom:16px;
+      padding:12px 14px;
+      background:rgba(255,255,255,0.05);
+      border-left:3px solid var(--gold);
+      border-radius:0 3px 3px 0;
+    }
+    .observation-quote {
+      font-family:'Playfair Display',serif;
+      font-style:italic; font-size:0.92rem;
+      color:var(--gold-lt); margin-bottom:6px;
+    }
+    .observation-quote::before { content:'\201C'; }
+    .observation-quote::after  { content:'\201D'; }
+    .observation-question { font-size:0.88rem; line-height:1.6; color:rgba(248,245,238,0.88); margin-bottom:4px; }
+    .observation-explanation { font-size:0.83rem; line-height:1.55; color:rgba(248,245,238,0.58); font-style:italic; }
+
+    /* BROADER POINT */
+    .broader-heading { font-weight:600; font-size:0.9rem; color:var(--gold-lt); margin-bottom:4px; }
+    .broader-text { font-size:0.88rem; line-height:1.6; color:rgba(248,245,238,0.82); }
+
+    /* CLOSING QUESTION */
+    .closing-question {
+      font-family:'Playfair Display',serif;
+      font-style:italic; font-size:1rem;
+      color:rgba(248,245,238,0.75);
+      line-height:1.6;
+      text-align:center;
+      padding:4px 0;
+    }
+
+    /* EGIU */
+    .egiu-section {
+      margin-top:18px; padding-top:14px;
+      border-top:1px solid rgba(200,150,10,0.25);
+      font-size:0.82rem; color:rgba(248,245,238,0.5);
+    }
+    .egiu-section strong { color:var(--gold); font-weight:600; }
+    .egiu-item {
+      display:inline-block;
+      background:rgba(200,150,10,0.15);
+      border:1px solid rgba(200,150,10,0.3);
+      border-radius:3px; padding:2px 8px;
+      margin:3px 4px 3px 0;
+      font-size:0.8rem; color:var(--gold-lt);
+    }
+
+    /* LOADING TEXT */
+    .feedback-loading {
+      text-align:center; font-style:italic;
+      color:rgba(248,245,238,0.5); font-size:0.9rem; padding:16px 0;
+    }
+
+    /* FOOTER */
+    .site-footer { background:var(--navy); border-top:3px solid var(--gold); text-align:center; padding:18px 20px; font-size:0.75rem; letter-spacing:0.07em; color:rgba(248,245,238,0.38); margin-top:60px; }
+
+    /* PRINT */
+    @media print {
+      .site-nav,.toolbar,.site-footer,textarea,.context-toggle,.context-field,.btn-submit,.word-count-row,.error-panel { display:none !important; }
+      body { padding-top:0; background:white; }
+      .feedback-panel { display:block !important; background:white !important; color:black !important; border:1px solid #ccc; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="site-nav">
+  <a class="nav-home" href="../index.html">
+    <span style="font-size:1.1rem;">&#8962;</span>
+    <span>Lesson Library</span>
+  </a>
+  <span class="nav-title">Dr Lexi&rsquo;s Writing Room</span>
+</nav>
+
+<!-- HEADER -->
+<header class="page-header">
+  <div class="page-badge">BELLA &middot; Dr Lexi&rsquo;s Writing Room</div>
+  <h1>Dr Lexi&rsquo;s Writing Room</h1>
+  <p class="subtitle">&ldquo;Bring me your writing &mdash; let&rsquo;s think about it together&rdquo;</p>
+</header>
+
+<main class="main-container">
+
+  <section class="input-section">
+    <textarea id="writing-input" placeholder="Write your paragraph here &mdash; don&rsquo;t worry about getting it perfect. That&rsquo;s what we&rsquo;re here for." rows="7"></textarea>
+
+    <div class="word-count-row">
+      <span>Words: <span class="count" id="word-count">0</span> / 300</span>
+    </div>
+
+    <div class="word-limit-msg" id="word-limit-msg">
+      Dr Lexi works best with paragraphs of up to 300 words. Could you trim this a little?
+    </div>
+
+    <button class="context-toggle" id="context-toggle">+ Add context (optional)</button>
+    <div class="context-field" id="context-field">
+      <label for="context-input">What were you trying to write about?</label>
+      <input type="text" id="context-input" placeholder="e.g. A description of my hometown, an opinion about social media…">
+    </div>
+
+    <button class="btn-submit" id="btn-submit" disabled>Show Dr Lexi my writing</button>
+  </section>
+
+  <div class="error-panel" id="error-panel">
+    Something went wrong &mdash; please check your connection and try again.
+  </div>
+
+  <div class="feedback-panel" id="feedback-panel"></div>
+
+</main>
+
+<footer class="site-footer">
+  BELLA &nbsp;&middot;&nbsp; Dr Lexi&rsquo;s Writing Room &nbsp;&middot;&nbsp; British English Language Learning Assistants
+</footer>
+
+<script>
+const WORKER_URL = 'https://bella-analyse.si-charlesworth67.workers.dev';
+
+const writingInput   = document.getElementById('writing-input');
+const wordCount      = document.getElementById('word-count');
+const wordLimitMsg   = document.getElementById('word-limit-msg');
+const contextToggle  = document.getElementById('context-toggle');
+const contextField   = document.getElementById('context-field');
+const contextInput   = document.getElementById('context-input');
+const btnSubmit      = document.getElementById('btn-submit');
+const errorPanel     = document.getElementById('error-panel');
+const feedbackPanel  = document.getElementById('feedback-panel');
+
+// Word counter
+function countWords(text) {
+  return text.trim() === '' ? 0 : text.trim().split(/\s+/).length;
+}
+
+writingInput.addEventListener('input', () => {
+  const count = countWords(writingInput.value);
+  wordCount.textContent = count;
+  const over = count > 300;
+  wordCount.classList.toggle('over', over);
+  wordLimitMsg.classList.toggle('visible', over);
+  btnSubmit.disabled = count === 0 || over;
+});
+
+// Context toggle
+contextToggle.addEventListener('click', () => {
+  const open = contextField.classList.toggle('open');
+  contextToggle.textContent = open ? '- Hide context' : '+ Add context (optional)';
+});
+
+// Submit
+btnSubmit.addEventListener('click', async () => {
+  const text = writingInput.value.trim();
+  const context = contextInput.value.trim();
+  if (!text) return;
+
+  errorPanel.classList.remove('visible');
+  feedbackPanel.classList.add('visible', 'loading');
+  feedbackPanel.innerHTML = '<div class="feedback-loading">Dr Lexi is reading your writing\u2026</div>';
+  btnSubmit.disabled = true;
+  btnSubmit.textContent = 'Dr Lexi is thinking\u2026';
+
+  try {
+    const resp = await fetch(WORKER_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text, context, mode: 'writing' })
+    });
+
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
+
+    const data = await resp.json();
+    let raw = data.content[0].text.trim()
+      .replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/```\s*$/i, '').trim();
+
+    const feedback = JSON.parse(raw);
+    feedbackPanel.classList.remove('loading');
+    renderFeedback(feedback);
+
+  } catch(e) {
+    feedbackPanel.classList.remove('visible', 'loading');
+    errorPanel.classList.add('visible');
+    console.error(e);
+  } finally {
+    const count = countWords(writingInput.value);
+    btnSubmit.disabled = count === 0 || count > 300;
+    btnSubmit.textContent = 'Show Dr Lexi my writing';
+  }
+});
+
+function renderFeedback(f) {
+  let html = '';
+
+  // Section 1: What's working
+  if (f.strengths && f.strengths.length) {
+    html += '<div class="feedback-section">';
+    html += '<div class="section-heading">What&rsquo;s working</div>';
+    f.strengths.forEach(s => {
+      html += `<div class="strength-item">
+        <div class="strength-heading">${s.heading}</div>
+        <div class="strength-text">${s.observation}</div>
+      </div>`;
+    });
+    html += '</div>';
+  }
+
+  // Section 2: Let's look more closely
+  if (f.observations && f.observations.length) {
+    html += '<hr class="section-rule">';
+    html += '<div class="feedback-section">';
+    html += '<div class="section-heading">Let&rsquo;s look more closely</div>';
+    f.observations.forEach(o => {
+      html += `<div class="observation-item">
+        <div class="observation-quote">${o.quote}</div>
+        <div class="observation-question">${o.question}</div>`;
+      if (o.explanation) {
+        html += `<div class="observation-explanation">${o.explanation}</div>`;
+      }
+      html += '</div>';
+    });
+    html += '</div>';
+  }
+
+  // Section 3: Something to think about
+  if (f.broader_point) {
+    html += '<hr class="section-rule">';
+    html += '<div class="feedback-section">';
+    html += '<div class="section-heading">Something to think about</div>';
+    html += `<div class="broader-heading">${f.broader_point.heading}</div>`;
+    html += `<div class="broader-text">${f.broader_point.observation}</div>`;
+    html += '</div>';
+  }
+
+  // Section 4: A question to take away
+  if (f.closing_question) {
+    html += '<hr class="section-rule">';
+    html += '<div class="feedback-section">';
+    html += '<div class="section-heading">A question to take away</div>';
+    html += `<div class="closing-question">${f.closing_question}</div>`;
+    html += '</div>';
+  }
+
+  // EGIU
+  if (f.egiu && f.egiu.length) {
+    html += '<div class="egiu-section"><strong>English Grammar in Use</strong><br>';
+    f.egiu.forEach(e => {
+      html += `<span class="egiu-item">Unit ${e.unit} &mdash; ${e.topic}</span>`;
+    });
+    html += '</div>';
+  }
+
+  feedbackPanel.innerHTML = html;
+}
+</script>
+</body>
+</html>
