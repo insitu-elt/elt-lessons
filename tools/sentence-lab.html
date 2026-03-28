@@ -154,6 +154,94 @@
     /* FOOTER */
     .site-footer { background:var(--navy); border-top:3px solid var(--gold); text-align:center; padding:18px 20px; font-size:0.75rem; letter-spacing:0.07em; color:rgba(248,245,238,0.38); margin-top:60px; }
 
+
+    /* COMMENTARY PANEL */
+    .commentary-trigger {
+      display: none;
+      margin-top: 18px;
+      text-align: center;
+    }
+    .commentary-trigger.visible { display: block; }
+    .btn-tell-more {
+      background: transparent;
+      color: var(--navy);
+      border: 1.5px solid var(--navy-mid);
+      border-radius: 4px;
+      padding: 8px 22px;
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: border-color 0.18s, color 0.18s, background 0.18s;
+      letter-spacing: 0.02em;
+    }
+    .btn-tell-more:hover:not(:disabled) { border-color: var(--gold); color: var(--gold); }
+    .btn-tell-more:disabled { opacity: 0.45; cursor: not-allowed; }
+
+    .commentary-panel {
+      display: none;
+      margin-top: 16px;
+      background: var(--navy);
+      border-radius: 5px;
+      border-top: 3px solid var(--gold);
+      padding: 20px 22px 22px;
+      animation: fadeIn 0.25s ease;
+      color: var(--cream);
+    }
+    .commentary-panel.visible { display: block; }
+    .commentary-overview {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: rgba(248,245,238,0.85);
+      margin-bottom: 16px;
+      font-style: italic;
+      border-bottom: 1px solid rgba(200,150,10,0.3);
+      padding-bottom: 14px;
+    }
+    .commentary-point {
+      margin-bottom: 14px;
+    }
+    .commentary-point-heading {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--gold-lt);
+      margin-bottom: 4px;
+    }
+    .commentary-point-text {
+      font-size: 0.88rem;
+      line-height: 1.6;
+      color: rgba(248,245,238,0.80);
+    }
+    .commentary-egiu {
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(200,150,10,0.3);
+      font-size: 0.82rem;
+      color: rgba(248,245,238,0.55);
+    }
+    .commentary-egiu strong {
+      color: var(--gold);
+      font-weight: 600;
+    }
+    .egiu-item {
+      display: inline-block;
+      background: rgba(200,150,10,0.15);
+      border: 1px solid rgba(200,150,10,0.3);
+      border-radius: 3px;
+      padding: 2px 8px;
+      margin: 2px 4px 2px 0;
+      font-size: 0.8rem;
+      color: var(--gold-lt);
+    }
+    .commentary-loading {
+      text-align: center;
+      font-style: italic;
+      color: rgba(248,245,238,0.5);
+      font-size: 0.88rem;
+      padding: 12px 0;
+    }
+
     /* PRINT */
     @media print {
       .site-nav,.key-overlay,.toolbar,.btn-glossary,.glossary-panel,.mode-toggle,.sentence-nav,.cross-ref-tip,.site-footer,textarea { display:none !important; }
@@ -236,6 +324,13 @@
     <div class="dot-row" id="dot-row"></div>
   </div>
 
+
+  <!-- COMMENTARY -->
+  <div class="commentary-trigger" id="commentary-trigger">
+    <button class="btn-tell-more" id="btn-tell-more">Tell me more about this sentence</button>
+  </div>
+  <div class="commentary-panel" id="commentary-panel"></div>
+
   <p class="cross-ref-tip" id="cross-ref-tip">
     Want to explore clause types further? Try <em>Clause and Effect</em> in your BELLA assistant suite.
   </p>
@@ -256,33 +351,41 @@ let analysisData = null;
 let currentSentence = 0;
 let visitedSentences = new Set();
 let currentMode = 'read';
+let currentText = '';
 
-const textarea      = document.getElementById('sentence-input');
-const btnAnalyse    = document.getElementById('btn-analyse');
-const btnGlossary   = document.getElementById('btn-glossary');
-const glossaryPanel = document.getElementById('glossary-panel');
-const btnCloseGloss = document.getElementById('btn-close-glossary');
-const errorPanel    = document.getElementById('error-panel');
-const displayArea   = document.getElementById('display-area');
-const modeToggle    = document.getElementById('mode-toggle');
-const renderCont    = document.getElementById('sentence-render-container');
-const clauseKey     = document.getElementById('clause-key');
-const sentenceNav   = document.getElementById('sentence-nav');
-const btnPrev       = document.getElementById('btn-prev');
-const btnNext       = document.getElementById('btn-next');
-const navCounter    = document.getElementById('nav-counter');
-const dotRow        = document.getElementById('dot-row');
-const crossRefTip   = document.getElementById('cross-ref-tip');
+const textarea          = document.getElementById('sentence-input');
+const btnAnalyse        = document.getElementById('btn-analyse');
+const btnGlossary       = document.getElementById('btn-glossary');
+const glossaryPanel     = document.getElementById('glossary-panel');
+const btnCloseGloss     = document.getElementById('btn-close-glossary');
+const errorPanel        = document.getElementById('error-panel');
+const displayArea       = document.getElementById('display-area');
+const modeToggle        = document.getElementById('mode-toggle');
+const renderCont        = document.getElementById('sentence-render-container');
+const clauseKey         = document.getElementById('clause-key');
+const sentenceNav       = document.getElementById('sentence-nav');
+const btnPrev           = document.getElementById('btn-prev');
+const btnNext           = document.getElementById('btn-next');
+const navCounter        = document.getElementById('nav-counter');
+const dotRow            = document.getElementById('dot-row');
+const crossRefTip       = document.getElementById('cross-ref-tip');
+const commentaryTrigger = document.getElementById('commentary-trigger');
+const btnTellMore       = document.getElementById('btn-tell-more');
+const commentaryPanel   = document.getElementById('commentary-panel');
 
 textarea.addEventListener('input', () => { btnAnalyse.disabled = !textarea.value.trim(); });
 
 btnAnalyse.addEventListener('click', async () => {
   const text = textarea.value.trim();
   if (!text) return;
+  currentText = text;
 
   errorPanel.classList.remove('visible');
   crossRefTip.classList.remove('visible');
   clauseKey.classList.remove('visible');
+  commentaryTrigger.classList.remove('visible');
+  commentaryPanel.classList.remove('visible');
+  commentaryPanel.innerHTML = '';
   displayArea.classList.add('visible', 'loading');
   btnAnalyse.disabled = true;
   btnAnalyse.textContent = 'Analysing…';
@@ -291,7 +394,7 @@ btnAnalyse.addEventListener('click', async () => {
     const resp = await fetch(WORKER_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ text })
+      body: JSON.stringify({ text, mode: 'analysis' })
     });
 
     if (!resp.ok) throw new Error('HTTP ' + resp.status);
@@ -309,6 +412,7 @@ btnAnalyse.addEventListener('click', async () => {
     renderCurrentSentence();
     updateNav();
     crossRefTip.classList.add('visible');
+    commentaryTrigger.classList.add('visible');
 
   } catch(e) {
     displayArea.classList.remove('visible', 'loading');
@@ -320,6 +424,65 @@ btnAnalyse.addEventListener('click', async () => {
   }
 });
 
+// Tell me more
+btnTellMore.addEventListener('click', async () => {
+  if (!analysisData) return;
+  const sentence = analysisData.sentences[currentSentence];
+  const sentenceText = sentence.tokens.map(t => t.whitespace ? t.word + ' ' : t.word).join('').trim();
+
+  commentaryPanel.classList.add('visible');
+  commentaryPanel.innerHTML = '<div class="commentary-loading">Thinking about this sentence…</div>';
+  btnTellMore.disabled = true;
+  btnTellMore.textContent = 'Thinking…';
+
+  try {
+    const resp = await fetch(WORKER_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text: sentenceText, mode: 'commentary', analysis: sentence })
+    });
+
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
+
+    const data = await resp.json();
+    let raw = data.content[0].text.trim()
+      .replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/```\s*$/i, '').trim();
+
+    const commentary = JSON.parse(raw);
+    renderCommentary(commentary);
+
+  } catch(e) {
+    commentaryPanel.innerHTML = '<div class="commentary-loading">Something went wrong — please try again.</div>';
+    console.error(e);
+  } finally {
+    btnTellMore.disabled = false;
+    btnTellMore.textContent = 'Tell me more about this sentence';
+  }
+});
+
+function renderCommentary(c) {
+  let html = '';
+  if (c.overview) {
+    html += `<div class="commentary-overview">${c.overview}</div>`;
+  }
+  if (c.points && c.points.length) {
+    c.points.forEach(p => {
+      html += `<div class="commentary-point">
+        <div class="commentary-point-heading">${p.heading}</div>
+        <div class="commentary-point-text">${p.explanation}</div>
+      </div>`;
+    });
+  }
+  if (c.egiu && c.egiu.length) {
+    html += '<div class="commentary-egiu"><strong>English Grammar in Use</strong><br>';
+    c.egiu.forEach(e => {
+      html += `<span class="egiu-item">Unit ${e.unit} &mdash; ${e.topic}</span>`;
+    });
+    html += '</div>';
+  }
+  commentaryPanel.innerHTML = html;
+}
+
 modeToggle.addEventListener('click', e => {
   const btn = e.target.closest('.mode-btn');
   if (!btn) return;
@@ -328,8 +491,26 @@ modeToggle.addEventListener('click', e => {
   renderCurrentSentence();
 });
 
-btnPrev.addEventListener('click', () => { if (currentSentence > 0) { currentSentence--; visitedSentences.add(currentSentence); renderCurrentSentence(); updateNav(); } });
-btnNext.addEventListener('click', () => { if (currentSentence < analysisData.sentences.length - 1) { currentSentence++; visitedSentences.add(currentSentence); renderCurrentSentence(); updateNav(); } });
+btnPrev.addEventListener('click', () => {
+  if (currentSentence > 0) {
+    currentSentence--;
+    visitedSentences.add(currentSentence);
+    commentaryPanel.classList.remove('visible');
+    commentaryPanel.innerHTML = '';
+    renderCurrentSentence();
+    updateNav();
+  }
+});
+btnNext.addEventListener('click', () => {
+  if (currentSentence < analysisData.sentences.length - 1) {
+    currentSentence++;
+    visitedSentences.add(currentSentence);
+    commentaryPanel.classList.remove('visible');
+    commentaryPanel.innerHTML = '';
+    renderCurrentSentence();
+    updateNav();
+  }
+});
 
 btnGlossary.addEventListener('click', () => glossaryPanel.classList.toggle('open'));
 btnCloseGloss.addEventListener('click', () => glossaryPanel.classList.remove('open'));
