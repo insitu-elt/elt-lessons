@@ -1,0 +1,1783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vocabulary Trainer · BELLA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+/* ── CSS Variables ─────────────────────────────────────────────── */
+:root {
+  --navy:       #0D1B2A;
+  --navy-mid:   #162536;
+  --navy-light: #1E3048;
+  --gold:       #B8963E;
+  --gold-light: #D4AE58;
+  --gold-pale:  #E8D5A0;
+  --cream:      #F8F5EE;
+  --cream-dark: #EDE8DC;
+  --muted:      #9A9080;
+  --ink:        #1A1208;
+  --correct:    #2D6A4F;
+  --correct-bg: #D8F3DC;
+  --incorrect:  #9B2335;
+  --incorrect-bg:#FDE8E8;
+  --shaky:      #7A5200;
+  --shaky-bg:   #FFF3CD;
+  --shadow:     rgba(13,27,42,0.18);
+  --radius:     6px;
+}
+
+/* ── Reset & Base ──────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Source Sans 3', sans-serif;
+  background: var(--navy);
+  color: var(--cream);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Header ────────────────────────────────────────────────────── */
+.site-header {
+  background: var(--navy);
+  border-bottom: 1px solid rgba(184,150,62,0.3);
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+  flex-shrink: 0;
+}
+
+.site-header .brand {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 0.08em;
+  text-decoration: none;
+}
+
+.site-header .tool-name {
+  font-size: 0.8rem;
+  color: var(--muted);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* ── Progress bar ──────────────────────────────────────────────── */
+.progress-bar-track {
+  height: 3px;
+  background: var(--navy-light);
+  flex-shrink: 0;
+}
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold), var(--gold-light));
+  width: 0%;
+  transition: width 0.5s ease;
+}
+
+/* ── Main content area ─────────────────────────────────────────── */
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 1rem 3rem;
+}
+
+/* ── Screen visibility ─────────────────────────────────────────── */
+.screen { display: none; width: 100%; max-width: 780px; }
+.screen.active { display: flex; flex-direction: column; align-items: center; }
+
+/* ══════════════════════════════════════════════════════════════════
+   INPUT SCREEN
+══════════════════════════════════════════════════════════════════ */
+.input-screen-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--cream);
+  text-align: center;
+  margin-bottom: 0.4rem;
+}
+.input-screen-title span { color: var(--gold); }
+
+.input-screen-sub {
+  font-size: 0.95rem;
+  color: var(--muted);
+  text-align: center;
+  margin-bottom: 2.5rem;
+  letter-spacing: 0.04em;
+}
+
+/* Tab switcher */
+.tab-row {
+  display: flex;
+  gap: 0;
+  margin-bottom: 1.5rem;
+  border: 1px solid rgba(184,150,62,0.3);
+  border-radius: var(--radius);
+  overflow: hidden;
+  width: 100%;
+}
+.tab-btn {
+  flex: 1;
+  padding: 0.65rem 1rem;
+  background: var(--navy-light);
+  border: none;
+  color: var(--muted);
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  border-right: 1px solid rgba(184,150,62,0.2);
+}
+.tab-btn:last-child { border-right: none; }
+.tab-btn.active {
+  background: var(--gold);
+  color: var(--navy);
+  font-weight: 600;
+}
+.tab-btn:hover:not(.active) {
+  background: var(--navy-mid);
+  color: var(--cream);
+}
+
+/* Tab panels */
+.tab-panel { display: none; width: 100%; }
+.tab-panel.active { display: block; }
+
+/* Shared panel styles */
+.panel-box {
+  background: var(--navy-light);
+  border: 1px solid rgba(184,150,62,0.2);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  width: 100%;
+}
+
+.panel-label {
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+/* Gem paste panel */
+.gem-textarea {
+  width: 100%;
+  min-height: 180px;
+  background: var(--navy);
+  border: 1px solid rgba(184,150,62,0.25);
+  border-radius: 4px;
+  color: var(--cream);
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 0.88rem;
+  padding: 0.8rem;
+  resize: vertical;
+  line-height: 1.5;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.gem-textarea:focus { border-color: var(--gold); }
+.gem-textarea::placeholder { color: var(--muted); font-style: italic; }
+
+.parse-hint {
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin-top: 0.6rem;
+  line-height: 1.5;
+}
+
+/* Parse preview table */
+.preview-wrap {
+  margin-top: 1.2rem;
+  display: none;
+}
+.preview-wrap.visible { display: block; }
+.preview-title {
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.6rem;
+}
+.preview-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+}
+.preview-table th {
+  background: var(--navy);
+  color: var(--muted);
+  padding: 0.4rem 0.6rem;
+  text-align: left;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+}
+.preview-table td {
+  padding: 0.4rem 0.6rem;
+  border-bottom: 1px solid rgba(184,150,62,0.1);
+  color: var(--cream);
+  vertical-align: top;
+}
+.preview-table tr:nth-child(even) td { background: rgba(255,255,255,0.03); }
+.preview-table .word-cell { color: var(--gold-light); font-weight: 600; }
+.preview-table .gprp-cell { color: var(--muted); font-style: italic; font-size: 0.78rem; }
+
+.remove-row-btn {
+  background: none;
+  border: none;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 0 0.2rem;
+  line-height: 1;
+  transition: color 0.15s;
+}
+.remove-row-btn:hover { color: var(--incorrect); }
+
+/* Manual entry panel */
+.manual-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+}
+.manual-form .full-width { grid-column: 1 / -1; }
+
+.field-group label {
+  display: block;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.35rem;
+}
+.field-group input, .field-group textarea {
+  width: 100%;
+  background: var(--navy);
+  border: 1px solid rgba(184,150,62,0.25);
+  border-radius: 4px;
+  color: var(--cream);
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 0.88rem;
+  padding: 0.55rem 0.7rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.field-group input:focus, .field-group textarea:focus { border-color: var(--gold); }
+.field-group input::placeholder, .field-group textarea::placeholder { color: var(--muted); font-style: italic; }
+
+.btn-add-card {
+  background: var(--navy);
+  border: 1px solid rgba(184,150,62,0.4);
+  color: var(--gold);
+  padding: 0.55rem 1.2rem;
+  border-radius: 4px;
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+}
+.btn-add-card:hover { background: var(--navy-mid); border-color: var(--gold); }
+
+.card-list {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.card-list-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: var(--navy);
+  border: 1px solid rgba(184,150,62,0.15);
+  border-radius: 4px;
+  padding: 0.45rem 0.7rem;
+  font-size: 0.85rem;
+}
+.card-list-item .cli-word { color: var(--gold-light); font-weight: 600; min-width: 120px; }
+.card-list-item .cli-def { color: var(--muted); flex: 1; font-size: 0.8rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* Bundled deck notice */
+.bundled-notice {
+  background: var(--navy);
+  border: 1px solid rgba(184,150,62,0.3);
+  border-radius: 4px;
+  padding: 1.2rem;
+  text-align: center;
+}
+.bundled-notice .bn-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+.bundled-notice .bn-title { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--gold); margin-bottom: 0.3rem; }
+.bundled-notice .bn-sub { font-size: 0.88rem; color: var(--muted); }
+
+/* Start button */
+.start-row {
+  margin-top: 1.8rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+}
+.deck-count {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+.deck-count strong { color: var(--cream); }
+
+.btn-start {
+  background: var(--gold);
+  color: var(--navy);
+  border: none;
+  padding: 0.85rem 2.5rem;
+  border-radius: var(--radius);
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  transition: background 0.2s, transform 0.1s;
+  box-shadow: 0 2px 12px rgba(184,150,62,0.3);
+}
+.btn-start:hover { background: var(--gold-light); transform: translateY(-1px); }
+.btn-start:disabled { background: var(--muted); color: var(--navy-light); cursor: not-allowed; transform: none; box-shadow: none; }
+
+/* ══════════════════════════════════════════════════════════════════
+   SESSION SCREEN
+══════════════════════════════════════════════════════════════════ */
+.session-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.2rem;
+}
+.session-stat {
+  font-size: 0.82rem;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+}
+.session-stat strong { color: var(--cream); }
+
+.btn-end-session {
+  background: none;
+  border: 1px solid rgba(184,150,62,0.3);
+  color: var(--muted);
+  padding: 0.35rem 0.9rem;
+  border-radius: 4px;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+.btn-end-session:hover { color: var(--cream); border-color: var(--gold); }
+
+/* Dot navigator */
+.dot-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+  margin-bottom: 1.8rem;
+  width: 100%;
+}
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(248,245,238,0.15);
+  transition: background 0.3s;
+}
+.dot.current  { background: var(--gold); }
+.dot.mastered { background: var(--correct); }
+.dot.shaky    { background: #D4A017; }
+
+/* ── Card shell ────────────────────────────────────────────────── */
+.card-scene {
+  width: 100%;
+  perspective: 1200px;
+  margin-bottom: 1.5rem;
+  min-height: 280px;
+  position: relative;
+}
+
+/* FLIP CARD */
+.flip-card {
+  width: 100%;
+  min-height: 280px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.45s ease;
+  cursor: pointer;
+}
+.flip-card.flipped { transform: rotateY(180deg); }
+
+.card-face {
+  position: absolute;
+  width: 100%;
+  min-height: 280px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  background: var(--cream);
+  border-radius: 10px;
+  box-shadow: 0 4px 24px var(--shadow);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5rem 2rem;
+  top: 0; left: 0;
+}
+.card-face.back {
+  transform: rotateY(180deg);
+  justify-content: flex-start;
+  padding-top: 2rem;
+}
+
+.card-type-badge {
+  position: absolute;
+  top: 1rem;
+  left: 1.2rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-family: 'Source Sans 3', sans-serif;
+}
+
+.card-direction-badge {
+  position: absolute;
+  top: 1rem;
+  right: 1.2rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: var(--cream-dark);
+  padding: 0.2rem 0.5rem;
+  border-radius: 3px;
+}
+
+/* Front face content */
+.front-word {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--ink);
+  text-align: center;
+  margin-bottom: 0.4rem;
+}
+.front-gprp {
+  font-size: 0.9rem;
+  color: var(--muted);
+  font-style: italic;
+  margin-bottom: 0.3rem;
+}
+.front-pos {
+  font-size: 0.78rem;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.front-definition {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.35rem;
+  color: var(--ink);
+  text-align: center;
+  line-height: 1.5;
+  max-width: 500px;
+}
+
+.flip-hint {
+  position: absolute;
+  bottom: 1rem;
+  font-size: 0.75rem;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+}
+
+/* Back face content */
+.back-word {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--ink);
+  text-align: center;
+  margin-bottom: 0.25rem;
+}
+.back-gprp {
+  font-size: 0.88rem;
+  color: var(--muted);
+  font-style: italic;
+  margin-bottom: 0.2rem;
+}
+.back-pos {
+  font-size: 0.75rem;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+.back-divider {
+  width: 40px;
+  height: 2px;
+  background: var(--gold);
+  margin: 0 auto 1rem;
+}
+.back-definition {
+  font-size: 1rem;
+  color: var(--ink);
+  text-align: center;
+  line-height: 1.6;
+  margin-bottom: 0.8rem;
+  max-width: 480px;
+}
+.back-example {
+  font-size: 0.88rem;
+  color: #444;
+  text-align: center;
+  font-style: italic;
+  line-height: 1.5;
+  max-width: 480px;
+  padding: 0.6rem 1rem;
+  background: var(--cream-dark);
+  border-radius: 4px;
+  border-left: 3px solid var(--gold);
+  margin-bottom: 0.8rem;
+}
+
+.audio-replay-btn {
+  background: none;
+  border: 1px solid rgba(184,150,62,0.4);
+  color: var(--gold);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+  margin-top: 0.3rem;
+}
+.audio-replay-btn:hover { background: rgba(184,150,62,0.1); }
+
+/* Self-rating buttons */
+.rating-row {
+  display: flex;
+  gap: 0.8rem;
+  margin-top: 1rem;
+  justify-content: center;
+  width: 100%;
+}
+.rating-btn {
+  flex: 1;
+  max-width: 140px;
+  padding: 0.7rem 0.5rem;
+  border-radius: var(--radius);
+  border: 1px solid transparent;
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: 0.02em;
+  transition: transform 0.1s, box-shadow 0.1s;
+  display: none;
+}
+.rating-btn:hover { transform: translateY(-1px); box-shadow: 0 2px 8px var(--shadow); }
+.flip-card.flipped .rating-btn { display: block; }
+
+.btn-got-it   { background: var(--correct-bg); color: var(--correct); border-color: var(--correct); }
+.btn-nearly   { background: var(--shaky-bg);   color: var(--shaky);   border-color: var(--shaky); }
+.btn-not-yet  { background: var(--incorrect-bg); color: var(--incorrect); border-color: var(--incorrect); }
+
+/* ── MC CARD ────────────────────────────────────────────────────── */
+.mc-card {
+  width: 100%;
+  background: var(--cream);
+  border-radius: 10px;
+  box-shadow: 0 4px 24px var(--shadow);
+  padding: 2rem;
+  display: none;
+}
+.mc-card.active { display: block; }
+
+.mc-prompt {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.25rem;
+  color: var(--ink);
+  text-align: center;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  padding: 0 0.5rem;
+}
+.mc-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.7rem;
+}
+.mc-option {
+  padding: 0.75rem 1rem;
+  background: var(--cream-dark);
+  border: 1.5px solid rgba(184,150,62,0.25);
+  border-radius: var(--radius);
+  color: var(--ink);
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+  text-align: center;
+}
+.mc-option:hover:not(.locked) { border-color: var(--gold); background: var(--cream); }
+.mc-option.correct  { background: var(--correct-bg); border-color: var(--correct); color: var(--correct); }
+.mc-option.selected-wrong { background: var(--incorrect-bg); border-color: var(--incorrect); color: var(--incorrect); }
+.mc-option.locked { cursor: default; }
+
+.mc-feedback {
+  margin-top: 1rem;
+  padding: 0.7rem 1rem;
+  border-radius: 4px;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  display: none;
+}
+.mc-feedback.correct  { background: var(--correct-bg); color: var(--correct); border-left: 3px solid var(--correct); display: block; }
+.mc-feedback.incorrect { background: var(--incorrect-bg); color: var(--incorrect); border-left: 3px solid var(--incorrect); display: block; }
+
+.mc-next-btn {
+  display: none;
+  margin: 1rem auto 0;
+  padding: 0.6rem 1.8rem;
+  background: var(--gold);
+  color: var(--navy);
+  border: none;
+  border-radius: var(--radius);
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.mc-next-btn:hover { background: var(--gold-light); }
+
+/* ── CLOZE CARD ─────────────────────────────────────────────────── */
+.cloze-card {
+  width: 100%;
+  background: var(--cream);
+  border-radius: 10px;
+  box-shadow: 0 4px 24px var(--shadow);
+  padding: 2rem 2.5rem;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+}
+.cloze-card.active { display: flex; }
+
+.cloze-sentence {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  color: var(--ink);
+  text-align: center;
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+  max-width: 520px;
+}
+
+.cloze-input-wrap {
+  display: flex;
+  gap: 0.7rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+.cloze-input {
+  padding: 0.6rem 1rem;
+  background: var(--cream-dark);
+  border: 1.5px solid rgba(184,150,62,0.35);
+  border-radius: 4px;
+  color: var(--ink);
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 1rem;
+  min-width: 180px;
+  outline: none;
+  transition: border-color 0.2s, background 0.2s;
+  text-align: center;
+}
+.cloze-input:focus { border-color: var(--gold); }
+.cloze-input.correct   { background: var(--correct-bg); border-color: var(--correct); color: var(--correct); }
+.cloze-input.incorrect { background: var(--incorrect-bg); border-color: var(--incorrect); color: var(--incorrect); }
+
+.btn-check-cloze {
+  padding: 0.6rem 1.2rem;
+  background: var(--gold);
+  color: var(--navy);
+  border: none;
+  border-radius: 4px;
+  font-family: 'Source Sans 3', sans-serif;
+  font-weight: 700;
+  font-size: 0.88rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.btn-check-cloze:hover { background: var(--gold-light); }
+
+.cloze-feedback {
+  font-size: 0.88rem;
+  text-align: center;
+  line-height: 1.5;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  display: none;
+  margin-bottom: 0.8rem;
+}
+.cloze-feedback.correct   { background: var(--correct-bg); color: var(--correct); display: block; }
+.cloze-feedback.incorrect { background: var(--incorrect-bg); color: var(--incorrect); display: block; }
+
+.cloze-next-btn {
+  display: none;
+  padding: 0.6rem 1.8rem;
+  background: var(--gold);
+  color: var(--navy);
+  border: none;
+  border-radius: var(--radius);
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.cloze-next-btn:hover { background: var(--gold-light); }
+
+/* ══════════════════════════════════════════════════════════════════
+   SUMMARY SCREEN
+══════════════════════════════════════════════════════════════════ */
+.summary-screen { gap: 0; }
+
+.summary-header {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--cream);
+  text-align: center;
+  margin-bottom: 0.4rem;
+}
+.summary-sub {
+  font-size: 0.9rem;
+  color: var(--muted);
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.score-ring-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+.score-circle {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  background: conic-gradient(var(--gold) 0%, var(--navy-light) 0%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.8rem;
+  box-shadow: 0 0 0 4px var(--navy-light);
+}
+.score-inner {
+  width: 82px;
+  height: 82px;
+  border-radius: 50%;
+  background: var(--navy);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.score-pct {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--gold);
+  line-height: 1;
+}
+.score-label {
+  font-size: 0.68rem;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.score-band-msg {
+  font-size: 0.95rem;
+  color: var(--cream);
+  text-align: center;
+  font-style: italic;
+  max-width: 420px;
+}
+
+.summary-lists {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  width: 100%;
+  margin-bottom: 2rem;
+}
+.summary-list-box {
+  background: var(--navy-light);
+  border: 1px solid rgba(184,150,62,0.2);
+  border-radius: var(--radius);
+  padding: 1rem 1.2rem;
+}
+.slb-title {
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 0.8rem;
+  font-weight: 600;
+}
+.slb-title.green { color: var(--correct); }
+.slb-title.amber { color: #D4A017; }
+
+.slb-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+.slb-list li {
+  font-size: 0.88rem;
+  color: var(--cream);
+  display: flex;
+  gap: 0.5rem;
+  align-items: baseline;
+}
+.slb-list li .w { color: var(--gold-light); font-weight: 600; }
+.slb-list li .d { color: var(--muted); font-size: 0.78rem; flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.summary-btns {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.btn-practice-weak {
+  padding: 0.75rem 2rem;
+  background: none;
+  border: 1.5px solid var(--gold);
+  color: var(--gold);
+  border-radius: var(--radius);
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.btn-practice-weak:hover { background: rgba(184,150,62,0.1); }
+.btn-new-deck {
+  padding: 0.75rem 2rem;
+  background: var(--gold);
+  color: var(--navy);
+  border: none;
+  border-radius: var(--radius);
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.btn-new-deck:hover { background: var(--gold-light); }
+
+/* ── Gold divider ────────────────────────────────────────────────── */
+.gold-rule {
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  margin: 1.5rem auto;
+}
+
+/* ── Footer ──────────────────────────────────────────────────────── */
+.site-footer {
+  border-top: 1px solid rgba(184,150,62,0.2);
+  padding: 0.8rem 2rem;
+  text-align: center;
+  font-size: 0.72rem;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+  flex-shrink: 0;
+}
+.site-footer span { color: rgba(184,150,62,0.6); margin: 0 0.4rem; }
+
+/* ── Responsive ───────────────────────────────────────────────────── */
+@media (max-width: 560px) {
+  .manual-form { grid-template-columns: 1fr; }
+  .mc-options   { grid-template-columns: 1fr; }
+  .summary-lists { grid-template-columns: 1fr; }
+  .front-word { font-size: 1.7rem; }
+  .front-definition { font-size: 1.1rem; }
+  .rating-row { flex-direction: column; align-items: center; }
+  .rating-btn { max-width: 100%; width: 100%; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── Header ─────────────────────────────────────────────────── -->
+<header class="site-header">
+  <a class="brand" href="../index.html">BELLA</a>
+  <span class="tool-name">Vocabulary Trainer</span>
+</header>
+<div class="progress-bar-track"><div class="progress-bar-fill" id="progressFill"></div></div>
+
+<!-- ── Main ───────────────────────────────────────────────────── -->
+<main class="main">
+
+  <!-- ══ INPUT SCREEN ══════════════════════════════════════════ -->
+  <section class="screen active" id="screenInput">
+    <h1 class="input-screen-title">Vocabulary <span>Trainer</span></h1>
+    <p class="input-screen-sub">VOCABULARY · RETRIEVAL PRACTICE · BELLA</p>
+
+    <div class="tab-row">
+      <button class="tab-btn active" onclick="switchTab('paste')">Paste from Gem</button>
+      <button class="tab-btn" onclick="switchTab('manual')">Enter manually</button>
+      <button class="tab-btn" id="tabBundled" onclick="switchTab('bundled')" style="display:none">Lesson deck</button>
+    </div>
+
+    <!-- Paste panel -->
+    <div class="tab-panel active" id="panelPaste">
+      <div class="panel-box">
+        <label class="panel-label">Paste vocabulary output</label>
+        <textarea class="gem-textarea" id="gemPasteArea"
+          placeholder="Paste vocabulary table output from The Word Lab, The Reading Room, Picture This, or any other BELLA assistant here.&#10;&#10;The trainer will find lines containing a word, pronunciation, and definition."></textarea>
+        <p class="parse-hint">Accepts output in the format: <em>word · GPRP · part of speech · definition · example sentence</em>. Each word on its own line or row. Tabs, pipes, and bullet separators are all recognised.</p>
+        <button class="btn-add-card" style="margin-top:0.8rem" onclick="parseGemInput()">Parse vocabulary ▶</button>
+        <div class="preview-wrap" id="pastePreview">
+          <p class="preview-title" id="previewTitle"></p>
+          <table class="preview-table" id="previewTable">
+            <thead><tr>
+              <th>Word</th><th>GPRP</th><th>Definition</th><th>Example</th><th></th>
+            </tr></thead>
+            <tbody id="previewBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Manual panel -->
+    <div class="tab-panel" id="panelManual">
+      <div class="panel-box">
+        <label class="panel-label">Add cards one by one</label>
+        <div class="manual-form" id="manualForm">
+          <div class="field-group">
+            <label>Word *</label>
+            <input type="text" id="mWord" placeholder="e.g. resilient">
+          </div>
+          <div class="field-group">
+            <label>GPRP pronunciation</label>
+            <input type="text" id="mGprp" placeholder="e.g. rih-ZIL-yuhnt">
+          </div>
+          <div class="field-group">
+            <label>Part of speech</label>
+            <input type="text" id="mPos" placeholder="e.g. adjective">
+          </div>
+          <div class="field-group">
+            <label>Definition *</label>
+            <input type="text" id="mDef" placeholder="e.g. able to recover quickly from difficulties">
+          </div>
+          <div class="field-group full-width">
+            <label>Example sentence (recommended for gap-fill)</label>
+            <input type="text" id="mEx" placeholder="e.g. She was resilient enough to start again after the setback.">
+          </div>
+        </div>
+        <button class="btn-add-card" onclick="addManualCard()">+ Add card</button>
+        <div class="card-list" id="manualCardList"></div>
+      </div>
+    </div>
+
+    <!-- Bundled deck panel -->
+    <div class="tab-panel" id="panelBundled">
+      <div class="panel-box">
+        <div class="bundled-notice">
+          <div class="bn-icon">📚</div>
+          <div class="bn-title" id="bundledDeckName">Lesson deck loaded</div>
+          <div class="bn-sub" id="bundledDeckCount"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="start-row">
+      <p class="deck-count" id="deckCountMsg">No cards loaded yet.</p>
+      <button class="btn-start" id="btnStart" disabled onclick="startSession()">Begin session</button>
+    </div>
+  </section>
+
+  <!-- ══ SESSION SCREEN ════════════════════════════════════════ -->
+  <section class="screen" id="screenSession">
+    <div class="session-header">
+      <p class="session-stat">Card <strong id="statCardNum">1</strong> of <strong id="statCardTotal">—</strong> <span id="statCorrect" style="margin-left:0.8rem">✓ <strong>0</strong> correct</span></p>
+      <button class="btn-end-session" onclick="endSession()">End session</button>
+    </div>
+
+    <div class="dot-nav" id="dotNav"></div>
+
+    <!-- Card scene (flip, MC, cloze rendered here) -->
+    <div class="card-scene" id="cardScene"></div>
+
+    <!-- Rating row (shown outside card for layout stability) -->
+    <div class="rating-row" id="ratingRow" style="display:none">
+      <button class="rating-btn btn-got-it"  onclick="rateCard('got')">✓ Got it</button>
+      <button class="rating-btn btn-nearly"  onclick="rateCard('nearly')">~ Nearly</button>
+      <button class="rating-btn btn-not-yet" onclick="rateCard('nope')">✗ Not yet</button>
+    </div>
+  </section>
+
+  <!-- ══ SUMMARY SCREEN ════════════════════════════════════════ -->
+  <section class="screen" id="screenSummary">
+    <h2 class="summary-header">Session complete</h2>
+    <p class="summary-sub" id="summarySubLine"></p>
+
+    <div class="score-ring-wrap">
+      <div class="score-circle" id="scoreCircle">
+        <div class="score-inner">
+          <span class="score-pct" id="scorePct">—</span>
+          <span class="score-label">score</span>
+        </div>
+      </div>
+      <p class="score-band-msg" id="scoreBandMsg"></p>
+    </div>
+
+    <div class="summary-lists">
+      <div class="summary-list-box">
+        <p class="slb-title green">✓ Mastered this session</p>
+        <ul class="slb-list" id="masteredList"></ul>
+      </div>
+      <div class="summary-list-box">
+        <p class="slb-title amber">~ Still shaky</p>
+        <ul class="slb-list" id="shakyList"></ul>
+      </div>
+    </div>
+
+    <div class="summary-btns">
+      <button class="btn-practice-weak" id="btnPracticeWeak" onclick="practiceWeak()">Practice weak cards</button>
+      <button class="btn-new-deck" onclick="newDeck()">New deck</button>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  BELLA <span>◆</span> British English Language Learning Assistants <span>◆</span> Vocabulary Trainer
+</footer>
+
+<script>
+/* ══════════════════════════════════════════════════════════════════
+   STATE
+══════════════════════════════════════════════════════════════════ */
+let deck        = [];   // [{word, gprp, pos, def, example}, ...]
+let queue       = [];   // [{cardIdx, direction, attempts, wrongCount}, ...]
+let queuePos    = 0;
+let totalAttempts = 0;
+let correctCount  = 0;
+let cardResults = {};   // cardIdx -> {wrongCount, masteredDirections:[]}
+
+/* ══════════════════════════════════════════════════════════════════
+   TAB SWITCHING
+══════════════════════════════════════════════════════════════════ */
+function switchTab(name) {
+  document.querySelectorAll('.tab-btn').forEach((b,i) => {
+    const names = ['paste','manual','bundled'];
+    b.classList.toggle('active', names[i] === name);
+  });
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('panel' + name.charAt(0).toUpperCase() + name.slice(1)).classList.add('active');
+  updateDeckCount();
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   GEM PASTE PARSER
+══════════════════════════════════════════════════════════════════ */
+// Parsed rows stored separately so preview edits work
+let parsedRows = [];
+
+function parseGemInput() {
+  const raw = document.getElementById('gemPasteArea').value.trim();
+  if (!raw) return;
+  parsedRows = [];
+
+  const lines = raw.split(/\n/);
+  for (const line of lines) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.length < 4) continue;
+    // Split on tab, pipe, bullet (·•), or 3+ spaces
+    const parts = trimmed.split(/\t|\s*[|·•]\s*|\s{3,}/).map(s => s.trim()).filter(Boolean);
+    if (parts.length < 2) continue;
+
+    // Heuristic: first part is the word if it has no spaces or is short
+    let word = '', gprp = '', pos = '', def = '', example = '';
+    if (parts.length >= 4) {
+      word    = parts[0];
+      // Second part: if it looks like GPRP (has caps+hyphens pattern) use it; else treat as POS
+      if (/[A-Z]{2,}/.test(parts[1]) || parts[1].includes('-')) {
+        gprp    = parts[1];
+        pos     = parts[2] || '';
+        def     = parts[3] || '';
+        example = parts[4] || '';
+      } else {
+        pos     = parts[1];
+        def     = parts[2] || '';
+        example = parts[3] || '';
+      }
+    } else if (parts.length === 3) {
+      word = parts[0]; def = parts[1]; example = parts[2];
+    } else if (parts.length === 2) {
+      word = parts[0]; def = parts[1];
+    }
+    // Basic sanity: word shouldn't be a number or very long
+    if (!word || word.split(' ').length > 4 || /^\d/.test(word)) continue;
+    if (!def && !example) continue;
+    parsedRows.push({ word, gprp, pos, def, example });
+  }
+
+  renderPreview();
+  updateDeckCount();
+}
+
+function renderPreview() {
+  const wrap = document.getElementById('pastePreview');
+  const body = document.getElementById('previewBody');
+  const title = document.getElementById('previewTitle');
+  body.innerHTML = '';
+  if (parsedRows.length === 0) {
+    wrap.classList.remove('visible');
+    return;
+  }
+  title.textContent = parsedRows.length + ' card' + (parsedRows.length !== 1 ? 's' : '') + ' found — check and remove any errors before starting';
+  wrap.classList.add('visible');
+  parsedRows.forEach((r, i) => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td class="word-cell">${esc(r.word)}</td>
+      <td class="gprp-cell">${esc(r.gprp)}</td>
+      <td>${esc(r.def)}</td>
+      <td style="color:var(--muted);font-size:0.78rem;font-style:italic">${esc(r.example)}</td>
+      <td><button class="remove-row-btn" title="Remove" onclick="removeParsedRow(${i})">✕</button></td>`;
+    body.appendChild(tr);
+  });
+}
+
+function removeParsedRow(i) {
+  parsedRows.splice(i, 1);
+  renderPreview();
+  updateDeckCount();
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   MANUAL ENTRY
+══════════════════════════════════════════════════════════════════ */
+let manualCards = [];
+
+function addManualCard() {
+  const word = document.getElementById('mWord').value.trim();
+  const def  = document.getElementById('mDef').value.trim();
+  if (!word || !def) { alert('Word and definition are required.'); return; }
+  manualCards.push({
+    word,
+    gprp:    document.getElementById('mGprp').value.trim(),
+    pos:     document.getElementById('mPos').value.trim(),
+    def,
+    example: document.getElementById('mEx').value.trim()
+  });
+  ['mWord','mGprp','mPos','mDef','mEx'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('mWord').focus();
+  renderManualList();
+  updateDeckCount();
+}
+
+function renderManualList() {
+  const list = document.getElementById('manualCardList');
+  list.innerHTML = '';
+  manualCards.forEach((c, i) => {
+    const div = document.createElement('div');
+    div.className = 'card-list-item';
+    div.innerHTML = `<span class="cli-word">${esc(c.word)}</span>
+      <span class="cli-def">${esc(c.def)}</span>
+      <button class="remove-row-btn" onclick="removeManualCard(${i})">✕</button>`;
+    list.appendChild(div);
+  });
+}
+
+function removeManualCard(i) {
+  manualCards.splice(i, 1);
+  renderManualList();
+  updateDeckCount();
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   BUNDLED DECK (lesson integration hook)
+══════════════════════════════════════════════════════════════════ */
+let bundledCards = [];
+
+function checkBundledDeck() {
+  const el = document.getElementById('bella-deck');
+  if (!el) return;
+  try {
+    const data = JSON.parse(el.textContent);
+    if (Array.isArray(data) && data.length > 0) {
+      bundledCards = data;
+      document.getElementById('tabBundled').style.display = '';
+      document.getElementById('bundledDeckName').textContent = data[0].deckName || 'Lesson deck';
+      document.getElementById('bundledDeckCount').textContent = data.length + ' cards';
+      switchTab('bundled');
+    }
+  } catch(e) {}
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   DECK COUNT & START BUTTON
+══════════════════════════════════════════════════════════════════ */
+function getActiveDeck() {
+  const activePanel = document.querySelector('.tab-panel.active');
+  if (!activePanel) return [];
+  if (activePanel.id === 'panelPaste')    return parsedRows;
+  if (activePanel.id === 'panelManual')   return manualCards;
+  if (activePanel.id === 'panelBundled')  return bundledCards;
+  return [];
+}
+
+function updateDeckCount() {
+  const cards = getActiveDeck();
+  const n = cards.length;
+  const msg = document.getElementById('deckCountMsg');
+  const btn = document.getElementById('btnStart');
+  if (n === 0) {
+    msg.innerHTML = 'No cards loaded yet.';
+    btn.disabled = true;
+  } else {
+    msg.innerHTML = `<strong>${n}</strong> card${n !== 1 ? 's' : ''} ready.`;
+    btn.disabled = false;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   SESSION LOGIC
+══════════════════════════════════════════════════════════════════ */
+function buildQueue(cards) {
+  deck = cards.map(c => ({ ...c }));
+  queue = [];
+  cardResults = {};
+
+  deck.forEach((c, i) => {
+    cardResults[i] = { wrongCount: 0, consecutiveCorrect: { rec: 0, prod: 0 }, mastered: [] };
+    // Each card gets both directions
+    queue.push({ cardIdx: i, direction: 'receptive'  });
+    queue.push({ cardIdx: i, direction: 'productive' });
+  });
+  // Shuffle
+  shuffleArray(queue);
+  // Interleave so same card doesn't appear back-to-back
+  queue = interleave(queue);
+  return queue;
+}
+
+function interleave(arr) {
+  if (arr.length < 3) return arr;
+  const result = [];
+  const used = new Set();
+  let lastIdx = -1;
+  const remaining = [...arr];
+  while (remaining.length) {
+    const pick = remaining.findIndex(item => item.cardIdx !== lastIdx);
+    if (pick === -1) { result.push(...remaining); break; }
+    result.push(remaining[pick]);
+    lastIdx = remaining[pick].cardIdx;
+    remaining.splice(pick, 1);
+  }
+  return result;
+}
+
+function startSession(weakOnly = false) {
+  let cards;
+  if (weakOnly) {
+    // Re-use deck, filter to shaky cards
+    const shakyIdxs = Object.entries(cardResults)
+      .filter(([,v]) => v.wrongCount >= 2)
+      .map(([k]) => parseInt(k));
+    cards = shakyIdxs.map(i => deck[i]);
+  } else {
+    cards = getActiveDeck();
+  }
+  if (!cards.length) return;
+
+  buildQueue(cards);
+  queuePos      = 0;
+  totalAttempts = 0;
+  correctCount  = 0;
+
+  showScreen('screenSession');
+  updateProgressBar();
+  buildDotNav();
+  renderCard();
+}
+
+function renderCard() {
+  // Skip already-mastered directions
+  while (queuePos < queue.length) {
+    const item = queue[queuePos];
+    const res  = cardResults[item.cardIdx];
+    if (res.mastered.includes(item.direction)) { queuePos++; continue; }
+    break;
+  }
+
+  if (queuePos >= queue.length) { showSummary(); return; }
+
+  const item  = queue[queuePos];
+  const card  = deck[item.cardIdx];
+  const dir   = item.direction;
+
+  updateSessionStats();
+
+  // Choose card type: flip always; mc if deck>=4; cloze if has example and deck>=2
+  const canMC    = deck.length >= 3;
+  const canCloze = !!card.example && deck.length >= 2;
+  const type     = pickCardType(canMC, canCloze);
+
+  const scene = document.getElementById('cardScene');
+  scene.innerHTML = '';
+
+  if (type === 'flip')  renderFlipCard(card, dir, scene);
+  if (type === 'mc')    renderMCCard(card, dir, scene);
+  if (type === 'cloze') renderClozeCard(card, dir, scene);
+
+  // Rating row only for flip
+  const rr = document.getElementById('ratingRow');
+  rr.style.display = (type === 'flip') ? 'flex' : 'none';
+
+  highlightDot(queuePos);
+}
+
+function pickCardType(canMC, canCloze) {
+  const r = Math.random();
+  if (canMC && canCloze) {
+    if (r < 0.40) return 'flip';
+    if (r < 0.75) return 'mc';
+    return 'cloze';
+  }
+  if (canMC)    return r < 0.50 ? 'flip' : 'mc';
+  if (canCloze) return r < 0.60 ? 'flip' : 'cloze';
+  return 'flip';
+}
+
+/* ── FLIP CARD ───────────────────────────────────────────────────── */
+function renderFlipCard(card, dir, scene) {
+  const isRec = dir === 'receptive';
+  const el = document.createElement('div');
+  el.className = 'flip-card';
+  el.id = 'activeFlip';
+
+  const frontContent = isRec
+    ? `<span class="card-type-badge">Flashcard</span>
+       <span class="card-direction-badge">Word → Meaning</span>
+       <p class="front-word">${esc(card.word)}</p>
+       ${card.gprp ? `<p class="front-gprp">${esc(card.gprp)}</p>` : ''}
+       ${card.pos  ? `<p class="front-pos">${esc(card.pos)}</p>` : ''}
+       <p class="flip-hint">Click to reveal definition</p>`
+    : `<span class="card-type-badge">Flashcard</span>
+       <span class="card-direction-badge">Meaning → Word</span>
+       <p class="front-definition">${esc(card.def)}</p>
+       <p class="flip-hint">Click to reveal word</p>`;
+
+  const backContent = isRec
+    ? `<span class="card-type-badge">Flashcard</span>
+       <p class="back-word">${esc(card.word)}</p>
+       ${card.gprp ? `<p class="back-gprp">${esc(card.gprp)}</p>` : ''}
+       ${card.pos  ? `<p class="back-pos">${esc(card.pos)}</p>` : ''}
+       <div class="back-divider"></div>
+       <p class="back-definition">${esc(card.def)}</p>
+       ${card.example ? `<p class="back-example">${esc(card.example)}</p>` : ''}
+       <button class="audio-replay-btn" title="Hear pronunciation" onclick="event.stopPropagation();speakWord('${esc(card.word)}')">🔊</button>`
+    : `<span class="card-type-badge">Flashcard</span>
+       <p class="back-word">${esc(card.word)}</p>
+       ${card.gprp ? `<p class="back-gprp">${esc(card.gprp)}</p>` : ''}
+       ${card.pos  ? `<p class="back-pos">${esc(card.pos)}</p>` : ''}
+       <div class="back-divider"></div>
+       <p class="back-definition">${esc(card.def)}</p>
+       ${card.example ? `<p class="back-example">${esc(card.example)}</p>` : ''}
+       <button class="audio-replay-btn" title="Hear pronunciation" onclick="event.stopPropagation();speakWord('${esc(card.word)}')">🔊</button>`;
+
+  el.innerHTML = `
+    <div class="card-face front">${frontContent}</div>
+    <div class="card-face back">${backContent}</div>`;
+
+  el.addEventListener('click', () => {
+    if (!el.classList.contains('flipped')) {
+      el.classList.add('flipped');
+      document.getElementById('ratingRow').style.display = 'flex';
+      speakWord(card.word);
+    }
+  });
+
+  scene.appendChild(el);
+}
+
+function rateCard(rating) {
+  const item = queue[queuePos];
+  const res  = cardResults[item.cardIdx];
+  const dirKey = item.direction === 'receptive' ? 'rec' : 'prod';
+
+  totalAttempts++;
+  if (rating === 'got') {
+    correctCount++;
+    res.consecutiveCorrect[dirKey]++;
+    if (res.consecutiveCorrect[dirKey] >= 2) {
+      res.mastered.push(item.direction);
+      setDotState(queuePos, 'mastered');
+    } else {
+      // Return after 3 cards
+      queue.splice(queuePos + 3, 0, { ...item });
+      setDotState(queuePos, 'mastered'); // will re-evaluate
+    }
+  } else if (rating === 'nearly') {
+    res.consecutiveCorrect[dirKey] = 0;
+    queue.splice(queuePos + 2, 0, { ...item });
+  } else {
+    res.wrongCount++;
+    res.consecutiveCorrect[dirKey] = 0;
+    queue.splice(queuePos + 1, 0, { ...item });
+    setDotState(queuePos, 'shaky');
+  }
+
+  queuePos++;
+  updateProgressBar();
+  renderCard();
+}
+
+/* ── MC CARD ─────────────────────────────────────────────────────── */
+function renderMCCard(card, dir, scene) {
+  const isRec = dir === 'receptive';
+  const prompt = isRec
+    ? `<span style="font-size:0.75rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;display:block;margin-bottom:0.8rem">Which word matches this definition?</span>${esc(card.def)}`
+    : `<span style="font-size:0.75rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;display:block;margin-bottom:0.8rem">Which definition matches this word?</span><em style="color:var(--gold);font-family:'Playfair Display',serif;font-size:1.5rem">${esc(card.word)}</em>`;
+
+  // Build distractors: other cards from deck
+  const others = deck.filter(c => c.word !== card.word);
+  shuffleArray(others);
+  const distractors = others.slice(0, 3);
+
+  // Build options
+  let options;
+  if (isRec) {
+    options = [card.word, ...distractors.map(d => d.word)];
+  } else {
+    options = [card.def, ...distractors.map(d => d.def)];
+  }
+  shuffleArray(options);
+  const correctOption = isRec ? card.word : card.def;
+
+  const el = document.createElement('div');
+  el.className = 'mc-card active';
+  el.innerHTML = `
+    <span style="font-size:0.68rem;color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;display:block;margin-bottom:0.5rem">Multiple choice</span>
+    <p class="mc-prompt">${prompt}</p>
+    <div class="mc-options" id="mcOptions">
+      ${options.map((opt, i) =>
+        `<button class="mc-option" data-correct="${opt === correctOption}" onclick="selectMCOption(this, '${esc(opt)}', '${esc(correctOption)}', '${esc(card.word)}')">${esc(opt)}</button>`
+      ).join('')}
+    </div>
+    <div class="mc-feedback" id="mcFeedback"></div>
+    <div style="text-align:center"><button class="mc-next-btn" id="mcNextBtn" onclick="advanceFromMC()">Next →</button></div>`;
+  scene.appendChild(el);
+}
+
+function selectMCOption(btn, selected, correct, word) {
+  if (btn.classList.contains('locked')) return;
+  const item = queue[queuePos];
+  const res  = cardResults[item.cardIdx];
+  totalAttempts++;
+
+  document.querySelectorAll('.mc-option').forEach(b => b.classList.add('locked'));
+  const feedback = document.getElementById('mcFeedback');
+  const nextBtn  = document.getElementById('mcNextBtn');
+
+  if (selected === correct) {
+    btn.classList.add('correct');
+    correctCount++;
+    res.consecutiveCorrect[item.direction === 'receptive' ? 'rec' : 'prod']++;
+    const cc = res.consecutiveCorrect[item.direction === 'receptive' ? 'rec' : 'prod'];
+    if (cc >= 2) {
+      res.mastered.push(item.direction);
+      setDotState(queuePos, 'mastered');
+    }
+    feedback.className = 'mc-feedback correct';
+    feedback.textContent = '✓ Correct!';
+    speakWord(word);
+  } else {
+    btn.classList.add('selected-wrong');
+    document.querySelectorAll('.mc-option').forEach(b => {
+      if (b.dataset.correct === 'true') b.classList.add('correct');
+    });
+    res.wrongCount++;
+    res.consecutiveCorrect[item.direction === 'receptive' ? 'rec' : 'prod'] = 0;
+    queue.splice(queuePos + 2, 0, { ...item });
+    setDotState(queuePos, 'shaky');
+    feedback.className = 'mc-feedback incorrect';
+    feedback.textContent = '✗ Not quite — the correct answer has been highlighted.';
+  }
+  nextBtn.style.display = 'inline-block';
+  updateProgressBar();
+}
+
+function advanceFromMC() {
+  queuePos++;
+  renderCard();
+}
+
+/* ── CLOZE CARD ──────────────────────────────────────────────────── */
+function renderClozeCard(card, dir, scene) {
+  const gapped = card.example.replace(
+    new RegExp(`\\b${card.word}\\b`, 'gi'),
+    '<span style="display:inline-block;min-width:80px;border-bottom:2px solid var(--gold);margin:0 2px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>'
+  );
+
+  const el = document.createElement('div');
+  el.className = 'cloze-card active';
+  el.innerHTML = `
+    <span style="font-size:0.68rem;color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;display:block;margin-bottom:1rem;align-self:flex-start">Gap-fill</span>
+    <p class="cloze-sentence">${gapped}</p>
+    <p style="font-size:0.8rem;color:var(--muted);margin-bottom:0.8rem">${esc(card.def)}</p>
+    <div class="cloze-input-wrap">
+      <input class="cloze-input" id="clozeInput" type="text" placeholder="Type the missing word…"
+        onkeydown="if(event.key==='Enter')checkCloze()">
+      <button class="btn-check-cloze" onclick="checkCloze()">Check</button>
+    </div>
+    <div class="cloze-feedback" id="clozeFeedback"></div>
+    <button class="cloze-next-btn" id="clozeNextBtn" onclick="advanceFromCloze()">Next →</button>`;
+  scene.appendChild(el);
+  setTimeout(() => document.getElementById('clozeInput').focus(), 100);
+}
+
+function checkCloze() {
+  const input = document.getElementById('clozeInput');
+  const feedback = document.getElementById('clozeFeedback');
+  const nextBtn  = document.getElementById('clozeNextBtn');
+  if (nextBtn.style.display === 'inline-block') return; // already checked
+
+  const item = queue[queuePos];
+  const card = deck[item.cardIdx];
+  const res  = cardResults[item.cardIdx];
+  const typed = input.value.trim();
+  if (!typed) return;
+
+  totalAttempts++;
+  const correct = normaliseForCloze(typed) === normaliseForCloze(card.word);
+
+  if (correct) {
+    input.classList.add('correct');
+    correctCount++;
+    const dk = item.direction === 'receptive' ? 'rec' : 'prod';
+    res.consecutiveCorrect[dk]++;
+    if (res.consecutiveCorrect[dk] >= 2) {
+      res.mastered.push(item.direction);
+      setDotState(queuePos, 'mastered');
+    }
+    feedback.className = 'cloze-feedback correct';
+    feedback.textContent = '✓ Correct!';
+    speakWord(card.word);
+  } else {
+    input.classList.add('incorrect');
+    res.wrongCount++;
+    res.consecutiveCorrect[item.direction === 'receptive' ? 'rec' : 'prod'] = 0;
+    queue.splice(queuePos + 2, 0, { ...item });
+    setDotState(queuePos, 'shaky');
+    feedback.className = 'cloze-feedback incorrect';
+    feedback.textContent = `✗ The answer is: ${card.word}`;
+  }
+  input.disabled = true;
+  nextBtn.style.display = 'inline-block';
+  updateProgressBar();
+}
+
+function normaliseForCloze(str) {
+  return str.toLowerCase()
+    .replace(/ing$/, '').replace(/ed$/, '').replace(/ly$/, '').replace(/s$/, '').trim();
+}
+
+function advanceFromCloze() {
+  queuePos++;
+  renderCard();
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   PROGRESS & DOTS
+══════════════════════════════════════════════════════════════════ */
+function buildDotNav() {
+  const nav = document.getElementById('dotNav');
+  nav.innerHTML = '';
+  queue.forEach((_, i) => {
+    const dot = document.createElement('div');
+    dot.className = 'dot';
+    dot.id = `dot-${i}`;
+    nav.appendChild(dot);
+  });
+}
+
+function highlightDot(i) {
+  document.querySelectorAll('.dot').forEach(d => d.classList.remove('current'));
+  const d = document.getElementById(`dot-${i}`);
+  if (d && !d.classList.contains('mastered') && !d.classList.contains('shaky')) {
+    d.classList.add('current');
+  }
+}
+
+function setDotState(i, state) {
+  const d = document.getElementById(`dot-${i}`);
+  if (d) { d.classList.remove('current','mastered','shaky'); d.classList.add(state); }
+}
+
+function updateProgressBar() {
+  const mastered = Object.values(cardResults).filter(r => r.mastered.length >= 2 || (deck.length === 1 && r.mastered.length >= 1)).length;
+  const pct = deck.length ? (mastered / deck.length) * 100 : 0;
+  document.getElementById('progressFill').style.width = pct + '%';
+}
+
+function updateSessionStats() {
+  const total = queue.filter((item, i) => {
+    // Count unique card positions in queue (including re-queued)
+    return true;
+  }).length;
+  document.getElementById('statCardNum').textContent   = queuePos + 1;
+  document.getElementById('statCardTotal').textContent = queue.length;
+  document.getElementById('statCorrect').innerHTML     = `✓ <strong>${correctCount}</strong> correct`;
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   SUMMARY
+══════════════════════════════════════════════════════════════════ */
+function endSession() {
+  if (confirm('End this session and see your results?')) showSummary();
+}
+
+function showSummary() {
+  const pct = totalAttempts ? Math.round((correctCount / totalAttempts) * 100) : 0;
+  const bandMsg = pct >= 88 ? 'Excellent work — most of these words are well on their way to long-term memory.'
+    : pct >= 72 ? 'Good progress. Review the shaky cards and you\'ll have them solidly.'
+    : pct >= 52 ? 'A solid start. Keep returning to the weak cards — repetition is how words stick.'
+    : 'These words need more practice. The gap-fill and multiple choice cards will help them stick.';
+
+  document.getElementById('scorePct').textContent    = pct + '%';
+  document.getElementById('scoreBandMsg').textContent = bandMsg;
+  document.getElementById('summarySubLine').textContent =
+    `${correctCount} correct out of ${totalAttempts} attempts`;
+
+  // Conic gradient for score ring
+  document.getElementById('scoreCircle').style.background =
+    `conic-gradient(var(--gold) ${pct * 3.6}deg, var(--navy-light) 0deg)`;
+
+  // Mastered and shaky lists
+  const masteredEl = document.getElementById('masteredList');
+  const shakyEl    = document.getElementById('shakyList');
+  masteredEl.innerHTML = '';
+  shakyEl.innerHTML    = '';
+
+  deck.forEach((card, i) => {
+    const res = cardResults[i];
+    const li  = document.createElement('li');
+    li.innerHTML = `<span class="w">${esc(card.word)}</span><span class="d">${esc(card.def)}</span>`;
+    if (res.mastered.length >= 2 || (deck.length === 1 && res.mastered.length >= 1)) {
+      masteredEl.appendChild(li);
+    } else if (res.wrongCount >= 2) {
+      shakyEl.appendChild(li.cloneNode(true));
+    }
+  });
+
+  if (!masteredEl.children.length) masteredEl.innerHTML = '<li style="color:var(--muted);font-size:0.82rem">Keep going — you\'ll get there.</li>';
+  if (!shakyEl.children.length)    shakyEl.innerHTML    = '<li style="color:var(--muted);font-size:0.82rem">None flagged.</li>';
+
+  const weakCount = Object.values(cardResults).filter(r => r.wrongCount >= 2).length;
+  document.getElementById('btnPracticeWeak').style.display = weakCount ? 'block' : 'none';
+
+  showScreen('screenSummary');
+  document.getElementById('progressFill').style.width = '100%';
+}
+
+function practiceWeak() { startSession(true); }
+function newDeck()       {
+  parsedRows = []; manualCards = []; bundledCards = [];
+  renderPreview(); renderManualList(); updateDeckCount();
+  showScreen('screenInput');
+  document.getElementById('progressFill').style.width = '0%';
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   AUDIO
+══════════════════════════════════════════════════════════════════ */
+function speakWord(word) {
+  if (!('speechSynthesis' in window)) return;
+  window.speechSynthesis.cancel();
+  const utt = new SpeechSynthesisUtterance(word);
+  utt.lang  = 'en-GB';
+  utt.rate  = 0.82;
+  const voices = window.speechSynthesis.getVoices();
+  const brit   = voices.find(v => v.lang === 'en-GB');
+  if (brit) utt.voice = brit;
+  window.speechSynthesis.speak(utt);
+}
+// Ensure voices are loaded
+if ('speechSynthesis' in window) {
+  window.speechSynthesis.getVoices();
+  window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   UTILITIES
+══════════════════════════════════════════════════════════════════ */
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function shuffleArray(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+function esc(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   INIT
+══════════════════════════════════════════════════════════════════ */
+document.addEventListener('DOMContentLoaded', () => {
+  checkBundledDeck();
+  updateDeckCount();
+});
+</script>
+</body>
+</html>
