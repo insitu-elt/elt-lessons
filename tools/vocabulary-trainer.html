@@ -959,7 +959,7 @@ body {
     <p class="input-screen-sub">VOCABULARY · RETRIEVAL PRACTICE · BELLA</p>
 
     <div class="tab-row">
-      <button class="tab-btn active" onclick="switchTab('paste')">Paste from Gem</button>
+      <button class="tab-btn active" onclick="switchTab('paste')">Paste from Gemini</button>
       <button class="tab-btn" onclick="switchTab('manual')">Enter manually</button>
       <button class="tab-btn" id="tabBundled" onclick="switchTab('bundled')" style="display:none">Lesson deck</button>
     </div>
@@ -969,14 +969,14 @@ body {
       <div class="panel-box">
         <label class="panel-label">Paste vocabulary output</label>
         <textarea class="gem-textarea" id="gemPasteArea"
-          placeholder="Paste vocabulary table output from The Word Lab, The Reading Room, Picture This, or any other BELLA assistant here.&#10;&#10;The trainer will find lines containing a word, pronunciation, and definition."></textarea>
-        <p class="parse-hint">Accepts output in the format: <em>word · GPRP · part of speech · definition · example sentence</em>. Each word on its own line or row. Tabs, pipes, and bullet separators are all recognised.</p>
-        <button class="btn-add-card" style="margin-top:0.8rem" onclick="parseGemInput()">Parse vocabulary ▶</button>
+          placeholder="Paste your vocabulary table here — from The Reading Room, The Word Lab, Picture This, or any other BELLA assistant.&#10;&#10;Works with tables copied directly from Gemini. Just paste and click."></textarea>
+        <p class="parse-hint">Copy your vocabulary table from the Gemini assistant and paste it here. The trainer will find the words automatically — you don't need to reformat anything first.</p>
+        <button class="btn-add-card" style="margin-top:0.8rem" onclick="parseGemInput()">Find words ▶</button>
         <div class="preview-wrap" id="pastePreview">
           <p class="preview-title" id="previewTitle"></p>
           <table class="preview-table" id="previewTable">
             <thead><tr>
-              <th>Word</th><th>GPRP</th><th>Definition</th><th>Example</th><th></th>
+              <th>Word</th><th>Pronunciation</th><th>Definition</th><th>Example sentence</th><th></th>
             </tr></thead>
             <tbody id="previewBody"></tbody>
           </table>
@@ -1115,50 +1115,167 @@ function switchTab(name) {
 }
 
 /* ══════════════════════════════════════════════════════════════════
-   GEM PASTE PARSER
+   GEM PASTE PARSER — multi-mode
+   Handles: fused (no-separator) tables, pipe/tab tables, Word Lab prose
 ══════════════════════════════════════════════════════════════════ */
-// Parsed rows stored separately so preview edits work
 let parsedRows = [];
+
+// ── GPRP pattern ─────────────────────────────────────────────────
+const GPRP_RE = /(?:[a-z]+-|[A-Z]{2,}-)*(?:[A-Z]{2,}(?![a-zA-Z])|[A-Z]{2,}(?=[A-Z][a-z])|[A-Z]{2,}[a-z]+|[a-z]+)/g;
+
+function isValidGprp(s) {
+  if (!s || s.length < 3) return false;
+  if (!/[A-Z]{2,}/.test(s)) return false;
+  if (!s.includes('-') && !/[A-Z]{3,}/.test(s)) return false;
+  return s.split('-').every(syl => syl.length <= 7);
+}
+
+// ── Split fused word+definition at TitleCase boundary ─────────────
+function splitWordDef(text) {
+  text = text.trim();
+  const m = text.match(/^([A-Z][a-z'\-]+)([A-Z].*)?$/s);
+  if (m) return [m[1], (m[2] || '').trim()];
+  return [text, ''];
+}
+
+// ── Strip vocabulary table header ────────────────────────────────
+const HEADER_WORDS = new Set(['word','meaning','pronunciation','rp','definition',
+  'translation','category','context','sentence','mouth','coach','bre','example']);
+
+function stripVocabHeader(raw) {
+  if (raw.includes('\n')) {
+    const lines = raw.split('\n');
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i].trim();
+      if (!line || /^[\|\s:\-]+$/.test(line)) continue;
+      const first = line.split(/[\s|]/)[0].replace(/[*|:]/g,'').toLowerCase();
+      if (first && !HEADER_WORDS.has(first)) return lines.slice(i).join('\n');
+    }
+    return raw;
+  }
+  // No newlines — fused string: find first TitleCase word not in header set
+  const rx = /[A-Z][a-z]{2,}/g;
+  let m;
+  while ((m = rx.exec(raw)) !== null) {
+    if (!HEADER_WORDS.has(m[0].toLowerCase())) return raw.slice(m.index);
+  }
+  return raw;
+}
+
+// ── Mode A: GPRP-anchored fused string ───────────────────────────
+function parseFused(raw) {
+  const text = stripVocabHeader(raw);
+  const matches = [];
+  const re = new RegExp(GPRP_RE.source, 'g');
+  let m;
+  while ((m = re.exec(text)) !== null) {
+    if (isValidGprp(m[0])) matches.push([m.index, m.index + m[0].length, m[0]]);
+  }
+  const results = [];
+  let prevEnd = 0;
+  for (const [start, end, gprp] of matches) {
+    const segment = text.slice(prevEnd, start).trim().replace(/[.,;]+$/, '');
+    prevEnd = end;
+    if (segment.length < 3) continue;
+    const [word, defn] = splitWordDef(segment);
+    if (word.length > 2 && defn.length > 4)
+      results.push({ word, gprp, def: defn, example: '' });
+  }
+  return results;
+}
+
+// ── Mode B: pipe/tab separated ───────────────────────────────────
+function parseSeparated(raw) {
+  const results = [];
+  for (const line of raw.split('\n')) {
+    const l = line.trim();
+    if (!l || /^[\|\s:\-]+$/.test(l)) continue;
+    const sep = l.includes('\t') ? '\t' : '|';
+    const parts = l.split(sep).map(p => p.trim()).filter(Boolean);
+    if (parts.length < 2) continue;
+    const word = parts[0].replace(/\*/g, '').trim();
+    if (!word || word.length > 40 || HEADER_WORDS.has(word.toLowerCase())) continue;
+    let gprp = '', defn = '', example = '';
+    for (const p of parts.slice(1)) {
+      if (isValidGprp(p)) { gprp = p; continue; }
+      if (!defn && p.length > 5) { defn = p; continue; }
+      if (defn && !example && p.length > 5) { example = p; }
+    }
+    if (word && defn) results.push({ word, gprp, def: defn, example });
+  }
+  return results;
+}
+
+// ── Mode C: Word Lab prose (bold **WORD** headers) ────────────────
+function parseWordLab(raw) {
+  const results = [];
+  const blocks = raw.split(/\n(?=\*\*[A-Z])/);
+  for (const block of blocks) {
+    if (!block.trim() || !block.startsWith('**')) continue;
+    const wm = block.match(/^\*\*([A-Za-z][a-zA-Z'\-]*)\*\*/);
+    if (!wm) continue;
+    const word = wm[1];
+    let gprp = '';
+    const gm = block.match(/[•(]([a-zA-Z][a-zA-Z\-]{3,})[)\s•]/);
+    if (gm && isValidGprp(gm[1])) gprp = gm[1];
+    let defn = '';
+    const dm = block.match(/\*\*Definition\*\*:?\s*(.+?)(?:\n|$)/);
+    if (dm) defn = dm[1].trim();
+    let example = '';
+    const em = block.match(/\*\*Example Sentence[^:]*\*\*:?\s*(.+?)(?:\n|$)/);
+    if (em) example = em[1].trim().replace(/^\*|_|\*$/g, '');
+    if (word && defn) results.push({ word, gprp, def: defn, example });
+  }
+  return results;
+}
+
+// ── Auto-detect and dispatch ──────────────────────────────────────
+function detectAndParse(raw) {
+  if (!raw) return { results: [], mode: 'empty' };
+  // Wordsmith: Lexical Ladder with ↑
+  if (raw.includes('\u2191') || raw.includes('Lexical Ladder'))
+    return { results: [], mode: 'wordsmith' };
+  // Word Lab: bold **WORD** (PoS) headers
+  if (/\*\*[A-Z][a-zA-Z]+\*\*\s*\*?\(/.test(raw))
+    return { results: parseWordLab(raw), mode: 'word_lab' };
+  // Pipe/tab separated
+  if (raw.includes('|') || raw.includes('\t')) {
+    const r = parseSeparated(raw);
+    if (r.length > 0) return { results: r, mode: 'separated' };
+  }
+  // Default: GPRP-anchored fused
+  return { results: parseFused(raw), mode: 'fused' };
+}
 
 function parseGemInput() {
   const raw = document.getElementById('gemPasteArea').value.trim();
   if (!raw) return;
   parsedRows = [];
 
-  const lines = raw.split(/\n/);
-  for (const line of lines) {
-    const trimmed = line.trim();
-    if (!trimmed || trimmed.length < 4) continue;
-    // Split on tab, pipe, bullet (·•), or 3+ spaces
-    const parts = trimmed.split(/\t|\s*[|·•]\s*|\s{3,}/).map(s => s.trim()).filter(Boolean);
-    if (parts.length < 2) continue;
+  const { results, mode } = detectAndParse(raw);
 
-    // Heuristic: first part is the word if it has no spaces or is short
-    let word = '', gprp = '', pos = '', def = '', example = '';
-    if (parts.length >= 4) {
-      word    = parts[0];
-      // Second part: if it looks like GPRP (has caps+hyphens pattern) use it; else treat as POS
-      if (/[A-Z]{2,}/.test(parts[1]) || parts[1].includes('-')) {
-        gprp    = parts[1];
-        pos     = parts[2] || '';
-        def     = parts[3] || '';
-        example = parts[4] || '';
-      } else {
-        pos     = parts[1];
-        def     = parts[2] || '';
-        example = parts[3] || '';
-      }
-    } else if (parts.length === 3) {
-      word = parts[0]; def = parts[1]; example = parts[2];
-    } else if (parts.length === 2) {
-      word = parts[0]; def = parts[1];
-    }
-    // Basic sanity: word shouldn't be a number or very long
-    if (!word || word.split(' ').length > 4 || /^\d/.test(word)) continue;
-    if (!def && !example) continue;
-    parsedRows.push({ word, gprp, pos, def, example });
+  if (mode === 'wordsmith') {
+    // Show a helpful message rather than failing silently
+    const wrap = document.getElementById('pastePreview');
+    const title = document.getElementById('previewTitle');
+    wrap.classList.add('visible');
+    title.textContent = 'Wordsmith output uses a different format — please use Enter manually to add individual words, or try a different BELLA assistant.';
+    document.getElementById('previewBody').innerHTML = '';
+    updateDeckCount();
+    return;
   }
 
+  if (mode === 'empty' || results.length === 0) {
+    const wrap = document.getElementById('pastePreview');
+    const title = document.getElementById('previewTitle');
+    wrap.classList.add('visible');
+    title.textContent = 'No words found — try copying the full vocabulary table including the header row, then click Find words again.';
+    document.getElementById('previewBody').innerHTML = '';
+    updateDeckCount();
+    return;
+  }
+
+  parsedRows = results;
   renderPreview();
   updateDeckCount();
 }
@@ -1172,7 +1289,7 @@ function renderPreview() {
     wrap.classList.remove('visible');
     return;
   }
-  title.textContent = parsedRows.length + ' card' + (parsedRows.length !== 1 ? 's' : '') + ' found — check and remove any errors before starting';
+  title.textContent = parsedRows.length + ' word' + (parsedRows.length !== 1 ? 's' : '') + ' found — remove any you don\'t want, then click Begin session';
   wrap.classList.add('visible');
   parsedRows.forEach((r, i) => {
     const tr = document.createElement('tr');
