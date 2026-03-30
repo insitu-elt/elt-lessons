@@ -413,202 +413,40 @@ body {
 /* ── Card shell ────────────────────────────────────────────────── */
 .card-scene {
   width: 100%;
-  perspective: 1200px;
   margin-bottom: 1.5rem;
-  height: 320px;
-  position: relative;
 }
 
-/* FLIP CARD */
+/* FLIP CARD ─────────────────────────────────────────────── */
 .flip-card {
   width: 100%;
-  height: 320px;
-  position: relative;
-  transform-style: preserve-3d;
-  transition: transform 0.45s ease;
   cursor: pointer;
 }
-.flip-card.flipped { transform: rotateY(180deg); }
-
 .card-face {
-  position: absolute;
+  display: none;
   width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
   background: var(--cream);
   border-radius: 10px;
   box-shadow: 0 4px 24px var(--shadow);
-  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 2.5rem 2rem;
-  top: 0; left: 0;
-  overflow-y: auto;
+  padding: 2rem;
+  min-height: 300px;
+  box-sizing: border-box;
 }
-.card-face.back {
-  transform: rotateY(180deg);
-  justify-content: flex-start;
-  padding-top: 2rem;
-}
+.card-face.front { display: flex; }
+.card-face.back  { display: none; justify-content: flex-start; padding-top: 1.5rem; cursor: default; }
+.flip-card.flipped .card-face.front { display: none; }
+.flip-card.flipped .card-face.back  { display: flex; }
 
-.card-type-badge {
-  position: absolute;
-  top: 1rem;
-  left: 1.2rem;
-  font-size: 0.68rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--muted);
-  font-family: 'Source Sans 3', sans-serif;
-}
-
-.card-direction-badge {
-  position: absolute;
-  top: 1rem;
-  right: 1.2rem;
-  font-size: 0.68rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--muted);
-  background: var(--cream-dark);
-  padding: 0.2rem 0.5rem;
-  border-radius: 3px;
-}
-
-/* Front face content */
-.front-word {
-  font-family: 'Playfair Display', serif;
-  font-size: 2.2rem;
-  font-weight: 700;
-  color: var(--ink);
-  text-align: center;
-  margin-bottom: 0.4rem;
-}
-.front-gprp {
-  font-size: 0.9rem;
-  color: var(--muted);
-  font-style: italic;
-  margin-bottom: 0.3rem;
-}
-.front-pos {
-  font-size: 0.78rem;
-  color: var(--muted);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-.front-definition {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.35rem;
-  color: var(--ink);
-  text-align: center;
-  line-height: 1.5;
-  max-width: 500px;
-}
-
-.flip-hint {
-  position: absolute;
-  bottom: 1rem;
-  font-size: 0.75rem;
-  color: var(--muted);
-  letter-spacing: 0.06em;
-}
-
-/* Back face content */
-.back-word {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: var(--ink);
-  text-align: center;
-  margin-bottom: 0.25rem;
-}
-.back-gprp {
-  font-size: 0.88rem;
-  color: var(--muted);
-  font-style: italic;
-  margin-bottom: 0.2rem;
-}
-.back-pos {
-  font-size: 0.75rem;
-  color: var(--muted);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  margin-bottom: 1rem;
-}
-.back-divider {
-  width: 40px;
-  height: 2px;
-  background: var(--gold);
-  margin: 0 auto 1rem;
-}
-.back-definition {
-  font-size: 1rem;
-  color: var(--ink);
-  text-align: center;
-  line-height: 1.6;
-  margin-bottom: 0.8rem;
-  max-width: 480px;
-}
-.back-example {
-  font-size: 0.88rem;
-  color: #444;
-  text-align: center;
-  font-style: italic;
-  line-height: 1.5;
-  max-width: 480px;
-  padding: 0.6rem 1rem;
-  background: var(--cream-dark);
-  border-radius: 4px;
-  border-left: 3px solid var(--gold);
-  margin-bottom: 0.8rem;
-}
-
-.audio-replay-btn {
-  background: none;
-  border: 1px solid rgba(184,150,62,0.4);
-  color: var(--gold);
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: 0.85rem;
+.in-card-rating {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.2s;
-  margin-top: 0.3rem;
-}
-.audio-replay-btn:hover { background: rgba(184,150,62,0.1); }
-
-/* Self-rating buttons */
-.rating-row {
-  display: flex;
-  gap: 0.8rem;
-  margin-top: 1rem;
+  gap: 0.7rem;
+  margin-top: 1.2rem;
   justify-content: center;
   width: 100%;
+  flex-wrap: wrap;
 }
-.rating-btn {
-  flex: 1;
-  max-width: 140px;
-  padding: 0.7rem 0.5rem;
-  border-radius: var(--radius);
-  border: 1px solid transparent;
-  font-family: 'Source Sans 3', sans-serif;
-  font-size: 0.88rem;
-  font-weight: 600;
-  cursor: pointer;
-  letter-spacing: 0.02em;
-  transition: transform 0.1s, box-shadow 0.1s;
-  display: block;
-}
-.rating-btn:hover { transform: translateY(-1px); box-shadow: 0 2px 8px var(--shadow); }
-
-.btn-got-it   { background: var(--correct-bg); color: var(--correct); border-color: var(--correct); }
-.btn-nearly   { background: var(--shaky-bg);   color: var(--shaky);   border-color: var(--shaky); }
-.btn-not-yet  { background: var(--incorrect-bg); color: var(--incorrect); border-color: var(--incorrect); }
 
 /* ── MC CARD ────────────────────────────────────────────────────── */
 .mc-card {
@@ -1044,12 +882,8 @@ body {
     <!-- Card scene (flip, MC, cloze rendered here) -->
     <div class="card-scene" id="cardScene"></div>
 
-    <!-- Rating row (shown outside card for layout stability) -->
-    <div class="rating-row" id="ratingRow" style="display:none; margin-top:1rem; justify-content:center; gap:0.8rem; width:100%; flex-wrap:wrap;">
-      <button class="rating-btn btn-got-it"  onclick="rateCard('got')">✓ Got it</button>
-      <button class="rating-btn btn-nearly"  onclick="rateCard('nearly')">~ Nearly</button>
-      <button class="rating-btn btn-not-yet" onclick="rateCard('nope')">✗ Not yet</button>
-    </div>
+    <!-- Rating row now inside flip card back face -->
+    <div id="ratingRow" style="display:none"></div>
   </section>
 
   <!-- ══ SUMMARY SCREEN ════════════════════════════════════════ -->
@@ -1470,7 +1304,7 @@ function buildQueue(cards) {
   cardResults = {};
 
   deck.forEach((c, i) => {
-    cardResults[i] = { wrongCount: 0, consecutiveCorrect: { rec: 0, prod: 0 }, mastered: [] };
+    cardResults[i] = { wrongCount: 0, consecutiveCorrect: { rec: 0, prod: 0 }, mastered: [], repCount: { rec: 0, prod: 0 } };
     // Each card gets both directions
     queue.push({ cardIdx: i, direction: 'receptive'  });
     queue.push({ cardIdx: i, direction: 'productive' });
@@ -1561,61 +1395,121 @@ function renderCard() {
 function pickCardType(canMC, canCloze) {
   const r = Math.random();
   if (canMC && canCloze) {
-    if (r < 0.40) return 'flip';
-    if (r < 0.75) return 'mc';
+    if (r < 0.35) return 'flip';
+    if (r < 0.65) return 'mc';
     return 'cloze';
   }
-  if (canMC)    return r < 0.50 ? 'flip' : 'mc';
-  if (canCloze) return r < 0.60 ? 'flip' : 'cloze';
+  if (canMC)    return r < 0.45 ? 'flip' : 'mc';
+  if (canCloze) return r < 0.45 ? 'flip' : 'cloze';
   return 'flip';
 }
 
 /* ── FLIP CARD ───────────────────────────────────────────────────── */
 function renderFlipCard(card, dir, scene) {
   const isRec = dir === 'receptive';
+
+  // ── Front face ──────────────────────────────────────────────────
+  const front = document.createElement('div');
+  front.className = 'card-face front';
+
+  const badge = document.createElement('span');
+  badge.className = 'card-type-badge';
+  badge.textContent = isRec ? 'Flashcard — Word to Meaning' : 'Flashcard — Meaning to Word';
+  front.appendChild(badge);
+
+  if (isRec) {
+    const w = document.createElement('p');
+    w.className = 'front-word';
+    w.textContent = card.word;
+    front.appendChild(w);
+    if (card.gprp) {
+      const g = document.createElement('p');
+      g.className = 'front-gprp';
+      g.textContent = card.gprp;
+      front.appendChild(g);
+      const d = document.createElement('div');
+      d.className = 'back-divider';
+      front.appendChild(d);
+    }
+  } else {
+    const df = document.createElement('p');
+    df.className = 'back-definition';
+    df.textContent = card.def;
+    front.appendChild(df);
+  }
+
+  const hint = document.createElement('p');
+  hint.className = 'flip-hint';
+  hint.textContent = 'Tap to reveal';
+  front.appendChild(hint);
+
+  // ── Back face ───────────────────────────────────────────────────
+  const back = document.createElement('div');
+  back.className = 'card-face back';
+
+  const badge2 = document.createElement('span');
+  badge2.className = 'card-type-badge';
+  badge2.textContent = 'Flashcard';
+  back.appendChild(badge2);
+
+  const bw = document.createElement('p');
+  bw.className = 'back-word';
+  bw.textContent = card.word;
+  back.appendChild(bw);
+
+  if (card.gprp) {
+    const bg = document.createElement('p');
+    bg.className = 'back-gprp';
+    bg.textContent = card.gprp;
+    back.appendChild(bg);
+  }
+
+  const bdiv = document.createElement('div');
+  bdiv.className = 'back-divider';
+  back.appendChild(bdiv);
+
+  const bdef = document.createElement('p');
+  bdef.className = 'back-definition';
+  bdef.textContent = card.def;
+  back.appendChild(bdef);
+
+  if (card.example) {
+    const bex = document.createElement('p');
+    bex.className = 'back-example';
+    bex.textContent = card.example;
+    back.appendChild(bex);
+  }
+
+  const audioBtn = document.createElement('button');
+  audioBtn.className = 'audio-replay-btn';
+  audioBtn.title = 'Hear pronunciation';
+  audioBtn.textContent = '🔊';
+  audioBtn.addEventListener('click', function(e) { e.stopPropagation(); speakWord(card.word); });
+  back.appendChild(audioBtn);
+
+  // Rating buttons
+  const ratingDiv = document.createElement('div');
+  ratingDiv.className = 'in-card-rating';
+
+  [['btn-got-it','got','✓ Got it'],['btn-nearly','nearly','~ Nearly'],['btn-not-yet','nope','✗ Not yet']].forEach(function(item) {
+    const btn = document.createElement('button');
+    btn.className = 'rating-btn ' + item[0];
+    btn.textContent = item[2];
+    btn.addEventListener('click', function(e) { e.stopPropagation(); rateCard(item[1]); });
+    ratingDiv.appendChild(btn);
+  });
+  back.appendChild(ratingDiv);
+
+  // ── Assemble ────────────────────────────────────────────────────
   const el = document.createElement('div');
   el.className = 'flip-card';
   el.id = 'activeFlip';
+  el.appendChild(front);
+  el.appendChild(back);
 
-  const frontContent = isRec
-    ? `<span class="card-type-badge">Flashcard</span>
-       <span class="card-direction-badge">Word → Meaning</span>
-       <p class="front-word">${esc(card.word)}</p>
-       ${card.gprp ? `<p class="front-gprp">${esc(card.gprp)}</p>` : ''}
-       ${card.pos  ? `<p class="front-pos">${esc(card.pos)}</p>` : ''}
-       <p class="flip-hint">Click to reveal definition</p>`
-    : `<span class="card-type-badge">Flashcard</span>
-       <span class="card-direction-badge">Meaning → Word</span>
-       <p class="front-definition">${esc(card.def)}</p>
-       <p class="flip-hint">Click to reveal word</p>`;
-
-  const backContent = isRec
-    ? `<span class="card-type-badge">Flashcard</span>
-       <p class="back-word">${esc(card.word)}</p>
-       ${card.gprp ? `<p class="back-gprp">${esc(card.gprp)}</p>` : ''}
-       ${card.pos  ? `<p class="back-pos">${esc(card.pos)}</p>` : ''}
-       <div class="back-divider"></div>
-       <p class="back-definition">${esc(card.def)}</p>
-       ${card.example ? `<p class="back-example">${esc(card.example)}</p>` : ''}
-       <button class="audio-replay-btn" title="Hear pronunciation" onclick="event.stopPropagation();speakWord('${esc(card.word)}')">🔊</button>`
-    : `<span class="card-type-badge">Flashcard</span>
-       <p class="back-word">${esc(card.word)}</p>
-       ${card.gprp ? `<p class="back-gprp">${esc(card.gprp)}</p>` : ''}
-       ${card.pos  ? `<p class="back-pos">${esc(card.pos)}</p>` : ''}
-       <div class="back-divider"></div>
-       <p class="back-definition">${esc(card.def)}</p>
-       ${card.example ? `<p class="back-example">${esc(card.example)}</p>` : ''}
-       <button class="audio-replay-btn" title="Hear pronunciation" onclick="event.stopPropagation();speakWord('${esc(card.word)}')">🔊</button>`;
-
-  el.innerHTML = `
-    <div class="card-face front">${frontContent}</div>
-    <div class="card-face back">${backContent}</div>`;
-
-  el.addEventListener('click', () => {
+  el.addEventListener('click', function() {
     if (!el.classList.contains('flipped')) {
       el.classList.add('flipped');
-      const rr = document.getElementById('ratingRow');
-      rr.style.cssText = 'display:flex !important; margin-top:1rem; justify-content:center; gap:0.8rem; width:100%; flex-wrap:wrap;';
       speakWord(card.word);
     }
   });
@@ -1636,17 +1530,20 @@ function rateCard(rating) {
       res.mastered.push(item.direction);
       setDotState(queuePos, 'mastered');
     } else {
-      // Return after 3 cards
-      queue.splice(queuePos + 3, 0, { ...item });
-      setDotState(queuePos, 'mastered'); // will re-evaluate
+      // Return after 3 cards (capped)
+      res.repCount[dirKey]++;
+      if (res.repCount[dirKey] < 3) queue.splice(queuePos + 3, 0, { ...item });
+      setDotState(queuePos, 'mastered');
     }
   } else if (rating === 'nearly') {
     res.consecutiveCorrect[dirKey] = 0;
-    queue.splice(queuePos + 2, 0, { ...item });
+    res.repCount[dirKey]++;
+    if (res.repCount[dirKey] < 3) queue.splice(queuePos + 2, 0, { ...item });
   } else {
     res.wrongCount++;
     res.consecutiveCorrect[dirKey] = 0;
-    queue.splice(queuePos + 1, 0, { ...item });
+    res.repCount[dirKey]++;
+    if (res.repCount[dirKey] < 3) queue.splice(queuePos + 1, 0, { ...item });
     setDotState(queuePos, 'shaky');
   }
 
