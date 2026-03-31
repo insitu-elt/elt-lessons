@@ -52,7 +52,6 @@ body {
   height: 56px;
   flex-shrink: 0;
 }
-
 .site-header .brand {
   font-family: 'Playfair Display', serif;
   font-size: 1.1rem;
@@ -61,7 +60,6 @@ body {
   letter-spacing: 0.08em;
   text-decoration: none;
 }
-
 .site-header .tool-name {
   font-size: 0.8rem;
   color: var(--muted);
@@ -70,11 +68,7 @@ body {
 }
 
 /* ── Progress bar ──────────────────────────────────────────────── */
-.progress-bar-track {
-  height: 3px;
-  background: var(--navy-light);
-  flex-shrink: 0;
-}
+.progress-bar-track { height: 3px; background: var(--navy-light); flex-shrink: 0; }
 .progress-bar-fill {
   height: 100%;
   background: linear-gradient(90deg, var(--gold), var(--gold-light));
@@ -116,10 +110,8 @@ body {
   letter-spacing: 0.04em;
 }
 
-/* Tab switcher */
 .tab-row {
   display: flex;
-  gap: 0;
   margin-bottom: 1.5rem;
   border: 1px solid rgba(184,150,62,0.3);
   border-radius: var(--radius);
@@ -141,21 +133,12 @@ body {
   border-right: 1px solid rgba(184,150,62,0.2);
 }
 .tab-btn:last-child { border-right: none; }
-.tab-btn.active {
-  background: var(--gold);
-  color: var(--navy);
-  font-weight: 600;
-}
-.tab-btn:hover:not(.active) {
-  background: var(--navy-mid);
-  color: var(--cream);
-}
+.tab-btn.active { background: var(--gold); color: var(--navy); font-weight: 600; }
+.tab-btn:hover:not(.active) { background: var(--navy-mid); color: var(--cream); }
 
-/* Tab panels */
 .tab-panel { display: none; width: 100%; }
 .tab-panel.active { display: block; }
 
-/* Shared panel styles */
 .panel-box {
   background: var(--navy-light);
   border: 1px solid rgba(184,150,62,0.2);
@@ -163,7 +146,6 @@ body {
   padding: 1.5rem;
   width: 100%;
 }
-
 .panel-label {
   font-size: 0.8rem;
   letter-spacing: 0.1em;
@@ -173,7 +155,6 @@ body {
   display: block;
 }
 
-/* Gem paste panel */
 .gem-textarea {
   width: 100%;
   min-height: 180px;
@@ -192,31 +173,12 @@ body {
 .gem-textarea:focus { border-color: var(--gold); }
 .gem-textarea::placeholder { color: var(--muted); font-style: italic; }
 
-.parse-hint {
-  font-size: 0.78rem;
-  color: var(--muted);
-  margin-top: 0.6rem;
-  line-height: 1.5;
-}
+.parse-hint { font-size: 0.78rem; color: var(--muted); margin-top: 0.6rem; line-height: 1.5; }
 
-/* Parse preview table */
-.preview-wrap {
-  margin-top: 1.2rem;
-  display: none;
-}
+.preview-wrap { margin-top: 1.2rem; display: none; }
 .preview-wrap.visible { display: block; }
-.preview-title {
-  font-size: 0.8rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 0.6rem;
-}
-.preview-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.82rem;
-}
+.preview-title { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.6rem; }
+.preview-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
 .preview-table th {
   background: var(--navy);
   color: var(--muted);
@@ -249,13 +211,7 @@ body {
 }
 .remove-row-btn:hover { color: var(--incorrect); }
 
-/* Manual entry panel */
-.manual-form {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.8rem;
-  margin-bottom: 1rem;
-}
+.manual-form { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin-bottom: 1rem; }
 .manual-form .full-width { grid-column: 1 / -1; }
 
 .field-group label {
@@ -266,7 +222,7 @@ body {
   color: var(--gold);
   margin-bottom: 0.35rem;
 }
-.field-group input, .field-group textarea {
+.field-group input {
   width: 100%;
   background: var(--navy);
   border: 1px solid rgba(184,150,62,0.25);
@@ -278,8 +234,8 @@ body {
   outline: none;
   transition: border-color 0.2s;
 }
-.field-group input:focus, .field-group textarea:focus { border-color: var(--gold); }
-.field-group input::placeholder, .field-group textarea::placeholder { color: var(--muted); font-style: italic; }
+.field-group input:focus { border-color: var(--gold); }
+.field-group input::placeholder { color: var(--muted); font-style: italic; }
 
 .btn-add-card {
   background: var(--navy);
@@ -296,12 +252,7 @@ body {
 }
 .btn-add-card:hover { background: var(--navy-mid); border-color: var(--gold); }
 
-.card-list {
-  margin-top: 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-}
+.card-list { margin-top: 1rem; display: flex; flex-direction: column; gap: 0.4rem; }
 .card-list-item {
   display: flex;
   align-items: center;
@@ -313,33 +264,15 @@ body {
   font-size: 0.85rem;
 }
 .card-list-item .cli-word { color: var(--gold-light); font-weight: 600; min-width: 120px; }
-.card-list-item .cli-def { color: var(--muted); flex: 1; font-size: 0.8rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.card-list-item .cli-def  { color: var(--muted); flex: 1; font-size: 0.8rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-/* Bundled deck notice */
-.bundled-notice {
-  background: var(--navy);
-  border: 1px solid rgba(184,150,62,0.3);
-  border-radius: 4px;
-  padding: 1.2rem;
-  text-align: center;
-}
-.bundled-notice .bn-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+.bundled-notice { background: var(--navy); border: 1px solid rgba(184,150,62,0.3); border-radius: 4px; padding: 1.2rem; text-align: center; }
+.bundled-notice .bn-icon  { font-size: 2rem; margin-bottom: 0.5rem; }
 .bundled-notice .bn-title { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--gold); margin-bottom: 0.3rem; }
-.bundled-notice .bn-sub { font-size: 0.88rem; color: var(--muted); }
+.bundled-notice .bn-sub   { font-size: 0.88rem; color: var(--muted); }
 
-/* Start button */
-.start-row {
-  margin-top: 1.8rem;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.6rem;
-}
-.deck-count {
-  font-size: 0.85rem;
-  color: var(--muted);
-}
+.start-row { margin-top: 1.8rem; width: 100%; display: flex; flex-direction: column; align-items: center; gap: 0.6rem; }
+.deck-count { font-size: 0.85rem; color: var(--muted); }
 .deck-count strong { color: var(--cream); }
 
 .btn-start {
@@ -369,11 +302,7 @@ body {
   justify-content: space-between;
   margin-bottom: 1.2rem;
 }
-.session-stat {
-  font-size: 0.82rem;
-  color: var(--muted);
-  letter-spacing: 0.04em;
-}
+.session-stat { font-size: 0.82rem; color: var(--muted); letter-spacing: 0.04em; }
 .session-stat strong { color: var(--cream); }
 
 .btn-end-session {
@@ -390,7 +319,6 @@ body {
 }
 .btn-end-session:hover { color: var(--cream); border-color: var(--gold); }
 
-/* Dot navigator */
 .dot-nav {
   display: flex;
   flex-wrap: wrap;
@@ -399,80 +327,137 @@ body {
   margin-bottom: 1.8rem;
   width: 100%;
 }
-.dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: rgba(248,245,238,0.15);
-  transition: background 0.3s;
-}
+.dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(248,245,238,0.15); transition: background 0.3s; }
 .dot.current  { background: var(--gold); }
 .dot.mastered { background: var(--correct); }
 .dot.shaky    { background: #D4A017; }
 
-/* ── Card shell ────────────────────────────────────────────────── */
-.card-scene {
-  width: 100%;
-  margin-bottom: 1.5rem;
-}
+.card-scene { width: 100%; margin-bottom: 1.5rem; }
 
-/* FLIP CARD ─────────────────────────────────────────────── */
+/* ══════════════════════════════════════════════════════════════════
+   FLIP CARD — genuine 3D CSS transform
+   ┌─────────────────────────────────────────────────────────────┐
+   │  .flip-card          — perspective viewport, click target   │
+   │    .card-inner       — rotates Y 0→180deg on .flipped       │
+   │      .card-face.front — rotateY(0)   + backface hidden      │
+   │      .card-face.back  — rotateY(180) + backface hidden      │
+   └─────────────────────────────────────────────────────────────┘
+   Clicking the back face or its children stops propagation so
+   the card cannot be accidentally re-flipped after reveal.
+══════════════════════════════════════════════════════════════════ */
 .flip-card {
   width: 100%;
   cursor: pointer;
+  perspective: 1200px;
 }
-.card-face {
-  display: none;
+
+.card-inner {
+  position: relative;
   width: 100%;
+  min-height: 320px;
+  transform-style: preserve-3d;
+  transition: transform 0.55s cubic-bezier(0.4, 0.2, 0.2, 1);
+}
+
+.flip-card.flipped .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-face {
+  position: absolute;
+  inset: 0;           /* top/right/bottom/left: 0 */
+  min-height: 320px;
   background: var(--cream);
   border-radius: 10px;
   box-shadow: 0 4px 24px var(--shadow);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 2rem;
-  min-height: 300px;
-  box-sizing: border-box;
-}
-.card-face.front { display: flex; }
-.card-face.back  { display: none; justify-content: flex-start; padding-top: 1.5rem; cursor: default; }
-.flip-card.flipped .card-face.front { display: none; }
-.flip-card.flipped .card-face.back  { display: flex; }
-
-.in-card-rating {
-  display: flex;
-  gap: 0.7rem;
-  margin-top: 1.2rem;
-  justify-content: center;
-  width: 100%;
-  flex-wrap: wrap;
 }
 
-/* ── MC CARD ────────────────────────────────────────────────────── */
-.mc-card {
-  width: 100%;
-  background: var(--cream);
-  border-radius: 10px;
-  box-shadow: 0 4px 24px var(--shadow);
-  padding: 2rem;
-  display: none;
+.card-face.front {
+  /* Faces viewer at 0deg rotation — no extra transform needed */
 }
-.mc-card.active { display: block; }
 
-.mc-prompt {
+.card-face.back {
+  transform: rotateY(180deg);   /* pre-rotated so it's correct when inner hits 180 */
+  justify-content: flex-start;
+  padding-top: 1.5rem;
+  cursor: default;
+}
+
+/* The card-inner needs explicit height so absolute children have a reference */
+.flip-card, .card-inner { min-height: 320px; }
+
+/* ── Shared card face content ──────────────────────────────────── */
+.card-type-badge {
+  font-size: 0.68rem;
+  color: var(--muted);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 1rem;
+  align-self: flex-start;
+}
+
+.front-word {
   font-family: 'Playfair Display', serif;
-  font-size: 1.25rem;
+  font-size: 2.2rem;
+  font-weight: 700;
   color: var(--ink);
   text-align: center;
-  line-height: 1.6;
-  margin-bottom: 1.5rem;
-  padding: 0 0.5rem;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
 }
-.mc-options {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.7rem;
+.front-gprp { font-size: 1rem; color: var(--muted); font-style: italic; text-align: center; margin-bottom: 0.8rem; }
+.flip-hint  { font-size: 0.78rem; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; margin-top: 1.5rem; }
+
+.back-word  { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: var(--ink); text-align: center; width: 100%; margin-bottom: 0.2rem; }
+.back-gprp  { font-size: 0.9rem; color: var(--muted); font-style: italic; text-align: center; width: 100%; margin-bottom: 0.4rem; }
+.back-divider { width: 100%; height: 1px; background: linear-gradient(90deg,transparent,rgba(184,150,62,0.4),transparent); margin: 0.6rem 0; }
+.back-definition { font-size: 1.05rem; color: var(--ink); text-align: center; line-height: 1.6; width: 100%; margin-bottom: 0.6rem; }
+.back-example    { font-style: italic; font-size: 0.88rem; color: var(--muted); text-align: center; width: 100%; margin-bottom: 0.8rem; line-height: 1.5; }
+
+.audio-replay-btn {
+  background: none;
+  border: 1px solid rgba(184,150,62,0.3);
+  border-radius: 4px;
+  padding: 0.3rem 0.6rem;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-bottom: 0.8rem;
+  transition: border-color 0.2s;
 }
+.audio-replay-btn:hover { border-color: var(--gold); }
+
+.in-card-rating { display: flex; gap: 0.7rem; justify-content: center; width: 100%; flex-wrap: wrap; margin-top: 0.4rem; }
+
+.rating-btn {
+  padding: 0.6rem 1.2rem;
+  border-radius: var(--radius);
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1.5px solid;
+  transition: background 0.15s, transform 0.1s;
+  letter-spacing: 0.03em;
+}
+.rating-btn:hover { transform: translateY(-1px); }
+.btn-got-it  { background: var(--correct-bg);  border-color: var(--correct);  color: var(--correct); }
+.btn-nearly  { background: var(--shaky-bg);    border-color: #C08000;         color: var(--shaky); }
+.btn-not-yet { background: var(--incorrect-bg); border-color: var(--incorrect); color: var(--incorrect); }
+
+/* ── MC CARD ────────────────────────────────────────────────────── */
+.mc-card { width: 100%; background: var(--cream); border-radius: 10px; box-shadow: 0 4px 24px var(--shadow); padding: 2rem; display: none; }
+.mc-card.active { display: block; }
+
+.mc-prompt { font-family: 'Playfair Display', serif; font-size: 1.25rem; color: var(--ink); text-align: center; line-height: 1.6; margin-bottom: 1.5rem; padding: 0 0.5rem; }
+.mc-options { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; }
 .mc-option {
   padding: 0.75rem 1rem;
   background: var(--cream-dark);
@@ -487,66 +472,23 @@ body {
   text-align: center;
 }
 .mc-option:hover:not(.locked) { border-color: var(--gold); background: var(--cream); }
-.mc-option.correct  { background: var(--correct-bg); border-color: var(--correct); color: var(--correct); }
+.mc-option.correct        { background: var(--correct-bg);  border-color: var(--correct);  color: var(--correct); }
 .mc-option.selected-wrong { background: var(--incorrect-bg); border-color: var(--incorrect); color: var(--incorrect); }
 .mc-option.locked { cursor: default; }
 
-.mc-feedback {
-  margin-top: 1rem;
-  padding: 0.7rem 1rem;
-  border-radius: 4px;
-  font-size: 0.88rem;
-  line-height: 1.5;
-  display: none;
-}
-.mc-feedback.correct  { background: var(--correct-bg); color: var(--correct); border-left: 3px solid var(--correct); display: block; }
+.mc-feedback { margin-top: 1rem; padding: 0.7rem 1rem; border-radius: 4px; font-size: 0.88rem; line-height: 1.5; display: none; }
+.mc-feedback.correct   { background: var(--correct-bg);  color: var(--correct);  border-left: 3px solid var(--correct);  display: block; }
 .mc-feedback.incorrect { background: var(--incorrect-bg); color: var(--incorrect); border-left: 3px solid var(--incorrect); display: block; }
 
-.mc-next-btn {
-  display: none;
-  margin: 1rem auto 0;
-  padding: 0.6rem 1.8rem;
-  background: var(--gold);
-  color: var(--navy);
-  border: none;
-  border-radius: var(--radius);
-  font-family: 'Playfair Display', serif;
-  font-weight: 700;
-  font-size: 0.95rem;
-  cursor: pointer;
-  transition: background 0.2s;
-}
+.mc-next-btn { display: none; margin: 1rem auto 0; padding: 0.6rem 1.8rem; background: var(--gold); color: var(--navy); border: none; border-radius: var(--radius); font-family: 'Playfair Display', serif; font-weight: 700; font-size: 0.95rem; cursor: pointer; transition: background 0.2s; }
 .mc-next-btn:hover { background: var(--gold-light); }
 
 /* ── CLOZE CARD ─────────────────────────────────────────────────── */
-.cloze-card {
-  width: 100%;
-  background: var(--cream);
-  border-radius: 10px;
-  box-shadow: 0 4px 24px var(--shadow);
-  padding: 2rem 2.5rem;
-  display: none;
-  flex-direction: column;
-  align-items: center;
-}
+.cloze-card { width: 100%; background: var(--cream); border-radius: 10px; box-shadow: 0 4px 24px var(--shadow); padding: 2rem 2.5rem; display: none; flex-direction: column; align-items: center; }
 .cloze-card.active { display: flex; }
 
-.cloze-sentence {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.2rem;
-  color: var(--ink);
-  text-align: center;
-  line-height: 1.8;
-  margin-bottom: 1.5rem;
-  max-width: 520px;
-}
-
-.cloze-input-wrap {
-  display: flex;
-  gap: 0.7rem;
-  align-items: center;
-  margin-bottom: 1rem;
-}
+.cloze-sentence { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--ink); text-align: center; line-height: 1.8; margin-bottom: 1.5rem; max-width: 520px; }
+.cloze-input-wrap { display: flex; gap: 0.7rem; align-items: center; margin-bottom: 1rem; }
 .cloze-input {
   padding: 0.6rem 1rem;
   background: var(--cream-dark);
@@ -561,234 +503,71 @@ body {
   text-align: center;
 }
 .cloze-input:focus { border-color: var(--gold); }
-.cloze-input.correct   { background: var(--correct-bg); border-color: var(--correct); color: var(--correct); }
+.cloze-input.correct   { background: var(--correct-bg);  border-color: var(--correct);  color: var(--correct); }
 .cloze-input.incorrect { background: var(--incorrect-bg); border-color: var(--incorrect); color: var(--incorrect); }
 
-.btn-check-cloze {
-  padding: 0.6rem 1.2rem;
-  background: var(--gold);
-  color: var(--navy);
-  border: none;
-  border-radius: 4px;
-  font-family: 'Source Sans 3', sans-serif;
-  font-weight: 700;
-  font-size: 0.88rem;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: background 0.2s;
-}
+.btn-check-cloze { padding: 0.6rem 1.2rem; background: var(--gold); color: var(--navy); border: none; border-radius: 4px; font-family: 'Source Sans 3', sans-serif; font-weight: 700; font-size: 0.88rem; letter-spacing: 0.05em; text-transform: uppercase; cursor: pointer; transition: background 0.2s; }
 .btn-check-cloze:hover { background: var(--gold-light); }
 
-.cloze-feedback {
-  font-size: 0.88rem;
-  text-align: center;
-  line-height: 1.5;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  display: none;
-  margin-bottom: 0.8rem;
-}
-.cloze-feedback.correct   { background: var(--correct-bg); color: var(--correct); display: block; }
+.cloze-feedback { font-size: 0.88rem; text-align: center; line-height: 1.5; padding: 0.5rem 1rem; border-radius: 4px; display: none; margin-bottom: 0.8rem; }
+.cloze-feedback.correct   { background: var(--correct-bg);  color: var(--correct);  display: block; }
 .cloze-feedback.incorrect { background: var(--incorrect-bg); color: var(--incorrect); display: block; }
 
-.cloze-next-btn {
-  display: none;
-  padding: 0.6rem 1.8rem;
-  background: var(--gold);
-  color: var(--navy);
-  border: none;
-  border-radius: var(--radius);
-  font-family: 'Playfair Display', serif;
-  font-weight: 700;
-  font-size: 0.95rem;
-  cursor: pointer;
-  transition: background 0.2s;
-}
+.cloze-next-btn { display: none; padding: 0.6rem 1.8rem; background: var(--gold); color: var(--navy); border: none; border-radius: var(--radius); font-family: 'Playfair Display', serif; font-weight: 700; font-size: 0.95rem; cursor: pointer; transition: background 0.2s; }
 .cloze-next-btn:hover { background: var(--gold-light); }
 
 /* ══════════════════════════════════════════════════════════════════
    SUMMARY SCREEN
 ══════════════════════════════════════════════════════════════════ */
-.summary-screen { gap: 0; }
+.summary-header { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700; color: var(--cream); text-align: center; margin-bottom: 0.4rem; }
+.summary-sub { font-size: 0.9rem; color: var(--muted); text-align: center; margin-bottom: 2rem; }
 
-.summary-header {
-  font-family: 'Playfair Display', serif;
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--cream);
-  text-align: center;
-  margin-bottom: 0.4rem;
-}
-.summary-sub {
-  font-size: 0.9rem;
-  color: var(--muted);
-  text-align: center;
-  margin-bottom: 2rem;
-}
+.score-ring-wrap { display: flex; flex-direction: column; align-items: center; margin-bottom: 2rem; }
+.score-circle { width: 110px; height: 110px; border-radius: 50%; background: conic-gradient(var(--gold) 0%, var(--navy-light) 0%); display: flex; align-items: center; justify-content: center; margin-bottom: 0.8rem; box-shadow: 0 0 0 4px var(--navy-light); }
+.score-inner { width: 82px; height: 82px; border-radius: 50%; background: var(--navy); display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.score-pct   { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700; color: var(--gold); line-height: 1; }
+.score-label { font-size: 0.68rem; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; }
+.score-band-msg { font-size: 0.95rem; color: var(--cream); text-align: center; font-style: italic; max-width: 420px; }
 
-.score-ring-wrap {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 2rem;
-}
-.score-circle {
-  width: 110px;
-  height: 110px;
-  border-radius: 50%;
-  background: conic-gradient(var(--gold) 0%, var(--navy-light) 0%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 0.8rem;
-  box-shadow: 0 0 0 4px var(--navy-light);
-}
-.score-inner {
-  width: 82px;
-  height: 82px;
-  border-radius: 50%;
-  background: var(--navy);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-.score-pct {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.6rem;
-  font-weight: 700;
-  color: var(--gold);
-  line-height: 1;
-}
-.score-label {
-  font-size: 0.68rem;
-  color: var(--muted);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-.score-band-msg {
-  font-size: 0.95rem;
-  color: var(--cream);
-  text-align: center;
-  font-style: italic;
-  max-width: 420px;
-}
-
-.summary-lists {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-  width: 100%;
-  margin-bottom: 2rem;
-}
-.summary-list-box {
-  background: var(--navy-light);
-  border: 1px solid rgba(184,150,62,0.2);
-  border-radius: var(--radius);
-  padding: 1rem 1.2rem;
-}
-.slb-title {
-  font-size: 0.75rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  margin-bottom: 0.8rem;
-  font-weight: 600;
-}
+.summary-lists { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; width: 100%; margin-bottom: 2rem; }
+.summary-list-box { background: var(--navy-light); border: 1px solid rgba(184,150,62,0.2); border-radius: var(--radius); padding: 1rem 1.2rem; }
+.slb-title { font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.8rem; font-weight: 600; }
 .slb-title.green { color: var(--correct); }
 .slb-title.amber { color: #D4A017; }
-
-.slb-list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-}
-.slb-list li {
-  font-size: 0.88rem;
-  color: var(--cream);
-  display: flex;
-  gap: 0.5rem;
-  align-items: baseline;
-}
+.slb-list { list-style: none; display: flex; flex-direction: column; gap: 0.35rem; }
+.slb-list li { font-size: 0.88rem; color: var(--cream); display: flex; gap: 0.5rem; align-items: baseline; }
 .slb-list li .w { color: var(--gold-light); font-weight: 600; }
 .slb-list li .d { color: var(--muted); font-size: 0.78rem; flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-.summary-btns {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-.btn-practice-weak {
-  padding: 0.75rem 2rem;
-  background: none;
-  border: 1.5px solid var(--gold);
-  color: var(--gold);
-  border-radius: var(--radius);
-  font-family: 'Playfair Display', serif;
-  font-size: 1rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: background 0.2s;
-}
+.summary-btns { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+.btn-practice-weak { padding: 0.75rem 2rem; background: none; border: 1.5px solid var(--gold); color: var(--gold); border-radius: var(--radius); font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; cursor: pointer; transition: background 0.2s; }
 .btn-practice-weak:hover { background: rgba(184,150,62,0.1); }
-.btn-new-deck {
-  padding: 0.75rem 2rem;
-  background: var(--gold);
-  color: var(--navy);
-  border: none;
-  border-radius: var(--radius);
-  font-family: 'Playfair Display', serif;
-  font-size: 1rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: background 0.2s;
-}
+.btn-new-deck { padding: 0.75rem 2rem; background: var(--gold); color: var(--navy); border: none; border-radius: var(--radius); font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; cursor: pointer; transition: background 0.2s; }
 .btn-new-deck:hover { background: var(--gold-light); }
 
-/* ── Gold divider ────────────────────────────────────────────────── */
-.gold-rule {
-  width: 60px;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--gold), transparent);
-  margin: 1.5rem auto;
-}
-
 /* ── Footer ──────────────────────────────────────────────────────── */
-.site-footer {
-  border-top: 1px solid rgba(184,150,62,0.2);
-  padding: 0.8rem 2rem;
-  text-align: center;
-  font-size: 0.72rem;
-  color: var(--muted);
-  letter-spacing: 0.06em;
-  flex-shrink: 0;
-}
+.site-footer { border-top: 1px solid rgba(184,150,62,0.2); padding: 0.8rem 2rem; text-align: center; font-size: 0.72rem; color: var(--muted); letter-spacing: 0.06em; flex-shrink: 0; }
 .site-footer span { color: rgba(184,150,62,0.6); margin: 0 0.4rem; }
 
-/* ── Responsive ───────────────────────────────────────────────────── */
+/* ── Responsive ──────────────────────────────────────────────────── */
 @media (max-width: 560px) {
-  .manual-form { grid-template-columns: 1fr; }
-  .mc-options   { grid-template-columns: 1fr; }
-  .summary-lists { grid-template-columns: 1fr; }
-  .front-word { font-size: 1.7rem; }
-  .front-definition { font-size: 1.1rem; }
-  .rating-row { flex-direction: column; align-items: center; }
-  .rating-btn { max-width: 100%; width: 100%; }
+  .manual-form    { grid-template-columns: 1fr; }
+  .mc-options     { grid-template-columns: 1fr; }
+  .summary-lists  { grid-template-columns: 1fr; }
+  .front-word     { font-size: 1.7rem; }
+  .in-card-rating { flex-direction: column; align-items: center; }
+  .rating-btn     { width: 100%; max-width: 260px; }
 }
 </style>
 </head>
 <body>
 
-<!-- ── Header ─────────────────────────────────────────────────── -->
 <header class="site-header">
   <a class="brand" href="../index.html">BELLA</a>
   <span class="tool-name">Vocabulary Trainer</span>
 </header>
 <div class="progress-bar-track"><div class="progress-bar-fill" id="progressFill"></div></div>
 
-<!-- ── Main ───────────────────────────────────────────────────── -->
 <main class="main">
 
   <!-- ══ INPUT SCREEN ══════════════════════════════════════════ -->
@@ -802,7 +581,6 @@ body {
       <button class="tab-btn" id="tabBundled" onclick="switchTab('bundled')" style="display:none">Lesson deck</button>
     </div>
 
-    <!-- Paste panel -->
     <div class="tab-panel active" id="panelPaste">
       <div class="panel-box">
         <label class="panel-label">Paste vocabulary output</label>
@@ -813,53 +591,34 @@ body {
         <div class="preview-wrap" id="pastePreview">
           <p class="preview-title" id="previewTitle"></p>
           <table class="preview-table" id="previewTable">
-            <thead><tr>
-              <th>Word</th><th>Pronunciation</th><th>Definition</th><th>Example sentence</th><th></th>
-            </tr></thead>
+            <thead><tr><th>Word</th><th>Pronunciation</th><th>Definition</th><th>Example sentence</th><th></th></tr></thead>
             <tbody id="previewBody"></tbody>
           </table>
         </div>
       </div>
     </div>
 
-    <!-- Manual panel -->
     <div class="tab-panel" id="panelManual">
       <div class="panel-box">
         <label class="panel-label">Add cards one by one</label>
-        <div class="manual-form" id="manualForm">
-          <div class="field-group">
-            <label>Word *</label>
-            <input type="text" id="mWord" placeholder="e.g. resilient">
-          </div>
-          <div class="field-group">
-            <label>GPRP pronunciation</label>
-            <input type="text" id="mGprp" placeholder="e.g. rih-ZIL-yuhnt">
-          </div>
-          <div class="field-group">
-            <label>Part of speech</label>
-            <input type="text" id="mPos" placeholder="e.g. adjective">
-          </div>
-          <div class="field-group">
-            <label>Definition *</label>
-            <input type="text" id="mDef" placeholder="e.g. able to recover quickly from difficulties">
-          </div>
-          <div class="field-group full-width">
-            <label>Example sentence (recommended for gap-fill)</label>
-            <input type="text" id="mEx" placeholder="e.g. She was resilient enough to start again after the setback.">
-          </div>
+        <div class="manual-form">
+          <div class="field-group"><label>Word *</label><input type="text" id="mWord" placeholder="e.g. resilient"></div>
+          <div class="field-group"><label>GPRP pronunciation</label><input type="text" id="mGprp" placeholder="e.g. rih-ZIL-yuhnt"></div>
+          <div class="field-group"><label>Part of speech</label><input type="text" id="mPos" placeholder="e.g. adjective"></div>
+          <div class="field-group"><label>Definition *</label><input type="text" id="mDef" placeholder="e.g. able to recover quickly from difficulties"></div>
+          <div class="field-group full-width"><label>Example sentence (recommended for gap-fill)</label><input type="text" id="mEx" placeholder="e.g. She was resilient enough to start again after the setback."></div>
         </div>
         <button class="btn-add-card" onclick="addManualCard()">+ Add card</button>
         <div class="card-list" id="manualCardList"></div>
       </div>
     </div>
 
-    <!-- Bundled deck panel -->
     <div class="tab-panel" id="panelBundled">
       <div class="panel-box">
         <div class="bundled-notice">
           <div class="bn-icon">📚</div>
           <div class="bn-title" id="bundledDeckName">Lesson deck loaded</div>
-          <div class="bn-sub" id="bundledDeckCount"></div>
+          <div class="bn-sub"   id="bundledDeckCount"></div>
         </div>
       </div>
     </div>
@@ -873,16 +632,12 @@ body {
   <!-- ══ SESSION SCREEN ════════════════════════════════════════ -->
   <section class="screen" id="screenSession">
     <div class="session-header">
-      <p class="session-stat">Card <strong id="statCardNum">1</strong> of <strong id="statCardTotal">—</strong> <span id="statCorrect" style="margin-left:0.8rem">✓ <strong>0</strong> correct</span></p>
+      <p class="session-stat">Card <strong id="statCardNum">1</strong> of <strong id="statCardTotal">—</strong>
+        <span id="statCorrect" style="margin-left:0.8rem">✓ <strong>0</strong> correct</span></p>
       <button class="btn-end-session" onclick="endSession()">End session</button>
     </div>
-
     <div class="dot-nav" id="dotNav"></div>
-
-    <!-- Card scene (flip, MC, cloze rendered here) -->
     <div class="card-scene" id="cardScene"></div>
-
-    <!-- Rating row now inside flip card back face -->
     <div id="ratingRow" style="display:none"></div>
   </section>
 
@@ -890,7 +645,6 @@ body {
   <section class="screen" id="screenSummary">
     <h2 class="summary-header">Session complete</h2>
     <p class="summary-sub" id="summarySubLine"></p>
-
     <div class="score-ring-wrap">
       <div class="score-circle" id="scoreCircle">
         <div class="score-inner">
@@ -900,7 +654,6 @@ body {
       </div>
       <p class="score-band-msg" id="scoreBandMsg"></p>
     </div>
-
     <div class="summary-lists">
       <div class="summary-list-box">
         <p class="slb-title green">✓ Mastered this session</p>
@@ -911,7 +664,6 @@ body {
         <ul class="slb-list" id="shakyList"></ul>
       </div>
     </div>
-
     <div class="summary-btns">
       <button class="btn-practice-weak" id="btnPracticeWeak" onclick="practiceWeak()">Practice weak cards</button>
       <button class="btn-new-deck" onclick="newDeck()">New deck</button>
@@ -928,33 +680,30 @@ body {
 /* ══════════════════════════════════════════════════════════════════
    STATE
 ══════════════════════════════════════════════════════════════════ */
-let deck        = [];   // [{word, gprp, pos, def, example}, ...]
-let queue       = [];   // [{cardIdx, direction, attempts, wrongCount}, ...]
+let deck        = [];
+let queue       = [];
 let queuePos    = 0;
 let totalAttempts = 0;
 let correctCount  = 0;
-let cardResults = {};   // cardIdx -> {wrongCount, masteredDirections:[]}
+let cardResults   = {};
 
 /* ══════════════════════════════════════════════════════════════════
    TAB SWITCHING
 ══════════════════════════════════════════════════════════════════ */
 function switchTab(name) {
-  document.querySelectorAll('.tab-btn').forEach((b,i) => {
-    const names = ['paste','manual','bundled'];
-    b.classList.toggle('active', names[i] === name);
+  document.querySelectorAll('.tab-btn').forEach((b, i) => {
+    b.classList.toggle('active', ['paste','manual','bundled'][i] === name);
   });
   document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-  document.getElementById('panel' + name.charAt(0).toUpperCase() + name.slice(1)).classList.add('active');
+  document.getElementById('panel' + name[0].toUpperCase() + name.slice(1)).classList.add('active');
   updateDeckCount();
 }
 
 /* ══════════════════════════════════════════════════════════════════
-   GEM PASTE PARSER — multi-mode
-   Handles: fused (no-separator) tables, pipe/tab tables, Word Lab prose
+   GEM PASTE PARSER
 ══════════════════════════════════════════════════════════════════ */
 let parsedRows = [];
 
-// ── GPRP pattern ─────────────────────────────────────────────────
 const GPRP_RE = /(?:[a-z]+-|[A-Z]{2,}-)*(?:[A-Z]{2,}(?![a-zA-Z])|[A-Z]{2,}(?=[A-Z][a-z])|[A-Z]{2,}[a-z]+|[a-z]+)/g;
 
 function isValidGprp(s) {
@@ -964,7 +713,6 @@ function isValidGprp(s) {
   return s.split('-').every(syl => syl.length <= 7);
 }
 
-// ── Split fused word+definition at TitleCase boundary ─────────────
 function splitWordDef(text) {
   text = text.trim();
   const m = text.match(/^([A-Z][a-z'\-]+)([A-Z].*)?$/s);
@@ -972,7 +720,6 @@ function splitWordDef(text) {
   return [text, ''];
 }
 
-// ── Strip vocabulary table header ────────────────────────────────
 const HEADER_WORDS = new Set(['word','meaning','pronunciation','rp','definition',
   'translation','category','context','sentence','mouth','coach','bre','example']);
 
@@ -987,74 +734,56 @@ function stripVocabHeader(raw) {
     }
     return raw;
   }
-  // No newlines — fused string: find first TitleCase word not in header set
-  const rx = /[A-Z][a-z]{2,}/g;
-  let m;
+  const rx = /[A-Z][a-z]{2,}/g; let m;
   while ((m = rx.exec(raw)) !== null) {
     if (!HEADER_WORDS.has(m[0].toLowerCase())) return raw.slice(m.index);
   }
   return raw;
 }
 
-// ── Mode A: GPRP-anchored fused string ───────────────────────────
 function parseFused(raw) {
   const text = stripVocabHeader(raw);
   const matches = [];
-  const re = new RegExp(GPRP_RE.source, 'g');
-  let m;
+  const re = new RegExp(GPRP_RE.source, 'g'); let m;
   while ((m = re.exec(text)) !== null) {
     if (isValidGprp(m[0])) matches.push([m.index, m.index + m[0].length, m[0]]);
   }
-  const results = [];
-  let prevEnd = 0;
+  const results = []; let prevEnd = 0;
   for (const [start, end, gprp] of matches) {
     const segment = text.slice(prevEnd, start).trim().replace(/[.,;]+$/, '');
     prevEnd = end;
     if (segment.length < 3) continue;
     const [word, defn] = splitWordDef(segment);
-    if (word.length > 2 && defn.length > 4)
-      results.push({ word, gprp, def: defn, example: '' });
+    if (word.length > 2 && defn.length > 4) results.push({ word, gprp, def: defn, example: '' });
   }
   return results;
 }
 
-// ── Mode B: CSV (Gemini copy table button) ────────────────────────
 function parseCsv(raw) {
-  // Minimal RFC-4180 CSV parser that handles quoted fields
   function parseRow(line) {
-    const fields = [];
-    let i = 0;
+    const fields = []; let i = 0;
     while (i < line.length) {
       if (line[i] === '"') {
-        // Quoted field
         let val = '', j = i + 1;
         while (j < line.length) {
           if (line[j] === '"' && line[j+1] === '"') { val += '"'; j += 2; }
           else if (line[j] === '"') { j++; break; }
           else { val += line[j++]; }
         }
-        fields.push(val);
-        if (line[j] === ',') j++;
-        i = j;
+        fields.push(val); if (line[j] === ',') j++; i = j;
       } else {
-        // Unquoted field
         const end = line.indexOf(',', i);
         if (end === -1) { fields.push(line.slice(i)); break; }
-        fields.push(line.slice(i, end));
-        i = end + 1;
+        fields.push(line.slice(i, end)); i = end + 1;
       }
     }
     return fields;
   }
-
   const results = [];
-  const lines = raw.trim().split('\n');
-  for (const line of lines) {
-    const l = line.trim();
-    if (!l) continue;
-    const parts = parseRow(l).map(p => p.trim());
-    if (parts.length < 2) continue;
-    const word = parts[0].replace(/\*/g, '').trim();
+  for (const line of raw.trim().split('\n')) {
+    const l = line.trim(); if (!l) continue;
+    const parts = parseRow(l).map(p => p.trim()); if (parts.length < 2) continue;
+    const word = parts[0].replace(/\*/g,'').trim();
     if (!word || word.length > 40 || HEADER_WORDS.has(word.toLowerCase())) continue;
     let gprp = '', defn = '', example = '';
     for (const p of parts.slice(1)) {
@@ -1071,25 +800,20 @@ function looksLikeCsv(raw) {
   if (!raw.includes('\n')) return false;
   const lines = raw.trim().split('\n').filter(l => l.trim());
   if (lines.length < 2) return false;
-  // Check if any field in the first few data rows is a valid GPRP
   for (let i = 0; i < Math.min(3, lines.length); i++) {
-    // Simple comma split (ignoring quotes) just for detection
-    const fields = lines[i].split(',').map(f => f.replace(/^"|"$/g, '').trim());
+    const fields = lines[i].split(',').map(f => f.replace(/^"|"$/g,'').trim());
     if (fields.some(f => isValidGprp(f))) return true;
   }
   return false;
 }
 
-// ── Mode C: pipe/tab separated ───────────────────────────────────
 function parseSeparated(raw) {
   const results = [];
   for (const line of raw.split('\n')) {
-    const l = line.trim();
-    if (!l || /^[\|\s:\-]+$/.test(l)) continue;
+    const l = line.trim(); if (!l || /^[\|\s:\-]+$/.test(l)) continue;
     const sep = l.includes('\t') ? '\t' : '|';
-    const parts = l.split(sep).map(p => p.trim()).filter(Boolean);
-    if (parts.length < 2) continue;
-    const word = parts[0].replace(/\*/g, '').trim();
+    const parts = l.split(sep).map(p => p.trim()).filter(Boolean); if (parts.length < 2) continue;
+    const word = parts[0].replace(/\*/g,'').trim();
     if (!word || word.length > 40 || HEADER_WORDS.has(word.toLowerCase())) continue;
     let gprp = '', defn = '', example = '';
     for (const p of parts.slice(1)) {
@@ -1102,14 +826,11 @@ function parseSeparated(raw) {
   return results;
 }
 
-// ── Mode C: Word Lab prose (bold **WORD** headers) ────────────────
 function parseWordLab(raw) {
   const results = [];
-  const blocks = raw.split(/\n(?=\*\*[A-Z])/);
-  for (const block of blocks) {
+  for (const block of raw.split(/\n(?=\*\*[A-Z])/)) {
     if (!block.trim() || !block.startsWith('**')) continue;
-    const wm = block.match(/^\*\*([A-Za-z][a-zA-Z'\-]*)\*\*/);
-    if (!wm) continue;
+    const wm = block.match(/^\*\*([A-Za-z][a-zA-Z'\-]*)\*\*/); if (!wm) continue;
     const word = wm[1];
     let gprp = '';
     const gm = block.match(/[•(]([a-zA-Z][a-zA-Z\-]{3,})[)\s•]/);
@@ -1119,30 +840,21 @@ function parseWordLab(raw) {
     if (dm) defn = dm[1].trim();
     let example = '';
     const em = block.match(/\*\*Example Sentence[^:]*\*\*:?\s*(.+?)(?:\n|$)/);
-    if (em) example = em[1].trim().replace(/^\*|_|\*$/g, '');
+    if (em) example = em[1].trim().replace(/^\*|_|\*$/g,'');
     if (word && defn) results.push({ word, gprp, def: defn, example });
   }
   return results;
 }
 
-// ── Auto-detect and dispatch ──────────────────────────────────────
 function detectAndParse(raw) {
   if (!raw) return { results: [], mode: 'empty' };
-  // Wordsmith: Lexical Ladder with ↑
-  if (raw.includes('\u2191') || raw.includes('Lexical Ladder'))
-    return { results: [], mode: 'wordsmith' };
-  // Word Lab: bold **WORD** (PoS) headers
-  if (/\*\*[A-Z][a-zA-Z]+\*\*\s*\*?\(/.test(raw))
-    return { results: parseWordLab(raw), mode: 'word_lab' };
-  // CSV (Gemini copy table button)
-  if (looksLikeCsv(raw))
-    return { results: parseCsv(raw), mode: 'csv' };
-  // Pipe/tab separated
+  if (raw.includes('\u2191') || raw.includes('Lexical Ladder')) return { results: [], mode: 'wordsmith' };
+  if (/\*\*[A-Z][a-zA-Z]+\*\*\s*\*?\(/.test(raw)) return { results: parseWordLab(raw), mode: 'word_lab' };
+  if (looksLikeCsv(raw)) return { results: parseCsv(raw), mode: 'csv' };
   if (raw.includes('|') || raw.includes('\t')) {
     const r = parseSeparated(raw);
     if (r.length > 0) return { results: r, mode: 'separated' };
   }
-  // Default: GPRP-anchored fused
   return { results: parseFused(raw), mode: 'fused' };
 }
 
@@ -1150,63 +862,42 @@ function parseGemInput() {
   const raw = document.getElementById('gemPasteArea').value.trim();
   if (!raw) return;
   parsedRows = [];
-
   const { results, mode } = detectAndParse(raw);
-
+  const wrap  = document.getElementById('pastePreview');
+  const title = document.getElementById('previewTitle');
   if (mode === 'wordsmith') {
-    // Show a helpful message rather than failing silently
-    const wrap = document.getElementById('pastePreview');
-    const title = document.getElementById('previewTitle');
     wrap.classList.add('visible');
     title.textContent = 'Wordsmith output uses a different format — please use Enter manually to add individual words, or try a different BELLA assistant.';
     document.getElementById('previewBody').innerHTML = '';
-    updateDeckCount();
-    return;
+    updateDeckCount(); return;
   }
-
   if (mode === 'empty' || results.length === 0) {
-    const wrap = document.getElementById('pastePreview');
-    const title = document.getElementById('previewTitle');
     wrap.classList.add('visible');
     title.textContent = 'No words found — try copying the full vocabulary table including the header row, then click Find words again.';
     document.getElementById('previewBody').innerHTML = '';
-    updateDeckCount();
-    return;
+    updateDeckCount(); return;
   }
-
   parsedRows = results;
   renderPreview();
   updateDeckCount();
 }
 
 function renderPreview() {
-  const wrap = document.getElementById('pastePreview');
-  const body = document.getElementById('previewBody');
+  const wrap  = document.getElementById('pastePreview');
+  const body  = document.getElementById('previewBody');
   const title = document.getElementById('previewTitle');
   body.innerHTML = '';
-  if (parsedRows.length === 0) {
-    wrap.classList.remove('visible');
-    return;
-  }
+  if (parsedRows.length === 0) { wrap.classList.remove('visible'); return; }
   title.textContent = parsedRows.length + ' word' + (parsedRows.length !== 1 ? 's' : '') + ' found — remove any you don\'t want, then click Begin session';
   wrap.classList.add('visible');
   parsedRows.forEach((r, i) => {
     const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td class="word-cell">${esc(r.word)}</td>
-      <td class="gprp-cell">${esc(r.gprp)}</td>
-      <td>${esc(r.def)}</td>
-      <td style="color:var(--muted);font-size:0.78rem;font-style:italic">${esc(r.example)}</td>
-      <td><button class="remove-row-btn" title="Remove" onclick="removeParsedRow(${i})">✕</button></td>`;
+    tr.innerHTML = `<td class="word-cell">${esc(r.word)}</td><td class="gprp-cell">${esc(r.gprp)}</td><td>${esc(r.def)}</td><td style="color:var(--muted);font-size:0.78rem;font-style:italic">${esc(r.example)}</td><td><button class="remove-row-btn" onclick="removeParsedRow(${i})">✕</button></td>`;
     body.appendChild(tr);
   });
 }
 
-function removeParsedRow(i) {
-  parsedRows.splice(i, 1);
-  renderPreview();
-  updateDeckCount();
-}
+function removeParsedRow(i) { parsedRows.splice(i, 1); renderPreview(); updateDeckCount(); }
 
 /* ══════════════════════════════════════════════════════════════════
    MANUAL ENTRY
@@ -1217,17 +908,10 @@ function addManualCard() {
   const word = document.getElementById('mWord').value.trim();
   const def  = document.getElementById('mDef').value.trim();
   if (!word || !def) { alert('Word and definition are required.'); return; }
-  manualCards.push({
-    word,
-    gprp:    document.getElementById('mGprp').value.trim(),
-    pos:     document.getElementById('mPos').value.trim(),
-    def,
-    example: document.getElementById('mEx').value.trim()
-  });
+  manualCards.push({ word, gprp: document.getElementById('mGprp').value.trim(), pos: document.getElementById('mPos').value.trim(), def, example: document.getElementById('mEx').value.trim() });
   ['mWord','mGprp','mPos','mDef','mEx'].forEach(id => document.getElementById(id).value = '');
   document.getElementById('mWord').focus();
-  renderManualList();
-  updateDeckCount();
+  renderManualList(); updateDeckCount();
 }
 
 function renderManualList() {
@@ -1236,21 +920,15 @@ function renderManualList() {
   manualCards.forEach((c, i) => {
     const div = document.createElement('div');
     div.className = 'card-list-item';
-    div.innerHTML = `<span class="cli-word">${esc(c.word)}</span>
-      <span class="cli-def">${esc(c.def)}</span>
-      <button class="remove-row-btn" onclick="removeManualCard(${i})">✕</button>`;
+    div.innerHTML = `<span class="cli-word">${esc(c.word)}</span><span class="cli-def">${esc(c.def)}</span><button class="remove-row-btn" onclick="removeManualCard(${i})">✕</button>`;
     list.appendChild(div);
   });
 }
 
-function removeManualCard(i) {
-  manualCards.splice(i, 1);
-  renderManualList();
-  updateDeckCount();
-}
+function removeManualCard(i) { manualCards.splice(i, 1); renderManualList(); updateDeckCount(); }
 
 /* ══════════════════════════════════════════════════════════════════
-   BUNDLED DECK (lesson integration hook)
+   BUNDLED DECK
 ══════════════════════════════════════════════════════════════════ */
 let bundledCards = [];
 
@@ -1270,29 +948,23 @@ function checkBundledDeck() {
 }
 
 /* ══════════════════════════════════════════════════════════════════
-   DECK COUNT & START BUTTON
+   DECK COUNT & START
 ══════════════════════════════════════════════════════════════════ */
 function getActiveDeck() {
-  const activePanel = document.querySelector('.tab-panel.active');
-  if (!activePanel) return [];
-  if (activePanel.id === 'panelPaste')    return parsedRows;
-  if (activePanel.id === 'panelManual')   return manualCards;
-  if (activePanel.id === 'panelBundled')  return bundledCards;
+  const p = document.querySelector('.tab-panel.active');
+  if (!p) return [];
+  if (p.id === 'panelPaste')   return parsedRows;
+  if (p.id === 'panelManual')  return manualCards;
+  if (p.id === 'panelBundled') return bundledCards;
   return [];
 }
 
 function updateDeckCount() {
-  const cards = getActiveDeck();
-  const n = cards.length;
+  const n   = getActiveDeck().length;
   const msg = document.getElementById('deckCountMsg');
   const btn = document.getElementById('btnStart');
-  if (n === 0) {
-    msg.innerHTML = 'No cards loaded yet.';
-    btn.disabled = true;
-  } else {
-    msg.innerHTML = `<strong>${n}</strong> card${n !== 1 ? 's' : ''} ready.`;
-    btn.disabled = false;
-  }
+  if (n === 0) { msg.innerHTML = 'No cards loaded yet.'; btn.disabled = true; }
+  else { msg.innerHTML = `<strong>${n}</strong> card${n !== 1 ? 's' : ''} ready.`; btn.disabled = false; }
 }
 
 /* ══════════════════════════════════════════════════════════════════
@@ -1300,80 +972,56 @@ function updateDeckCount() {
 ══════════════════════════════════════════════════════════════════ */
 function buildQueue(cards) {
   deck = cards.map(c => ({ ...c }));
-  queue = [];
-  cardResults = {};
-
+  queue = []; cardResults = {};
   deck.forEach((c, i) => {
     cardResults[i] = { wrongCount: 0, consecutiveCorrect: { rec: 0, prod: 0 }, mastered: [], repCount: { rec: 0, prod: 0 } };
-    // Each card gets both directions
     queue.push({ cardIdx: i, direction: 'receptive'  });
     queue.push({ cardIdx: i, direction: 'productive' });
   });
-  // Shuffle
   shuffleArray(queue);
-  // Interleave so same card doesn't appear back-to-back
   queue = interleave(queue);
-  return queue;
 }
 
 function interleave(arr) {
   if (arr.length < 3) return arr;
-  const result = [];
-  const used = new Set();
-  let lastIdx = -1;
+  const result = []; let lastIdx = -1;
   const remaining = [...arr];
   while (remaining.length) {
     const pick = remaining.findIndex(item => item.cardIdx !== lastIdx);
     if (pick === -1) { result.push(...remaining); break; }
-    result.push(remaining[pick]);
-    lastIdx = remaining[pick].cardIdx;
-    remaining.splice(pick, 1);
+    result.push(remaining[pick]); lastIdx = remaining[pick].cardIdx; remaining.splice(pick, 1);
   }
   return result;
 }
 
-function startSession(weakOnly = false) {
+function startSession(weakOnly) {
   let cards;
   if (weakOnly) {
-    // Re-use deck, filter to shaky cards
-    const shakyIdxs = Object.entries(cardResults)
-      .filter(([,v]) => v.wrongCount >= 2)
-      .map(([k]) => parseInt(k));
-    cards = shakyIdxs.map(i => deck[i]);
+    const idxs = Object.entries(cardResults).filter(([,v]) => v.wrongCount >= 2).map(([k]) => +k);
+    cards = idxs.map(i => deck[i]);
   } else {
     cards = getActiveDeck();
   }
   if (!cards.length) return;
-
   buildQueue(cards);
-  queuePos      = 0;
-  totalAttempts = 0;
-  correctCount  = 0;
-
+  queuePos = 0; totalAttempts = 0; correctCount = 0;
   showScreen('screenSession');
-  updateProgressBar();
-  buildDotNav();
-  renderCard();
+  updateProgressBar(); buildDotNav(); renderCard();
 }
 
 function renderCard() {
-  // Skip already-mastered directions
   while (queuePos < queue.length) {
     const item = queue[queuePos];
-    const res  = cardResults[item.cardIdx];
-    if (res.mastered.includes(item.direction)) { queuePos++; continue; }
+    if (cardResults[item.cardIdx].mastered.includes(item.direction)) { queuePos++; continue; }
     break;
   }
-
   if (queuePos >= queue.length) { showSummary(); return; }
 
-  const item  = queue[queuePos];
-  const card  = deck[item.cardIdx];
-  const dir   = item.direction;
-
+  const item = queue[queuePos];
+  const card = deck[item.cardIdx];
+  const dir  = item.direction;
   updateSessionStats();
 
-  // Choose card type: flip always; mc if deck>=4; cloze if has example and deck>=2
   const canMC    = deck.length >= 3;
   const canCloze = !!card.example && deck.length >= 2;
   const type     = pickCardType(canMC, canCloze);
@@ -1385,30 +1033,41 @@ function renderCard() {
   if (type === 'mc')    renderMCCard(card, dir, scene);
   if (type === 'cloze') renderClozeCard(card, dir, scene);
 
-  // Rating row: hide initially for flip (shown after flip), hide for MC/cloze
-  const rr = document.getElementById('ratingRow');
-  rr.style.display = 'none';
-
   highlightDot(queuePos);
 }
 
 function pickCardType(canMC, canCloze) {
   const r = Math.random();
-  if (canMC && canCloze) {
-    if (r < 0.35) return 'flip';
-    if (r < 0.65) return 'mc';
-    return 'cloze';
-  }
+  if (canMC && canCloze) { if (r < 0.35) return 'flip'; if (r < 0.65) return 'mc'; return 'cloze'; }
   if (canMC)    return r < 0.45 ? 'flip' : 'mc';
   if (canCloze) return r < 0.45 ? 'flip' : 'cloze';
   return 'flip';
 }
 
-/* ── FLIP CARD ───────────────────────────────────────────────────── */
+/* ══════════════════════════════════════════════════════════════════
+   FLIP CARD
+   DOM structure:
+     .flip-card  (perspective viewport + click-to-flip handler)
+       .card-inner  (the element that actually rotates)
+         .card-face.front  (backface-visibility:hidden; transform:rotateY(0))
+         .card-face.back   (backface-visibility:hidden; transform:rotateY(180deg))
+
+   Adding .flipped to .flip-card makes .card-inner rotate to 180deg,
+   which hides the front and reveals the back.
+
+   The back face and all its children call stopPropagation on click
+   so they cannot accidentally re-trigger the flip.
+══════════════════════════════════════════════════════════════════ */
 function renderFlipCard(card, dir, scene) {
   const isRec = dir === 'receptive';
 
-  // ── Front face ──────────────────────────────────────────────────
+  const flipCard = document.createElement('div');
+  flipCard.className = 'flip-card';
+
+  const cardInner = document.createElement('div');
+  cardInner.className = 'card-inner';
+
+  /* ── FRONT ─────────────────────────────────────────────────── */
   const front = document.createElement('div');
   front.className = 'card-face front';
 
@@ -1427,9 +1086,6 @@ function renderFlipCard(card, dir, scene) {
       g.className = 'front-gprp';
       g.textContent = card.gprp;
       front.appendChild(g);
-      const d = document.createElement('div');
-      d.className = 'back-divider';
-      front.appendChild(d);
     }
   } else {
     const df = document.createElement('p');
@@ -1443,9 +1099,12 @@ function renderFlipCard(card, dir, scene) {
   hint.textContent = 'Tap to reveal';
   front.appendChild(hint);
 
-  // ── Back face ───────────────────────────────────────────────────
+  /* ── BACK ──────────────────────────────────────────────────── */
   const back = document.createElement('div');
   back.className = 'card-face back';
+
+  // Block ALL clicks on the back face from bubbling to .flip-card
+  back.addEventListener('click', function(e) { e.stopPropagation(); });
 
   const badge2 = document.createElement('span');
   badge2.className = 'card-type-badge';
@@ -1487,90 +1146,87 @@ function renderFlipCard(card, dir, scene) {
   audioBtn.addEventListener('click', function(e) { e.stopPropagation(); speakWord(card.word); });
   back.appendChild(audioBtn);
 
-  // Rating buttons
   const ratingDiv = document.createElement('div');
   ratingDiv.className = 'in-card-rating';
 
-  [['btn-got-it','got','✓ Got it'],['btn-nearly','nearly','~ Nearly'],['btn-not-yet','nope','✗ Not yet']].forEach(function(item) {
+  [
+    ['btn-got-it', 'got',    '✓ Got it' ],
+    ['btn-nearly', 'nearly', '~ Nearly' ],
+    ['btn-not-yet', 'nope',  '✗ Not yet']
+  ].forEach(function(item) {
     const btn = document.createElement('button');
     btn.className = 'rating-btn ' + item[0];
     btn.textContent = item[2];
-    btn.addEventListener('click', function(e) { e.stopPropagation(); rateCard(item[1]); });
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation(); // essential — prevents re-flip
+      rateCard(item[1]);
+    });
     ratingDiv.appendChild(btn);
   });
   back.appendChild(ratingDiv);
 
-  // ── Assemble ────────────────────────────────────────────────────
-  const el = document.createElement('div');
-  el.className = 'flip-card';
-  el.id = 'activeFlip';
-  el.appendChild(front);
-  el.appendChild(back);
+  /* ── Assemble ─────────────────────────────────────────────── */
+  cardInner.appendChild(front);
+  cardInner.appendChild(back);
+  flipCard.appendChild(cardInner);
 
-  el.addEventListener('click', function() {
-    if (!el.classList.contains('flipped')) {
-      el.classList.add('flipped');
+  // Only flip when currently face-up (not already flipped)
+  flipCard.addEventListener('click', function() {
+    if (!flipCard.classList.contains('flipped')) {
+      flipCard.classList.add('flipped');
       speakWord(card.word);
     }
   });
 
-  scene.appendChild(el);
+  scene.appendChild(flipCard);
 }
 
 function rateCard(rating) {
-  const item = queue[queuePos];
-  const res  = cardResults[item.cardIdx];
-  const dirKey = item.direction === 'receptive' ? 'rec' : 'prod';
-
+  const item   = queue[queuePos];
+  const res    = cardResults[item.cardIdx];
+  const dk     = item.direction === 'receptive' ? 'rec' : 'prod';
   totalAttempts++;
+
   if (rating === 'got') {
     correctCount++;
-    res.consecutiveCorrect[dirKey]++;
-    if (res.consecutiveCorrect[dirKey] >= 2) {
+    res.consecutiveCorrect[dk]++;
+    if (res.consecutiveCorrect[dk] >= 2) {
       res.mastered.push(item.direction);
       setDotState(queuePos, 'mastered');
     } else {
-      // Return after 3 cards (capped)
-      res.repCount[dirKey]++;
-      if (res.repCount[dirKey] < 3) queue.splice(queuePos + 3, 0, { ...item });
+      res.repCount[dk]++;
+      if (res.repCount[dk] < 3) queue.splice(queuePos + 3, 0, { ...item });
       setDotState(queuePos, 'mastered');
     }
   } else if (rating === 'nearly') {
-    res.consecutiveCorrect[dirKey] = 0;
-    res.repCount[dirKey]++;
-    if (res.repCount[dirKey] < 3) queue.splice(queuePos + 2, 0, { ...item });
+    res.consecutiveCorrect[dk] = 0;
+    res.repCount[dk]++;
+    if (res.repCount[dk] < 3) queue.splice(queuePos + 2, 0, { ...item });
   } else {
     res.wrongCount++;
-    res.consecutiveCorrect[dirKey] = 0;
-    res.repCount[dirKey]++;
-    if (res.repCount[dirKey] < 3) queue.splice(queuePos + 1, 0, { ...item });
+    res.consecutiveCorrect[dk] = 0;
+    res.repCount[dk]++;
+    if (res.repCount[dk] < 3) queue.splice(queuePos + 1, 0, { ...item });
     setDotState(queuePos, 'shaky');
   }
-
   queuePos++;
   updateProgressBar();
   renderCard();
 }
 
-/* ── MC CARD ─────────────────────────────────────────────────────── */
+/* ══════════════════════════════════════════════════════════════════
+   MC CARD
+══════════════════════════════════════════════════════════════════ */
 function renderMCCard(card, dir, scene) {
   const isRec = dir === 'receptive';
   const prompt = isRec
     ? `<span style="font-size:0.75rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;display:block;margin-bottom:0.8rem">Which word matches this definition?</span>${esc(card.def)}`
     : `<span style="font-size:0.75rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;display:block;margin-bottom:0.8rem">Which definition matches this word?</span><em style="color:var(--gold);font-family:'Playfair Display',serif;font-size:1.5rem">${esc(card.word)}</em>`;
 
-  // Build distractors: other cards from deck
   const others = deck.filter(c => c.word !== card.word);
   shuffleArray(others);
   const distractors = others.slice(0, 3);
-
-  // Build options
-  let options;
-  if (isRec) {
-    options = [card.word, ...distractors.map(d => d.word)];
-  } else {
-    options = [card.def, ...distractors.map(d => d.def)];
-  }
+  let options = isRec ? [card.word, ...distractors.map(d => d.word)] : [card.def, ...distractors.map(d => d.def)];
   shuffleArray(options);
   const correctOption = isRec ? card.word : card.def;
 
@@ -1580,9 +1236,7 @@ function renderMCCard(card, dir, scene) {
     <span style="font-size:0.68rem;color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;display:block;margin-bottom:0.5rem">Multiple choice</span>
     <p class="mc-prompt">${prompt}</p>
     <div class="mc-options" id="mcOptions">
-      ${options.map((opt, i) =>
-        `<button class="mc-option" data-correct="${opt === correctOption}" onclick="selectMCOption(this, '${esc(opt)}', '${esc(correctOption)}', '${esc(card.word)}')">${esc(opt)}</button>`
-      ).join('')}
+      ${options.map(opt => `<button class="mc-option" data-correct="${opt === correctOption}" onclick="selectMCOption(this,'${esc(opt)}','${esc(correctOption)}','${esc(card.word)}')">${esc(opt)}</button>`).join('')}
     </div>
     <div class="mc-feedback" id="mcFeedback"></div>
     <div style="text-align:center"><button class="mc-next-btn" id="mcNextBtn" onclick="advanceFromMC()">Next →</button></div>`;
@@ -1591,54 +1245,37 @@ function renderMCCard(card, dir, scene) {
 
 function selectMCOption(btn, selected, correct, word) {
   if (btn.classList.contains('locked')) return;
-  const item = queue[queuePos];
-  const res  = cardResults[item.cardIdx];
+  const item = queue[queuePos]; const res = cardResults[item.cardIdx];
+  const dk = item.direction === 'receptive' ? 'rec' : 'prod';
   totalAttempts++;
-
   document.querySelectorAll('.mc-option').forEach(b => b.classList.add('locked'));
   const feedback = document.getElementById('mcFeedback');
   const nextBtn  = document.getElementById('mcNextBtn');
-
   if (selected === correct) {
-    btn.classList.add('correct');
-    correctCount++;
-    res.consecutiveCorrect[item.direction === 'receptive' ? 'rec' : 'prod']++;
-    const cc = res.consecutiveCorrect[item.direction === 'receptive' ? 'rec' : 'prod'];
-    if (cc >= 2) {
-      res.mastered.push(item.direction);
-      setDotState(queuePos, 'mastered');
-    }
-    feedback.className = 'mc-feedback correct';
-    feedback.textContent = '✓ Correct!';
-    speakWord(word);
+    btn.classList.add('correct'); correctCount++;
+    res.consecutiveCorrect[dk]++;
+    if (res.consecutiveCorrect[dk] >= 2) { res.mastered.push(item.direction); setDotState(queuePos, 'mastered'); }
+    feedback.className = 'mc-feedback correct'; feedback.textContent = '✓ Correct!'; speakWord(word);
   } else {
     btn.classList.add('selected-wrong');
-    document.querySelectorAll('.mc-option').forEach(b => {
-      if (b.dataset.correct === 'true') b.classList.add('correct');
-    });
-    res.wrongCount++;
-    res.consecutiveCorrect[item.direction === 'receptive' ? 'rec' : 'prod'] = 0;
-    queue.splice(queuePos + 2, 0, { ...item });
-    setDotState(queuePos, 'shaky');
-    feedback.className = 'mc-feedback incorrect';
-    feedback.textContent = '✗ Not quite — the correct answer has been highlighted.';
+    document.querySelectorAll('.mc-option').forEach(b => { if (b.dataset.correct === 'true') b.classList.add('correct'); });
+    res.wrongCount++; res.consecutiveCorrect[dk] = 0;
+    queue.splice(queuePos + 2, 0, { ...item }); setDotState(queuePos, 'shaky');
+    feedback.className = 'mc-feedback incorrect'; feedback.textContent = '✗ Not quite — the correct answer has been highlighted.';
   }
-  nextBtn.style.display = 'inline-block';
-  updateProgressBar();
+  nextBtn.style.display = 'inline-block'; updateProgressBar();
 }
 
-function advanceFromMC() {
-  queuePos++;
-  renderCard();
-}
+function advanceFromMC() { queuePos++; renderCard(); }
 
-/* ── CLOZE CARD ──────────────────────────────────────────────────── */
+/* ══════════════════════════════════════════════════════════════════
+   CLOZE CARD
+══════════════════════════════════════════════════════════════════ */
 function renderClozeCard(card, dir, scene) {
   const gapped = card.example.replace(
     new RegExp(`\\b${card.word}\\b`, 'gi'),
     '<span style="display:inline-block;min-width:80px;border-bottom:2px solid var(--gold);margin:0 2px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>'
   );
-
   const el = document.createElement('div');
   el.className = 'cloze-card active';
   el.innerHTML = `
@@ -1646,105 +1283,63 @@ function renderClozeCard(card, dir, scene) {
     <p class="cloze-sentence">${gapped}</p>
     <p style="font-size:0.8rem;color:var(--muted);margin-bottom:0.8rem">${esc(card.def)}</p>
     <div class="cloze-input-wrap">
-      <input class="cloze-input" id="clozeInput" type="text" placeholder="Type the missing word…"
-        onkeydown="if(event.key==='Enter')checkCloze()">
+      <input class="cloze-input" id="clozeInput" type="text" placeholder="Type the missing word…" onkeydown="if(event.key==='Enter')checkCloze()">
       <button class="btn-check-cloze" onclick="checkCloze()">Check</button>
     </div>
     <div class="cloze-feedback" id="clozeFeedback"></div>
     <button class="cloze-next-btn" id="clozeNextBtn" onclick="advanceFromCloze()">Next →</button>`;
   scene.appendChild(el);
-  setTimeout(() => document.getElementById('clozeInput').focus(), 100);
+  setTimeout(() => { const inp = document.getElementById('clozeInput'); if (inp) inp.focus(); }, 100);
 }
 
 function checkCloze() {
-  const input = document.getElementById('clozeInput');
+  const input    = document.getElementById('clozeInput');
   const feedback = document.getElementById('clozeFeedback');
   const nextBtn  = document.getElementById('clozeNextBtn');
-  if (nextBtn.style.display === 'inline-block') return; // already checked
-
-  const item = queue[queuePos];
-  const card = deck[item.cardIdx];
-  const res  = cardResults[item.cardIdx];
-  const typed = input.value.trim();
-  if (!typed) return;
-
+  if (nextBtn.style.display === 'inline-block') return;
+  const item = queue[queuePos]; const card = deck[item.cardIdx]; const res = cardResults[item.cardIdx];
+  const dk   = item.direction === 'receptive' ? 'rec' : 'prod';
+  const typed = input.value.trim(); if (!typed) return;
   totalAttempts++;
   const correct = normaliseForCloze(typed) === normaliseForCloze(card.word);
-
   if (correct) {
-    input.classList.add('correct');
-    correctCount++;
-    const dk = item.direction === 'receptive' ? 'rec' : 'prod';
+    input.classList.add('correct'); correctCount++;
     res.consecutiveCorrect[dk]++;
-    if (res.consecutiveCorrect[dk] >= 2) {
-      res.mastered.push(item.direction);
-      setDotState(queuePos, 'mastered');
-    }
-    feedback.className = 'cloze-feedback correct';
-    feedback.textContent = '✓ Correct!';
-    speakWord(card.word);
+    if (res.consecutiveCorrect[dk] >= 2) { res.mastered.push(item.direction); setDotState(queuePos, 'mastered'); }
+    feedback.className = 'cloze-feedback correct'; feedback.textContent = '✓ Correct!'; speakWord(card.word);
   } else {
-    input.classList.add('incorrect');
-    res.wrongCount++;
-    res.consecutiveCorrect[item.direction === 'receptive' ? 'rec' : 'prod'] = 0;
-    queue.splice(queuePos + 2, 0, { ...item });
-    setDotState(queuePos, 'shaky');
-    feedback.className = 'cloze-feedback incorrect';
-    feedback.textContent = `✗ The answer is: ${card.word}`;
+    input.classList.add('incorrect'); res.wrongCount++;
+    res.consecutiveCorrect[dk] = 0;
+    queue.splice(queuePos + 2, 0, { ...item }); setDotState(queuePos, 'shaky');
+    feedback.className = 'cloze-feedback incorrect'; feedback.textContent = `✗ The answer is: ${card.word}`;
   }
-  input.disabled = true;
-  nextBtn.style.display = 'inline-block';
-  updateProgressBar();
+  input.disabled = true; nextBtn.style.display = 'inline-block'; updateProgressBar();
 }
 
-function normaliseForCloze(str) {
-  return str.toLowerCase()
-    .replace(/ing$/, '').replace(/ed$/, '').replace(/ly$/, '').replace(/s$/, '').trim();
-}
-
-function advanceFromCloze() {
-  queuePos++;
-  renderCard();
-}
+function normaliseForCloze(s) { return s.toLowerCase().replace(/ing$/,'').replace(/ed$/,'').replace(/ly$/,'').replace(/s$/,'').trim(); }
+function advanceFromCloze() { queuePos++; renderCard(); }
 
 /* ══════════════════════════════════════════════════════════════════
    PROGRESS & DOTS
 ══════════════════════════════════════════════════════════════════ */
 function buildDotNav() {
-  const nav = document.getElementById('dotNav');
-  nav.innerHTML = '';
-  queue.forEach((_, i) => {
-    const dot = document.createElement('div');
-    dot.className = 'dot';
-    dot.id = `dot-${i}`;
-    nav.appendChild(dot);
-  });
+  const nav = document.getElementById('dotNav'); nav.innerHTML = '';
+  queue.forEach((_, i) => { const dot = document.createElement('div'); dot.className = 'dot'; dot.id = `dot-${i}`; nav.appendChild(dot); });
 }
-
 function highlightDot(i) {
   document.querySelectorAll('.dot').forEach(d => d.classList.remove('current'));
   const d = document.getElementById(`dot-${i}`);
-  if (d && !d.classList.contains('mastered') && !d.classList.contains('shaky')) {
-    d.classList.add('current');
-  }
+  if (d && !d.classList.contains('mastered') && !d.classList.contains('shaky')) d.classList.add('current');
 }
-
 function setDotState(i, state) {
   const d = document.getElementById(`dot-${i}`);
   if (d) { d.classList.remove('current','mastered','shaky'); d.classList.add(state); }
 }
-
 function updateProgressBar() {
   const mastered = Object.values(cardResults).filter(r => r.mastered.length >= 2 || (deck.length === 1 && r.mastered.length >= 1)).length;
-  const pct = deck.length ? (mastered / deck.length) * 100 : 0;
-  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressFill').style.width = (deck.length ? (mastered / deck.length) * 100 : 0) + '%';
 }
-
 function updateSessionStats() {
-  const total = queue.filter((item, i) => {
-    // Count unique card positions in queue (including re-queued)
-    return true;
-  }).length;
   document.getElementById('statCardNum').textContent   = queuePos + 1;
   document.getElementById('statCardTotal').textContent = queue.length;
   document.getElementById('statCorrect').innerHTML     = `✓ <strong>${correctCount}</strong> correct`;
@@ -1753,9 +1348,7 @@ function updateSessionStats() {
 /* ══════════════════════════════════════════════════════════════════
    SUMMARY
 ══════════════════════════════════════════════════════════════════ */
-function endSession() {
-  if (confirm('End this session and see your results?')) showSummary();
-}
+function endSession() { if (confirm('End this session and see your results?')) showSummary(); }
 
 function showSummary() {
   const pct = totalAttempts ? Math.round((correctCount / totalAttempts) * 100) : 0;
@@ -1763,45 +1356,31 @@ function showSummary() {
     : pct >= 72 ? 'Good progress. Review the shaky cards and you\'ll have them solidly.'
     : pct >= 52 ? 'A solid start. Keep returning to the weak cards — repetition is how words stick.'
     : 'These words need more practice. The gap-fill and multiple choice cards will help them stick.';
-
-  document.getElementById('scorePct').textContent    = pct + '%';
+  document.getElementById('scorePct').textContent     = pct + '%';
   document.getElementById('scoreBandMsg').textContent = bandMsg;
-  document.getElementById('summarySubLine').textContent =
-    `${correctCount} correct out of ${totalAttempts} attempts`;
+  document.getElementById('summarySubLine').textContent = `${correctCount} correct out of ${totalAttempts} attempts`;
+  document.getElementById('scoreCircle').style.background = `conic-gradient(var(--gold) ${pct * 3.6}deg, var(--navy-light) 0deg)`;
 
-  // Conic gradient for score ring
-  document.getElementById('scoreCircle').style.background =
-    `conic-gradient(var(--gold) ${pct * 3.6}deg, var(--navy-light) 0deg)`;
-
-  // Mastered and shaky lists
   const masteredEl = document.getElementById('masteredList');
   const shakyEl    = document.getElementById('shakyList');
-  masteredEl.innerHTML = '';
-  shakyEl.innerHTML    = '';
-
+  masteredEl.innerHTML = ''; shakyEl.innerHTML = '';
   deck.forEach((card, i) => {
     const res = cardResults[i];
     const li  = document.createElement('li');
     li.innerHTML = `<span class="w">${esc(card.word)}</span><span class="d">${esc(card.def)}</span>`;
-    if (res.mastered.length >= 2 || (deck.length === 1 && res.mastered.length >= 1)) {
-      masteredEl.appendChild(li);
-    } else if (res.wrongCount >= 2) {
-      shakyEl.appendChild(li.cloneNode(true));
-    }
+    if (res.mastered.length >= 2 || (deck.length === 1 && res.mastered.length >= 1)) masteredEl.appendChild(li);
+    else if (res.wrongCount >= 2) shakyEl.appendChild(li.cloneNode(true));
   });
-
   if (!masteredEl.children.length) masteredEl.innerHTML = '<li style="color:var(--muted);font-size:0.82rem">Keep going — you\'ll get there.</li>';
   if (!shakyEl.children.length)    shakyEl.innerHTML    = '<li style="color:var(--muted);font-size:0.82rem">None flagged.</li>';
-
   const weakCount = Object.values(cardResults).filter(r => r.wrongCount >= 2).length;
   document.getElementById('btnPracticeWeak').style.display = weakCount ? 'block' : 'none';
-
   showScreen('screenSummary');
   document.getElementById('progressFill').style.width = '100%';
 }
 
 function practiceWeak() { startSession(true); }
-function newDeck()       {
+function newDeck() {
   parsedRows = []; manualCards = []; bundledCards = [];
   renderPreview(); renderManualList(); updateDeckCount();
   showScreen('screenInput');
@@ -1815,14 +1394,11 @@ function speakWord(word) {
   if (!('speechSynthesis' in window)) return;
   window.speechSynthesis.cancel();
   const utt = new SpeechSynthesisUtterance(word);
-  utt.lang  = 'en-GB';
-  utt.rate  = 0.82;
-  const voices = window.speechSynthesis.getVoices();
-  const brit   = voices.find(v => v.lang === 'en-GB');
+  utt.lang  = 'en-GB'; utt.rate = 0.82;
+  const brit = window.speechSynthesis.getVoices().find(v => v.lang === 'en-GB');
   if (brit) utt.voice = brit;
   window.speechSynthesis.speak(utt);
 }
-// Ensure voices are loaded
 if ('speechSynthesis' in window) {
   window.speechSynthesis.getVoices();
   window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
@@ -1835,7 +1411,6 @@ function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
 }
-
 function shuffleArray(arr) {
   for (let i = arr.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -1843,21 +1418,15 @@ function shuffleArray(arr) {
   }
   return arr;
 }
-
 function esc(str) {
   if (!str) return '';
-  return String(str)
-    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
-    .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
 }
 
 /* ══════════════════════════════════════════════════════════════════
    INIT
 ══════════════════════════════════════════════════════════════════ */
-document.addEventListener('DOMContentLoaded', () => {
-  checkBundledDeck();
-  updateDeckCount();
-});
+document.addEventListener('DOMContentLoaded', () => { checkBundledDeck(); updateDeckCount(); });
 </script>
 </body>
 </html>
