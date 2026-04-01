@@ -66,7 +66,7 @@
   'use strict';
 
   /* ── Config ─────────────────────────────────────────────────── */
-  const BELLA_TRAINER_PATH = '../../tools/vocabulary-trainer.html';
+  const BELLA_TRAINER_PATH = '../tools/vocabulary-trainer.html';
 
   /* ── Colour tokens matching BELLA house style ────────────────── */
   const STYLE = `
@@ -276,10 +276,6 @@
     btn.innerHTML = iconSvg + ' Open ' + count + ' words in Vocabulary Trainer';
     btn.setAttribute('aria-label', 'Open lesson vocabulary in the BELLA Vocabulary Trainer');
 
-    const countNote = document.createElement('span');
-    countNote.className = 'bella-export-count';
-    countNote.textContent = 'Opens in a new tab';
-
     const confirmMsg = document.createElement('span');
     confirmMsg.className = 'bella-export-confirm';
     confirmMsg.textContent = '✓ Deck loaded — launching trainer…';
@@ -289,7 +285,6 @@
     });
 
     bar.appendChild(btn);
-    bar.appendChild(countNote);
     bar.appendChild(confirmMsg);
 
     // Find the footer and append there; fall back to body
