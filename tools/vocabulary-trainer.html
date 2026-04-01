@@ -619,6 +619,7 @@ body {
           <div class="bn-icon">📚</div>
           <div class="bn-title" id="bundledDeckName">Lesson deck loaded</div>
           <div class="bn-sub"   id="bundledDeckCount"></div>
+          <div class="bn-meta"  id="bundledDeckMeta" style="margin-top:0.6rem;font-size:0.78rem;color:var(--muted);line-height:1.6;"></div>
         </div>
       </div>
     </div>
@@ -929,22 +930,71 @@ function removeManualCard(i) { manualCards.splice(i, 1); renderManualList(); upd
 
 /* ══════════════════════════════════════════════════════════════════
    BUNDLED DECK
+   Reads from two sources, in priority order:
+   1. sessionStorage 'bella-trainer-deck'  — written by bella-vocab-export.js
+      when a student clicks "Open in Vocabulary Trainer" on a lesson page.
+      This is the primary lesson→trainer handoff mechanism.
+   2. An inline <script id="bella-deck"> element — legacy / direct embed path.
 ══════════════════════════════════════════════════════════════════ */
 let bundledCards = [];
+let bundledMeta  = {};
 
 function checkBundledDeck() {
+  // ── Source 1: sessionStorage handoff from a lesson page ────────
+  try {
+    const raw = sessionStorage.getItem('bella-trainer-deck');
+    if (raw) {
+      // Clear immediately so a later direct visit doesn't re-load a stale deck
+      sessionStorage.removeItem('bella-trainer-deck');
+      const data = JSON.parse(raw);
+      if (data && Array.isArray(data.cards) && data.cards.length > 0) {
+        // Map lesson card format → trainer card format
+        // Lesson: { word, gprp, pos, def, example, l1_def, coach_it, ... }
+        // Trainer: { word, gprp, pos, def, example }  (superset is fine)
+        bundledCards = data.cards;
+        bundledMeta  = data.meta || {};
+        showBundledPanel(bundledCards, bundledMeta);
+        return;
+      }
+    }
+  } catch(e) {}
+
+  // ── Source 2: inline <script id="bella-deck"> (legacy) ─────────
   const el = document.getElementById('bella-deck');
   if (!el) return;
   try {
     const data = JSON.parse(el.textContent);
     if (Array.isArray(data) && data.length > 0) {
       bundledCards = data;
-      document.getElementById('tabBundled').style.display = '';
-      document.getElementById('bundledDeckName').textContent = data[0].deckName || 'Lesson deck';
-      document.getElementById('bundledDeckCount').textContent = data.length + ' cards';
-      switchTab('bundled');
+      bundledMeta  = { title: data[0].deckName || 'Lesson deck' };
+      showBundledPanel(bundledCards, bundledMeta);
     }
   } catch(e) {}
+}
+
+function showBundledPanel(cards, meta) {
+  document.getElementById('tabBundled').style.display = '';
+
+  // Title: lesson title or fallback
+  const title = meta.title || 'Lesson deck';
+  document.getElementById('bundledDeckName').textContent = title;
+
+  // Count
+  const n = cards.length;
+  document.getElementById('bundledDeckCount').textContent =
+    n + ' word' + (n !== 1 ? 's' : '') + ' ready to practise';
+
+  // Metadata line (level, source, topic) — only show fields that exist
+  const metaParts = [];
+  if (meta.level)  metaParts.push(meta.level);
+  if (meta.source) metaParts.push(meta.source);
+  if (meta.topic)  metaParts.push(meta.topic);
+  const metaEl = document.getElementById('bundledDeckMeta');
+  if (metaEl && metaParts.length > 0) {
+    metaEl.textContent = metaParts.join(' · ');
+  }
+
+  switchTab('bundled');
 }
 
 /* ══════════════════════════════════════════════════════════════════
@@ -1381,7 +1431,7 @@ function showSummary() {
 
 function practiceWeak() { startSession(true); }
 function newDeck() {
-  parsedRows = []; manualCards = []; bundledCards = [];
+  parsedRows = []; manualCards = []; bundledCards = []; bundledMeta = {};
   renderPreview(); renderManualList(); updateDeckCount();
   showScreen('screenInput');
   document.getElementById('progressFill').style.width = '0%';
