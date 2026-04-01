@@ -72,12 +72,12 @@
   const STYLE = `
     .bella-export-bar {
       display: block;
+      width: 100%;
       margin-top: 14px;
+      text-align: center;
     }
     .bella-export-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
+      display: inline-block;
       background: #B8963E;
       color: #0D1B2A;
       border: none;
@@ -90,6 +90,7 @@
       cursor: pointer;
       transition: background 0.2s, transform 0.1s;
       text-decoration: none;
+      vertical-align: middle;
     }
     .bella-export-btn:hover {
       background: #D4AE58;
@@ -98,18 +99,12 @@
     .bella-export-btn:active {
       transform: translateY(0);
     }
-    .bella-export-btn svg {
-      flex-shrink: 0;
-    }
-    .bella-export-count {
-      font-size: 0.78rem;
-      color: #9A9080;
-      letter-spacing: 0.06em;
-    }
     .bella-export-confirm {
+      display: block;
       font-size: 0.78rem;
       color: #2D6A4F;
       letter-spacing: 0.06em;
+      margin-top: 6px;
       opacity: 0;
       transition: opacity 0.3s;
     }
@@ -260,16 +255,9 @@
     const bar = document.createElement('div');
     bar.className = 'bella-export-bar';
 
-    // Card icon SVG
-    const iconSvg = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect x="1" y="3" width="14" height="10" rx="1.5" stroke="#0D1B2A" stroke-width="1.5" fill="none"/>
-      <line x1="1" y1="6.5" x2="15" y2="6.5" stroke="#0D1B2A" stroke-width="1.2"/>
-      <line x1="4" y1="9.5" x2="8" y2="9.5" stroke="#0D1B2A" stroke-width="1.2" stroke-linecap="round"/>
-    </svg>`;
-
     const btn = document.createElement('button');
     btn.className = 'bella-export-btn';
-    btn.innerHTML = iconSvg + ' Open ' + count + ' words in Vocabulary Trainer';
+    btn.textContent = 'Open ' + count + ' words in Vocabulary Trainer';
     btn.setAttribute('aria-label', 'Open lesson vocabulary in the BELLA Vocabulary Trainer');
 
     const confirmMsg = document.createElement('span');
