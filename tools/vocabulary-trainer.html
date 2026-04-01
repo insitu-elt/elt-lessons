@@ -1024,7 +1024,7 @@ function buildQueue(cards) {
   deck = cards.map(c => ({ ...c }));
   queue = []; cardResults = {};
   deck.forEach((c, i) => {
-    cardResults[i] = { wrongCount: 0, consecutiveCorrect: { rec: 0, prod: 0 }, mastered: [], repCount: { rec: 0, prod: 0 } };
+    cardResults[i] = { wrongCount: 0, shakyCount: 0, consecutiveCorrect: { rec: 0, prod: 0 }, mastered: [], repCount: { rec: 0, prod: 0 } };
     queue.push({ cardIdx: i, direction: 'receptive'  });
     queue.push({ cardIdx: i, direction: 'productive' });
   });
@@ -1240,7 +1240,10 @@ function rateCard(rating) {
   if (rating === 'got') {
     correctCount++;
     res.consecutiveCorrect[dk]++;
-    if (res.consecutiveCorrect[dk] >= 2) {
+    // Mastered on first correct answer unless the card has been wrong or shaky —
+    // in that case require a second consecutive correct for confirmation.
+    const needsConfirmation = res.wrongCount > 0 || (res.shakyCount || 0) > 0;
+    if (!needsConfirmation || res.consecutiveCorrect[dk] >= 2) {
       res.mastered.push(item.direction);
       setDotState(queuePos, 'mastered');
     } else {
@@ -1249,9 +1252,11 @@ function rateCard(rating) {
       setDotState(queuePos, 'mastered');
     }
   } else if (rating === 'nearly') {
+    res.shakyCount = (res.shakyCount || 0) + 1;
     res.consecutiveCorrect[dk] = 0;
     res.repCount[dk]++;
     if (res.repCount[dk] < 3) queue.splice(queuePos + 2, 0, { ...item });
+    setDotState(queuePos, 'shaky');
   } else {
     res.wrongCount++;
     res.consecutiveCorrect[dk] = 0;
@@ -1304,7 +1309,10 @@ function selectMCOption(btn, selected, correct, word) {
   if (selected === correct) {
     btn.classList.add('correct'); correctCount++;
     res.consecutiveCorrect[dk]++;
-    if (res.consecutiveCorrect[dk] >= 2) { res.mastered.push(item.direction); setDotState(queuePos, 'mastered'); }
+    const needsConfirmation = res.wrongCount > 0 || (res.shakyCount || 0) > 0;
+    if (!needsConfirmation || res.consecutiveCorrect[dk] >= 2) {
+      res.mastered.push(item.direction); setDotState(queuePos, 'mastered');
+    }
     feedback.className = 'mc-feedback correct'; feedback.textContent = '✓ Correct!'; speakWord(word);
   } else {
     btn.classList.add('selected-wrong');
@@ -1355,7 +1363,10 @@ function checkCloze() {
   if (correct) {
     input.classList.add('correct'); correctCount++;
     res.consecutiveCorrect[dk]++;
-    if (res.consecutiveCorrect[dk] >= 2) { res.mastered.push(item.direction); setDotState(queuePos, 'mastered'); }
+    const needsConfirmation = res.wrongCount > 0 || (res.shakyCount || 0) > 0;
+    if (!needsConfirmation || res.consecutiveCorrect[dk] >= 2) {
+      res.mastered.push(item.direction); setDotState(queuePos, 'mastered');
+    }
     feedback.className = 'cloze-feedback correct'; feedback.textContent = '✓ Correct!'; speakWord(card.word);
   } else {
     input.classList.add('incorrect'); res.wrongCount++;
@@ -1386,7 +1397,11 @@ function setDotState(i, state) {
   if (d) { d.classList.remove('current','mastered','shaky'); d.classList.add(state); }
 }
 function updateProgressBar() {
-  const mastered = Object.values(cardResults).filter(r => r.mastered.length >= 2 || (deck.length === 1 && r.mastered.length >= 1)).length;
+  // A word counts as mastered for the progress bar if both directions are mastered,
+  // or (for single-card decks) if at least one direction is mastered.
+  const mastered = Object.values(cardResults).filter(r =>
+    r.mastered.length >= 2 || (deck.length === 1 && r.mastered.length >= 1)
+  ).length;
   document.getElementById('progressFill').style.width = (deck.length ? (mastered / deck.length) * 100 : 0) + '%';
 }
 function updateSessionStats() {
@@ -1418,8 +1433,12 @@ function showSummary() {
     const res = cardResults[i];
     const li  = document.createElement('li');
     li.innerHTML = `<span class="w">${esc(card.word)}</span><span class="d">${esc(card.def)}</span>`;
-    if (res.mastered.length >= 2 || (deck.length === 1 && res.mastered.length >= 1)) masteredEl.appendChild(li);
-    else if (res.wrongCount >= 2) shakyEl.appendChild(li.cloneNode(true));
+    // Mastered: both directions done with no errors, OR single-card deck with one direction done.
+    const fullyMastered = res.mastered.length >= 2 || (deck.length === 1 && res.mastered.length >= 1);
+    // Partially mastered: at least one direction correct, no errors at all.
+    const cleanRun = res.mastered.length >= 1 && res.wrongCount === 0 && (res.shakyCount || 0) === 0;
+    if (fullyMastered || cleanRun) masteredEl.appendChild(li);
+    else if (res.wrongCount >= 1) shakyEl.appendChild(li.cloneNode(true));
   });
   if (!masteredEl.children.length) masteredEl.innerHTML = '<li style="color:var(--muted);font-size:0.82rem">Keep going — you\'ll get there.</li>';
   if (!shakyEl.children.length)    shakyEl.innerHTML    = '<li style="color:var(--muted);font-size:0.82rem">None flagged.</li>';
