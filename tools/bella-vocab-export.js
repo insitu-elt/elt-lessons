@@ -71,12 +71,9 @@
   /* ── Colour tokens matching BELLA house style ────────────────── */
   const STYLE = `
     .bella-export-bar {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
+      display: block;
+      text-align: center;
       margin-top: 14px;
-      flex-wrap: wrap;
     }
     .bella-export-btn {
       display: inline-flex;
