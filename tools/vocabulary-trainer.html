@@ -1486,6 +1486,8 @@ function checkCloze() {
 }
 
 function normaliseForCloze(s) { return s.toLowerCase().replace(/ing$/,'').replace(/ed$/,'').replace(/ly$/,'').replace(/s$/,'').trim(); }
+function advanceFromMC() { queuePos++; renderCard(); }
+
 function advanceFromCloze() { queuePos++; renderCard(); }
 
 /* ══════════════════════════════════════════════════════════════════
