@@ -66,7 +66,7 @@
   'use strict';
 
   /* ── Config ─────────────────────────────────────────────────── */
-  const BELLA_TRAINER_PATH = '../tools/vocabulary-trainer.html';
+  const BELLA_TRAINER_PATH = '../../tools/vocabulary-trainer.html';
 
   /* ── Colour tokens matching BELLA house style ────────────────── */
   const STYLE = `
