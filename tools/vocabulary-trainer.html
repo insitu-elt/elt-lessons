@@ -755,7 +755,16 @@ function buildAwlDeck(sublist) {
   const words = sublist === 0
     ? AWL_DATASET.words
     : AWL_DATASET.words.filter(w => w.sublist === sublist);
-  return words.map(w => ({ word:w.word, gprp:'', pos:w.pos, def:w.def, example:w.example, l1_def:'' }));
+  return words.map(w => ({
+    word:    w.word,
+    gprp:    '',
+    pos:     w.pos,
+    def:     w.def,
+    example: w.example,
+    l1_def:  '',
+    cluster: w.cluster,   // needed for smart distractor selection
+    sublist: w.sublist,
+  }));
 }
 
 // Reload AWL deck once data arrives (called from loadData)
@@ -1397,13 +1406,81 @@ function rateCard(rating) {
 /* ══════════════════════════════════════════════════════════════════
    MC CARD
 ══════════════════════════════════════════════════════════════════ */
+
+/**
+ * Build a pool of distractor candidates for an MC card.
+ *
+ * Priority order:
+ * 1. AWL words with same cluster AND same broad POS (best — semantically close)
+ * 2. AWL words with same broad POS (good — same word class at least)
+ * 3. Other cards in the current deck (fallback for non-AWL decks)
+ *
+ * Broad POS: 'adjective', 'noun', 'verb', 'adverb' — extracted from the
+ * card's pos field which may be compound ("noun/verb", "adjective/noun" etc.)
+ */
+function buildDistractors(card, isRec) {
+  function broadPos(pos) {
+    if (!pos) return '';
+    const p = pos.toLowerCase();
+    if (p.includes('adj')) return 'adj';
+    if (p.includes('adv')) return 'adv';
+    if (p.includes('noun')) return 'noun';
+    if (p.includes('verb')) return 'verb';
+    if (p.includes('conj') || p.includes('prep')) return 'function';
+    return 'other';
+  }
+
+  const targetPos     = broadPos(card.pos);
+  const targetCluster = card.cluster || '';
+  const targetWord    = card.word.toLowerCase();
+
+  // ── Try AWL pool first ────────────────────────────────────────
+  if (AWL_DATASET && AWL_DATASET.words) {
+    const awlPool = AWL_DATASET.words.filter(w =>
+      w.word.toLowerCase() !== targetWord &&
+      // Must not already be in the deck (to avoid correct answer appearing as distractor)
+      !deck.some(d => d.word.toLowerCase() === w.word.toLowerCase())
+    );
+
+    // Tier 1: same cluster + same broad POS
+    let tier1 = awlPool.filter(w =>
+      w.cluster === targetCluster && broadPos(w.pos) === targetPos
+    );
+
+    // Tier 2: same broad POS only
+    let tier2 = awlPool.filter(w =>
+      broadPos(w.pos) === targetPos && w.cluster !== targetCluster
+    );
+
+    // Combine tiers, shuffle each
+    shuffleArray(tier1);
+    shuffleArray(tier2);
+
+    const combined = [...tier1, ...tier2];
+    if (combined.length >= 3) {
+      const picked = combined.slice(0, 3);
+      // Convert AWL entries to card-like objects for option building
+      return picked.map(w => ({ word: w.word, def: w.def, pos: w.pos }));
+    }
+
+    // Tier 3: any AWL word if POS pool too small
+    shuffleArray(awlPool);
+    if (awlPool.length >= 3) {
+      return awlPool.slice(0, 3).map(w => ({ word: w.word, def: w.def, pos: w.pos }));
+    }
+  }
+
+  // ── Fallback: other cards in current deck ─────────────────────
+  const others = deck.filter(c => c.word !== card.word);
+  shuffleArray(others);
+  return others.slice(0, 3);
+}
+
 function renderMCCard(card, dir, scene) {
   const isRec = dir === 'receptive';
   const correctOption = isRec ? card.word : card.def;
 
-  const others = deck.filter(c => c.word !== card.word);
-  shuffleArray(others);
-  const distractors = others.slice(0, 3);
+  const distractors = buildDistractors(card, isRec);
   let options = isRec
     ? [card.word, ...distractors.map(d => d.word)]
     : [card.def,  ...distractors.map(d => d.def)];
