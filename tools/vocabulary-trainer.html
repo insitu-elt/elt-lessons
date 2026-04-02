@@ -1044,7 +1044,7 @@ function removeManualCard(i) { manualCards.splice(i, 1); renderManualList(); upd
    1. sessionStorage 'bella-trainer-deck'  — written by bella-vocab-export.js
       when a student clicks "Open in Vocabulary Trainer" on a lesson page.
       This is the primary lesson→trainer handoff mechanism.
-   2. An inline <script id="bella-deck"> element — legacy / direct embed path.
+   2. An inline &lt;script id="bella-deck"> element — legacy / direct embed path.
 ══════════════════════════════════════════════════════════════════ */
 let bundledCards = [];
 let bundledMeta  = {};
@@ -1069,7 +1069,7 @@ function checkBundledDeck() {
     }
   } catch(e) {}
 
-  // ── Source 2: inline <script id="bella-deck"> (legacy) ─────────
+  // ── Source 2: inline &lt;script id="bella-deck"> (legacy) ─────────
   const el = document.getElementById('bella-deck');
   if (!el) return;
   try {
@@ -1526,8 +1526,26 @@ function selectMCOption() {} // retired — logic now inline in renderMCCard
    CLOZE CARD
 ══════════════════════════════════════════════════════════════════ */
 function renderClozeCard(card, dir, scene) {
-  const gapped = card.example.replace(
-    new RegExp(`\\b${card.word}\\b`, 'gi'),
+  // Build a regex that matches the headword AND common inflected forms
+  // so gap-fill works even when the example uses 'derived' not 'derive'
+  function wordForms(w) {
+    const base = w.toLowerCase();
+    const forms = [base];
+    // Common suffixes
+    if (base.endsWith('e'))  { forms.push(base + 'd', base + 's', base.slice(0,-1) + 'ing', base.slice(0,-1) + 'ed'); }
+    if (base.endsWith('y'))  { forms.push(base.slice(0,-1) + 'ies', base.slice(0,-1) + 'ied'); }
+    if (!base.endsWith('e')) { forms.push(base + 's', base + 'ed', base + 'ing', base + 'ly'); }
+    // Double consonant (run -> running)
+    const last = base.slice(-1);
+    if ('bdgmnprst'.includes(last) && !'aeiou'.includes(base.slice(-2,-1))) {
+      forms.push(base + last + 'ed', base + last + 'ing');
+    }
+    // Unique, escaped for regex
+    return [...new Set(forms)].map(f => f.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+  }
+  const formPattern = wordForms(card.word).join('|');
+  const gapRe = new RegExp('\\b(' + formPattern + ')\\b', 'gi');
+  const gapped = card.example.replace(gapRe,
     '<span style="display:inline-block;min-width:80px;border-bottom:2px solid var(--gold);margin:0 2px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>'
   );
   const el = document.createElement('div');
@@ -1573,7 +1591,13 @@ function checkCloze() {
   input.disabled = true; nextBtn.style.display = 'inline-block'; updateProgressBar();
 }
 
-function normaliseForCloze(s) { return s.toLowerCase().replace(/ing$/,'').replace(/ed$/,'').replace(/ly$/,'').replace(/s$/,'').trim(); }
+function normaliseForCloze(s) {
+  return s.toLowerCase()
+    .replace(/ying$/, 'y').replace(/ied$/, 'y')
+    .replace(/ing$/, '').replace(/ed$/, '')
+    .replace(/ies$/, 'y').replace(/ly$/, '')
+    .replace(/s$/, '').replace(/e$/, '').trim();
+}
 function advanceFromMC() { queuePos++; renderCard(); }
 
 function advanceFromCloze() { queuePos++; renderCard(); }
