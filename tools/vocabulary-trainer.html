@@ -595,6 +595,7 @@ body {
 }
 .awl-select-btn:hover  { border-color: var(--gold); background: var(--navy-mid); }
 .awl-select-btn.active { border-color: var(--gold); background: rgba(184,150,62,0.15); color: var(--gold); }
+.badge-topic  { background: #2D4A3E; color: #A8D5B5; }
 </style>
 </head>
 <body>
@@ -666,20 +667,28 @@ body {
     <!-- AWL Drill Panel -->
     <div class="tab-panel" id="panelAwl">
       <div class="panel-box">
-        <label class="panel-label">Academic Word List — Drill by Sublist</label>
-        <p style="font-size:0.82rem;color:var(--muted);margin-bottom:1.2rem;line-height:1.6;">The AWL contains the most important vocabulary for academic English. Sublist 1 words are the most frequent — essential for IELTS Academic. Sessions are capped at 20 words and shuffled each time.</p>
-        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:0.5rem;margin-bottom:1rem;">
-          <button class="awl-select-btn active" data-sublist="0" onclick="selectAwlSublist(0)">All sublists<br><span style="font-size:0.68rem;opacity:0.7">390 words</span></button>
-          <button class="awl-select-btn" data-sublist="1" onclick="selectAwlSublist(1)">Sublist 1<br><span style="font-size:0.68rem;opacity:0.7">60 · most frequent</span></button>
-          <button class="awl-select-btn" data-sublist="2" onclick="selectAwlSublist(2)">Sublist 2<br><span style="font-size:0.68rem;opacity:0.7">57 words</span></button>
-          <button class="awl-select-btn" data-sublist="3" onclick="selectAwlSublist(3)">Sublist 3<br><span style="font-size:0.68rem;opacity:0.7">57 words</span></button>
-          <button class="awl-select-btn" data-sublist="4" onclick="selectAwlSublist(4)">Sublist 4<br><span style="font-size:0.68rem;opacity:0.7">60 words</span></button>
-          <button class="awl-select-btn" data-sublist="5" onclick="selectAwlSublist(5)">Sublist 5<br><span style="font-size:0.68rem;opacity:0.7">58 words</span></button>
-          <button class="awl-select-btn" data-sublist="6" onclick="selectAwlSublist(6)">Sublist 6<br><span style="font-size:0.68rem;opacity:0.7">30 words</span></button>
-          <button class="awl-select-btn" data-sublist="7" onclick="selectAwlSublist(7)">Sublist 7<br><span style="font-size:0.68rem;opacity:0.7">22 words</span></button>
-          <button class="awl-select-btn" data-sublist="8" onclick="selectAwlSublist(8)">Sublist 8<br><span style="font-size:0.68rem;opacity:0.7">21 words</span></button>
-          <button class="awl-select-btn" data-sublist="9" onclick="selectAwlSublist(9)">Sublist 9<br><span style="font-size:0.68rem;opacity:0.7">11 words</span></button>
-          <button class="awl-select-btn" data-sublist="10" onclick="selectAwlSublist(10)">Sublist 10<br><span style="font-size:0.68rem;opacity:0.7">14 words</span></button>
+        <label class="panel-label">Academic Word List — Drill by Sublist or Topic</label>
+        <p style="font-size:0.82rem;color:var(--muted);margin-bottom:1rem;line-height:1.6;">The AWL contains the most important vocabulary for academic English. Sublist 1 words are the most frequent — essential for IELTS Academic. Sessions are capped at 20 words and shuffled each time.</p>
+
+        <span style="font-size:0.75rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:0.5rem;">By sublist</span>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:0.5rem;margin-bottom:1.2rem;">
+          <button class="awl-select-btn active" data-mode="sublist" data-sublist="0" onclick="selectAwlSublist(0)">All sublists<br><span style="font-size:0.68rem;opacity:0.7">390 words</span></button>
+          <button class="awl-select-btn" data-mode="sublist" data-sublist="1" onclick="selectAwlSublist(1)">Sublist 1<br><span style="font-size:0.68rem;opacity:0.7">60 · most frequent</span></button>
+          <button class="awl-select-btn" data-mode="sublist" data-sublist="2" onclick="selectAwlSublist(2)">Sublist 2<br><span style="font-size:0.68rem;opacity:0.7">57 words</span></button>
+          <button class="awl-select-btn" data-mode="sublist" data-sublist="3" onclick="selectAwlSublist(3)">Sublist 3<br><span style="font-size:0.68rem;opacity:0.7">57 words</span></button>
+          <button class="awl-select-btn" data-mode="sublist" data-sublist="4" onclick="selectAwlSublist(4)">Sublist 4<br><span style="font-size:0.68rem;opacity:0.7">60 words</span></button>
+          <button class="awl-select-btn" data-mode="sublist" data-sublist="5" onclick="selectAwlSublist(5)">Sublist 5<br><span style="font-size:0.68rem;opacity:0.7">58 words</span></button>
+          <button class="awl-select-btn" data-mode="sublist" data-sublist="6" onclick="selectAwlSublist(6)">Sublist 6<br><span style="font-size:0.68rem;opacity:0.7">30 words</span></button>
+          <button class="awl-select-btn" data-mode="sublist" data-sublist="7" onclick="selectAwlSublist(7)">Sublist 7<br><span style="font-size:0.68rem;opacity:0.7">22 words</span></button>
+          <button class="awl-select-btn" data-mode="sublist" data-sublist="8" onclick="selectAwlSublist(8)">Sublist 8<br><span style="font-size:0.68rem;opacity:0.7">21 words</span></button>
+          <button class="awl-select-btn" data-mode="sublist" data-sublist="9" onclick="selectAwlSublist(9)">Sublist 9<br><span style="font-size:0.68rem;opacity:0.7">11 words</span></button>
+          <button class="awl-select-btn" data-mode="sublist" data-sublist="10" onclick="selectAwlSublist(10)">Sublist 10<br><span style="font-size:0.68rem;opacity:0.7">14 words</span></button>
+        </div>
+
+        <span style="font-size:0.75rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:0.5rem;">By topic</span>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:0.5rem;" id="awlTopicBtns">
+          <!-- populated by JS once AWL_DATASET loads -->
+          <span style="font-size:0.78rem;color:var(--muted);font-style:italic;">Loading topics…</span>
         </div>
       </div>
     </div>
@@ -771,8 +780,118 @@ function buildAwlDeck(sublist) {
 function refreshAwlDeck() {
   awlCards = buildAwlDeck(awlSublist).slice(0, 20);
   if (document.querySelector('.tab-panel.active')?.id === 'panelAwl') updateDeckCount();
+  populateTopicButtons();
 }
 
+function populateTopicButtons() {
+  const container = document.getElementById('awlTopicBtns');
+  if (!container || !AWL_DATASET) return;
+  container.innerHTML = '';
+
+  // Count words per cluster
+  const clusterCounts = {};
+  AWL_DATASET.words.forEach(w => {
+    clusterCounts[w.cluster] = (clusterCounts[w.cluster] || 0) + 1;
+  });
+
+  // Sort by label alphabetically
+  const clusters = Object.keys(CLUSTER_LABELS).sort((a, b) =>
+    CLUSTER_LABELS[a].localeCompare(CLUSTER_LABELS[b])
+  );
+
+  clusters.forEach(cluster => {
+    const count = clusterCounts[cluster] || 0;
+    if (count === 0) return;
+    const btn = document.createElement('button');
+    btn.className = 'awl-select-btn';
+    btn.dataset.mode = 'topic';
+    btn.dataset.cluster = cluster;
+    btn.innerHTML = CLUSTER_LABELS[cluster] +
+      '<br><span style="font-size:0.68rem;opacity:0.7">' + count + ' words</span>';
+    btn.addEventListener('click', function() { selectAwlTopic(cluster); });
+    container.appendChild(btn);
+  });
+}
+
+function selectAwlTopic(cluster) {
+  // Deactivate all AWL buttons
+  document.querySelectorAll('.awl-select-btn').forEach(b => b.classList.remove('active'));
+  // Activate the clicked topic button
+  const btn = document.querySelector(`.awl-select-btn[data-cluster="${cluster}"]`);
+  if (btn) btn.classList.add('active');
+
+  // Build deck from this cluster
+  if (!AWL_DATASET) return;
+  const words = AWL_DATASET.words.filter(w => w.cluster === cluster);
+  const cards = words.map(w => ({
+    word: w.word, gprp: '', pos: w.pos, def: w.def,
+    example: w.example, l1_def: '', cluster: w.cluster, sublist: w.sublist,
+  }));
+  shuffleArray(cards);
+  awlCards = cards.slice(0, 20);
+  awlSublist = -1; // sentinel: topic mode
+  updateDeckCount();
+}
+
+
+
+/* ══════════════════════════════════════════════════════════════════
+   TOPIC TAGS
+   Maps AWL cluster IDs to human-readable display labels.
+   Used on cards, in the AWL drill filter, and in the summary screen.
+══════════════════════════════════════════════════════════════════ */
+const CLUSTER_LABELS = {
+  research_process: 'Research & Analysis',
+  evaluation:       'Critical Evaluation',
+  causation:        'Cause & Effect',
+  argument:         'Academic Argument',
+  method:           'Methods & Procedures',
+  structure:        'Structure & Organisation',
+  quantity_change:  'Quantity & Change',
+  scope:            'Scope & Focus',
+  ideas:            'Concepts & Ideas',
+  law_policy:       'Law & Policy',
+  economics:        'Economics & Finance',
+  society:          'Society & Culture',
+  people:           'People & Groups',
+  time:             'Time & Sequence',
+  sequence:         'Sequence & Order',
+  comparison:       'Comparison & Contrast',
+  support:          'Support & Maintenance',
+  production:       'Creation & Production',
+  power_governance: 'Power & Governance',
+};
+
+/**
+ * Return the display topic label for a card.
+ * Priority: card.cluster (AWL) > card.topic (lesson metadata) > ''
+ */
+function cardTopic(card) {
+  if (card.cluster && CLUSTER_LABELS[card.cluster]) return CLUSTER_LABELS[card.cluster];
+  if (card.topic)   return card.topic;
+  return '';
+}
+
+/**
+ * Look up a word in the AWL dataset and return its cluster, or '' if not found.
+ * Used during deck building to tag non-AWL cards that happen to be AWL words.
+ */
+function awlCluster(word) {
+  if (!AWL_DATASET) return '';
+  const entry = AWL_DATASET.words.find(w => w.word.toLowerCase() === word.toLowerCase());
+  return entry ? entry.cluster : '';
+}
+
+/**
+ * Enrich a card with topic tag from AWL lookup if not already tagged.
+ */
+function enrichCard(card) {
+  if (!card.cluster) {
+    const cluster = awlCluster(card.word);
+    if (cluster) card.cluster = cluster;
+  }
+  return card;
+}
 
 function getWordBadge(word) {
   if (!word) return null;
@@ -800,8 +919,13 @@ let awlCards   = [];  // populated after AWL_DATASET is defined
 
 function selectAwlSublist(sl) {
   awlSublist = sl;
+  // Activate matching sublist button, deactivate all topic buttons
   document.querySelectorAll('.awl-select-btn').forEach(b => {
-    b.classList.toggle('active', parseInt(b.dataset.sublist) === sl);
+    if (b.dataset.mode === 'topic') {
+      b.classList.remove('active');
+    } else {
+      b.classList.toggle('active', parseInt(b.dataset.sublist) === sl);
+    }
   });
   const allCards = buildAwlDeck(sl);
   shuffleArray(allCards);
@@ -997,7 +1121,7 @@ function parseGemInput() {
     document.getElementById('previewBody').innerHTML = '';
     updateDeckCount(); return;
   }
-  parsedRows = results;
+  parsedRows = results.map(enrichCard);
   renderPreview();
   updateDeckCount();
 }
@@ -1070,7 +1194,7 @@ function checkBundledDeck() {
         // Map lesson card format → trainer card format
         // Lesson: { word, gprp, pos, def, example, l1_def, coach_it, ... }
         // Trainer: { word, gprp, pos, def, example }  (superset is fine)
-        bundledCards = data.cards;
+        bundledCards = data.cards.map(enrichCard);
         bundledMeta  = data.meta || {};
         showBundledPanel(bundledCards, bundledMeta);
         return;
@@ -1295,12 +1419,17 @@ function renderFlipCard(card, dir, scene) {
   bw.textContent = card.word;
   back.appendChild(bw);
 
-  // Word list badge
-  const bwBadgeHtml = renderBadge(card.word);
-  if (bwBadgeHtml) {
+  // Word list badge + topic tag
+  const bwBadgeHtml   = renderBadge(card.word);
+  const topicLabel    = cardTopic(card);
+  const topicBadgeHtml = topicLabel
+    ? '<span class="word-badge badge-topic" title="Topic">' + topicLabel + '</span>'
+    : '';
+  const combinedBadges = bwBadgeHtml + topicBadgeHtml;
+  if (combinedBadges) {
     const bwBadge = document.createElement('div');
     bwBadge.className = 'card-word-badge';
-    bwBadge.innerHTML = bwBadgeHtml;
+    bwBadge.innerHTML = combinedBadges;
     back.appendChild(bwBadge);
   }
 
@@ -1514,12 +1643,17 @@ function renderMCCard(card, dir, scene) {
     em.style.cssText = "color:var(--gold);font-family:'Playfair Display',serif;font-size:1.5rem";
     em.textContent = card.word;
     prompt.appendChild(em);
-    // Badge below the word in productive direction
-    const mcBadgeHtml = renderBadge(card.word);
-    if (mcBadgeHtml) {
+    // Badge + topic below the word in productive direction
+    const mcBadgeHtml    = renderBadge(card.word);
+    const mcTopicLabel   = cardTopic(card);
+    const mcTopicHtml    = mcTopicLabel
+      ? '<span class="word-badge badge-topic">' + mcTopicLabel + '</span>'
+      : '';
+    const mcCombined = mcBadgeHtml + mcTopicHtml;
+    if (mcCombined) {
       const mcBadge = document.createElement('div');
       mcBadge.style.cssText = 'margin-top:4px;';
-      mcBadge.innerHTML = mcBadgeHtml;
+      mcBadge.innerHTML = mcCombined;
       prompt.appendChild(mcBadge);
     }
   }
@@ -1664,7 +1798,7 @@ function renderClozeCard(card, dir, scene) {
     <span style="font-size:0.68rem;color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;display:block;margin-bottom:1rem;align-self:flex-start">Gap-fill</span>
     <p class="cloze-sentence">${gapped}</p>
     ${posHint}
-    <p style="font-size:0.8rem;color:var(--muted);margin-bottom:0.8rem">${esc(card.def)}${renderBadge(card.word)}</p>
+    <p style="font-size:0.8rem;color:var(--muted);margin-bottom:0.8rem">${esc(card.def)}${renderBadge(card.word)}${cardTopic(card) ? '<span class="word-badge badge-topic">' + cardTopic(card) + '</span>' : ''}</p>
     <div class="cloze-input-wrap">
       <input class="cloze-input" id="clozeInput" type="text" placeholder="Type the missing word…" onkeydown="if(event.key==='Enter')checkCloze()">
       <button class="btn-check-cloze" onclick="checkCloze()">Check</button>
@@ -1774,10 +1908,12 @@ function showSummary() {
   const shakyEl    = document.getElementById('shakyList');
   masteredEl.innerHTML = ''; shakyEl.innerHTML = '';
   deck.forEach((card, i) => {
-    const res = cardResults[i];
-    const li  = document.createElement('li');
-    li.innerHTML = `<span class="w">${esc(card.word)}</span><span class="d">${esc(card.def)}</span>`;
-    // Mastered: answered correctly at least twice (both directions) with no errors or shakies.
+    const res   = cardResults[i];
+    const topic = cardTopic(card);
+    const li    = document.createElement('li');
+    li.innerHTML = `<span class="w">${esc(card.word)}</span>`
+      + (topic ? `<span class="word-badge badge-topic" style="font-size:0.58rem;margin-left:4px;">${esc(topic)}</span>` : '')
+      + `<span class="d">${esc(card.def)}</span>`;
     const mastered = res.everCorrect >= 2 && res.wrongCount === 0 && res.shakyCount === 0;
     if (mastered) masteredEl.appendChild(li);
     else if (res.wrongCount >= 1) shakyEl.appendChild(li.cloneNode(true));
