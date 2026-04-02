@@ -1,0 +1,3162 @@
+{
+  "meta": {
+    "source": "Academic Word List (Coxhead, 2000)",
+    "definitions_level": "B2",
+    "total_entries": 390,
+    "sublists": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "clusters": [
+      "argument",
+      "causation",
+      "comparison",
+      "economics",
+      "evaluation",
+      "ideas",
+      "law_policy",
+      "method",
+      "people",
+      "power_governance",
+      "production",
+      "quantity_change",
+      "research_process",
+      "scope",
+      "sequence",
+      "society",
+      "structure",
+      "support",
+      "time"
+    ]
+  },
+  "words": [
+    {
+      "word": "analyse",
+      "pos": "verb",
+      "sublist": 1,
+      "cluster": "research_process",
+      "def": "To examine something carefully in order to understand it or explain it.",
+      "example": "The researchers analysed data from over 2,000 participants."
+    },
+    {
+      "word": "approach",
+      "pos": "noun/verb",
+      "sublist": 1,
+      "cluster": "research_process",
+      "def": "A way of dealing with a situation or problem; to begin to deal with something.",
+      "example": "The study takes a comparative approach to examine policy differences."
+    },
+    {
+      "word": "area",
+      "pos": "noun",
+      "sublist": 1,
+      "cluster": "scope",
+      "def": "A subject or range of activity; a particular topic or field.",
+      "example": "This paper focuses on the area of environmental regulation."
+    },
+    {
+      "word": "assess",
+      "pos": "verb",
+      "sublist": 1,
+      "cluster": "evaluation",
+      "def": "To judge or decide the quality, importance, or value of something.",
+      "example": "It is difficult to assess the full impact of these policy changes."
+    },
+    {
+      "word": "assume",
+      "pos": "verb",
+      "sublist": 1,
+      "cluster": "argument",
+      "def": "To accept that something is true without having proof of it.",
+      "example": "The model assumes that all variables remain constant."
+    },
+    {
+      "word": "authority",
+      "pos": "noun",
+      "sublist": 1,
+      "cluster": "power_governance",
+      "def": "The power or right to give orders and make decisions; an expert source.",
+      "example": "Local authorities are responsible for implementing the new regulations."
+    },
+    {
+      "word": "available",
+      "pos": "adjective",
+      "sublist": 1,
+      "cluster": "scope",
+      "def": "Able to be used, obtained, or accessed.",
+      "example": "The available evidence suggests a strong correlation between the two factors."
+    },
+    {
+      "word": "benefit",
+      "pos": "noun/verb",
+      "sublist": 1,
+      "cluster": "evaluation",
+      "def": "An advantage or positive effect; to receive an advantage from something.",
+      "example": "The benefits of early intervention have been well documented."
+    },
+    {
+      "word": "concept",
+      "pos": "noun",
+      "sublist": 1,
+      "cluster": "ideas",
+      "def": "An abstract idea or general principle.",
+      "example": "The concept of sustainability is central to modern urban planning."
+    },
+    {
+      "word": "consist",
+      "pos": "verb",
+      "sublist": 1,
+      "cluster": "structure",
+      "def": "To be made up of particular things or people.",
+      "example": "The sample consisted of 150 undergraduate students."
+    },
+    {
+      "word": "constitute",
+      "pos": "verb",
+      "sublist": 1,
+      "cluster": "structure",
+      "def": "To form or make up a whole; to be considered as something.",
+      "example": "These findings constitute a significant contribution to the field."
+    },
+    {
+      "word": "context",
+      "pos": "noun",
+      "sublist": 1,
+      "cluster": "scope",
+      "def": "The circumstances or background that help explain a situation.",
+      "example": "It is important to interpret the results within their historical context."
+    },
+    {
+      "word": "contract",
+      "pos": "noun/verb",
+      "sublist": 1,
+      "cluster": "law_policy",
+      "def": "A formal written agreement; to make or become smaller.",
+      "example": "The contract specifies the rights and obligations of both parties."
+    },
+    {
+      "word": "create",
+      "pos": "verb",
+      "sublist": 1,
+      "cluster": "production",
+      "def": "To produce or bring something into existence.",
+      "example": "New technologies create both opportunities and challenges for society."
+    },
+    {
+      "word": "data",
+      "pos": "noun",
+      "sublist": 1,
+      "cluster": "research_process",
+      "def": "Facts and statistics collected for analysis.",
+      "example": "The data were collected using structured interviews and questionnaires."
+    },
+    {
+      "word": "define",
+      "pos": "verb",
+      "sublist": 1,
+      "cluster": "ideas",
+      "def": "To explain or describe exactly what something means.",
+      "example": "The study defines poverty as having an income below 60% of the national median."
+    },
+    {
+      "word": "derive",
+      "pos": "verb",
+      "sublist": 1,
+      "cluster": "research_process",
+      "def": "To obtain or develop something from a source.",
+      "example": "The theoretical framework is derived from systems theory."
+    },
+    {
+      "word": "distribute",
+      "pos": "verb",
+      "sublist": 1,
+      "cluster": "quantity_change",
+      "def": "To spread or share something among several people or places.",
+      "example": "Resources are not evenly distributed across different regions."
+    },
+    {
+      "word": "economy",
+      "pos": "noun",
+      "sublist": 1,
+      "cluster": "economics",
+      "def": "The system by which a country produces and uses goods, services, and money.",
+      "example": "The global economy has become increasingly interconnected."
+    },
+    {
+      "word": "environment",
+      "pos": "noun",
+      "sublist": 1,
+      "cluster": "scope",
+      "def": "The conditions and surroundings in which something exists or operates.",
+      "example": "The business environment has changed dramatically in recent decades."
+    },
+    {
+      "word": "establish",
+      "pos": "verb",
+      "sublist": 1,
+      "cluster": "research_process",
+      "def": "To set up or create something permanently; to show that something is true.",
+      "example": "The research establishes a clear link between diet and cognitive function."
+    },
+    {
+      "word": "estimate",
+      "pos": "verb/noun",
+      "sublist": 1,
+      "cluster": "quantity_change",
+      "def": "To calculate an approximate value or amount; an approximate calculation.",
+      "example": "It is estimated that 40% of the population will be affected."
+    },
+    {
+      "word": "evident",
+      "pos": "adjective",
+      "sublist": 1,
+      "cluster": "argument",
+      "def": "Easy to see or understand; obvious.",
+      "example": "It is evident from the data that the intervention was effective."
+    },
+    {
+      "word": "export",
+      "pos": "noun/verb",
+      "sublist": 1,
+      "cluster": "economics",
+      "def": "Goods or services sold to another country; to sell goods abroad.",
+      "example": "Agricultural exports account for 30% of the country's foreign earnings."
+    },
+    {
+      "word": "factor",
+      "pos": "noun",
+      "sublist": 1,
+      "cluster": "causation",
+      "def": "One of several things that causes or influences a result.",
+      "example": "Socioeconomic factors play a significant role in educational outcomes."
+    },
+    {
+      "word": "finance",
+      "pos": "noun/verb",
+      "sublist": 1,
+      "cluster": "economics",
+      "def": "Money used to fund something; the management of money.",
+      "example": "The project was financed through a combination of public and private funding."
+    },
+    {
+      "word": "formula",
+      "pos": "noun",
+      "sublist": 1,
+      "cluster": "method",
+      "def": "A fixed rule or method; a mathematical expression.",
+      "example": "There is no single formula for achieving sustainable development."
+    },
+    {
+      "word": "function",
+      "pos": "noun/verb",
+      "sublist": 1,
+      "cluster": "structure",
+      "def": "The purpose or role of something; to work or operate.",
+      "example": "Language serves a range of social functions beyond simple communication."
+    },
+    {
+      "word": "identify",
+      "pos": "verb",
+      "sublist": 1,
+      "cluster": "research_process",
+      "def": "To recognise or name something; to find or discover.",
+      "example": "The study identifies three key barriers to participation."
+    },
+    {
+      "word": "income",
+      "pos": "noun",
+      "sublist": 1,
+      "cluster": "economics",
+      "def": "Money received from work, investments, or other sources.",
+      "example": "Households with lower incomes spend a higher proportion on food."
+    },
+    {
+      "word": "indicate",
+      "pos": "verb",
+      "sublist": 1,
+      "cluster": "argument",
+      "def": "To show, suggest, or point to something.",
+      "example": "The results indicate a significant improvement in the experimental group."
+    },
+    {
+      "word": "individual",
+      "pos": "noun/adjective",
+      "sublist": 1,
+      "cluster": "people",
+      "def": "A single person, considered separately from a group.",
+      "example": "Individual differences in learning style should be taken into account."
+    },
+    {
+      "word": "interpret",
+      "pos": "verb",
+      "sublist": 1,
+      "cluster": "research_process",
+      "def": "To explain the meaning of something; to understand in a particular way.",
+      "example": "The findings must be interpreted with caution given the small sample size."
+    },
+    {
+      "word": "involve",
+      "pos": "verb",
+      "sublist": 1,
+      "cluster": "structure",
+      "def": "To include something as a necessary part; to affect or include someone.",
+      "example": "The methodology involves a mixed-methods approach."
+    },
+    {
+      "word": "issue",
+      "pos": "noun",
+      "sublist": 1,
+      "cluster": "argument",
+      "def": "An important topic or problem for discussion.",
+      "example": "The issue of data privacy has become increasingly significant."
+    },
+    {
+      "word": "labour",
+      "pos": "noun",
+      "sublist": 1,
+      "cluster": "economics",
+      "def": "Work, especially physical work; the workforce of a country or industry.",
+      "example": "The demand for skilled labour has increased in the technology sector."
+    },
+    {
+      "word": "legal",
+      "pos": "adjective",
+      "sublist": 1,
+      "cluster": "law_policy",
+      "def": "Connected with the law; allowed by the law.",
+      "example": "There are significant legal implications for companies that fail to comply."
+    },
+    {
+      "word": "legislate",
+      "pos": "verb",
+      "sublist": 1,
+      "cluster": "law_policy",
+      "def": "To make laws.",
+      "example": "The government has legislated to protect workers' rights."
+    },
+    {
+      "word": "major",
+      "pos": "adjective",
+      "sublist": 1,
+      "cluster": "quantity_change",
+      "def": "Very large, important, or serious.",
+      "example": "Climate change represents a major challenge for global governance."
+    },
+    {
+      "word": "method",
+      "pos": "noun",
+      "sublist": 1,
+      "cluster": "method",
+      "def": "A particular way of doing something.",
+      "example": "The study employs both qualitative and quantitative methods."
+    },
+    {
+      "word": "occur",
+      "pos": "verb",
+      "sublist": 1,
+      "cluster": "causation",
+      "def": "To happen; to exist or be present.",
+      "example": "These changes occur gradually over an extended period."
+    },
+    {
+      "word": "percent",
+      "pos": "noun",
+      "sublist": 1,
+      "cluster": "quantity_change",
+      "def": "An amount expressed as a fraction of 100.",
+      "example": "Approximately 65 percent of respondents agreed with the statement."
+    },
+    {
+      "word": "period",
+      "pos": "noun",
+      "sublist": 1,
+      "cluster": "time",
+      "def": "A length of time.",
+      "example": "The study covers a period of ten years from 2010 to 2020."
+    },
+    {
+      "word": "policy",
+      "pos": "noun",
+      "sublist": 1,
+      "cluster": "law_policy",
+      "def": "A set of plans or rules adopted by a government or organisation.",
+      "example": "Education policy has undergone significant reform in recent years."
+    },
+    {
+      "word": "principle",
+      "pos": "noun",
+      "sublist": 1,
+      "cluster": "ideas",
+      "def": "A fundamental rule or belief that guides behaviour or thinking.",
+      "example": "The principle of equality underpins international human rights law."
+    },
+    {
+      "word": "proceed",
+      "pos": "verb",
+      "sublist": 1,
+      "cluster": "sequence",
+      "def": "To continue doing something; to move forward.",
+      "example": "The analysis proceeds in three stages."
+    },
+    {
+      "word": "process",
+      "pos": "noun/verb",
+      "sublist": 1,
+      "cluster": "method",
+      "def": "A series of actions or steps taken to achieve a result.",
+      "example": "The democratic process requires the participation of all citizens."
+    },
+    {
+      "word": "require",
+      "pos": "verb",
+      "sublist": 1,
+      "cluster": "argument",
+      "def": "To need something; to make something necessary.",
+      "example": "The implementation of this policy requires substantial investment."
+    },
+    {
+      "word": "research",
+      "pos": "noun/verb",
+      "sublist": 1,
+      "cluster": "research_process",
+      "def": "Careful study of a subject to discover new facts or test ideas.",
+      "example": "Current research suggests that early childhood interventions are highly effective."
+    },
+    {
+      "word": "respond",
+      "pos": "verb",
+      "sublist": 1,
+      "cluster": "causation",
+      "def": "To say or do something as a reaction to something.",
+      "example": "Governments must respond effectively to the challenges of rapid urbanisation."
+    },
+    {
+      "word": "role",
+      "pos": "noun",
+      "sublist": 1,
+      "cluster": "structure",
+      "def": "The function or position of someone or something in a situation.",
+      "example": "The media plays a crucial role in shaping public opinion."
+    },
+    {
+      "word": "section",
+      "pos": "noun",
+      "sublist": 1,
+      "cluster": "structure",
+      "def": "A separate part of something larger.",
+      "example": "The following section examines the historical background."
+    },
+    {
+      "word": "sector",
+      "pos": "noun",
+      "sublist": 1,
+      "cluster": "economics",
+      "def": "A particular area of economic activity or society.",
+      "example": "The private sector accounts for the majority of employment in this industry."
+    },
+    {
+      "word": "significant",
+      "pos": "adjective",
+      "sublist": 1,
+      "cluster": "evaluation",
+      "def": "Important or large enough to be noticed or have an effect.",
+      "example": "There was a statistically significant difference between the two groups."
+    },
+    {
+      "word": "similar",
+      "pos": "adjective",
+      "sublist": 1,
+      "cluster": "comparison",
+      "def": "Like something else but not exactly the same.",
+      "example": "Similar patterns have been observed in other European countries."
+    },
+    {
+      "word": "source",
+      "pos": "noun",
+      "sublist": 1,
+      "cluster": "research_process",
+      "def": "A place, person, or thing that something comes from.",
+      "example": "Primary sources include government reports and official statistics."
+    },
+    {
+      "word": "specific",
+      "pos": "adjective",
+      "sublist": 1,
+      "cluster": "scope",
+      "def": "Particular or exact rather than general.",
+      "example": "The study focuses on the specific challenges facing rural communities."
+    },
+    {
+      "word": "structure",
+      "pos": "noun/verb",
+      "sublist": 1,
+      "cluster": "structure",
+      "def": "The way parts of something are arranged or organised.",
+      "example": "The organisational structure of the firm influences its decision-making process."
+    },
+    {
+      "word": "theory",
+      "pos": "noun",
+      "sublist": 1,
+      "cluster": "ideas",
+      "def": "A set of ideas intended to explain something; a formal explanation.",
+      "example": "Social learning theory emphasises the importance of observation and imitation."
+    },
+    {
+      "word": "vary",
+      "pos": "verb",
+      "sublist": 1,
+      "cluster": "quantity_change",
+      "def": "To change or differ in amount, level, or quality.",
+      "example": "Results vary considerably depending on the method of measurement used."
+    },
+    {
+      "word": "achieve",
+      "pos": "verb",
+      "sublist": 2,
+      "cluster": "evaluation",
+      "def": "To succeed in doing or completing something.",
+      "example": "It is difficult to achieve sustainable growth without structural reform."
+    },
+    {
+      "word": "acquire",
+      "pos": "verb",
+      "sublist": 2,
+      "cluster": "production",
+      "def": "To get or obtain something, especially knowledge or a skill.",
+      "example": "Children acquire language through exposure and interaction."
+    },
+    {
+      "word": "affect",
+      "pos": "verb",
+      "sublist": 2,
+      "cluster": "causation",
+      "def": "To have an influence on something or someone.",
+      "example": "Economic inequality affects access to education and healthcare."
+    },
+    {
+      "word": "appropriate",
+      "pos": "adjective",
+      "sublist": 2,
+      "cluster": "evaluation",
+      "def": "Suitable or right for a particular situation.",
+      "example": "The most appropriate method depends on the nature of the research question."
+    },
+    {
+      "word": "aspect",
+      "pos": "noun",
+      "sublist": 2,
+      "cluster": "scope",
+      "def": "One part or feature of a situation or problem.",
+      "example": "The social aspect of this policy has received less attention than the economic one."
+    },
+    {
+      "word": "assist",
+      "pos": "verb",
+      "sublist": 2,
+      "cluster": "support",
+      "def": "To help someone do something.",
+      "example": "Technology can assist learners in accessing information more efficiently."
+    },
+    {
+      "word": "category",
+      "pos": "noun",
+      "sublist": 2,
+      "cluster": "structure",
+      "def": "A group of people or things with shared characteristics.",
+      "example": "Respondents were divided into three categories based on their income level."
+    },
+    {
+      "word": "chapter",
+      "pos": "noun",
+      "sublist": 2,
+      "cluster": "structure",
+      "def": "A main division of a book.",
+      "example": "Chapter 3 reviews the existing literature on this topic."
+    },
+    {
+      "word": "commission",
+      "pos": "noun/verb",
+      "sublist": 2,
+      "cluster": "law_policy",
+      "def": "An official group given authority to do something; to officially ask for something.",
+      "example": "The commission published its findings in a report to Parliament."
+    },
+    {
+      "word": "community",
+      "pos": "noun",
+      "sublist": 2,
+      "cluster": "people",
+      "def": "A group of people living in the same area or sharing common interests.",
+      "example": "Community involvement is essential for the success of local health initiatives."
+    },
+    {
+      "word": "complex",
+      "pos": "adjective",
+      "sublist": 2,
+      "cluster": "evaluation",
+      "def": "Consisting of many different and connected parts; difficult to understand.",
+      "example": "The relationship between poverty and crime is highly complex."
+    },
+    {
+      "word": "compute",
+      "pos": "verb",
+      "sublist": 2,
+      "cluster": "method",
+      "def": "To calculate using a computer or mathematical process.",
+      "example": "Statistical significance was computed using a chi-square test."
+    },
+    {
+      "word": "conclude",
+      "pos": "verb",
+      "sublist": 2,
+      "cluster": "argument",
+      "def": "To decide or judge something after thinking carefully about it.",
+      "example": "The authors conclude that further research is needed in this area."
+    },
+    {
+      "word": "conduct",
+      "pos": "verb/noun",
+      "sublist": 2,
+      "cluster": "research_process",
+      "def": "To organise and carry out something; behaviour.",
+      "example": "The survey was conducted over a period of three months."
+    },
+    {
+      "word": "consequent",
+      "pos": "adjective",
+      "sublist": 2,
+      "cluster": "causation",
+      "def": "Happening as a result of something.",
+      "example": "The economic crisis and the consequent rise in unemployment had lasting effects."
+    },
+    {
+      "word": "construct",
+      "pos": "verb/noun",
+      "sublist": 2,
+      "cluster": "production",
+      "def": "To build or create something; an idea or theory.",
+      "example": "Identity is a social construct that varies across cultures."
+    },
+    {
+      "word": "consume",
+      "pos": "verb",
+      "sublist": 2,
+      "cluster": "economics",
+      "def": "To use, eat, or use up something.",
+      "example": "Developed nations consume a disproportionate share of global resources."
+    },
+    {
+      "word": "credit",
+      "pos": "noun",
+      "sublist": 2,
+      "cluster": "economics",
+      "def": "Recognition for an achievement; money borrowed or lent.",
+      "example": "Access to credit is essential for small business development."
+    },
+    {
+      "word": "culture",
+      "pos": "noun",
+      "sublist": 2,
+      "cluster": "society",
+      "def": "The beliefs, customs, and practices of a society or group.",
+      "example": "Organisational culture shapes employee behaviour and attitudes."
+    },
+    {
+      "word": "design",
+      "pos": "noun/verb",
+      "sublist": 2,
+      "cluster": "method",
+      "def": "A plan or drawing; to plan and make something.",
+      "example": "The research design employs a longitudinal approach."
+    },
+    {
+      "word": "distinct",
+      "pos": "adjective",
+      "sublist": 2,
+      "cluster": "comparison",
+      "def": "Clearly different or separate from something else.",
+      "example": "Two distinct patterns emerged from the analysis."
+    },
+    {
+      "word": "element",
+      "pos": "noun",
+      "sublist": 2,
+      "cluster": "structure",
+      "def": "A basic part of something.",
+      "example": "Trust is a key element of any successful partnership."
+    },
+    {
+      "word": "evaluate",
+      "pos": "verb",
+      "sublist": 2,
+      "cluster": "evaluation",
+      "def": "To judge or calculate the quality, value, or importance of something.",
+      "example": "The programme was evaluated using both qualitative and quantitative measures."
+    },
+    {
+      "word": "feature",
+      "pos": "noun/verb",
+      "sublist": 2,
+      "cluster": "structure",
+      "def": "An important or interesting quality; to include or show something.",
+      "example": "A key feature of the policy is its focus on long-term sustainability."
+    },
+    {
+      "word": "focus",
+      "pos": "noun/verb",
+      "sublist": 2,
+      "cluster": "scope",
+      "def": "The main subject of attention; to concentrate on something.",
+      "example": "The study focuses on the experiences of first-generation university students."
+    },
+    {
+      "word": "impact",
+      "pos": "noun/verb",
+      "sublist": 2,
+      "cluster": "causation",
+      "def": "A strong effect or influence on something.",
+      "example": "The impact of social media on political participation is widely debated."
+    },
+    {
+      "word": "injure",
+      "pos": "verb",
+      "sublist": 2,
+      "cluster": "causation",
+      "def": "To harm or damage someone or something.",
+      "example": "Workers in this sector are at higher risk of being injured."
+    },
+    {
+      "word": "institute",
+      "pos": "noun/verb",
+      "sublist": 2,
+      "cluster": "law_policy",
+      "def": "An organisation for a particular purpose; to introduce a new law or system.",
+      "example": "New measures were instituted to improve workplace safety."
+    },
+    {
+      "word": "invest",
+      "pos": "verb",
+      "sublist": 2,
+      "cluster": "economics",
+      "def": "To put money into something in order to make a profit or achieve a result.",
+      "example": "Governments must invest heavily in renewable energy infrastructure."
+    },
+    {
+      "word": "item",
+      "pos": "noun",
+      "sublist": 2,
+      "cluster": "structure",
+      "def": "A single thing in a list or group.",
+      "example": "Each item in the questionnaire was designed to measure a specific variable."
+    },
+    {
+      "word": "journal",
+      "pos": "noun",
+      "sublist": 2,
+      "cluster": "research_process",
+      "def": "A magazine or newspaper for a professional or academic field; a diary.",
+      "example": "The article was published in a peer-reviewed academic journal."
+    },
+    {
+      "word": "maintain",
+      "pos": "verb",
+      "sublist": 2,
+      "cluster": "support",
+      "def": "To keep something in the same condition or at the same level.",
+      "example": "It is essential to maintain accurate records throughout the research process."
+    },
+    {
+      "word": "normal",
+      "pos": "adjective",
+      "sublist": 2,
+      "cluster": "comparison",
+      "def": "Typical or usual; what is expected.",
+      "example": "Within the normal range of variation, these results are unremarkable."
+    },
+    {
+      "word": "obtain",
+      "pos": "verb",
+      "sublist": 2,
+      "cluster": "research_process",
+      "def": "To get or acquire something, especially through effort.",
+      "example": "Informed consent was obtained from all participants prior to the study."
+    },
+    {
+      "word": "participate",
+      "pos": "verb",
+      "sublist": 2,
+      "cluster": "people",
+      "def": "To take part in an activity or event.",
+      "example": "Citizens are more likely to participate in politics when they feel represented."
+    },
+    {
+      "word": "perceive",
+      "pos": "verb",
+      "sublist": 2,
+      "cluster": "ideas",
+      "def": "To understand or think about something in a particular way.",
+      "example": "Risk is often perceived differently by experts and the general public."
+    },
+    {
+      "word": "positive",
+      "pos": "adjective",
+      "sublist": 2,
+      "cluster": "evaluation",
+      "def": "Good, favourable, or optimistic.",
+      "example": "The intervention had a positive effect on student attainment."
+    },
+    {
+      "word": "potential",
+      "pos": "noun/adjective",
+      "sublist": 2,
+      "cluster": "evaluation",
+      "def": "The possibility of something developing or being achieved in the future.",
+      "example": "The potential benefits of this technology are significant."
+    },
+    {
+      "word": "previous",
+      "pos": "adjective",
+      "sublist": 2,
+      "cluster": "time",
+      "def": "Happening or existing before the present time.",
+      "example": "Previous studies have reached similar conclusions."
+    },
+    {
+      "word": "primary",
+      "pos": "adjective",
+      "sublist": 2,
+      "cluster": "scope",
+      "def": "Most important; first in order or development.",
+      "example": "The primary aim of this research is to examine the causes of urban poverty."
+    },
+    {
+      "word": "purchase",
+      "pos": "verb/noun",
+      "sublist": 2,
+      "cluster": "economics",
+      "def": "To buy something; something that has been bought.",
+      "example": "Consumer purchasing behaviour has shifted significantly in recent years."
+    },
+    {
+      "word": "range",
+      "pos": "noun/verb",
+      "sublist": 2,
+      "cluster": "quantity_change",
+      "def": "The variety of things within a particular set; to vary between limits.",
+      "example": "A range of factors contributes to educational disadvantage."
+    },
+    {
+      "word": "region",
+      "pos": "noun",
+      "sublist": 2,
+      "cluster": "scope",
+      "def": "A large area of land, usually with particular characteristics.",
+      "example": "Economic development varies considerably across different regions."
+    },
+    {
+      "word": "regulate",
+      "pos": "verb",
+      "sublist": 2,
+      "cluster": "law_policy",
+      "def": "To control something by means of rules or laws.",
+      "example": "Financial markets must be carefully regulated to prevent systemic risk."
+    },
+    {
+      "word": "relevant",
+      "pos": "adjective",
+      "sublist": 2,
+      "cluster": "evaluation",
+      "def": "Closely connected to the subject being discussed.",
+      "example": "Only data relevant to the research question was included in the analysis."
+    },
+    {
+      "word": "reside",
+      "pos": "verb",
+      "sublist": 2,
+      "cluster": "people",
+      "def": "To live permanently in a place.",
+      "example": "The majority of participants resided in urban areas."
+    },
+    {
+      "word": "resource",
+      "pos": "noun",
+      "sublist": 2,
+      "cluster": "economics",
+      "def": "A supply of something useful, such as money, materials, or skills.",
+      "example": "Developing nations often lack the resources to implement large-scale reforms."
+    },
+    {
+      "word": "restrict",
+      "pos": "verb",
+      "sublist": 2,
+      "cluster": "law_policy",
+      "def": "To limit the size, amount, or range of something.",
+      "example": "Access to certain areas was restricted for safety reasons."
+    },
+    {
+      "word": "secure",
+      "pos": "adjective/verb",
+      "sublist": 2,
+      "cluster": "support",
+      "def": "Safe from danger or attack; to make something safe or certain.",
+      "example": "The organisation secured additional funding for the next phase of the project."
+    },
+    {
+      "word": "seek",
+      "pos": "verb",
+      "sublist": 2,
+      "cluster": "research_process",
+      "def": "To try to find, obtain, or achieve something.",
+      "example": "This study seeks to understand the lived experiences of marginalised groups."
+    },
+    {
+      "word": "select",
+      "pos": "verb",
+      "sublist": 2,
+      "cluster": "method",
+      "def": "To choose someone or something from a group.",
+      "example": "Participants were selected using stratified random sampling."
+    },
+    {
+      "word": "site",
+      "pos": "noun",
+      "sublist": 2,
+      "cluster": "scope",
+      "def": "A place where something is located or where something happened.",
+      "example": "The fieldwork was carried out at three sites in rural Kenya."
+    },
+    {
+      "word": "strategy",
+      "pos": "noun",
+      "sublist": 2,
+      "cluster": "method",
+      "def": "A plan designed to achieve a particular goal.",
+      "example": "Governments have adopted different strategies to address the housing crisis."
+    },
+    {
+      "word": "survey",
+      "pos": "noun/verb",
+      "sublist": 2,
+      "cluster": "research_process",
+      "def": "A study that collects information from a sample of people; to examine.",
+      "example": "A national survey of 5,000 households was conducted in 2019."
+    },
+    {
+      "word": "text",
+      "pos": "noun",
+      "sublist": 2,
+      "cluster": "research_process",
+      "def": "Written or printed material; the main body of a piece of writing.",
+      "example": "The analysis focuses on the linguistic features of academic texts."
+    },
+    {
+      "word": "tradition",
+      "pos": "noun",
+      "sublist": 2,
+      "cluster": "society",
+      "def": "A belief or way of doing things that has existed for a long time.",
+      "example": "Many traditions are being challenged by the process of globalisation."
+    },
+    {
+      "word": "transfer",
+      "pos": "verb/noun",
+      "sublist": 2,
+      "cluster": "quantity_change",
+      "def": "To move something from one place or person to another.",
+      "example": "The transfer of knowledge between institutions remains a significant challenge."
+    },
+    {
+      "word": "alternative",
+      "pos": "noun/adjective",
+      "sublist": 3,
+      "cluster": "comparison",
+      "def": "A choice between two or more possibilities; available as another option.",
+      "example": "Renewable energy provides a sustainable alternative to fossil fuels."
+    },
+    {
+      "word": "circumstance",
+      "pos": "noun",
+      "sublist": 3,
+      "cluster": "scope",
+      "def": "The conditions or facts connected to an event or situation.",
+      "example": "The outcome depends heavily on the specific circumstances of each case."
+    },
+    {
+      "word": "comment",
+      "pos": "noun/verb",
+      "sublist": 3,
+      "cluster": "argument",
+      "def": "A remark or opinion about something; to express an opinion.",
+      "example": "Several scholars have commented on the limitations of this approach."
+    },
+    {
+      "word": "compensate",
+      "pos": "verb",
+      "sublist": 3,
+      "cluster": "economics",
+      "def": "To provide something to balance or make up for a disadvantage or loss.",
+      "example": "Higher wages may compensate for poor working conditions to some extent."
+    },
+    {
+      "word": "component",
+      "pos": "noun",
+      "sublist": 3,
+      "cluster": "structure",
+      "def": "One part of a larger whole.",
+      "example": "Motivation is an essential component of successful language learning."
+    },
+    {
+      "word": "consent",
+      "pos": "noun/verb",
+      "sublist": 3,
+      "cluster": "law_policy",
+      "def": "Agreement or permission; to agree to something.",
+      "example": "Informed consent must be obtained before any medical procedure."
+    },
+    {
+      "word": "considerable",
+      "pos": "adjective",
+      "sublist": 3,
+      "cluster": "quantity_change",
+      "def": "Large in size, amount, or extent.",
+      "example": "Considerable progress has been made in reducing child mortality rates."
+    },
+    {
+      "word": "constant",
+      "pos": "adjective",
+      "sublist": 3,
+      "cluster": "time",
+      "def": "Staying the same over time; happening all the time.",
+      "example": "The model assumes a constant rate of economic growth."
+    },
+    {
+      "word": "constrain",
+      "pos": "verb",
+      "sublist": 3,
+      "cluster": "law_policy",
+      "def": "To limit or restrict something.",
+      "example": "Budget constraints have limited the scope of the research."
+    },
+    {
+      "word": "contribute",
+      "pos": "verb",
+      "sublist": 3,
+      "cluster": "causation",
+      "def": "To give or add something to a result or situation.",
+      "example": "Several factors contribute to the persistence of gender inequality."
+    },
+    {
+      "word": "coordinate",
+      "pos": "verb",
+      "sublist": 3,
+      "cluster": "method",
+      "def": "To organise different activities or people to work together effectively.",
+      "example": "International organisations must coordinate their efforts to address climate change."
+    },
+    {
+      "word": "core",
+      "pos": "noun/adjective",
+      "sublist": 3,
+      "cluster": "structure",
+      "def": "The most important or central part of something.",
+      "example": "Communication skills are core competencies in most professional fields."
+    },
+    {
+      "word": "corporate",
+      "pos": "adjective",
+      "sublist": 3,
+      "cluster": "economics",
+      "def": "Relating to a large company or business.",
+      "example": "Corporate social responsibility has become increasingly important."
+    },
+    {
+      "word": "correspond",
+      "pos": "verb",
+      "sublist": 3,
+      "cluster": "comparison",
+      "def": "To match or be similar to something; to communicate by letter.",
+      "example": "The findings correspond closely with those of earlier studies."
+    },
+    {
+      "word": "criteria",
+      "pos": "noun",
+      "sublist": 3,
+      "cluster": "evaluation",
+      "def": "Standards used for judging or deciding something. (singular: criterion)",
+      "example": "The selection criteria were clearly defined in advance."
+    },
+    {
+      "word": "deduce",
+      "pos": "verb",
+      "sublist": 3,
+      "cluster": "argument",
+      "def": "To reach a conclusion based on evidence or reasoning.",
+      "example": "From this evidence, it can be deduced that the policy was largely ineffective."
+    },
+    {
+      "word": "demonstrate",
+      "pos": "verb",
+      "sublist": 3,
+      "cluster": "argument",
+      "def": "To show clearly that something is true; to explain by example.",
+      "example": "The experiment demonstrates the relationship between temperature and reaction rate."
+    },
+    {
+      "word": "document",
+      "pos": "noun/verb",
+      "sublist": 3,
+      "cluster": "research_process",
+      "def": "An official piece of writing; to record something in writing.",
+      "example": "The study documents the experiences of refugees in the resettlement process."
+    },
+    {
+      "word": "dominate",
+      "pos": "verb",
+      "sublist": 3,
+      "cluster": "power_governance",
+      "def": "To have the greatest influence or control over something.",
+      "example": "A small number of large corporations dominate the global media landscape."
+    },
+    {
+      "word": "emphasis",
+      "pos": "noun",
+      "sublist": 3,
+      "cluster": "argument",
+      "def": "Special importance or attention given to something.",
+      "example": "There has been increasing emphasis on evidence-based policy making."
+    },
+    {
+      "word": "ensure",
+      "pos": "verb",
+      "sublist": 3,
+      "cluster": "support",
+      "def": "To make certain that something will happen.",
+      "example": "Steps must be taken to ensure the reliability of the data."
+    },
+    {
+      "word": "exclude",
+      "pos": "verb",
+      "sublist": 3,
+      "cluster": "scope",
+      "def": "To deliberately leave out or not include something.",
+      "example": "Participants who did not complete all tasks were excluded from the analysis."
+    },
+    {
+      "word": "framework",
+      "pos": "noun",
+      "sublist": 3,
+      "cluster": "ideas",
+      "def": "A set of ideas or rules used as a basis for making judgements or decisions.",
+      "example": "The research is situated within a constructivist theoretical framework."
+    },
+    {
+      "word": "fund",
+      "pos": "noun/verb",
+      "sublist": 3,
+      "cluster": "economics",
+      "def": "Money provided for a purpose; to provide money for something.",
+      "example": "The project was funded by a government research grant."
+    },
+    {
+      "word": "illustrate",
+      "pos": "verb",
+      "sublist": 3,
+      "cluster": "argument",
+      "def": "To make something clear by giving examples; to provide pictures.",
+      "example": "This case study illustrates the complexity of implementing top-down reforms."
+    },
+    {
+      "word": "imply",
+      "pos": "verb",
+      "sublist": 3,
+      "cluster": "argument",
+      "def": "To suggest something without saying it directly.",
+      "example": "The results imply that social support is a key mediating factor."
+    },
+    {
+      "word": "initial",
+      "pos": "adjective",
+      "sublist": 3,
+      "cluster": "time",
+      "def": "Happening at the beginning.",
+      "example": "Initial findings suggest a positive relationship between the variables."
+    },
+    {
+      "word": "instance",
+      "pos": "noun",
+      "sublist": 3,
+      "cluster": "argument",
+      "def": "A particular example or case.",
+      "example": "In this instance, the intervention proved more effective than expected."
+    },
+    {
+      "word": "interact",
+      "pos": "verb",
+      "sublist": 3,
+      "cluster": "causation",
+      "def": "To communicate with or affect each other.",
+      "example": "Genetic and environmental factors interact in complex ways."
+    },
+    {
+      "word": "justify",
+      "pos": "verb",
+      "sublist": 3,
+      "cluster": "argument",
+      "def": "To give reasons for something; to show something is right or reasonable.",
+      "example": "The authors justify their methodological choices with reference to the literature."
+    },
+    {
+      "word": "layer",
+      "pos": "noun",
+      "sublist": 3,
+      "cluster": "structure",
+      "def": "A level or thickness of something placed over or under another.",
+      "example": "There are multiple layers of complexity in the governance of global trade."
+    },
+    {
+      "word": "link",
+      "pos": "noun/verb",
+      "sublist": 3,
+      "cluster": "causation",
+      "def": "A connection between two things; to connect things.",
+      "example": "Research has established a clear link between income inequality and poor health outcomes."
+    },
+    {
+      "word": "locate",
+      "pos": "verb",
+      "sublist": 3,
+      "cluster": "scope",
+      "def": "To find the exact position of something; to be situated in a place.",
+      "example": "The study locates itself within the broader debate on educational equity."
+    },
+    {
+      "word": "maximise",
+      "pos": "verb",
+      "sublist": 3,
+      "cluster": "evaluation",
+      "def": "To make as large or as effective as possible.",
+      "example": "The aim of the policy is to maximise economic efficiency."
+    },
+    {
+      "word": "minor",
+      "pos": "adjective",
+      "sublist": 3,
+      "cluster": "quantity_change",
+      "def": "Small in size, importance, or degree.",
+      "example": "Only minor differences were found between the two groups."
+    },
+    {
+      "word": "negate",
+      "pos": "verb",
+      "sublist": 3,
+      "cluster": "argument",
+      "def": "To prevent something from having an effect; to deny something.",
+      "example": "These confounding variables may negate the observed effect."
+    },
+    {
+      "word": "outcome",
+      "pos": "noun",
+      "sublist": 3,
+      "cluster": "evaluation",
+      "def": "A result or effect of an action or event.",
+      "example": "Educational outcomes are strongly influenced by socioeconomic background."
+    },
+    {
+      "word": "partner",
+      "pos": "noun",
+      "sublist": 3,
+      "cluster": "people",
+      "def": "A person who shares in an activity; a company working with another.",
+      "example": "The project was carried out in partnership with local community organisations."
+    },
+    {
+      "word": "philosophy",
+      "pos": "noun",
+      "sublist": 3,
+      "cluster": "ideas",
+      "def": "A set of beliefs or principles guiding behaviour or thinking.",
+      "example": "The underlying philosophy of the programme is one of empowerment."
+    },
+    {
+      "word": "physical",
+      "pos": "adjective",
+      "sublist": 3,
+      "cluster": "scope",
+      "def": "Relating to the body or to material things rather than the mind.",
+      "example": "Physical exercise has well-documented benefits for mental health."
+    },
+    {
+      "word": "proportion",
+      "pos": "noun",
+      "sublist": 3,
+      "cluster": "quantity_change",
+      "def": "A part of a whole, expressed as a fraction or percentage.",
+      "example": "A large proportion of the population lives in poverty."
+    },
+    {
+      "word": "publish",
+      "pos": "verb",
+      "sublist": 3,
+      "cluster": "research_process",
+      "def": "To produce a book, article, or other material for public distribution.",
+      "example": "The findings were published in a leading medical journal."
+    },
+    {
+      "word": "react",
+      "pos": "verb",
+      "sublist": 3,
+      "cluster": "causation",
+      "def": "To behave in a particular way in response to something.",
+      "example": "Markets react quickly to changes in interest rates."
+    },
+    {
+      "word": "register",
+      "pos": "noun/verb",
+      "sublist": 3,
+      "cluster": "method",
+      "def": "An official list; the level of formality of language; to officially record.",
+      "example": "Participants were asked to register their responses on a five-point scale."
+    },
+    {
+      "word": "rely",
+      "pos": "verb",
+      "sublist": 3,
+      "cluster": "support",
+      "def": "To depend on someone or something.",
+      "example": "Many developing countries rely heavily on foreign aid."
+    },
+    {
+      "word": "remove",
+      "pos": "verb",
+      "sublist": 3,
+      "cluster": "quantity_change",
+      "def": "To take away or eliminate something.",
+      "example": "Removing trade barriers can stimulate economic growth."
+    },
+    {
+      "word": "scheme",
+      "pos": "noun",
+      "sublist": 3,
+      "cluster": "law_policy",
+      "def": "A plan or system for doing or organising something.",
+      "example": "A new support scheme was introduced to assist unemployed graduates."
+    },
+    {
+      "word": "sequence",
+      "pos": "noun",
+      "sublist": 3,
+      "cluster": "method",
+      "def": "A set of things arranged or happening in a particular order.",
+      "example": "The sequence of events leading to the crisis has been well documented."
+    },
+    {
+      "word": "shift",
+      "pos": "noun/verb",
+      "sublist": 3,
+      "cluster": "quantity_change",
+      "def": "A change in position, direction, or emphasis; to move or change.",
+      "example": "There has been a significant shift in public attitudes towards immigration."
+    },
+    {
+      "word": "specify",
+      "pos": "verb",
+      "sublist": 3,
+      "cluster": "method",
+      "def": "To state something clearly and exactly.",
+      "example": "The protocol specifies the exact procedures to be followed."
+    },
+    {
+      "word": "sufficient",
+      "pos": "adjective",
+      "sublist": 3,
+      "cluster": "quantity_change",
+      "def": "Enough for a particular purpose.",
+      "example": "The available evidence is not sufficient to draw firm conclusions."
+    },
+    {
+      "word": "task",
+      "pos": "noun",
+      "sublist": 3,
+      "cluster": "method",
+      "def": "A piece of work to be done.",
+      "example": "Participants were asked to complete a series of cognitive tasks."
+    },
+    {
+      "word": "technical",
+      "pos": "adjective",
+      "sublist": 3,
+      "cluster": "scope",
+      "def": "Relating to a particular subject or requiring special knowledge.",
+      "example": "Technical expertise is required to implement these reforms effectively."
+    },
+    {
+      "word": "technique",
+      "pos": "noun",
+      "sublist": 3,
+      "cluster": "method",
+      "def": "A specific way of doing something, especially one that requires skill.",
+      "example": "Statistical techniques were used to control for confounding variables."
+    },
+    {
+      "word": "technology",
+      "pos": "noun",
+      "sublist": 3,
+      "cluster": "scope",
+      "def": "Scientific knowledge used to create practical applications and machines.",
+      "example": "Digital technology has transformed the way people access information."
+    },
+    {
+      "word": "valid",
+      "pos": "adjective",
+      "sublist": 3,
+      "cluster": "evaluation",
+      "def": "Based on truth or reason; legally acceptable.",
+      "example": "A valid argument must be both logically sound and empirically supported."
+    },
+    {
+      "word": "volume",
+      "pos": "noun",
+      "sublist": 3,
+      "cluster": "quantity_change",
+      "def": "The amount of space something fills; a large quantity; a book.",
+      "example": "The volume of international trade has increased dramatically."
+    },
+    {
+      "word": "access",
+      "pos": "noun/verb",
+      "sublist": 4,
+      "cluster": "scope",
+      "def": "The right or ability to approach or use something.",
+      "example": "Equal access to education is a fundamental human right."
+    },
+    {
+      "word": "adequate",
+      "pos": "adjective",
+      "sublist": 4,
+      "cluster": "evaluation",
+      "def": "Enough in quantity or quality for a particular purpose.",
+      "example": "The existing legal framework is not adequate to address emerging digital threats."
+    },
+    {
+      "word": "annual",
+      "pos": "adjective",
+      "sublist": 4,
+      "cluster": "time",
+      "def": "Happening once every year.",
+      "example": "Annual reports provide a summary of the organisation's financial performance."
+    },
+    {
+      "word": "apparent",
+      "pos": "adjective",
+      "sublist": 4,
+      "cluster": "argument",
+      "def": "Clearly visible; seeming to be true but possibly not.",
+      "example": "There is an apparent contradiction between these two sets of findings."
+    },
+    {
+      "word": "approximate",
+      "pos": "adjective/verb",
+      "sublist": 4,
+      "cluster": "quantity_change",
+      "def": "Almost correct but not exact; to estimate.",
+      "example": "The approximate cost of the project is £2 million."
+    },
+    {
+      "word": "attitude",
+      "pos": "noun",
+      "sublist": 4,
+      "cluster": "ideas",
+      "def": "A way of thinking or feeling about something.",
+      "example": "Public attitudes towards immigration have become increasingly polarised."
+    },
+    {
+      "word": "attribute",
+      "pos": "verb/noun",
+      "sublist": 4,
+      "cluster": "causation",
+      "def": "To say that something is caused by a particular person or thing; a quality.",
+      "example": "The improvement in outcomes can be attributed to the new intervention."
+    },
+    {
+      "word": "civil",
+      "pos": "adjective",
+      "sublist": 4,
+      "cluster": "law_policy",
+      "def": "Relating to citizens or to law between citizens.",
+      "example": "Civil society organisations play a vital role in democratic governance."
+    },
+    {
+      "word": "code",
+      "pos": "noun/verb",
+      "sublist": 4,
+      "cluster": "law_policy",
+      "def": "A system of rules; a set of symbols used to represent information.",
+      "example": "The professional code of conduct outlines expected standards of behaviour."
+    },
+    {
+      "word": "commit",
+      "pos": "verb",
+      "sublist": 4,
+      "cluster": "support",
+      "def": "To promise to do something; to carry out a crime or mistake.",
+      "example": "The government committed to reducing carbon emissions by 50% by 2030."
+    },
+    {
+      "word": "communicate",
+      "pos": "verb",
+      "sublist": 4,
+      "cluster": "method",
+      "def": "To share information or ideas with others.",
+      "example": "Researchers must communicate their findings in an accessible way."
+    },
+    {
+      "word": "concentrate",
+      "pos": "verb",
+      "sublist": 4,
+      "cluster": "scope",
+      "def": "To focus attention or effort on something.",
+      "example": "Wealth is concentrated in the hands of a small elite."
+    },
+    {
+      "word": "contrast",
+      "pos": "noun/verb",
+      "sublist": 4,
+      "cluster": "comparison",
+      "def": "A clear difference between two things; to show a difference.",
+      "example": "In contrast to previous research, this study found no significant effect."
+    },
+    {
+      "word": "cycle",
+      "pos": "noun",
+      "sublist": 4,
+      "cluster": "time",
+      "def": "A series of events that repeat in the same order.",
+      "example": "Poverty can create a cycle of disadvantage that is difficult to escape."
+    },
+    {
+      "word": "debate",
+      "pos": "noun/verb",
+      "sublist": 4,
+      "cluster": "argument",
+      "def": "A formal discussion of an issue; to argue about something.",
+      "example": "There is ongoing debate about the most effective approach to tax reform."
+    },
+    {
+      "word": "despite",
+      "pos": "preposition",
+      "sublist": 4,
+      "cluster": "argument",
+      "def": "Without being affected by something.",
+      "example": "Despite considerable investment, outcomes have not improved significantly."
+    },
+    {
+      "word": "dimension",
+      "pos": "noun",
+      "sublist": 4,
+      "cluster": "scope",
+      "def": "A particular aspect or feature of something.",
+      "example": "The cultural dimension of globalisation is often overlooked."
+    },
+    {
+      "word": "domestic",
+      "pos": "adjective",
+      "sublist": 4,
+      "cluster": "scope",
+      "def": "Relating to the home or family; relating to one's own country.",
+      "example": "Domestic violence is a significant public health concern."
+    },
+    {
+      "word": "emerge",
+      "pos": "verb",
+      "sublist": 4,
+      "cluster": "causation",
+      "def": "To come out or become known.",
+      "example": "Several important themes emerged from the qualitative data."
+    },
+    {
+      "word": "error",
+      "pos": "noun",
+      "sublist": 4,
+      "cluster": "evaluation",
+      "def": "A mistake; an inaccuracy.",
+      "example": "Sampling error can significantly affect the reliability of survey results."
+    },
+    {
+      "word": "ethnic",
+      "pos": "adjective",
+      "sublist": 4,
+      "cluster": "society",
+      "def": "Relating to a group of people with a shared cultural background.",
+      "example": "Ethnic minorities are underrepresented in senior management positions."
+    },
+    {
+      "word": "exceed",
+      "pos": "verb",
+      "sublist": 4,
+      "cluster": "quantity_change",
+      "def": "To be greater than a particular amount or limit.",
+      "example": "Carbon emissions continue to exceed the recommended safety threshold."
+    },
+    {
+      "word": "explicit",
+      "pos": "adjective",
+      "sublist": 4,
+      "cluster": "argument",
+      "def": "Clearly stated and leaving nothing implied.",
+      "example": "The policy makes explicit reference to the need for gender equality."
+    },
+    {
+      "word": "fee",
+      "pos": "noun",
+      "sublist": 4,
+      "cluster": "economics",
+      "def": "A charge made for professional services or rights.",
+      "example": "University tuition fees have risen substantially in recent years."
+    },
+    {
+      "word": "flexible",
+      "pos": "adjective",
+      "sublist": 4,
+      "cluster": "evaluation",
+      "def": "Able to change or be changed to suit different conditions.",
+      "example": "A flexible approach is needed to accommodate individual learning needs."
+    },
+    {
+      "word": "furthermore",
+      "pos": "adverb",
+      "sublist": 4,
+      "cluster": "argument",
+      "def": "In addition to what has been said.",
+      "example": "Furthermore, the evidence suggests that the effects are long-lasting."
+    },
+    {
+      "word": "generate",
+      "pos": "verb",
+      "sublist": 4,
+      "cluster": "production",
+      "def": "To produce or create something.",
+      "example": "The research generated considerable interest among policy makers."
+    },
+    {
+      "word": "ignore",
+      "pos": "verb",
+      "sublist": 4,
+      "cluster": "scope",
+      "def": "To pay no attention to something.",
+      "example": "These findings cannot be ignored when designing future interventions."
+    },
+    {
+      "word": "incentive",
+      "pos": "noun",
+      "sublist": 4,
+      "cluster": "causation",
+      "def": "Something that encourages a person to do something.",
+      "example": "Tax incentives are widely used to encourage investment in research."
+    },
+    {
+      "word": "incorporate",
+      "pos": "verb",
+      "sublist": 4,
+      "cluster": "structure",
+      "def": "To include something as part of a whole.",
+      "example": "The revised policy incorporates feedback from community consultations."
+    },
+    {
+      "word": "index",
+      "pos": "noun",
+      "sublist": 4,
+      "cluster": "method",
+      "def": "A measure used to track changes over time; a list or indicator.",
+      "example": "The Human Development Index measures wellbeing across multiple dimensions."
+    },
+    {
+      "word": "internal",
+      "pos": "adjective",
+      "sublist": 4,
+      "cluster": "scope",
+      "def": "Existing or happening inside an organisation or country.",
+      "example": "Internal consistency was assessed using Cronbach's alpha."
+    },
+    {
+      "word": "investigate",
+      "pos": "verb",
+      "sublist": 4,
+      "cluster": "research_process",
+      "def": "To examine something carefully in order to find the truth.",
+      "example": "The study investigates the factors that influence academic achievement."
+    },
+    {
+      "word": "job",
+      "pos": "noun",
+      "sublist": 4,
+      "cluster": "economics",
+      "def": "A paid position of employment; a task.",
+      "example": "Job creation is a central goal of regional development policy."
+    },
+    {
+      "word": "label",
+      "pos": "noun/verb",
+      "sublist": 4,
+      "cluster": "method",
+      "def": "A word or phrase that describes something; to give a name or category.",
+      "example": "Diagnostic labels can have both positive and negative consequences."
+    },
+    {
+      "word": "mechanism",
+      "pos": "noun",
+      "sublist": 4,
+      "cluster": "causation",
+      "def": "A process or system that produces a particular result.",
+      "example": "The exact mechanism by which stress affects the immune system is not fully understood."
+    },
+    {
+      "word": "obvious",
+      "pos": "adjective",
+      "sublist": 4,
+      "cluster": "argument",
+      "def": "Easy to see or understand; clear.",
+      "example": "There is no obvious explanation for the observed discrepancy."
+    },
+    {
+      "word": "occupy",
+      "pos": "verb",
+      "sublist": 4,
+      "cluster": "scope",
+      "def": "To live or work in a place; to fill a space or time.",
+      "example": "Women continue to occupy a disproportionately small number of leadership roles."
+    },
+    {
+      "word": "option",
+      "pos": "noun",
+      "sublist": 4,
+      "cluster": "method",
+      "def": "A choice that is available.",
+      "example": "Policy makers must consider all available options before reaching a decision."
+    },
+    {
+      "word": "output",
+      "pos": "noun",
+      "sublist": 4,
+      "cluster": "production",
+      "def": "The amount of something produced.",
+      "example": "Economic output fell sharply during the recession."
+    },
+    {
+      "word": "overall",
+      "pos": "adjective/adverb",
+      "sublist": 4,
+      "cluster": "scope",
+      "def": "Including everything; in general.",
+      "example": "Overall, the results support the hypothesis that early intervention is effective."
+    },
+    {
+      "word": "parallel",
+      "pos": "adjective/noun",
+      "sublist": 4,
+      "cluster": "comparison",
+      "def": "Similar or occurring at the same time; a comparison between things.",
+      "example": "A parallel study was conducted in Canada with similar results."
+    },
+    {
+      "word": "phase",
+      "pos": "noun",
+      "sublist": 4,
+      "cluster": "time",
+      "def": "A stage in a process of development or change.",
+      "example": "The first phase of the research involved a systematic review of the literature."
+    },
+    {
+      "word": "predict",
+      "pos": "verb",
+      "sublist": 4,
+      "cluster": "argument",
+      "def": "To say what will happen in the future based on information available.",
+      "example": "The model can predict outcomes with a high degree of accuracy."
+    },
+    {
+      "word": "principal",
+      "pos": "adjective/noun",
+      "sublist": 4,
+      "cluster": "scope",
+      "def": "Most important; the head of an organisation.",
+      "example": "The principal finding of the study is that intervention timing is critical."
+    },
+    {
+      "word": "prior",
+      "pos": "adjective",
+      "sublist": 4,
+      "cluster": "time",
+      "def": "Existing or coming before in time or order.",
+      "example": "Prior knowledge of the subject significantly affects learning outcomes."
+    },
+    {
+      "word": "professional",
+      "pos": "adjective/noun",
+      "sublist": 4,
+      "cluster": "people",
+      "def": "Relating to a job that requires special training; a trained expert.",
+      "example": "Professional development is essential for maintaining high standards."
+    },
+    {
+      "word": "project",
+      "pos": "noun/verb",
+      "sublist": 4,
+      "cluster": "method",
+      "def": "A planned piece of work; to predict or estimate for the future.",
+      "example": "The project aims to develop new approaches to conflict resolution."
+    },
+    {
+      "word": "promote",
+      "pos": "verb",
+      "sublist": 4,
+      "cluster": "support",
+      "def": "To encourage or support something; to raise someone to a higher position.",
+      "example": "The campaign promotes healthy eating among young people."
+    },
+    {
+      "word": "regime",
+      "pos": "noun",
+      "sublist": 4,
+      "cluster": "power_governance",
+      "def": "A system of government or management; a set of rules or procedures.",
+      "example": "The regulatory regime governing financial services has been significantly reformed."
+    },
+    {
+      "word": "resolve",
+      "pos": "verb",
+      "sublist": 4,
+      "cluster": "support",
+      "def": "To find a solution to a problem or disagreement.",
+      "example": "Mediation is often used to resolve disputes without recourse to litigation."
+    },
+    {
+      "word": "retain",
+      "pos": "verb",
+      "sublist": 4,
+      "cluster": "support",
+      "def": "To keep or continue to have something.",
+      "example": "Companies invest heavily in training to retain skilled employees."
+    },
+    {
+      "word": "series",
+      "pos": "noun",
+      "sublist": 4,
+      "cluster": "structure",
+      "def": "A number of things coming one after another.",
+      "example": "A series of experiments was conducted to test the hypothesis."
+    },
+    {
+      "word": "statistic",
+      "pos": "noun",
+      "sublist": 4,
+      "cluster": "method",
+      "def": "A fact expressed as a number; the science of collecting and analysing data.",
+      "example": "Official statistics indicate that unemployment has fallen to its lowest level in a decade."
+    },
+    {
+      "word": "status",
+      "pos": "noun",
+      "sublist": 4,
+      "cluster": "people",
+      "def": "The position or rank of someone or something in relation to others.",
+      "example": "Socioeconomic status is a strong predictor of health outcomes."
+    },
+    {
+      "word": "stress",
+      "pos": "noun/verb",
+      "sublist": 4,
+      "cluster": "argument",
+      "def": "Emphasis or importance given to something; to emphasise.",
+      "example": "The report stresses the need for urgent action on climate change."
+    },
+    {
+      "word": "subsequent",
+      "pos": "adjective",
+      "sublist": 4,
+      "cluster": "time",
+      "def": "Coming after or following something.",
+      "example": "Subsequent research has confirmed these initial findings."
+    },
+    {
+      "word": "sum",
+      "pos": "noun/verb",
+      "sublist": 4,
+      "cluster": "quantity_change",
+      "def": "A total amount; to add up.",
+      "example": "In sum, the evidence supports the view that the policy was successful."
+    },
+    {
+      "word": "summary",
+      "pos": "noun",
+      "sublist": 4,
+      "cluster": "argument",
+      "def": "A short statement of the main points of something.",
+      "example": "A brief summary of the key findings is presented in the conclusion."
+    },
+    {
+      "word": "undertake",
+      "pos": "verb",
+      "sublist": 4,
+      "cluster": "method",
+      "def": "To agree to be responsible for a task; to begin to do something.",
+      "example": "The government undertook a comprehensive review of the healthcare system."
+    },
+    {
+      "word": "academic",
+      "pos": "adjective/noun",
+      "sublist": 5,
+      "cluster": "research_process",
+      "def": "Relating to education and scholarship; a university teacher or researcher.",
+      "example": "Academic performance is influenced by both cognitive and non-cognitive factors."
+    },
+    {
+      "word": "adjust",
+      "pos": "verb",
+      "sublist": 5,
+      "cluster": "quantity_change",
+      "def": "To change something slightly to make it more suitable.",
+      "example": "The model was adjusted to account for seasonal variation."
+    },
+    {
+      "word": "alter",
+      "pos": "verb",
+      "sublist": 5,
+      "cluster": "quantity_change",
+      "def": "To change or make different.",
+      "example": "New evidence may alter our understanding of the relationship."
+    },
+    {
+      "word": "amend",
+      "pos": "verb",
+      "sublist": 5,
+      "cluster": "law_policy",
+      "def": "To make small changes or improvements to a law, document, or statement.",
+      "example": "Parliament voted to amend the legislation to include additional protections."
+    },
+    {
+      "word": "aware",
+      "pos": "adjective",
+      "sublist": 5,
+      "cluster": "ideas",
+      "def": "Knowing about something; conscious of something.",
+      "example": "Researchers must be aware of their own potential biases."
+    },
+    {
+      "word": "capacity",
+      "pos": "noun",
+      "sublist": 5,
+      "cluster": "scope",
+      "def": "The ability to do or produce something; the maximum amount something can hold.",
+      "example": "Developing countries often lack the institutional capacity to implement reforms."
+    },
+    {
+      "word": "challenge",
+      "pos": "noun/verb",
+      "sublist": 5,
+      "cluster": "argument",
+      "def": "Something difficult that requires effort; to question the truth of something.",
+      "example": "This finding challenges the dominant theoretical perspective."
+    },
+    {
+      "word": "channel",
+      "pos": "noun/verb",
+      "sublist": 5,
+      "cluster": "method",
+      "def": "A route or means by which something is communicated; to direct.",
+      "example": "Aid is channelled through non-governmental organisations."
+    },
+    {
+      "word": "chemical",
+      "pos": "noun/adjective",
+      "sublist": 5,
+      "cluster": "scope",
+      "def": "A substance produced by chemistry; relating to chemistry.",
+      "example": "Exposure to certain chemical compounds has been linked to health problems."
+    },
+    {
+      "word": "comprehensive",
+      "pos": "adjective",
+      "sublist": 5,
+      "cluster": "scope",
+      "def": "Including all or nearly all aspects of something.",
+      "example": "A comprehensive review of the existing literature was conducted."
+    },
+    {
+      "word": "confirm",
+      "pos": "verb",
+      "sublist": 5,
+      "cluster": "argument",
+      "def": "To prove that something is true; to state officially that something is definite.",
+      "example": "These results confirm the findings of previous studies."
+    },
+    {
+      "word": "conflict",
+      "pos": "noun/verb",
+      "sublist": 5,
+      "cluster": "argument",
+      "def": "A serious disagreement; to be incompatible with something.",
+      "example": "These findings are in conflict with those reported by earlier researchers."
+    },
+    {
+      "word": "consult",
+      "pos": "verb",
+      "sublist": 5,
+      "cluster": "method",
+      "def": "To ask someone for advice or information.",
+      "example": "Stakeholders were consulted throughout the policy development process."
+    },
+    {
+      "word": "contact",
+      "pos": "noun/verb",
+      "sublist": 5,
+      "cluster": "method",
+      "def": "Communication with someone; to get in touch with someone.",
+      "example": "Regular contact between schools and families improves student outcomes."
+    },
+    {
+      "word": "decline",
+      "pos": "verb/noun",
+      "sublist": 5,
+      "cluster": "quantity_change",
+      "def": "To decrease in quantity or quality; a reduction.",
+      "example": "There has been a steady decline in biodiversity over recent decades."
+    },
+    {
+      "word": "discrete",
+      "pos": "adjective",
+      "sublist": 5,
+      "cluster": "structure",
+      "def": "Separate and distinct; individually distinct.",
+      "example": "The model identifies three discrete phases of organisational change."
+    },
+    {
+      "word": "draft",
+      "pos": "noun/verb",
+      "sublist": 5,
+      "cluster": "method",
+      "def": "A preliminary version of a document; to write a first version.",
+      "example": "A draft policy document was circulated for comment."
+    },
+    {
+      "word": "enable",
+      "pos": "verb",
+      "sublist": 5,
+      "cluster": "support",
+      "def": "To make it possible for someone to do something.",
+      "example": "Technology enables researchers to collect and process data more efficiently."
+    },
+    {
+      "word": "energy",
+      "pos": "noun",
+      "sublist": 5,
+      "cluster": "scope",
+      "def": "Power used to produce heat or movement; strength and effort.",
+      "example": "The transition to renewable energy sources is a global priority."
+    },
+    {
+      "word": "enforce",
+      "pos": "verb",
+      "sublist": 5,
+      "cluster": "law_policy",
+      "def": "To make people obey a law or rule.",
+      "example": "Regulations are difficult to enforce without adequate resources."
+    },
+    {
+      "word": "entity",
+      "pos": "noun",
+      "sublist": 5,
+      "cluster": "structure",
+      "def": "Something that exists as a separate unit.",
+      "example": "The company operates as a legally distinct entity from its parent organisation."
+    },
+    {
+      "word": "equivalent",
+      "pos": "adjective/noun",
+      "sublist": 5,
+      "cluster": "comparison",
+      "def": "Equal in value, amount, or meaning.",
+      "example": "The study found no equivalent effect in the control group."
+    },
+    {
+      "word": "evolve",
+      "pos": "verb",
+      "sublist": 5,
+      "cluster": "time",
+      "def": "To develop gradually over time.",
+      "example": "Theories of learning have evolved significantly over the past century."
+    },
+    {
+      "word": "expand",
+      "pos": "verb",
+      "sublist": 5,
+      "cluster": "quantity_change",
+      "def": "To become or make larger in size, number, or range.",
+      "example": "Access to higher education has expanded considerably in recent decades."
+    },
+    {
+      "word": "expose",
+      "pos": "verb",
+      "sublist": 5,
+      "cluster": "causation",
+      "def": "To make visible; to subject someone to something.",
+      "example": "Children exposed to violence at home are at greater risk of mental health problems."
+    },
+    {
+      "word": "external",
+      "pos": "adjective",
+      "sublist": 5,
+      "cluster": "scope",
+      "def": "Coming from or relating to the outside.",
+      "example": "External factors such as economic conditions significantly affect outcomes."
+    },
+    {
+      "word": "facilitate",
+      "pos": "verb",
+      "sublist": 5,
+      "cluster": "support",
+      "def": "To make something easier or more likely to happen.",
+      "example": "Technology can facilitate collaboration across geographical boundaries."
+    },
+    {
+      "word": "fundamental",
+      "pos": "adjective",
+      "sublist": 5,
+      "cluster": "evaluation",
+      "def": "Of central importance; forming the base or foundation.",
+      "example": "Access to clean water is a fundamental human right."
+    },
+    {
+      "word": "hence",
+      "pos": "adverb",
+      "sublist": 5,
+      "cluster": "argument",
+      "def": "For this reason; therefore.",
+      "example": "The sample size was small; hence, the results should be interpreted with caution."
+    },
+    {
+      "word": "hypothesis",
+      "pos": "noun",
+      "sublist": 5,
+      "cluster": "research_process",
+      "def": "An idea or explanation that is tested through research.",
+      "example": "The hypothesis was tested using a quasi-experimental design."
+    },
+    {
+      "word": "implement",
+      "pos": "verb",
+      "sublist": 5,
+      "cluster": "method",
+      "def": "To put a plan or system into action.",
+      "example": "The new curriculum was implemented in schools across the country."
+    },
+    {
+      "word": "implicit",
+      "pos": "adjective",
+      "sublist": 5,
+      "cluster": "argument",
+      "def": "Suggested or understood without being stated directly.",
+      "example": "The implicit assumption is that economic growth benefits all members of society."
+    },
+    {
+      "word": "liberal",
+      "pos": "adjective",
+      "sublist": 5,
+      "cluster": "ideas",
+      "def": "Open to new ideas; favouring individual freedom and reform.",
+      "example": "Liberal democratic systems depend on the protection of civil liberties."
+    },
+    {
+      "word": "logic",
+      "pos": "noun",
+      "sublist": 5,
+      "cluster": "argument",
+      "def": "Correct reasoning; the science of thinking in a clear way.",
+      "example": "The internal logic of the argument is sound, but the premises are questionable."
+    },
+    {
+      "word": "margin",
+      "pos": "noun",
+      "sublist": 5,
+      "cluster": "quantity_change",
+      "def": "The difference between two things; a blank space at the edge.",
+      "example": "The margin of error in the survey was plus or minus three percent."
+    },
+    {
+      "word": "mental",
+      "pos": "adjective",
+      "sublist": 5,
+      "cluster": "scope",
+      "def": "Relating to the mind.",
+      "example": "Mental health issues affect a significant proportion of the working population."
+    },
+    {
+      "word": "modify",
+      "pos": "verb",
+      "sublist": 5,
+      "cluster": "quantity_change",
+      "def": "To make small changes to something.",
+      "example": "The original model was modified to improve its predictive accuracy."
+    },
+    {
+      "word": "monitor",
+      "pos": "verb/noun",
+      "sublist": 5,
+      "cluster": "method",
+      "def": "To regularly check and observe something.",
+      "example": "Progress must be monitored and evaluated on a regular basis."
+    },
+    {
+      "word": "network",
+      "pos": "noun/verb",
+      "sublist": 5,
+      "cluster": "structure",
+      "def": "A system of connected things or people.",
+      "example": "Professional networks play an important role in career development."
+    },
+    {
+      "word": "notion",
+      "pos": "noun",
+      "sublist": 5,
+      "cluster": "ideas",
+      "def": "An idea or belief about something.",
+      "example": "The notion that academic ability is fixed has been largely discredited."
+    },
+    {
+      "word": "objective",
+      "pos": "noun/adjective",
+      "sublist": 5,
+      "cluster": "method",
+      "def": "A goal or aim; not influenced by personal feelings.",
+      "example": "The primary objective of the study is to evaluate the effectiveness of the programme."
+    },
+    {
+      "word": "perspective",
+      "pos": "noun",
+      "sublist": 5,
+      "cluster": "ideas",
+      "def": "A particular way of thinking about something.",
+      "example": "A cross-cultural perspective reveals significant variation in attitudes."
+    },
+    {
+      "word": "precise",
+      "pos": "adjective",
+      "sublist": 5,
+      "cluster": "evaluation",
+      "def": "Exact and accurate.",
+      "example": "The study aims to provide a more precise estimate of the prevalence of the condition."
+    },
+    {
+      "word": "prime",
+      "pos": "adjective/verb",
+      "sublist": 5,
+      "cluster": "evaluation",
+      "def": "Most important; of the best quality; to prepare something.",
+      "example": "Economic growth was the prime motivation behind the policy reforms."
+    },
+    {
+      "word": "psychology",
+      "pos": "noun",
+      "sublist": 5,
+      "cluster": "scope",
+      "def": "The scientific study of the mind and behaviour.",
+      "example": "Social psychology examines how individuals are influenced by group behaviour."
+    },
+    {
+      "word": "pursue",
+      "pos": "verb",
+      "sublist": 5,
+      "cluster": "method",
+      "def": "To follow and try to achieve something.",
+      "example": "The government continues to pursue a policy of economic liberalisation."
+    },
+    {
+      "word": "ratio",
+      "pos": "noun",
+      "sublist": 5,
+      "cluster": "quantity_change",
+      "def": "The relationship between two amounts, expressed as a fraction.",
+      "example": "The ratio of students to teachers has increased in recent years."
+    },
+    {
+      "word": "reject",
+      "pos": "verb",
+      "sublist": 5,
+      "cluster": "argument",
+      "def": "To refuse to accept or agree with something.",
+      "example": "The null hypothesis was rejected at the 0.05 significance level."
+    },
+    {
+      "word": "revenue",
+      "pos": "noun",
+      "sublist": 5,
+      "cluster": "economics",
+      "def": "The income received by an organisation or government.",
+      "example": "Tax revenue fell sharply during the economic downturn."
+    },
+    {
+      "word": "stable",
+      "pos": "adjective",
+      "sublist": 5,
+      "cluster": "evaluation",
+      "def": "Not likely to move, change, or fail.",
+      "example": "Political stability is a prerequisite for sustained economic development."
+    },
+    {
+      "word": "substitute",
+      "pos": "noun/verb",
+      "sublist": 5,
+      "cluster": "comparison",
+      "def": "Something used instead of another; to use one thing instead of another.",
+      "example": "There is no adequate substitute for direct classroom interaction."
+    },
+    {
+      "word": "sustain",
+      "pos": "verb",
+      "sublist": 5,
+      "cluster": "support",
+      "def": "To support or maintain over a long period.",
+      "example": "It is difficult to sustain high levels of economic growth indefinitely."
+    },
+    {
+      "word": "symbol",
+      "pos": "noun",
+      "sublist": 5,
+      "cluster": "ideas",
+      "def": "A sign or image that represents something else.",
+      "example": "Language is a symbol system through which meaning is constructed."
+    },
+    {
+      "word": "target",
+      "pos": "noun/verb",
+      "sublist": 5,
+      "cluster": "method",
+      "def": "An aim or goal; to aim at a particular group or result.",
+      "example": "The programme targets socially disadvantaged young people."
+    },
+    {
+      "word": "trend",
+      "pos": "noun",
+      "sublist": 5,
+      "cluster": "time",
+      "def": "A general direction in which something is developing or changing.",
+      "example": "There is a clear trend towards increased urbanisation across the developing world."
+    },
+    {
+      "word": "ultimate",
+      "pos": "adjective",
+      "sublist": 5,
+      "cluster": "evaluation",
+      "def": "Happening at the end; most extreme or important.",
+      "example": "The ultimate aim of the research is to improve educational outcomes for all children."
+    },
+    {
+      "word": "unique",
+      "pos": "adjective",
+      "sublist": 5,
+      "cluster": "evaluation",
+      "def": "Being the only one of its kind; very special.",
+      "example": "Each case presents a unique set of challenges and opportunities."
+    },
+    {
+      "word": "vision",
+      "pos": "noun",
+      "sublist": 5,
+      "cluster": "ideas",
+      "def": "The ability to think about the future; an idea about what something should be.",
+      "example": "A shared vision of sustainable development underpins the agreement."
+    },
+    {
+      "word": "abstract",
+      "pos": "adjective/noun",
+      "sublist": 6,
+      "cluster": "ideas",
+      "def": "Existing as an idea rather than as a physical thing; a summary of a text.",
+      "example": "The concept of justice is abstract and difficult to define precisely."
+    },
+    {
+      "word": "accurate",
+      "pos": "adjective",
+      "sublist": 6,
+      "cluster": "evaluation",
+      "def": "Correct in all details; without errors.",
+      "example": "It is important to maintain accurate records of all experimental procedures."
+    },
+    {
+      "word": "acknowledge",
+      "pos": "verb",
+      "sublist": 6,
+      "cluster": "argument",
+      "def": "To accept that something is true; to express thanks or recognition.",
+      "example": "The authors acknowledge the limitations of their study."
+    },
+    {
+      "word": "aggregate",
+      "pos": "noun/adjective",
+      "sublist": 6,
+      "cluster": "quantity_change",
+      "def": "A total formed by combining several amounts.",
+      "example": "Aggregate demand fell sharply during the financial crisis."
+    },
+    {
+      "word": "allocate",
+      "pos": "verb",
+      "sublist": 6,
+      "cluster": "economics",
+      "def": "To give something to someone for a particular purpose.",
+      "example": "Resources are not always allocated efficiently."
+    },
+    {
+      "word": "assign",
+      "pos": "verb",
+      "sublist": 6,
+      "cluster": "method",
+      "def": "To give a task to someone; to put something in a category.",
+      "example": "Participants were randomly assigned to either the treatment or control group."
+    },
+    {
+      "word": "capable",
+      "pos": "adjective",
+      "sublist": 6,
+      "cluster": "evaluation",
+      "def": "Having the ability to do something.",
+      "example": "The system is capable of processing large volumes of data rapidly."
+    },
+    {
+      "word": "cite",
+      "pos": "verb",
+      "sublist": 6,
+      "cluster": "research_process",
+      "def": "To mention a source as evidence; to quote from a text.",
+      "example": "The authors cite several studies to support their argument."
+    },
+    {
+      "word": "cooperate",
+      "pos": "verb",
+      "sublist": 6,
+      "cluster": "support",
+      "def": "To work together towards the same goal.",
+      "example": "International organisations must cooperate to address global health threats."
+    },
+    {
+      "word": "display",
+      "pos": "verb/noun",
+      "sublist": 6,
+      "cluster": "method",
+      "def": "To show something publicly; an arrangement of things for people to see.",
+      "example": "The results are displayed graphically in Figure 3."
+    },
+    {
+      "word": "diverse",
+      "pos": "adjective",
+      "sublist": 6,
+      "cluster": "comparison",
+      "def": "Including many different types of people or things.",
+      "example": "The study drew on diverse sources of evidence."
+    },
+    {
+      "word": "domain",
+      "pos": "noun",
+      "sublist": 6,
+      "cluster": "scope",
+      "def": "An area of activity or knowledge.",
+      "example": "Digital literacy is an increasingly important domain of modern education."
+    },
+    {
+      "word": "enhance",
+      "pos": "verb",
+      "sublist": 6,
+      "cluster": "evaluation",
+      "def": "To improve the quality or value of something.",
+      "example": "Technology can enhance the quality of learning experiences."
+    },
+    {
+      "word": "finite",
+      "pos": "adjective",
+      "sublist": 6,
+      "cluster": "quantity_change",
+      "def": "Having a limit; not infinite.",
+      "example": "Natural resources are finite and must be managed carefully."
+    },
+    {
+      "word": "guarantee",
+      "pos": "verb/noun",
+      "sublist": 6,
+      "cluster": "support",
+      "def": "To promise that something will happen; a formal promise.",
+      "example": "Access to education does not guarantee equal outcomes for all students."
+    },
+    {
+      "word": "ideology",
+      "pos": "noun",
+      "sublist": 6,
+      "cluster": "ideas",
+      "def": "A set of beliefs that forms the basis of a political or economic system.",
+      "example": "Neoliberal ideology has shaped economic policy in many countries."
+    },
+    {
+      "word": "infer",
+      "pos": "verb",
+      "sublist": 6,
+      "cluster": "argument",
+      "def": "To reach a conclusion from evidence without it being stated directly.",
+      "example": "From this data, we can infer that the intervention had a significant effect."
+    },
+    {
+      "word": "innovate",
+      "pos": "verb",
+      "sublist": 6,
+      "cluster": "production",
+      "def": "To introduce new ideas or methods.",
+      "example": "Firms that fail to innovate risk losing their competitive advantage."
+    },
+    {
+      "word": "minimise",
+      "pos": "verb",
+      "sublist": 6,
+      "cluster": "evaluation",
+      "def": "To reduce something to the smallest possible level.",
+      "example": "Steps were taken to minimise the risk of bias in the study."
+    },
+    {
+      "word": "nuclear",
+      "pos": "adjective",
+      "sublist": 6,
+      "cluster": "scope",
+      "def": "Relating to the energy produced by splitting or joining atoms.",
+      "example": "The debate over nuclear energy involves complex trade-offs."
+    },
+    {
+      "word": "portion",
+      "pos": "noun",
+      "sublist": 6,
+      "cluster": "quantity_change",
+      "def": "A part of a larger amount.",
+      "example": "A significant portion of the budget is allocated to research and development."
+    },
+    {
+      "word": "preliminary",
+      "pos": "adjective",
+      "sublist": 6,
+      "cluster": "time",
+      "def": "Coming before or preparing for the main part.",
+      "example": "Preliminary findings suggest a positive relationship between the variables."
+    },
+    {
+      "word": "qualitative",
+      "pos": "adjective",
+      "sublist": 6,
+      "cluster": "method",
+      "def": "Relating to the quality or nature of something rather than its quantity.",
+      "example": "Qualitative research allows in-depth exploration of participants' experiences."
+    },
+    {
+      "word": "refine",
+      "pos": "verb",
+      "sublist": 6,
+      "cluster": "evaluation",
+      "def": "To improve something by making small changes.",
+      "example": "The model was refined following feedback from peer reviewers."
+    },
+    {
+      "word": "reinforce",
+      "pos": "verb",
+      "sublist": 6,
+      "cluster": "support",
+      "def": "To make something stronger or more effective.",
+      "example": "These findings reinforce earlier conclusions about parental involvement."
+    },
+    {
+      "word": "restore",
+      "pos": "verb",
+      "sublist": 6,
+      "cluster": "support",
+      "def": "To bring something back to a former condition.",
+      "example": "Efforts to restore public trust in government institutions have proved difficult."
+    },
+    {
+      "word": "revise",
+      "pos": "verb",
+      "sublist": 6,
+      "cluster": "method",
+      "def": "To change or correct something to make it better.",
+      "example": "The theoretical model was revised in light of new empirical evidence."
+    },
+    {
+      "word": "temporary",
+      "pos": "adjective",
+      "sublist": 6,
+      "cluster": "time",
+      "def": "Lasting for only a limited time.",
+      "example": "The measures were intended as temporary responses to the crisis."
+    },
+    {
+      "word": "trigger",
+      "pos": "verb/noun",
+      "sublist": 6,
+      "cluster": "causation",
+      "def": "To cause something to start; an event that causes something to happen.",
+      "example": "Economic instability can trigger social unrest."
+    },
+    {
+      "word": "welfare",
+      "pos": "noun",
+      "sublist": 6,
+      "cluster": "society",
+      "def": "The health, happiness, and wellbeing of a person or group.",
+      "example": "Social welfare systems aim to protect the most vulnerable members of society."
+    },
+    {
+      "word": "adapt",
+      "pos": "verb",
+      "sublist": 7,
+      "cluster": "quantity_change",
+      "def": "To change something to suit new conditions.",
+      "example": "Organisations must adapt to rapid changes in the technological environment."
+    },
+    {
+      "word": "adult",
+      "pos": "noun/adjective",
+      "sublist": 7,
+      "cluster": "people",
+      "def": "A fully grown person; fully developed.",
+      "example": "Adult literacy rates remain low in many developing countries."
+    },
+    {
+      "word": "advocate",
+      "pos": "verb/noun",
+      "sublist": 7,
+      "cluster": "argument",
+      "def": "To publicly support a cause; a person who supports a cause.",
+      "example": "Many researchers advocate for evidence-based approaches to policy making."
+    },
+    {
+      "word": "classic",
+      "pos": "adjective/noun",
+      "sublist": 7,
+      "cluster": "evaluation",
+      "def": "A well-established example of something; of the highest quality.",
+      "example": "This is a classic study that has influenced subsequent research in the field."
+    },
+    {
+      "word": "convince",
+      "pos": "verb",
+      "sublist": 7,
+      "cluster": "argument",
+      "def": "To make someone believe something is true.",
+      "example": "The evidence is sufficient to convince even sceptical readers."
+    },
+    {
+      "word": "currency",
+      "pos": "noun",
+      "sublist": 7,
+      "cluster": "economics",
+      "def": "The money used in a country; the quality of being current.",
+      "example": "Exchange rate fluctuations can significantly affect international trade."
+    },
+    {
+      "word": "differentiate",
+      "pos": "verb",
+      "sublist": 7,
+      "cluster": "comparison",
+      "def": "To recognise or show a difference between things.",
+      "example": "It is important to differentiate between correlation and causation."
+    },
+    {
+      "word": "duration",
+      "pos": "noun",
+      "sublist": 7,
+      "cluster": "time",
+      "def": "The length of time something lasts.",
+      "example": "The duration of the treatment varied across participants."
+    },
+    {
+      "word": "isolate",
+      "pos": "verb",
+      "sublist": 7,
+      "cluster": "method",
+      "def": "To separate something from others in order to study it.",
+      "example": "It is difficult to isolate the effects of a single variable in complex systems."
+    },
+    {
+      "word": "mature",
+      "pos": "adjective/verb",
+      "sublist": 7,
+      "cluster": "time",
+      "def": "Fully developed; to become fully developed.",
+      "example": "A mature democracy requires strong civil society institutions."
+    },
+    {
+      "word": "mediate",
+      "pos": "verb",
+      "sublist": 7,
+      "cluster": "causation",
+      "def": "To come between two parties to help reach agreement; to transmit an effect.",
+      "example": "The relationship between stress and illness is mediated by coping strategies."
+    },
+    {
+      "word": "motive",
+      "pos": "noun",
+      "sublist": 7,
+      "cluster": "causation",
+      "def": "A reason for doing something.",
+      "example": "The motives behind corporate social responsibility initiatives are often questioned."
+    },
+    {
+      "word": "neutral",
+      "pos": "adjective",
+      "sublist": 7,
+      "cluster": "evaluation",
+      "def": "Not supporting either side; without strong qualities.",
+      "example": "The researcher attempted to maintain a neutral stance throughout the interviews."
+    },
+    {
+      "word": "nevertheless",
+      "pos": "adverb",
+      "sublist": 7,
+      "cluster": "argument",
+      "def": "In spite of what has just been said; however.",
+      "example": "The sample was small; nevertheless, the findings are consistent with prior research."
+    },
+    {
+      "word": "ongoing",
+      "pos": "adjective",
+      "sublist": 7,
+      "cluster": "time",
+      "def": "Continuing to happen or develop.",
+      "example": "The debate over immigration policy remains an ongoing area of controversy."
+    },
+    {
+      "word": "quote",
+      "pos": "verb/noun",
+      "sublist": 7,
+      "cluster": "research_process",
+      "def": "To repeat words from a source; a passage taken from a text.",
+      "example": "The researcher quotes directly from participants' interviews."
+    },
+    {
+      "word": "release",
+      "pos": "verb/noun",
+      "sublist": 7,
+      "cluster": "method",
+      "def": "To make something available; the act of making something available.",
+      "example": "The government released the full report following a freedom of information request."
+    },
+    {
+      "word": "reverse",
+      "pos": "verb/adjective",
+      "sublist": 7,
+      "cluster": "quantity_change",
+      "def": "To change something to the opposite; going in the opposite direction.",
+      "example": "It is difficult to reverse the trend towards increasing inequality."
+    },
+    {
+      "word": "simulate",
+      "pos": "verb",
+      "sublist": 7,
+      "cluster": "method",
+      "def": "To create conditions similar to a real situation for study.",
+      "example": "Computer models can simulate the effects of climate change."
+    },
+    {
+      "word": "sole",
+      "pos": "adjective",
+      "sublist": 7,
+      "cluster": "scope",
+      "def": "Being the only one; not shared with others.",
+      "example": "Economic growth should not be the sole measure of national wellbeing."
+    },
+    {
+      "word": "survive",
+      "pos": "verb",
+      "sublist": 7,
+      "cluster": "support",
+      "def": "To continue to live or exist despite difficulties.",
+      "example": "Small businesses struggle to survive in a highly competitive market."
+    },
+    {
+      "word": "topic",
+      "pos": "noun",
+      "sublist": 7,
+      "cluster": "scope",
+      "def": "A subject being discussed or studied.",
+      "example": "The topic of migration has attracted considerable scholarly attention."
+    },
+    {
+      "word": "abandon",
+      "pos": "verb",
+      "sublist": 8,
+      "cluster": "method",
+      "def": "To stop doing something before it is finished.",
+      "example": "The original research design was abandoned following ethical concerns."
+    },
+    {
+      "word": "accumulate",
+      "pos": "verb",
+      "sublist": 8,
+      "cluster": "quantity_change",
+      "def": "To gradually gather or increase in amount.",
+      "example": "Evidence has accumulated over several decades to support this theory."
+    },
+    {
+      "word": "ambiguous",
+      "pos": "adjective",
+      "sublist": 8,
+      "cluster": "evaluation",
+      "def": "Having more than one possible meaning; not clear.",
+      "example": "The results of the study are ambiguous and open to interpretation."
+    },
+    {
+      "word": "bias",
+      "pos": "noun/verb",
+      "sublist": 8,
+      "cluster": "evaluation",
+      "def": "An unfair preference for or against something; to influence unfairly.",
+      "example": "Confirmation bias can lead researchers to favour evidence that supports their hypothesis."
+    },
+    {
+      "word": "crucial",
+      "pos": "adjective",
+      "sublist": 8,
+      "cluster": "evaluation",
+      "def": "Extremely important because many other things depend on it.",
+      "example": "Early diagnosis is crucial for successful treatment."
+    },
+    {
+      "word": "denote",
+      "pos": "verb",
+      "sublist": 8,
+      "cluster": "ideas",
+      "def": "To be a sign or symbol of something.",
+      "example": "In this study, high scores denote greater levels of engagement."
+    },
+    {
+      "word": "detect",
+      "pos": "verb",
+      "sublist": 8,
+      "cluster": "research_process",
+      "def": "To discover or notice something.",
+      "example": "The instrument was sensitive enough to detect very small differences."
+    },
+    {
+      "word": "deviate",
+      "pos": "verb",
+      "sublist": 8,
+      "cluster": "comparison",
+      "def": "To differ from what is expected or standard.",
+      "example": "Some cases deviate significantly from the general pattern."
+    },
+    {
+      "word": "erode",
+      "pos": "verb",
+      "sublist": 8,
+      "cluster": "quantity_change",
+      "def": "To gradually destroy or reduce something.",
+      "example": "Public trust in political institutions has been eroded by repeated scandals."
+    },
+    {
+      "word": "format",
+      "pos": "noun/verb",
+      "sublist": 8,
+      "cluster": "method",
+      "def": "The way something is arranged or structured.",
+      "example": "The interview was conducted in a semi-structured format."
+    },
+    {
+      "word": "inherent",
+      "pos": "adjective",
+      "sublist": 8,
+      "cluster": "evaluation",
+      "def": "Existing as a permanent and essential feature of something.",
+      "example": "There are inherent difficulties in measuring subjective experience."
+    },
+    {
+      "word": "insight",
+      "pos": "noun",
+      "sublist": 8,
+      "cluster": "ideas",
+      "def": "A deep understanding of a complex situation.",
+      "example": "Qualitative research provides insights into the lived experiences of participants."
+    },
+    {
+      "word": "manipulate",
+      "pos": "verb",
+      "sublist": 8,
+      "cluster": "method",
+      "def": "To control something skilfully; to change data or results dishonestly.",
+      "example": "The independent variable was manipulated across three experimental conditions."
+    },
+    {
+      "word": "reluctant",
+      "pos": "adjective",
+      "sublist": 8,
+      "cluster": "ideas",
+      "def": "Unwilling to do something.",
+      "example": "Policy makers are often reluctant to implement unpopular reforms."
+    },
+    {
+      "word": "route",
+      "pos": "noun",
+      "sublist": 8,
+      "cluster": "method",
+      "def": "A path or way of achieving something.",
+      "example": "Education is widely regarded as the primary route out of poverty."
+    },
+    {
+      "word": "scope",
+      "pos": "noun",
+      "sublist": 8,
+      "cluster": "scope",
+      "def": "The range of things that a subject or activity deals with.",
+      "example": "The scope of the study was limited to secondary school students."
+    },
+    {
+      "word": "suspend",
+      "pos": "verb",
+      "sublist": 8,
+      "cluster": "law_policy",
+      "def": "To stop something temporarily.",
+      "example": "The trial was suspended following concerns about participant safety."
+    },
+    {
+      "word": "terminate",
+      "pos": "verb",
+      "sublist": 8,
+      "cluster": "time",
+      "def": "To bring something to an end.",
+      "example": "Participants had the right to terminate their involvement at any time."
+    },
+    {
+      "word": "uniform",
+      "pos": "adjective",
+      "sublist": 8,
+      "cluster": "comparison",
+      "def": "Always the same; not varying.",
+      "example": "A uniform approach to assessment may not suit all learners."
+    },
+    {
+      "word": "via",
+      "pos": "preposition",
+      "sublist": 8,
+      "cluster": "method",
+      "def": "By way of; through a particular place or method.",
+      "example": "Data were collected via online questionnaire."
+    },
+    {
+      "word": "virtual",
+      "pos": "adjective",
+      "sublist": 8,
+      "cluster": "comparison",
+      "def": "Almost complete; existing online rather than in the physical world.",
+      "example": "Virtual learning environments have expanded access to education globally."
+    },
+    {
+      "word": "accommodate",
+      "pos": "verb",
+      "sublist": 9,
+      "cluster": "support",
+      "def": "To provide space or conditions for something; to adapt to fit.",
+      "example": "The framework must be flexible enough to accommodate local variation."
+    },
+    {
+      "word": "analogy",
+      "pos": "noun",
+      "sublist": 9,
+      "cluster": "comparison",
+      "def": "A comparison showing the similarities between two things.",
+      "example": "The author uses an analogy to explain the complex process of cell division."
+    },
+    {
+      "word": "anticipate",
+      "pos": "verb",
+      "sublist": 9,
+      "cluster": "argument",
+      "def": "To expect or prepare for something in advance.",
+      "example": "The researchers anticipate that further study will clarify these findings."
+    },
+    {
+      "word": "attain",
+      "pos": "verb",
+      "sublist": 9,
+      "cluster": "evaluation",
+      "def": "To succeed in achieving something, especially after effort.",
+      "example": "Students from disadvantaged backgrounds are less likely to attain higher qualifications."
+    },
+    {
+      "word": "cease",
+      "pos": "verb",
+      "sublist": 9,
+      "cluster": "time",
+      "def": "To stop doing something.",
+      "example": "Production ceased following the introduction of new environmental regulations."
+    },
+    {
+      "word": "coherent",
+      "pos": "adjective",
+      "sublist": 9,
+      "cluster": "evaluation",
+      "def": "Logical and consistent; easy to understand.",
+      "example": "The theory provides a coherent explanation for the observed phenomena."
+    },
+    {
+      "word": "compatible",
+      "pos": "adjective",
+      "sublist": 9,
+      "cluster": "comparison",
+      "def": "Able to exist or work together without conflict.",
+      "example": "The findings are compatible with a social learning model."
+    },
+    {
+      "word": "controversy",
+      "pos": "noun",
+      "sublist": 9,
+      "cluster": "argument",
+      "def": "A prolonged public disagreement or debate.",
+      "example": "The publication of the report generated considerable controversy."
+    },
+    {
+      "word": "devote",
+      "pos": "verb",
+      "sublist": 9,
+      "cluster": "support",
+      "def": "To give time, effort, or resources to a particular purpose.",
+      "example": "A significant portion of the report is devoted to policy recommendations."
+    },
+    {
+      "word": "diminish",
+      "pos": "verb",
+      "sublist": 9,
+      "cluster": "quantity_change",
+      "def": "To become or make smaller in size, importance, or value.",
+      "example": "The effect diminishes over time as participants adapt to the intervention."
+    },
+    {
+      "word": "distort",
+      "pos": "verb",
+      "sublist": 9,
+      "cluster": "evaluation",
+      "def": "To change something so that it is no longer accurate or true.",
+      "example": "Media coverage can distort public understanding of complex issues."
+    },
+    {
+      "word": "adjacent",
+      "pos": "adjective",
+      "sublist": 10,
+      "cluster": "scope",
+      "def": "Next to or close to something.",
+      "example": "The study compares outcomes in adjacent regions with different policy regimes."
+    },
+    {
+      "word": "albeit",
+      "pos": "conjunction",
+      "sublist": 10,
+      "cluster": "argument",
+      "def": "Although; even though.",
+      "example": "The results are encouraging, albeit based on a small sample."
+    },
+    {
+      "word": "assemble",
+      "pos": "verb",
+      "sublist": 10,
+      "cluster": "method",
+      "def": "To bring together or collect a group of things or people.",
+      "example": "A team of experts was assembled to review the evidence."
+    },
+    {
+      "word": "collapse",
+      "pos": "verb/noun",
+      "sublist": 10,
+      "cluster": "quantity_change",
+      "def": "To fall down suddenly; a sudden and complete failure.",
+      "example": "The collapse of public trust can undermine the effectiveness of institutions."
+    },
+    {
+      "word": "compile",
+      "pos": "verb",
+      "sublist": 10,
+      "cluster": "method",
+      "def": "To collect and organise information from different sources.",
+      "example": "A comprehensive database was compiled from multiple national surveys."
+    },
+    {
+      "word": "enormous",
+      "pos": "adjective",
+      "sublist": 10,
+      "cluster": "quantity_change",
+      "def": "Very large in size or extent.",
+      "example": "The economic costs of the pandemic were enormous."
+    },
+    {
+      "word": "levy",
+      "pos": "noun/verb",
+      "sublist": 10,
+      "cluster": "economics",
+      "def": "An official charge or tax; to officially demand payment.",
+      "example": "A levy on carbon emissions could incentivise companies to reduce their environmental impact."
+    },
+    {
+      "word": "likewise",
+      "pos": "adverb",
+      "sublist": 10,
+      "cluster": "argument",
+      "def": "In the same way; similarly.",
+      "example": "Likewise, the second study found no significant difference between groups."
+    },
+    {
+      "word": "nonetheless",
+      "pos": "adverb",
+      "sublist": 10,
+      "cluster": "argument",
+      "def": "In spite of what has just been said.",
+      "example": "The limitations are acknowledged; nonetheless, the findings are significant."
+    },
+    {
+      "word": "notwithstanding",
+      "pos": "preposition/adverb",
+      "sublist": 10,
+      "cluster": "argument",
+      "def": "In spite of; nevertheless.",
+      "example": "Notwithstanding the methodological challenges, the study makes a valuable contribution."
+    },
+    {
+      "word": "persist",
+      "pos": "verb",
+      "sublist": 10,
+      "cluster": "time",
+      "def": "To continue for a long time, especially in spite of difficulties.",
+      "example": "Significant inequalities persist despite decades of reform."
+    },
+    {
+      "word": "straightforward",
+      "pos": "adjective",
+      "sublist": 10,
+      "cluster": "evaluation",
+      "def": "Easy to understand; not complicated.",
+      "example": "The interpretation of these results is not entirely straightforward."
+    },
+    {
+      "word": "undergo",
+      "pos": "verb",
+      "sublist": 10,
+      "cluster": "time",
+      "def": "To experience a process or change.",
+      "example": "The sector has undergone significant transformation in recent years."
+    },
+    {
+      "word": "whereby",
+      "pos": "adverb",
+      "sublist": 10,
+      "cluster": "method",
+      "def": "By which; by means of which.",
+      "example": "A system was established whereby progress could be regularly monitored."
+    }
+  ]
+}
