@@ -1742,32 +1742,83 @@ let clozeAcceptedForms = []; // all accepted forms (headword + inflections)
 
 // Generates all plausible surface forms of a headword.
 // Used for both gap-finding and answer acceptance.
+// Irregular academic word forms — covers common AWL words where
+// the nominal/adjectival form can't be predicted by suffix rules.
+const IRREGULAR_WORD_FORMS = {
+  vary:['varies','varied','varying','variation','variations','variable','variables','variety','varieties'],
+  respond:['responds','responded','responding','response','responses','respondent','respondents'],
+  produce:['produces','produced','producing','production','productions','product','products','productive'],
+  consume:['consumes','consumed','consuming','consumption'],
+  assume:['assumes','assumed','assuming','assumption','assumptions'],
+  pursue:['pursues','pursued','pursuing','pursuit','pursuits'],
+  resolve:['resolves','resolved','resolving','resolution','resolutions'],
+  evolve:['evolves','evolved','evolving','evolution','evolutions'],
+  involve:['involves','involved','involving','involvement','involvements'],
+  achieve:['achieves','achieved','achieving','achievement','achievements'],
+  perceive:['perceives','perceived','perceiving','perception','perceptions'],
+  rely:['relies','relied','relying','reliance'],
+  imply:['implies','implied','implying','implication','implications'],
+  apply:['applies','applied','applying','application','applications'],
+  occupy:['occupies','occupied','occupying','occupation','occupations'],
+  identify:['identifies','identified','identifying','identification','identity','identities'],
+  modify:['modifies','modified','modifying','modification','modifications'],
+  specify:['specifies','specified','specifying','specification','specifications'],
+  justify:['justifies','justified','justifying','justification','justifications'],
+  publish:['publishes','published','publishing','publication','publications'],
+  establish:['establishes','established','establishing','establishment','establishments'],
+  diminish:['diminishes','diminished','diminishing','diminution'],
+};
+
 function wordForms(w) {
   const base  = w.toLowerCase();
   const forms = [base];
+
+  // ── Irregular forms table (check first) ─────────────────────
+  if (IRREGULAR_WORD_FORMS[base]) {
+    forms.push(...IRREGULAR_WORD_FORMS[base]);
+  }
+
+  // ── Standard verb inflections ────────────────────────────────
   if (base.endsWith('e')) {
-    // derive → derived, derives, deriving
-    forms.push(base + 'd', base + 's', base.slice(0,-1) + 'ing', base.slice(0,-1) + 'ed');
-  }
-  if (base.endsWith('y')) {
-    // vary → varies, varied
-    forms.push(base.slice(0,-1) + 'ies', base.slice(0,-1) + 'ied', base + 'ing');
-  }
-  if (!base.endsWith('e') && !base.endsWith('y')) {
-    // assess → assessed, assessing, assesses
-    forms.push(base + 's', base + 'ed', base + 'ing', base + 'ly');
-    // Double-consonant forms: occur → occurred, occurring
-    const last = base.slice(-1);
-    const penultimate = base.slice(-2,-1);
-    if ('bdgmnprst'.includes(last) && 'aeiou'.includes(penultimate)) {
-      forms.push(base + last + 'ed', base + last + 'ing');
+    forms.push(base+'d', base+'s', base.slice(0,-1)+'ing', base.slice(0,-1)+'ed');
+  } else if (base.endsWith('y')) {
+    forms.push(base.slice(0,-1)+'ies', base.slice(0,-1)+'ied', base+'ing');
+  } else {
+    forms.push(base+'s', base+'ed', base+'ing');
+    const last = base.slice(-1), pen = base.slice(-2,-1);
+    if ('bdgmnprst'.includes(last) && 'aeiou'.includes(pen)) {
+      forms.push(base+last+'ed', base+last+'ing');
     }
   }
-  // Always add -ly and -tion/-ation variants if not already there
-  if (!base.endsWith('ly'))   forms.push(base + 'ly');
-  if (!base.endsWith('tion')) forms.push(base.replace(/e$/, '') + 'tion',
-                                          base.replace(/e$/, '') + 'ation');
-  return [...new Set(forms)];
+
+  // ── Nominal forms common in academic English ─────────────────
+  if (base.endsWith('ain'))  forms.push(base+'t', base+'ts');
+  if (base.endsWith('ute'))  forms.push(base.slice(0,-3)+'ution', base.slice(0,-3)+'utions');
+  if (base.endsWith('ate'))  forms.push(base.slice(0,-3)+'ation', base.slice(0,-3)+'ations');
+  if (base.endsWith('ise') || base.endsWith('ize'))
+                              forms.push(base.slice(0,-1)+'ation', base.slice(0,-1)+'ations');
+  if (base.endsWith('e') && !base.endsWith('ate') && !base.endsWith('ise') && !base.endsWith('ize'))
+                              forms.push(base.slice(0,-1)+'tion',  base.slice(0,-1)+'tions',
+                                         base.slice(0,-1)+'ation', base.slice(0,-1)+'ations');
+  if (!base.endsWith('tion') && !base.endsWith('e'))
+                              forms.push(base+'tion', base+'tions', base+'ation', base+'ations');
+  forms.push(base+'ment', base+'ments');
+  if (base.endsWith('e'))    forms.push(base.slice(0,-1)+'ment', base.slice(0,-1)+'ments');
+  if (!base.endsWith('ly')) {
+    forms.push(base+'ly');
+    if (base.endsWith('e'))  forms.push(base.slice(0,-1)+'ly');
+    if (base.endsWith('ic')) forms.push(base+'ally');
+  }
+  if (base.endsWith('e'))    forms.push(base.slice(0,-1)+'al', base.slice(0,-1)+'als');
+  forms.push(base+'er', base+'ers', base+'or', base+'ors');
+  if (!base.endsWith('s'))   forms.push(base+'s');
+
+  // ── Filter: remove junk forms (must contain a vowel, min length 3,
+  //   and not look like obvious nonsense e.g. triple-consonant endings) ─
+  const hasVowel = /[aeiou]/i;
+  return [...new Set(forms)].filter(f =>
+    f.length >= 3 && hasVowel.test(f) && !/(ttion|tation|ntion|mment)/.test(f)
+  );
 }
 
 function renderClozeCard(card, dir, scene) {
