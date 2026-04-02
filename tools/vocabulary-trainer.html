@@ -1525,34 +1525,68 @@ function selectMCOption() {} // retired — logic now inline in renderMCCard
 /* ══════════════════════════════════════════════════════════════════
    CLOZE CARD
 ══════════════════════════════════════════════════════════════════ */
-function renderClozeCard(card, dir, scene) {
-  // Build a regex that matches the headword AND common inflected forms
-  // so gap-fill works even when the example uses 'derived' not 'derive'
-  function wordForms(w) {
-    const base = w.toLowerCase();
-    const forms = [base];
-    // Common suffixes
-    if (base.endsWith('e'))  { forms.push(base + 'd', base + 's', base.slice(0,-1) + 'ing', base.slice(0,-1) + 'ed'); }
-    if (base.endsWith('y'))  { forms.push(base.slice(0,-1) + 'ies', base.slice(0,-1) + 'ied'); }
-    if (!base.endsWith('e')) { forms.push(base + 's', base + 'ed', base + 'ing', base + 'ly'); }
-    // Double consonant (run -> running)
+// Module-level state set by renderClozeCard, read by checkCloze.
+let clozeTargetForm  = '';   // the inflected form found in the sentence
+let clozeAcceptedForms = []; // all accepted forms (headword + inflections)
+
+// Generates all plausible surface forms of a headword.
+// Used for both gap-finding and answer acceptance.
+function wordForms(w) {
+  const base  = w.toLowerCase();
+  const forms = [base];
+  if (base.endsWith('e')) {
+    // derive → derived, derives, deriving
+    forms.push(base + 'd', base + 's', base.slice(0,-1) + 'ing', base.slice(0,-1) + 'ed');
+  }
+  if (base.endsWith('y')) {
+    // vary → varies, varied
+    forms.push(base.slice(0,-1) + 'ies', base.slice(0,-1) + 'ied', base + 'ing');
+  }
+  if (!base.endsWith('e') && !base.endsWith('y')) {
+    // assess → assessed, assessing, assesses
+    forms.push(base + 's', base + 'ed', base + 'ing', base + 'ly');
+    // Double-consonant forms: occur → occurred, occurring
     const last = base.slice(-1);
-    if ('bdgmnprst'.includes(last) && !'aeiou'.includes(base.slice(-2,-1))) {
+    const penultimate = base.slice(-2,-1);
+    if ('bdgmnprst'.includes(last) && 'aeiou'.includes(penultimate)) {
       forms.push(base + last + 'ed', base + last + 'ing');
     }
-    // Unique, escaped for regex
-    return [...new Set(forms)].map(f => f.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
   }
-  const formPattern = wordForms(card.word).join('|');
-  const gapRe = new RegExp('\\b(' + formPattern + ')\\b', 'gi');
-  const gapped = card.example.replace(gapRe,
-    '<span style="display:inline-block;min-width:80px;border-bottom:2px solid var(--gold);margin:0 2px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>'
-  );
+  // Always add -ly and -tion/-ation variants if not already there
+  if (!base.endsWith('ly'))   forms.push(base + 'ly');
+  if (!base.endsWith('tion')) forms.push(base.replace(/e$/, '') + 'tion',
+                                          base.replace(/e$/, '') + 'ation');
+  return [...new Set(forms)];
+}
+
+function renderClozeCard(card, dir, scene) {
+  // Build accepted forms and gap-finding regex
+  const forms   = wordForms(card.word);
+  const escaped = forms.map(f => f.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+  escaped.sort((a, b) => b.length - a.length); // longest first — 'analysed' before 'analyse'
+  const gapRe   = new RegExp('\\b(' + escaped.join('|') + ')\\b', 'gi');
+
+  // Reset module-level state
+  clozeTargetForm    = card.word; // fallback if no match found in sentence
+  clozeAcceptedForms = forms;     // all forms are accepted answers
+
+  // Replace the word in the sentence with a blank, capturing the matched form
+  const gapped = card.example.replace(gapRe, function(match) {
+    clozeTargetForm = match; // actual form used in the sentence
+    return '<span style="display:inline-block;min-width:80px;border-bottom:2px solid var(--gold);margin:0 2px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>';
+  });
+
+  // POS hint
+  const posHint = card.pos
+    ? `<p style="font-size:0.75rem;color:var(--muted);margin-bottom:0.5rem;letter-spacing:0.04em;text-align:center;"><em>${esc(card.pos)}</em> — type any correct form</p>`
+    : '';
+
   const el = document.createElement('div');
   el.className = 'cloze-card active';
   el.innerHTML = `
     <span style="font-size:0.68rem;color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;display:block;margin-bottom:1rem;align-self:flex-start">Gap-fill</span>
     <p class="cloze-sentence">${gapped}</p>
+    ${posHint}
     <p style="font-size:0.8rem;color:var(--muted);margin-bottom:0.8rem">${esc(card.def)}${renderBadge(card.word)}</p>
     <div class="cloze-input-wrap">
       <input class="cloze-input" id="clozeInput" type="text" placeholder="Type the missing word…" onkeydown="if(event.key==='Enter')checkCloze()">
@@ -1565,39 +1599,50 @@ function renderClozeCard(card, dir, scene) {
 }
 
 function checkCloze() {
-  const input    = document.getElementById('clozeInput');
+  const input   = document.getElementById('clozeInput');
   const feedback = document.getElementById('clozeFeedback');
   const nextBtn  = document.getElementById('clozeNextBtn');
   if (nextBtn.style.display === 'inline-block') return;
-  const item = queue[queuePos]; const card = deck[item.cardIdx]; const res = cardResults[item.cardIdx];
+
+  const item = queue[queuePos];
+  const card = deck[item.cardIdx];
+  const res  = cardResults[item.cardIdx];
   const dk   = item.direction === 'receptive' ? 'rec' : 'prod';
-  const typed = input.value.trim(); if (!typed) return;
+  const typed = input.value.trim();
+  if (!typed) return;
+
   totalAttempts++;
-  const correct = normaliseForCloze(typed) === normaliseForCloze(card.word);
+
+  // Accept if typed matches any accepted form (case-insensitive)
+  const typedLower = typed.toLowerCase();
+  const correct    = clozeAcceptedForms.some(f => f.toLowerCase() === typedLower);
+
   if (correct) {
-    input.classList.add('correct'); correctCount++;
+    input.classList.add('correct');
+    correctCount++;
     res.everCorrect++;
     res.consecutiveCorrect[dk]++;
     res.mastered.push(item.direction);
     setDotState(queuePos, 'mastered');
-    feedback.className = 'cloze-feedback correct'; feedback.textContent = '✓ Correct!'; speakWord(card.word);
+    feedback.className = 'cloze-feedback correct';
+    feedback.textContent = '✓ Correct!';
+    speakWord(card.word);
   } else {
-    input.classList.add('incorrect'); res.wrongCount++;
+    input.classList.add('incorrect');
+    res.wrongCount++;
     res.consecutiveCorrect[dk] = 0;
     if (item.pass < 2) queue.splice(queuePos + 2, 0, { ...item, pass: 2 });
     setDotState(queuePos, 'shaky');
-    feedback.className = 'cloze-feedback incorrect'; feedback.textContent = `✗ The answer is: ${card.word}`;
+    feedback.className = 'cloze-feedback incorrect';
+    // Show the form that appeared in the sentence, not the bare headword
+    feedback.textContent = '\u2717 The answer is: ' + clozeTargetForm;
   }
-  input.disabled = true; nextBtn.style.display = 'inline-block'; updateProgressBar();
+  input.disabled = true;
+  nextBtn.style.display = 'inline-block';
+  updateProgressBar();
 }
 
-function normaliseForCloze(s) {
-  return s.toLowerCase()
-    .replace(/ying$/, 'y').replace(/ied$/, 'y')
-    .replace(/ing$/, '').replace(/ed$/, '')
-    .replace(/ies$/, 'y').replace(/ly$/, '')
-    .replace(/s$/, '').replace(/e$/, '').trim();
-}
+function normaliseForCloze(s) { return s.toLowerCase().trim(); } // legacy stub
 function advanceFromMC() { queuePos++; renderCard(); }
 
 function advanceFromCloze() { queuePos++; renderCard(); }
