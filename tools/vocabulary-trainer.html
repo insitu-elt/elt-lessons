@@ -617,10 +617,10 @@ body {
     <p class="input-screen-sub">VOCABULARY · RETRIEVAL PRACTICE · BELLA</p>
 
     <div class="tab-row">
-      <button class="tab-btn active" onclick="switchTab('paste')">Paste from Gemini</button>
-      <button class="tab-btn" onclick="switchTab('manual')">Enter manually</button>
-      <button class="tab-btn" id="tabBundled" onclick="switchTab('bundled')" style="display:none">Lesson deck</button>
-      <button class="tab-btn" onclick="switchTab('awl')">AWL Drill</button>
+      <button type="button" class="tab-btn active" onclick="switchTab('paste')">Paste from Gemini</button>
+      <button type="button" class="tab-btn" onclick="switchTab('manual')">Enter manually</button>
+      <button type="button" class="tab-btn" id="tabBundled" onclick="switchTab('bundled')" style="display:none">Lesson deck</button>
+      <button type="button" class="tab-btn" onclick="switchTab('awl')">AWL Drill</button>
     </div>
 
     <div class="tab-panel active" id="panelPaste">
@@ -629,7 +629,7 @@ body {
         <textarea class="gem-textarea" id="gemPasteArea"
           placeholder="Paste your vocabulary table here — from The Reading Room, The Word Lab, Picture This, or any other BELLA assistant.&#10;&#10;Works with tables copied directly from Gemini. Just paste and click."></textarea>
         <p class="parse-hint">Copy your vocabulary table from the Gemini assistant and paste it here. The trainer will find the words automatically — you don't need to reformat anything first.</p>
-        <button class="btn-add-card" style="margin-top:0.8rem" onclick="parseGemInput()">Find words ▶</button>
+        <button type="button" class="btn-add-card" style="margin-top:0.8rem" onclick="parseGemInput()">Find words ▶</button>
         <div class="preview-wrap" id="pastePreview">
           <p class="preview-title" id="previewTitle"></p>
           <table class="preview-table" id="previewTable">
@@ -650,7 +650,7 @@ body {
           <div class="field-group"><label>Definition *</label><input type="text" id="mDef" placeholder="e.g. able to recover quickly from difficulties"/></div>
           <div class="field-group full-width"><label>Example sentence (recommended for gap-fill)</label><input type="text" id="mEx" placeholder="e.g. She was resilient enough to start again after the setback."/></div>
         </div>
-        <button class="btn-add-card" onclick="addManualCard()">+ Add card</button>
+        <button type="button" class="btn-add-card" onclick="addManualCard()">+ Add card</button>
         <div class="card-list" id="manualCardList"></div>
       </div>
     </div>
@@ -675,17 +675,17 @@ body {
 
         <span style="font-size:0.75rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:0.5rem;">By sublist</span>
         <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:0.5rem;margin-bottom:1.2rem;">
-          <button class="awl-select-btn active" data-mode="sublist" data-sublist="0" onclick="selectAwlSublist(0)">All sublists<br><span style="font-size:0.68rem;opacity:0.7">390 words</span></button>
-          <button class="awl-select-btn" data-mode="sublist" data-sublist="1" onclick="selectAwlSublist(1)">Sublist 1<br><span style="font-size:0.68rem;opacity:0.7">60 · most frequent</span></button>
-          <button class="awl-select-btn" data-mode="sublist" data-sublist="2" onclick="selectAwlSublist(2)">Sublist 2<br><span style="font-size:0.68rem;opacity:0.7">57 words</span></button>
-          <button class="awl-select-btn" data-mode="sublist" data-sublist="3" onclick="selectAwlSublist(3)">Sublist 3<br><span style="font-size:0.68rem;opacity:0.7">57 words</span></button>
-          <button class="awl-select-btn" data-mode="sublist" data-sublist="4" onclick="selectAwlSublist(4)">Sublist 4<br><span style="font-size:0.68rem;opacity:0.7">60 words</span></button>
-          <button class="awl-select-btn" data-mode="sublist" data-sublist="5" onclick="selectAwlSublist(5)">Sublist 5<br><span style="font-size:0.68rem;opacity:0.7">58 words</span></button>
-          <button class="awl-select-btn" data-mode="sublist" data-sublist="6" onclick="selectAwlSublist(6)">Sublist 6<br><span style="font-size:0.68rem;opacity:0.7">30 words</span></button>
-          <button class="awl-select-btn" data-mode="sublist" data-sublist="7" onclick="selectAwlSublist(7)">Sublist 7<br><span style="font-size:0.68rem;opacity:0.7">22 words</span></button>
-          <button class="awl-select-btn" data-mode="sublist" data-sublist="8" onclick="selectAwlSublist(8)">Sublist 8<br><span style="font-size:0.68rem;opacity:0.7">21 words</span></button>
-          <button class="awl-select-btn" data-mode="sublist" data-sublist="9" onclick="selectAwlSublist(9)">Sublist 9<br><span style="font-size:0.68rem;opacity:0.7">11 words</span></button>
-          <button class="awl-select-btn" data-mode="sublist" data-sublist="10" onclick="selectAwlSublist(10)">Sublist 10<br><span style="font-size:0.68rem;opacity:0.7">14 words</span></button>
+          <button type="button" class="awl-select-btn active" data-mode="sublist" data-sublist="0" onclick="selectAwlSublist(0)">All sublists<br><span style="font-size:0.68rem;opacity:0.7">390 words</span></button>
+          <button type="button" class="awl-select-btn" data-mode="sublist" data-sublist="1" onclick="selectAwlSublist(1)">Sublist 1<br><span style="font-size:0.68rem;opacity:0.7">60 · most frequent</span></button>
+          <button type="button" class="awl-select-btn" data-mode="sublist" data-sublist="2" onclick="selectAwlSublist(2)">Sublist 2<br><span style="font-size:0.68rem;opacity:0.7">57 words</span></button>
+          <button type="button" class="awl-select-btn" data-mode="sublist" data-sublist="3" onclick="selectAwlSublist(3)">Sublist 3<br><span style="font-size:0.68rem;opacity:0.7">57 words</span></button>
+          <button type="button" class="awl-select-btn" data-mode="sublist" data-sublist="4" onclick="selectAwlSublist(4)">Sublist 4<br><span style="font-size:0.68rem;opacity:0.7">60 words</span></button>
+          <button type="button" class="awl-select-btn" data-mode="sublist" data-sublist="5" onclick="selectAwlSublist(5)">Sublist 5<br><span style="font-size:0.68rem;opacity:0.7">58 words</span></button>
+          <button type="button" class="awl-select-btn" data-mode="sublist" data-sublist="6" onclick="selectAwlSublist(6)">Sublist 6<br><span style="font-size:0.68rem;opacity:0.7">30 words</span></button>
+          <button type="button" class="awl-select-btn" data-mode="sublist" data-sublist="7" onclick="selectAwlSublist(7)">Sublist 7<br><span style="font-size:0.68rem;opacity:0.7">22 words</span></button>
+          <button type="button" class="awl-select-btn" data-mode="sublist" data-sublist="8" onclick="selectAwlSublist(8)">Sublist 8<br><span style="font-size:0.68rem;opacity:0.7">21 words</span></button>
+          <button type="button" class="awl-select-btn" data-mode="sublist" data-sublist="9" onclick="selectAwlSublist(9)">Sublist 9<br><span style="font-size:0.68rem;opacity:0.7">11 words</span></button>
+          <button type="button" class="awl-select-btn" data-mode="sublist" data-sublist="10" onclick="selectAwlSublist(10)">Sublist 10<br><span style="font-size:0.68rem;opacity:0.7">14 words</span></button>
         </div>
 
         <span style="font-size:0.75rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:0.5rem;">By topic</span>
@@ -698,7 +698,7 @@ body {
 
     <div class="start-row">
       <p class="deck-count" id="deckCountMsg">No cards loaded yet.</p>
-      <button class="btn-start" id="btnStart" disabled onclick="startSession()">Begin session</button>
+      <button type="button" class="btn-start" id="btnStart" disabled onclick="startSession()">Begin session</button>
     </div>
   </section>
 
@@ -707,7 +707,7 @@ body {
     <div class="session-header">
       <p class="session-stat">Card <strong id="statCardNum">1</strong> of <strong id="statCardTotal">—</strong>
         <span id="statCorrect" style="margin-left:0.8rem">✓ <strong>0</strong> correct</span></p>
-      <button class="btn-end-session" onclick="endSession()">End session</button>
+      <button type="button" class="btn-end-session" onclick="endSession()">End session</button>
     </div>
     <div class="dot-nav" id="dotNav"></div>
     <div class="card-scene" id="cardScene"></div>
@@ -738,8 +738,8 @@ body {
       </div>
     </div>
     <div class="summary-btns">
-      <button class="btn-practice-weak" id="btnPracticeWeak" onclick="practiceWeak()">Practice weak cards</button>
-      <button class="btn-new-deck" onclick="newDeck()">New deck</button>
+      <button type="button" class="btn-practice-weak" id="btnPracticeWeak" onclick="practiceWeak()">Practice weak cards</button>
+      <button type="button" class="btn-new-deck" onclick="newDeck()">New deck</button>
     </div>
   </section>
 
@@ -1147,7 +1147,7 @@ function renderPreview() {
   wrap.classList.add('visible');
   parsedRows.forEach((r, i) => {
     const tr = document.createElement('tr');
-    tr.innerHTML = `<td class="word-cell">${esc(r.word)}${renderBadge(r.word)}</td><td class="gprp-cell">${esc(r.gprp)}</td><td>${esc(r.def)}</td><td style="color:var(--muted);font-size:0.78rem;font-style:italic">${esc(r.example)}</td><td><button class="remove-row-btn" onclick="removeParsedRow(${i})">✕</button></td>`;
+    tr.innerHTML = `<td class="word-cell">${esc(r.word)}${renderBadge(r.word)}</td><td class="gprp-cell">${esc(r.gprp)}</td><td>${esc(r.def)}</td><td style="color:var(--muted);font-size:0.78rem;font-style:italic">${esc(r.example)}</td><td><button type="button" class="remove-row-btn" onclick="removeParsedRow(${i})">✕</button></td>`;
     body.appendChild(tr);
   });
 }
@@ -1175,7 +1175,7 @@ function renderManualList() {
   manualCards.forEach((c, i) => {
     const div = document.createElement('div');
     div.className = 'card-list-item';
-    div.innerHTML = `<span class="cli-word">${esc(c.word)}</span><span class="cli-def">${esc(c.def)}</span><button class="remove-row-btn" onclick="removeManualCard(${i})">✕</button>`;
+    div.innerHTML = `<span class="cli-word">${esc(c.word)}</span><span class="cli-def">${esc(c.def)}</span><button type="button" class="remove-row-btn" onclick="removeManualCard(${i})">✕</button>`;
     list.appendChild(div);
   });
 }
@@ -1896,10 +1896,10 @@ function renderClozeCard(card, dir, scene) {
     <p style="font-size:0.8rem;color:var(--muted);margin-bottom:0.8rem">${esc(card.def)}${renderBadge(card.word)}${cardTopic(card) ? '<span class="word-badge badge-topic">' + cardTopic(card) + '</span>' : ''}</p>
     <div class="cloze-input-wrap">
       <input class="cloze-input" id="clozeInput" type="text" placeholder="Type the missing word…" onkeydown="if(event.key==='Enter')checkCloze()"/>
-      <button class="btn-check-cloze" onclick="checkCloze()">Check</button>
+      <button type="button" class="btn-check-cloze" onclick="checkCloze()">Check</button>
     </div>
     <div class="cloze-feedback" id="clozeFeedback"></div>
-    <button class="cloze-next-btn" id="clozeNextBtn" onclick="advanceFromCloze()">Next →</button>`;
+    <button type="button" class="cloze-next-btn" id="clozeNextBtn" onclick="advanceFromCloze()">Next →</button>`;
   scene.appendChild(el);
   setTimeout(() => { const inp = document.getElementById('clozeInput'); if (inp) inp.focus(); }, 100);
 }
