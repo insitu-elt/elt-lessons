@@ -575,6 +575,9 @@ body {
 .badge-awl     { background: #1B3A6B; color: #E8D5A0; }
 .badge-C1      { background: #4A1A6B; color: #E8D5A0; }
 .badge-B2      { background: #1A4A2A; color: #D0E8D5; }
+.badge-B1      { background: #1A3A4A; color: #A8D0E8; }
+.badge-A2      { background: #3A2A1A; color: #E8D0A8; }
+.badge-A1      { display: none; }   /* A1 words are assumed known */
 .badge-core    { display: none; }
 .badge-general { display: none; }
 .card-word-badge { display: block; margin: 2px auto 6px; text-align: center; }
@@ -898,9 +901,17 @@ function getWordBadge(word) {
   return WORD_LIST[word.toLowerCase()] || null;
 }
 
+// Get definition from word list (for non-AWL cards in distractor selection)
+function getWordDef(word) {
+  const e = WORD_LIST[word.toLowerCase()];
+  return e ? (e.def || '') : '';
+}
+
 function renderBadge(word) {
   const e = getWordBadge(word);
-  if (!e || e.badge === 'general' || e.badge === 'core') return '';
+  if (!e) return '';
+  const hidden = ['general','core','A1'];
+  if (hidden.includes(e.badge)) return '';
   return '<span class="word-badge badge-' + e.badge + '" title="' + e.label + '">' + e.label + '</span>';
 }
 
