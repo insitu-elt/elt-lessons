@@ -644,11 +644,11 @@ body {
       <div class="panel-box">
         <label class="panel-label">Add cards one by one</label>
         <div class="manual-form">
-          <div class="field-group"><label>Word *</label><input type="text" id="mWord" placeholder="e.g. resilient"></div>
-          <div class="field-group"><label>GPRP pronunciation</label><input type="text" id="mGprp" placeholder="e.g. rih-ZIL-yuhnt"></div>
-          <div class="field-group"><label>Part of speech</label><input type="text" id="mPos" placeholder="e.g. adjective"></div>
-          <div class="field-group"><label>Definition *</label><input type="text" id="mDef" placeholder="e.g. able to recover quickly from difficulties"></div>
-          <div class="field-group full-width"><label>Example sentence (recommended for gap-fill)</label><input type="text" id="mEx" placeholder="e.g. She was resilient enough to start again after the setback."></div>
+          <div class="field-group"><label>Word *</label><input type="text" id="mWord" placeholder="e.g. resilient"/></div>
+          <div class="field-group"><label>GPRP pronunciation</label><input type="text" id="mGprp" placeholder="e.g. rih-ZIL-yuhnt"/></div>
+          <div class="field-group"><label>Part of speech</label><input type="text" id="mPos" placeholder="e.g. adjective"/></div>
+          <div class="field-group"><label>Definition *</label><input type="text" id="mDef" placeholder="e.g. able to recover quickly from difficulties"/></div>
+          <div class="field-group full-width"><label>Example sentence (recommended for gap-fill)</label><input type="text" id="mEx" placeholder="e.g. She was resilient enough to start again after the setback."/></div>
         </div>
         <button class="btn-add-card" onclick="addManualCard()">+ Add card</button>
         <div class="card-list" id="manualCardList"></div>
@@ -1895,7 +1895,7 @@ function renderClozeCard(card, dir, scene) {
     ${posHint}
     <p style="font-size:0.8rem;color:var(--muted);margin-bottom:0.8rem">${esc(card.def)}${renderBadge(card.word)}${cardTopic(card) ? '<span class="word-badge badge-topic">' + cardTopic(card) + '</span>' : ''}</p>
     <div class="cloze-input-wrap">
-      <input class="cloze-input" id="clozeInput" type="text" placeholder="Type the missing word…" onkeydown="if(event.key==='Enter')checkCloze()">
+      <input class="cloze-input" id="clozeInput" type="text" placeholder="Type the missing word…" onkeydown="if(event.key==='Enter')checkCloze()"/>
       <button class="btn-check-cloze" onclick="checkCloze()">Check</button>
     </div>
     <div class="cloze-feedback" id="clozeFeedback"></div>
