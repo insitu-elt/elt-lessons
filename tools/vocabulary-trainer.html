@@ -1570,47 +1570,76 @@ function buildDistractors(card, isRec) {
     return 'other';
   }
 
+  // Minimum CEFR level for distractors — don't show A1/A2 words
+  // as distractors for B1/B2 target words; it's too easy
+  function cefrRank(level) {
+    return {'A1':1,'A2':2,'B1':3,'B2':4,'C1':5,'C2':6}[level] || 0;
+  }
+  const targetRank = cefrRank(card.cefr || card.cefrLevel || '');
+  // Distractors should be within 1 CEFR level of the target (min B1 for B2 words)
+  const minRank = Math.max(1, targetRank - 1);
+
   const targetPos     = broadPos(card.pos);
   const targetCluster = card.cluster || '';
   const targetWord    = card.word.toLowerCase();
 
-  // ── Try AWL pool first ────────────────────────────────────────
+  // ── Build distractor pool from WORD_LIST (CEFR-J + AWL) ──────
+  // Use WORD_LIST first — much larger pool (7000+ words) than AWL alone
+  if (WORD_LIST && Object.keys(WORD_LIST).length > 100) {
+    const pool = Object.entries(WORD_LIST).filter(([w, e]) =>
+      w !== targetWord &&
+      !deck.some(d => d.word.toLowerCase() === w) &&
+      broadPos(e.pos) === targetPos &&
+      cefrRank(e.cefr || e.badge) >= minRank &&
+      e.def  // must have a definition for productive direction
+    );
+
+    // Tier 1: same topic + same POS + same CEFR level (hardest to distinguish)
+    const targetTopic = card.topic || card.cluster || '';
+    let tier1 = pool.filter(([w, e]) =>
+      (e.topic === targetTopic || e.topic2 === targetTopic) &&
+      e.cefr === (card.cefr || '')
+    );
+
+    // Tier 2: same POS + within 1 CEFR level
+    let tier2 = pool.filter(([w, e]) =>
+      Math.abs(cefrRank(e.cefr || e.badge) - targetRank) <= 1
+    );
+
+    // Tier 3: same POS, any acceptable level
+    let tier3 = pool;
+
+    shuffleArray(tier1); shuffleArray(tier2); shuffleArray(tier3);
+
+    // Pick best available 3
+    const seen = new Set();
+    const picked = [];
+    for (const [w, e] of [...tier1, ...tier2, ...tier3]) {
+      if (!seen.has(w)) {
+        seen.add(w);
+        picked.push({ word: w, def: e.def || '', pos: e.pos || '' });
+        if (picked.length >= 3) break;
+      }
+    }
+    if (picked.length >= 3) return picked;
+  }
+
+  // ── AWL fallback (for AWL drill sessions where WORD_LIST may differ) ─
   if (AWL_DATASET && AWL_DATASET.words) {
     const awlPool = AWL_DATASET.words.filter(w =>
       w.word.toLowerCase() !== targetWord &&
-      // Must not already be in the deck (to avoid correct answer appearing as distractor)
-      !deck.some(d => d.word.toLowerCase() === w.word.toLowerCase())
+      !deck.some(d => d.word.toLowerCase() === w.word.toLowerCase()) &&
+      broadPos(w.pos) === targetPos
     );
-
-    // Tier 1: same cluster + same broad POS
-    let tier1 = awlPool.filter(w =>
-      w.cluster === targetCluster && broadPos(w.pos) === targetPos
-    );
-
-    // Tier 2: same broad POS only
-    let tier2 = awlPool.filter(w =>
-      broadPos(w.pos) === targetPos && w.cluster !== targetCluster
-    );
-
-    // Combine tiers, shuffle each
-    shuffleArray(tier1);
-    shuffleArray(tier2);
-
+    let tier1 = awlPool.filter(w => w.cluster === targetCluster);
+    let tier2 = awlPool.filter(w => w.cluster !== targetCluster);
+    shuffleArray(tier1); shuffleArray(tier2);
     const combined = [...tier1, ...tier2];
-    if (combined.length >= 3) {
-      const picked = combined.slice(0, 3);
-      // Convert AWL entries to card-like objects for option building
-      return picked.map(w => ({ word: w.word, def: w.def, pos: w.pos }));
-    }
-
-    // Tier 3: any AWL word if POS pool too small
-    shuffleArray(awlPool);
-    if (awlPool.length >= 3) {
-      return awlPool.slice(0, 3).map(w => ({ word: w.word, def: w.def, pos: w.pos }));
-    }
+    if (combined.length >= 3)
+      return combined.slice(0, 3).map(w => ({ word: w.word, def: w.def, pos: w.pos }));
   }
 
-  // ── Fallback: other cards in current deck ─────────────────────
+  // ── Final fallback: other cards in current deck ───────────────
   const others = deck.filter(c => c.word !== card.word);
   shuffleArray(others);
   return others.slice(0, 3);
@@ -1850,8 +1879,12 @@ function renderClozeCard(card, dir, scene) {
   });
 
   // POS hint
-  const posHint = card.pos
-    ? `<p style="font-size:0.75rem;color:var(--muted);margin-bottom:0.5rem;letter-spacing:0.04em;text-align:center;"><em>${esc(card.pos)}</em> — type any correct form</p>`
+  // Simplify compound POS labels (e.g. "noun/adjective" → "noun or adjective")
+  const posDisplay = card.pos
+    ? card.pos.replace(/[\/,]/g, ' or ')
+    : '';
+  const posHint = posDisplay
+    ? `<p style="font-size:0.75rem;color:var(--muted);margin-bottom:0.5rem;letter-spacing:0.04em;text-align:center;"><em>${esc(posDisplay)}</em> — type any correct form</p>`
     : '';
 
   const el = document.createElement('div');
