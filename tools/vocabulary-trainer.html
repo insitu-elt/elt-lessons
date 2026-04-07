@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Vocabulary Trainer · BELLA</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&amp;family=Source+Sans+3:wght@300;400;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
 /* ── CSS Variables ─────────────────────────────────────────────── */
 :root {
@@ -334,17 +334,6 @@ body {
 
 .card-scene { width: 100%; margin-bottom: 1.5rem; }
 
-/* ══════════════════════════════════════════════════════════════════
-   FLIP CARD — genuine 3D CSS transform
-   ┌─────────────────────────────────────────────────────────────┐
-   │  .flip-card          — perspective viewport, click target   │
-   │    .card-inner       — rotates Y 0→180deg on .flipped       │
-   │      .card-face.front — rotateY(0)   + backface hidden      │
-   │      .card-face.back  — rotateY(180) + backface hidden      │
-   └─────────────────────────────────────────────────────────────┘
-   Clicking the back face or its children stops propagation so
-   the card cannot be accidentally re-flipped after reveal.
-══════════════════════════════════════════════════════════════════ */
 .flip-card {
   width: 100%;
   cursor: pointer;
@@ -365,7 +354,7 @@ body {
 
 .card-face {
   position: absolute;
-  inset: 0;           /* top/right/bottom/left: 0 */
+  inset: 0;
   min-height: 320px;
   background: var(--cream);
   border-radius: 10px;
@@ -379,21 +368,17 @@ body {
   padding: 2rem;
 }
 
-.card-face.front {
-  /* Faces viewer at 0deg rotation — no extra transform needed */
-}
+.card-face.front {}
 
 .card-face.back {
-  transform: rotateY(180deg);   /* pre-rotated so it's correct when inner hits 180 */
+  transform: rotateY(180deg);
   justify-content: flex-start;
   padding-top: 1.5rem;
   cursor: default;
 }
 
-/* The card-inner needs explicit height so absolute children have a reference */
 .flip-card, .card-inner { min-height: 320px; }
 
-/* ── Shared card face content ──────────────────────────────────── */
 .card-type-badge {
   font-size: 0.68rem;
   color: var(--muted);
@@ -577,7 +562,7 @@ body {
 .badge-B2      { background: #1A4A2A; color: #D0E8D5; }
 .badge-B1      { background: #1A3A4A; color: #A8D0E8; }
 .badge-A2      { background: #3A2A1A; color: #E8D0A8; }
-.badge-A1      { display: none; }   /* A1 words are assumed known */
+.badge-A1      { display: none; }
 .badge-core    { display: none; }
 .badge-general { display: none; }
 .card-word-badge { display: block; margin: 2px auto 6px; text-align: center; }
@@ -620,6 +605,7 @@ body {
       <button type="button" class="tab-btn active" onclick="switchTab('paste')">Paste from Gemini</button>
       <button type="button" class="tab-btn" onclick="switchTab('manual')">Enter manually</button>
       <button type="button" class="tab-btn" id="tabBundled" onclick="switchTab('bundled')" style="display:none">Lesson deck</button>
+      <button type="button" class="tab-btn" onclick="switchTab('thematic')">Thematic Drill</button>
       <button type="button" class="tab-btn" onclick="switchTab('awl')">AWL Drill</button>
     </div>
 
@@ -667,6 +653,94 @@ body {
       </div>
     </div>
 
+    <!-- Thematic Drill Panel -->
+    <div class="tab-panel" id="panelThematic">
+      <div class="panel-box">
+        <label class="panel-label">Thematic Drill — drill by topic and level</label>
+        <p style="font-size:0.82rem;color:var(--muted);margin-bottom:1.2rem;line-height:1.6;">Select a semantic field and CEFR level to build a targeted drilling session from the full BELLA vocabulary list. Optionally filter by register or IELTS topic.</p>
+
+        <span style="font-size:0.75rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:0.5rem;">Semantic field</span>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:0.4rem;margin-bottom:1.2rem;" id="thematicFieldBtns">
+          <button type="button" class="awl-select-btn active" data-field="" onclick="selectThematicField(this,'')">All fields</button>
+          <button type="button" class="awl-select-btn" data-field="Action &amp; Movement" onclick="selectThematicField(this,'Action & Movement')">Action &amp; Movement</button>
+          <button type="button" class="awl-select-btn" data-field="Academic &amp; Formal" onclick="selectThematicField(this,'Academic & Formal')">Academic &amp; Formal</button>
+          <button type="button" class="awl-select-btn" data-field="Body &amp; Health" onclick="selectThematicField(this,'Body & Health')">Body &amp; Health</button>
+          <button type="button" class="awl-select-btn" data-field="Cause &amp; Effect" onclick="selectThematicField(this,'Cause & Effect')">Cause &amp; Effect</button>
+          <button type="button" class="awl-select-btn" data-field="Description &amp; Quality" onclick="selectThematicField(this,'Description & Quality')">Description &amp; Quality</button>
+          <button type="button" class="awl-select-btn" data-field="Education &amp; Learning" onclick="selectThematicField(this,'Education & Learning')">Education &amp; Learning</button>
+          <button type="button" class="awl-select-btn" data-field="Family &amp; Relationships" onclick="selectThematicField(this,'Family & Relationships')">Family &amp; Relationships</button>
+          <button type="button" class="awl-select-btn" data-field="Food &amp; Drink" onclick="selectThematicField(this,'Food & Drink')">Food &amp; Drink</button>
+          <button type="button" class="awl-select-btn" data-field="Home &amp; Living" onclick="selectThematicField(this,'Home & Living')">Home &amp; Living</button>
+          <button type="button" class="awl-select-btn" data-field="Language &amp; Communication" onclick="selectThematicField(this,'Language & Communication')">Language &amp; Communication</button>
+          <button type="button" class="awl-select-btn" data-field="Mind &amp; Emotion" onclick="selectThematicField(this,'Mind & Emotion')">Mind &amp; Emotion</button>
+          <button type="button" class="awl-select-btn" data-field="Money &amp; Finance" onclick="selectThematicField(this,'Money & Finance')">Money &amp; Finance</button>
+          <button type="button" class="awl-select-btn" data-field="Nature &amp; Environment" onclick="selectThematicField(this,'Nature & Environment')">Nature &amp; Environment</button>
+          <button type="button" class="awl-select-btn" data-field="People &amp; Identity" onclick="selectThematicField(this,'People & Identity')">People &amp; Identity</button>
+          <button type="button" class="awl-select-btn" data-field="Politics &amp; Government" onclick="selectThematicField(this,'Politics & Government')">Politics &amp; Government</button>
+          <button type="button" class="awl-select-btn" data-field="Quantity &amp; Degree" onclick="selectThematicField(this,'Quantity & Degree')">Quantity &amp; Degree</button>
+          <button type="button" class="awl-select-btn" data-field="Science &amp; Technology" onclick="selectThematicField(this,'Science & Technology')">Science &amp; Technology</button>
+          <button type="button" class="awl-select-btn" data-field="Social Interaction" onclick="selectThematicField(this,'Social Interaction')">Social Interaction</button>
+          <button type="button" class="awl-select-btn" data-field="Society &amp; Culture" onclick="selectThematicField(this,'Society & Culture')">Society &amp; Culture</button>
+          <button type="button" class="awl-select-btn" data-field="Space &amp; Location" onclick="selectThematicField(this,'Space & Location')">Space &amp; Location</button>
+          <button type="button" class="awl-select-btn" data-field="Thinking &amp; Belief" onclick="selectThematicField(this,'Thinking & Belief')">Thinking &amp; Belief</button>
+          <button type="button" class="awl-select-btn" data-field="Time &amp; Sequence" onclick="selectThematicField(this,'Time & Sequence')">Time &amp; Sequence</button>
+          <button type="button" class="awl-select-btn" data-field="Travel &amp; Transport" onclick="selectThematicField(this,'Travel & Transport')">Travel &amp; Transport</button>
+          <button type="button" class="awl-select-btn" data-field="Work &amp; Employment" onclick="selectThematicField(this,'Work & Employment')">Work &amp; Employment</button>
+        </div>
+
+        <span style="font-size:0.75rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:0.5rem;">CEFR level</span>
+        <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:0.4rem;margin-bottom:1.2rem;" id="thematicCefrBtns">
+          <button type="button" class="awl-select-btn active" data-cefr="" onclick="selectThematicCefr(this,'')">All<br><span style="font-size:0.68rem;opacity:0.7">mixed</span></button>
+          <button type="button" class="awl-select-btn" data-cefr="A1" onclick="selectThematicCefr(this,'A1')">A1<br><span style="font-size:0.68rem;opacity:0.7">beginner</span></button>
+          <button type="button" class="awl-select-btn" data-cefr="A2" onclick="selectThematicCefr(this,'A2')">A2<br><span style="font-size:0.68rem;opacity:0.7">elementary</span></button>
+          <button type="button" class="awl-select-btn" data-cefr="B1" onclick="selectThematicCefr(this,'B1')">B1<br><span style="font-size:0.68rem;opacity:0.7">intermediate</span></button>
+          <button type="button" class="awl-select-btn" data-cefr="B2" onclick="selectThematicCefr(this,'B2')">B2<br><span style="font-size:0.68rem;opacity:0.7">upper-int</span></button>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;">
+          <div>
+            <span style="font-size:0.75rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:0.5rem;">Register</span>
+            <select id="thematicRegSelect" onchange="updateThematicDeck()" style="width:100%;background:var(--navy);border:1px solid rgba(184,150,62,0.25);border-radius:4px;color:var(--cream);font-family:inherit;font-size:0.85rem;padding:0.55rem 0.7rem;outline:none;">
+              <option value="">All registers</option>
+              <option value="neutral">Neutral</option>
+              <option value="formal">Formal</option>
+              <option value="academic">Academic</option>
+              <option value="informal">Informal</option>
+            </select>
+          </div>
+          <div>
+            <span style="font-size:0.75rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:0.5rem;">IELTS topic</span>
+            <select id="thematicIeltsSelect" onchange="updateThematicDeck()" style="width:100%;background:var(--navy);border:1px solid rgba(184,150,62,0.25);border-radius:4px;color:var(--cream);font-family:inherit;font-size:0.85rem;padding:0.55rem 0.7rem;outline:none;">
+              <option value="">All topics</option>
+              <option value="Education">Education</option>
+              <option value="Work &amp; Career">Work &amp; Career</option>
+              <option value="Health">Health</option>
+              <option value="Environment">Environment</option>
+              <option value="Technology">Technology</option>
+              <option value="Society &amp; Culture">Society &amp; Culture</option>
+              <option value="Family">Family</option>
+              <option value="Crime &amp; Law">Crime &amp; Law</option>
+              <option value="Media &amp; Communication">Media &amp; Communication</option>
+              <option value="Sport &amp; Leisure">Sport &amp; Leisure</option>
+              <option value="Travel &amp; Tourism">Travel &amp; Tourism</option>
+              <option value="Food &amp; Diet">Food &amp; Diet</option>
+              <option value="Science">Science</option>
+              <option value="Government &amp; Politics">Government &amp; Politics</option>
+            </select>
+          </div>
+        </div>
+
+        <span style="font-size:0.75rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:0.5rem;">Session size</span>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0.4rem;margin-bottom:1rem;" id="thematicSizeBtns">
+          <button type="button" class="awl-select-btn" data-size="10" onclick="selectThematicSize(this,10)">10 words</button>
+          <button type="button" class="awl-select-btn active" data-size="20" onclick="selectThematicSize(this,20)">20 words</button>
+          <button type="button" class="awl-select-btn" data-size="30" onclick="selectThematicSize(this,30)">30 words</button>
+        </div>
+
+        <p id="thematicPoolMsg" style="font-size:0.82rem;color:var(--muted);margin-top:0.5rem;line-height:1.5;min-height:1.2em;"></p>
+      </div>
+    </div>
+
     <!-- AWL Drill Panel -->
     <div class="tab-panel" id="panelAwl">
       <div class="panel-box">
@@ -690,7 +764,6 @@ body {
 
         <span style="font-size:0.75rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:0.5rem;">By topic</span>
         <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:0.5rem;" id="awlTopicBtns">
-          <!-- populated by JS once AWL_DATASET loads -->
           <span style="font-size:0.78rem;color:var(--muted);font-style:italic;">Loading topics…</span>
         </div>
       </div>
@@ -753,14 +826,8 @@ body {
 /* ══════════════════════════════════════════════════════════════════
    STATE
 ══════════════════════════════════════════════════════════════════ */
-/* ══════════════════════════════════════════════════════════════
-   WORD LIST + AWL — loaded from external JSON files on startup.
-   Both files are fetched in parallel and stored in memory.
-   Functions below are stubs until data arrives; cards still work
-   without badges if fetch fails (graceful degradation).
-══════════════════════════════════════════════════════════════ */
-let WORD_LIST    = {};   // populated by fetch
-let AWL_DATASET  = null; // populated by fetch
+let WORD_LIST    = {};
+let AWL_DATASET  = null;
 
 function buildAwlDeck(sublist) {
   if (!AWL_DATASET) return [];
@@ -774,34 +841,119 @@ function buildAwlDeck(sublist) {
     def:     w.def,
     example: w.example,
     l1_def:  '',
-    cluster: w.cluster,   // needed for smart distractor selection
+    cluster: w.cluster,
     sublist: w.sublist,
   }));
 }
 
-// Reload AWL deck once data arrives (called from loadData)
+/* ══════════════════════════════════════════════════════════════════
+   THEMATIC DRILL STATE & LOGIC
+══════════════════════════════════════════════════════════════════ */
+let thematicField    = '';
+let thematicCefr     = '';
+let thematicRegister = '';
+let thematicIelts    = '';
+let thematicSize     = 20;
+let thematicCards    = [];
+
+function selectThematicField(btn, field) {
+  document.querySelectorAll('#thematicFieldBtns .awl-select-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  thematicField = field;
+  updateThematicDeck();
+}
+
+function selectThematicCefr(btn, cefr) {
+  document.querySelectorAll('#thematicCefrBtns .awl-select-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  thematicCefr = cefr;
+  updateThematicDeck();
+}
+
+function selectThematicSize(btn, size) {
+  document.querySelectorAll('#thematicSizeBtns .awl-select-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  thematicSize = size;
+  updateThematicDeck();
+}
+
+function updateThematicDeck() {
+  thematicRegister = document.getElementById('thematicRegSelect')?.value || '';
+  thematicIelts    = document.getElementById('thematicIeltsSelect')?.value || '';
+
+  const msg = document.getElementById('thematicPoolMsg');
+
+  if (!WORD_LIST || Object.keys(WORD_LIST).length < 100) {
+    thematicCards = [];
+    if (msg) msg.textContent = 'Word list loading — please wait a moment then try again.';
+    updateDeckCount();
+    return;
+  }
+
+  const pool = Object.entries(WORD_LIST).filter(([word, e]) => {
+    if (!e.def) return false;
+    if (e.sf === 'function_word') return false;
+    if (thematicField    && e.sf  !== thematicField)    return false;
+    if (thematicCefr     && e.cefr !== thematicCefr)    return false;
+    if (thematicRegister && e.reg  !== thematicRegister) return false;
+    if (thematicIelts    && e.it   !== thematicIelts)    return false;
+    return true;
+  });
+
+  if (pool.length === 0) {
+    thematicCards = [];
+    if (msg) msg.textContent = 'No words match these filters — try broadening your selection.';
+    updateDeckCount();
+    return;
+  }
+
+  const shuffled = [...pool]; shuffleArray(shuffled);
+  const selected = shuffled.slice(0, thematicSize);
+
+  thematicCards = selected.map(([word, e]) => ({
+    word:    word,
+    gprp:    '',
+    pos:     e.pos  || '',
+    def:     e.def  || '',
+    example: e.ex   || '',
+    cefr:    e.cefr || e.badge || '',
+    sf:      e.sf   || '',
+    reg:     e.reg  || 'neutral',
+    it:      e.it   || '',
+    wf:      e.wf   || '',
+  }));
+
+  if (msg) {
+    const filters = [];
+    if (thematicField)    filters.push(thematicField);
+    if (thematicCefr)     filters.push(thematicCefr);
+    if (thematicRegister) filters.push(thematicRegister);
+    if (thematicIelts)    filters.push(thematicIelts);
+    const suffix = filters.length ? ' · ' + filters.join(' · ') : '';
+    msg.textContent = thematicCards.length + ' words selected from ' + pool.length + ' available' + suffix;
+  }
+
+  updateDeckCount();
+}
+
 function refreshAwlDeck() {
   awlCards = buildAwlDeck(awlSublist).slice(0, 20);
   if (document.querySelector('.tab-panel.active')?.id === 'panelAwl') updateDeckCount();
   populateTopicButtons();
+  if (document.querySelector('.tab-panel.active')?.id === 'panelThematic') updateThematicDeck();
 }
 
 function populateTopicButtons() {
   const container = document.getElementById('awlTopicBtns');
   if (!container || !AWL_DATASET) return;
   container.innerHTML = '';
-
-  // Count words per cluster
   const clusterCounts = {};
   AWL_DATASET.words.forEach(w => {
     clusterCounts[w.cluster] = (clusterCounts[w.cluster] || 0) + 1;
   });
-
-  // Sort by label alphabetically
   const clusters = Object.keys(CLUSTER_LABELS).sort((a, b) =>
     CLUSTER_LABELS[a].localeCompare(CLUSTER_LABELS[b])
   );
-
   clusters.forEach(cluster => {
     const count = clusterCounts[cluster] || 0;
     if (count === 0) return;
@@ -817,13 +969,9 @@ function populateTopicButtons() {
 }
 
 function selectAwlTopic(cluster) {
-  // Deactivate all AWL buttons
   document.querySelectorAll('.awl-select-btn').forEach(b => b.classList.remove('active'));
-  // Activate the clicked topic button
   const btn = document.querySelector(`.awl-select-btn[data-cluster="${cluster}"]`);
   if (btn) btn.classList.add('active');
-
-  // Build deck from this cluster
   if (!AWL_DATASET) return;
   const words = AWL_DATASET.words.filter(w => w.cluster === cluster);
   const cards = words.map(w => ({
@@ -832,17 +980,10 @@ function selectAwlTopic(cluster) {
   }));
   shuffleArray(cards);
   awlCards = cards.slice(0, 20);
-  awlSublist = -1; // sentinel: topic mode
+  awlSublist = -1;
   updateDeckCount();
 }
 
-
-
-/* ══════════════════════════════════════════════════════════════════
-   TOPIC TAGS
-   Maps AWL cluster IDs to human-readable display labels.
-   Used on cards, in the AWL drill filter, and in the summary screen.
-══════════════════════════════════════════════════════════════════ */
 const CLUSTER_LABELS = {
   research_process: 'Research & Analysis',
   evaluation:       'Critical Evaluation',
@@ -865,29 +1006,18 @@ const CLUSTER_LABELS = {
   power_governance: 'Power & Governance',
 };
 
-/**
- * Return the display topic label for a card.
- * Priority: card.cluster (AWL) > card.topic (lesson metadata) > ''
- */
 function cardTopic(card) {
   if (card.cluster && CLUSTER_LABELS[card.cluster]) return CLUSTER_LABELS[card.cluster];
-  if (card.topic)   return card.topic;
+  if (card.topic) return card.topic;
   return '';
 }
 
-/**
- * Look up a word in the AWL dataset and return its cluster, or '' if not found.
- * Used during deck building to tag non-AWL cards that happen to be AWL words.
- */
 function awlCluster(word) {
   if (!AWL_DATASET) return '';
   const entry = AWL_DATASET.words.find(w => w.word.toLowerCase() === word.toLowerCase());
   return entry ? entry.cluster : '';
 }
 
-/**
- * Enrich a card with topic tag from AWL lookup if not already tagged.
- */
 function enrichCard(card) {
   if (!card.cluster) {
     const cluster = awlCluster(card.word);
@@ -901,7 +1031,6 @@ function getWordBadge(word) {
   return WORD_LIST[word.toLowerCase()] || null;
 }
 
-// Get definition from word list (for non-AWL cards in distractor selection)
 function getWordDef(word) {
   const e = WORD_LIST[word.toLowerCase()];
   return e ? (e.def || '') : '';
@@ -912,7 +1041,8 @@ function renderBadge(word) {
   if (!e) return '';
   const hidden = ['general','core','A1'];
   if (hidden.includes(e.badge)) return '';
-  return '<span class="word-badge badge-' + e.badge + '" title="' + e.label + '">' + e.label + '</span>';
+  const badgeClass = e.badge === 'awl' ? 'awl' : e.badge;
+  return '<span class="word-badge badge-' + badgeClass + '" title="' + (e.label || e.badge) + '">' + (e.label || e.badge) + '</span>';
 }
 
 let deck        = [];
@@ -926,11 +1056,10 @@ let cardResults   = {};
    TAB SWITCHING
 ══════════════════════════════════════════════════════════════════ */
 let awlSublist = 0;
-let awlCards   = [];  // populated after AWL_DATASET is defined
+let awlCards   = [];
 
 function selectAwlSublist(sl) {
   awlSublist = sl;
-  // Activate matching sublist button, deactivate all topic buttons
   document.querySelectorAll('.awl-select-btn').forEach(b => {
     if (b.dataset.mode === 'topic') {
       b.classList.remove('active');
@@ -946,11 +1075,12 @@ function selectAwlSublist(sl) {
 
 function switchTab(name) {
   document.querySelectorAll('.tab-btn').forEach((b, i) => {
-    b.classList.toggle('active', ['paste','manual','bundled','awl'][i] === name);
+    b.classList.toggle('active', ['paste','manual','bundled','thematic','awl'][i] === name);
   });
   document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
   document.getElementById('panel' + name[0].toUpperCase() + name.slice(1)).classList.add('active');
   if (name === 'awl' && awlCards.length === 0) selectAwlSublist(0);
+  if (name === 'thematic') updateThematicDeck();
   updateDeckCount();
 }
 
@@ -1184,27 +1314,17 @@ function removeManualCard(i) { manualCards.splice(i, 1); renderManualList(); upd
 
 /* ══════════════════════════════════════════════════════════════════
    BUNDLED DECK
-   Reads from two sources, in priority order:
-   1. sessionStorage 'bella-trainer-deck'  — written by bella-vocab-export.js
-      when a student clicks "Open in Vocabulary Trainer" on a lesson page.
-      This is the primary lesson→trainer handoff mechanism.
-   2. An inline &lt;script id="bella-deck"> element — legacy / direct embed path.
 ══════════════════════════════════════════════════════════════════ */
 let bundledCards = [];
 let bundledMeta  = {};
 
 function checkBundledDeck() {
-  // ── Source 1: sessionStorage handoff from a lesson page ────────
   try {
     const raw = sessionStorage.getItem('bella-trainer-deck');
     if (raw) {
-      // Clear immediately so a later direct visit doesn't re-load a stale deck
       sessionStorage.removeItem('bella-trainer-deck');
       const data = JSON.parse(raw);
       if (data && Array.isArray(data.cards) && data.cards.length > 0) {
-        // Map lesson card format → trainer card format
-        // Lesson: { word, gprp, pos, def, example, l1_def, coach_it, ... }
-        // Trainer: { word, gprp, pos, def, example }  (superset is fine)
         bundledCards = data.cards.map(enrichCard);
         bundledMeta  = data.meta || {};
         showBundledPanel(bundledCards, bundledMeta);
@@ -1212,8 +1332,6 @@ function checkBundledDeck() {
       }
     }
   } catch(e) {}
-
-  // ── Source 2: inline &lt;script id="bella-deck"> (legacy) ─────────
   const el = document.getElementById('bella-deck');
   if (!el) return;
   try {
@@ -1228,33 +1346,22 @@ function checkBundledDeck() {
 
 function showBundledPanel(cards, meta) {
   document.getElementById('tabBundled').style.display = '';
-
   const title = meta.title || 'Lesson deck';
   document.getElementById('bundledDeckName').textContent = title;
-
   const n = cards.length;
-  document.getElementById('bundledDeckCount').textContent =
-    n + ' word' + (n !== 1 ? 's' : '') + ' ready to practise';
-
+  document.getElementById('bundledDeckCount').textContent = n + ' word' + (n !== 1 ? 's' : '') + ' ready to practise';
   const metaParts = [];
   if (meta.level)  metaParts.push(meta.level);
   if (meta.source) metaParts.push(meta.source);
   if (meta.topic)  metaParts.push(meta.topic);
   const metaEl = document.getElementById('bundledDeckMeta');
-  if (metaEl && metaParts.length > 0) {
-    metaEl.textContent = metaParts.join(' · ');
-  }
-
-  // Word list with badges
+  if (metaEl && metaParts.length > 0) metaEl.textContent = metaParts.join(' · ');
   const wordListEl = document.getElementById('bundledWordList');
   if (wordListEl) {
     wordListEl.innerHTML = cards.map(function(c) {
-      const badge = renderBadge(c.word);
-      return '<span style="display:inline-block;margin:3px 4px;font-size:0.82rem;color:var(--cream);">'
-        + esc(c.word) + badge + '</span>';
+      return '<span style="display:inline-block;margin:3px 4px;font-size:0.82rem;color:var(--cream);">' + esc(c.word) + renderBadge(c.word) + '</span>';
     }).join('');
   }
-
   switchTab('bundled');
 }
 
@@ -1264,10 +1371,11 @@ function showBundledPanel(cards, meta) {
 function getActiveDeck() {
   const p = document.querySelector('.tab-panel.active');
   if (!p) return [];
-  if (p.id === 'panelPaste')   return parsedRows;
-  if (p.id === 'panelManual')  return manualCards;
-  if (p.id === 'panelBundled') return bundledCards;
-  if (p.id === 'panelAwl')     return awlCards;
+  if (p.id === 'panelPaste')     return parsedRows;
+  if (p.id === 'panelManual')    return manualCards;
+  if (p.id === 'panelBundled')   return bundledCards;
+  if (p.id === 'panelThematic')  return thematicCards;
+  if (p.id === 'panelAwl')       return awlCards;
   return [];
 }
 
@@ -1292,8 +1400,6 @@ function buildQueue(cards) {
       mastered: [],
       repCount: { rec: 0, prod: 0 }
     };
-    // Every card gets one receptive and one productive pass.
-    // Re-queuing only happens on errors or Nearly — never on clean correct.
     queue.push({ cardIdx: i, direction: 'receptive',  pass: 1 });
     queue.push({ cardIdx: i, direction: 'productive', pass: 1 });
   });
@@ -1330,23 +1436,18 @@ function startSession(weakOnly) {
 
 function renderCard() {
   if (queuePos >= queue.length) { showSummary(); return; }
-
   const item = queue[queuePos];
   const card = deck[item.cardIdx];
   const dir  = item.direction;
   updateSessionStats();
-
   const canMC    = deck.length >= 3;
   const canCloze = !!card.example && deck.length >= 2;
   const type     = pickCardType(canMC, canCloze);
-
   const scene = document.getElementById('cardScene');
   scene.innerHTML = '';
-
   if (type === 'flip')  renderFlipCard(card, dir, scene);
   if (type === 'mc')    renderMCCard(card, dir, scene);
   if (type === 'cloze') renderClozeCard(card, dir, scene);
-
   highlightDot(queuePos);
 }
 
@@ -1360,152 +1461,65 @@ function pickCardType(canMC, canCloze) {
 
 /* ══════════════════════════════════════════════════════════════════
    FLIP CARD
-   DOM structure:
-     .flip-card  (perspective viewport + click-to-flip handler)
-       .card-inner  (the element that actually rotates)
-         .card-face.front  (backface-visibility:hidden; transform:rotateY(0))
-         .card-face.back   (backface-visibility:hidden; transform:rotateY(180deg))
-
-   Adding .flipped to .flip-card makes .card-inner rotate to 180deg,
-   which hides the front and reveals the back.
-
-   The back face and all its children call stopPropagation on click
-   so they cannot accidentally re-trigger the flip.
 ══════════════════════════════════════════════════════════════════ */
 function renderFlipCard(card, dir, scene) {
   const isRec = dir === 'receptive';
-
   const flipCard = document.createElement('div');
   flipCard.className = 'flip-card';
-
   const cardInner = document.createElement('div');
   cardInner.className = 'card-inner';
 
-  /* ── FRONT ─────────────────────────────────────────────────── */
   const front = document.createElement('div');
   front.className = 'card-face front';
-
   const badge = document.createElement('span');
   badge.className = 'card-type-badge';
   badge.textContent = isRec ? 'Flashcard — Word to Meaning' : 'Flashcard — Meaning to Word';
   front.appendChild(badge);
-
   if (isRec) {
-    const w = document.createElement('p');
-    w.className = 'front-word';
-    w.textContent = card.word;
-    front.appendChild(w);
-    if (card.gprp) {
-      const g = document.createElement('p');
-      g.className = 'front-gprp';
-      g.textContent = card.gprp;
-      front.appendChild(g);
-    }
+    const w = document.createElement('p'); w.className = 'front-word'; w.textContent = card.word; front.appendChild(w);
+    if (card.gprp) { const g = document.createElement('p'); g.className = 'front-gprp'; g.textContent = card.gprp; front.appendChild(g); }
   } else {
-    const df = document.createElement('p');
-    df.className = 'back-definition';
-    df.textContent = card.def;
-    front.appendChild(df);
+    const df = document.createElement('p'); df.className = 'back-definition'; df.textContent = card.def; front.appendChild(df);
   }
+  const hint = document.createElement('p'); hint.className = 'flip-hint'; hint.textContent = 'Tap to reveal'; front.appendChild(hint);
 
-  const hint = document.createElement('p');
-  hint.className = 'flip-hint';
-  hint.textContent = 'Tap to reveal';
-  front.appendChild(hint);
-
-  /* ── BACK ──────────────────────────────────────────────────── */
   const back = document.createElement('div');
   back.className = 'card-face back';
-
-  // Block ALL clicks on the back face from bubbling to .flip-card
   back.addEventListener('click', function(e) { e.stopPropagation(); });
+  const badge2 = document.createElement('span'); badge2.className = 'card-type-badge'; badge2.textContent = 'Flashcard'; back.appendChild(badge2);
+  const bw = document.createElement('p'); bw.className = 'back-word'; bw.textContent = card.word; back.appendChild(bw);
 
-  const badge2 = document.createElement('span');
-  badge2.className = 'card-type-badge';
-  badge2.textContent = 'Flashcard';
-  back.appendChild(badge2);
-
-  const bw = document.createElement('p');
-  bw.className = 'back-word';
-  bw.textContent = card.word;
-  back.appendChild(bw);
-
-  // Word list badge + topic tag
-  const bwBadgeHtml   = renderBadge(card.word);
-  const topicLabel    = cardTopic(card);
-  const topicBadgeHtml = topicLabel
-    ? '<span class="word-badge badge-topic" title="Topic">' + topicLabel + '</span>'
-    : '';
+  const bwBadgeHtml    = renderBadge(card.word);
+  const topicLabel     = cardTopic(card);
+  const topicBadgeHtml = topicLabel ? '<span class="word-badge badge-topic" title="Topic">' + topicLabel + '</span>' : '';
   const combinedBadges = bwBadgeHtml + topicBadgeHtml;
   if (combinedBadges) {
-    const bwBadge = document.createElement('div');
-    bwBadge.className = 'card-word-badge';
-    bwBadge.innerHTML = combinedBadges;
-    back.appendChild(bwBadge);
+    const bwBadge = document.createElement('div'); bwBadge.className = 'card-word-badge'; bwBadge.innerHTML = combinedBadges; back.appendChild(bwBadge);
   }
 
-  if (card.gprp) {
-    const bg = document.createElement('p');
-    bg.className = 'back-gprp';
-    bg.textContent = card.gprp;
-    back.appendChild(bg);
-  }
-
-  const bdiv = document.createElement('div');
-  bdiv.className = 'back-divider';
-  back.appendChild(bdiv);
-
-  const bdef = document.createElement('p');
-  bdef.className = 'back-definition';
-  bdef.textContent = card.def;
-  back.appendChild(bdef);
-
-  if (card.example) {
-    const bex = document.createElement('p');
-    bex.className = 'back-example';
-    bex.textContent = card.example;
-    back.appendChild(bex);
-  }
+  if (card.gprp) { const bg = document.createElement('p'); bg.className = 'back-gprp'; bg.textContent = card.gprp; back.appendChild(bg); }
+  const bdiv = document.createElement('div'); bdiv.className = 'back-divider'; back.appendChild(bdiv);
+  const bdef = document.createElement('p'); bdef.className = 'back-definition'; bdef.textContent = card.def; back.appendChild(bdef);
+  if (card.example) { const bex = document.createElement('p'); bex.className = 'back-example'; bex.textContent = card.example; back.appendChild(bex); }
 
   const audioBtn = document.createElement('button');
-  audioBtn.className = 'audio-replay-btn';
-  audioBtn.title = 'Hear pronunciation';
-  audioBtn.textContent = '🔊';
+  audioBtn.className = 'audio-replay-btn'; audioBtn.title = 'Hear pronunciation'; audioBtn.textContent = '🔊';
   audioBtn.addEventListener('click', function(e) { e.stopPropagation(); speakWord(card.word); });
   back.appendChild(audioBtn);
 
-  const ratingDiv = document.createElement('div');
-  ratingDiv.className = 'in-card-rating';
-
-  [
-    ['btn-got-it', 'got',    '✓ Got it' ],
-    ['btn-nearly', 'nearly', '~ Nearly' ],
-    ['btn-not-yet', 'nope',  '✗ Not yet']
-  ].forEach(function(item) {
+  const ratingDiv = document.createElement('div'); ratingDiv.className = 'in-card-rating';
+  [['btn-got-it','got','✓ Got it'],['btn-nearly','nearly','~ Nearly'],['btn-not-yet','nope','✗ Not yet']].forEach(function(item) {
     const btn = document.createElement('button');
-    btn.className = 'rating-btn ' + item[0];
-    btn.textContent = item[2];
-    btn.addEventListener('click', function(e) {
-      e.stopPropagation(); // essential — prevents re-flip
-      rateCard(item[1]);
-    });
+    btn.className = 'rating-btn ' + item[0]; btn.textContent = item[2];
+    btn.addEventListener('click', function(e) { e.stopPropagation(); rateCard(item[1]); });
     ratingDiv.appendChild(btn);
   });
   back.appendChild(ratingDiv);
 
-  /* ── Assemble ─────────────────────────────────────────────── */
-  cardInner.appendChild(front);
-  cardInner.appendChild(back);
-  flipCard.appendChild(cardInner);
-
-  // Only flip when currently face-up (not already flipped)
+  cardInner.appendChild(front); cardInner.appendChild(back); flipCard.appendChild(cardInner);
   flipCard.addEventListener('click', function() {
-    if (!flipCard.classList.contains('flipped')) {
-      flipCard.classList.add('flipped');
-      speakWord(card.word);
-    }
+    if (!flipCard.classList.contains('flipped')) { flipCard.classList.add('flipped'); speakWord(card.word); }
   });
-
   scene.appendChild(flipCard);
 }
 
@@ -1514,51 +1528,26 @@ function rateCard(rating) {
   const res    = cardResults[item.cardIdx];
   const dk     = item.direction === 'receptive' ? 'rec' : 'prod';
   totalAttempts++;
-
   if (rating === 'got') {
-    correctCount++;
-    res.everCorrect++;
-    res.consecutiveCorrect[dk]++;
-    res.mastered.push(item.direction);
+    correctCount++; res.everCorrect++; res.consecutiveCorrect[dk]++; res.mastered.push(item.direction);
     setDotState(queuePos, 'mastered');
-    // Clean correct — no re-queue regardless of deck size.
-
   } else if (rating === 'nearly') {
-    res.shakyCount++;
-    res.consecutiveCorrect[dk] = 0;
-    // Re-queue once for confirmation (pass 2 only — don't re-queue a re-queue).
+    res.shakyCount++; res.consecutiveCorrect[dk] = 0;
     if (item.pass < 2) queue.splice(queuePos + 2, 0, { ...item, pass: 2 });
     setDotState(queuePos, 'shaky');
-
-  } else { // 'nope'
-    res.wrongCount++;
-    res.consecutiveCorrect[dk] = 0;
-    // Re-queue once immediately (pass 2 only).
+  } else {
+    res.wrongCount++; res.consecutiveCorrect[dk] = 0;
     if (item.pass < 2) queue.splice(queuePos + 1, 0, { ...item, pass: 2 });
     setDotState(queuePos, 'shaky');
   }
-
-  queuePos++;
-  updateProgressBar();
-  renderCard();
+  queuePos++; updateProgressBar(); renderCard();
 }
 
 /* ══════════════════════════════════════════════════════════════════
-   MC CARD
+   DISTRACTOR LOGIC — enriched semantic field matching
 ══════════════════════════════════════════════════════════════════ */
-
-/**
- * Build a pool of distractor candidates for an MC card.
- *
- * Priority order:
- * 1. AWL words with same cluster AND same broad POS (best — semantically close)
- * 2. AWL words with same broad POS (good — same word class at least)
- * 3. Other cards in the current deck (fallback for non-AWL decks)
- *
- * Broad POS: 'adjective', 'noun', 'verb', 'adverb' — extracted from the
- * card's pos field which may be compound ("noun/verb", "adjective/noun" etc.)
- */
 function buildDistractors(card, isRec) {
+
   function broadPos(pos) {
     if (!pos) return '';
     const p = pos.toLowerCase();
@@ -1566,224 +1555,145 @@ function buildDistractors(card, isRec) {
     if (p.includes('adv')) return 'adv';
     if (p.includes('noun')) return 'noun';
     if (p.includes('verb')) return 'verb';
-    if (p.includes('conj') || p.includes('prep')) return 'function';
     return 'other';
   }
 
-  // Minimum CEFR level for distractors — don't show A1/A2 words
-  // as distractors for B1/B2 target words; it's too easy
   function cefrRank(level) {
     return {'A1':1,'A2':2,'B1':3,'B2':4,'C1':5,'C2':6}[level] || 0;
   }
-  const targetRank = cefrRank(card.cefr || card.cefrLevel || '');
-  // Distractors should be within 1 CEFR level of the target (min B1 for B2 words)
-  const minRank = Math.max(1, targetRank - 1);
 
-  const targetPos     = broadPos(card.pos);
-  const targetCluster = card.cluster || '';
-  const targetWord    = card.word.toLowerCase();
+  const targetWord  = card.word.toLowerCase();
+  const targetPos   = broadPos(card.pos);
+  const targetSF    = card.sf || card.semantic_field || '';
+  const targetCefr  = card.cefr || card.cefrLevel || card.badge || '';
+  const targetRank  = cefrRank(targetCefr);
+  const minRank     = Math.max(1, targetRank - 1);
+  const deckWords   = new Set(deck.map(d => d.word.toLowerCase()));
 
-  // ── Build distractor pool from WORD_LIST (CEFR-J + AWL) ──────
-  // Use WORD_LIST first — much larger pool (7000+ words) than AWL alone
   if (WORD_LIST && Object.keys(WORD_LIST).length > 100) {
     const pool = Object.entries(WORD_LIST).filter(([w, e]) =>
       w !== targetWord &&
-      !deck.some(d => d.word.toLowerCase() === w) &&
+      !deckWords.has(w) &&
       broadPos(e.pos) === targetPos &&
       cefrRank(e.cefr || e.badge) >= minRank &&
-      e.def  // must have a definition for productive direction
+      e.def
     );
 
-    // Tier 1: same topic + same POS + same CEFR level (hardest to distinguish)
-    const targetTopic = card.topic || card.cluster || '';
-    let tier1 = pool.filter(([w, e]) =>
-      (e.topic === targetTopic || e.topic2 === targetTopic) &&
-      e.cefr === (card.cefr || '')
-    );
+    // Tier 1: same semantic field + same CEFR (tightest — hardest distractors)
+    const t1 = targetSF ? pool.filter(([w, e]) => e.sf === targetSF && e.cefr === targetCefr) : [];
+    // Tier 2: same semantic field + within ±1 CEFR
+    const t2 = targetSF ? pool.filter(([w, e]) => e.sf === targetSF && Math.abs(cefrRank(e.cefr) - targetRank) <= 1) : [];
+    // Tier 3: any field + within ±1 CEFR
+    const t3 = pool.filter(([w, e]) => Math.abs(cefrRank(e.cefr || e.badge) - targetRank) <= 1);
+    // Tier 4: any field, any acceptable level
+    const t4 = pool;
 
-    // Tier 2: same POS + within 1 CEFR level
-    let tier2 = pool.filter(([w, e]) =>
-      Math.abs(cefrRank(e.cefr || e.badge) - targetRank) <= 1
-    );
-
-    // Tier 3: same POS, any acceptable level
-    let tier3 = pool;
-
-    shuffleArray(tier1); shuffleArray(tier2); shuffleArray(tier3);
-
-    // Pick best available 3
-    const seen = new Set();
-    const picked = [];
-    for (const [w, e] of [...tier1, ...tier2, ...tier3]) {
-      if (!seen.has(w)) {
-        seen.add(w);
-        picked.push({ word: w, def: e.def || '', pos: e.pos || '' });
-        if (picked.length >= 3) break;
+    const seen = new Set(); const picked = [];
+    for (const arr of [t1, t2, t3, t4]) {
+      const shuffled = [...arr]; shuffleArray(shuffled);
+      for (const [w, e] of shuffled) {
+        if (!seen.has(w)) {
+          seen.add(w);
+          picked.push({ word: w, def: e.def || '', pos: e.pos || '' });
+          if (picked.length >= 3) break;
+        }
       }
+      if (picked.length >= 3) return picked;
     }
-    if (picked.length >= 3) return picked;
+    if (picked.length > 0) return picked;
   }
 
-  // ── AWL fallback (for AWL drill sessions where WORD_LIST may differ) ─
+  // AWL fallback
   if (AWL_DATASET && AWL_DATASET.words) {
+    const targetCluster = card.cluster || '';
     const awlPool = AWL_DATASET.words.filter(w =>
-      w.word.toLowerCase() !== targetWord &&
-      !deck.some(d => d.word.toLowerCase() === w.word.toLowerCase()) &&
-      broadPos(w.pos) === targetPos
+      w.word.toLowerCase() !== targetWord && !deckWords.has(w.word.toLowerCase()) && broadPos(w.pos) === targetPos
     );
-    let tier1 = awlPool.filter(w => w.cluster === targetCluster);
-    let tier2 = awlPool.filter(w => w.cluster !== targetCluster);
-    shuffleArray(tier1); shuffleArray(tier2);
-    const combined = [...tier1, ...tier2];
-    if (combined.length >= 3)
-      return combined.slice(0, 3).map(w => ({ word: w.word, def: w.def, pos: w.pos }));
+    let t1 = awlPool.filter(w => w.cluster === targetCluster);
+    let t2 = awlPool.filter(w => w.cluster !== targetCluster);
+    shuffleArray(t1); shuffleArray(t2);
+    const combined = [...t1, ...t2];
+    if (combined.length >= 3) return combined.slice(0, 3).map(w => ({ word: w.word, def: w.def, pos: w.pos }));
   }
 
-  // ── Final fallback: other cards in current deck ───────────────
-  const others = deck.filter(c => c.word !== card.word);
-  shuffleArray(others);
-  return others.slice(0, 3);
+  // Deck fallback
+  const others = deck.filter(c => c.word !== card.word); shuffleArray(others); return others.slice(0, 3);
 }
 
+/* ══════════════════════════════════════════════════════════════════
+   MC CARD
+══════════════════════════════════════════════════════════════════ */
 function renderMCCard(card, dir, scene) {
   const isRec = dir === 'receptive';
   const correctOption = isRec ? card.word : card.def;
-
   const distractors = buildDistractors(card, isRec);
-  let options = isRec
-    ? [card.word, ...distractors.map(d => d.word)]
-    : [card.def,  ...distractors.map(d => d.def)];
+  let options = isRec ? [card.word, ...distractors.map(d => d.word)] : [card.def, ...distractors.map(d => d.def)];
   shuffleArray(options);
 
-  // ── Card container ──────────────────────────────────────────
-  const el = document.createElement('div');
-  el.className = 'mc-card active';
-
-  // Type label
+  const el = document.createElement('div'); el.className = 'mc-card active';
   const typeLabel = document.createElement('span');
   typeLabel.style.cssText = 'font-size:0.68rem;color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;display:block;margin-bottom:0.5rem';
-  typeLabel.textContent = 'Multiple choice';
-  el.appendChild(typeLabel);
+  typeLabel.textContent = 'Multiple choice'; el.appendChild(typeLabel);
 
-  // Prompt
-  const prompt = document.createElement('p');
-  prompt.className = 'mc-prompt';
+  const prompt = document.createElement('p'); prompt.className = 'mc-prompt';
   if (isRec) {
     const lbl = document.createElement('span');
     lbl.style.cssText = 'font-size:0.75rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;display:block;margin-bottom:0.8rem';
-    lbl.textContent = 'Which word matches this definition?';
-    prompt.appendChild(lbl);
+    lbl.textContent = 'Which word matches this definition?'; prompt.appendChild(lbl);
     prompt.appendChild(document.createTextNode(card.def));
   } else {
     const lbl = document.createElement('span');
     lbl.style.cssText = 'font-size:0.75rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;display:block;margin-bottom:0.8rem';
-    lbl.textContent = 'Which definition matches this word?';
-    prompt.appendChild(lbl);
+    lbl.textContent = 'Which definition matches this word?'; prompt.appendChild(lbl);
     const em = document.createElement('em');
-    em.style.cssText = "color:var(--gold);font-family:'Playfair Display',serif;font-size:1.5rem";
-    em.textContent = card.word;
-    prompt.appendChild(em);
-    // Badge + topic below the word in productive direction
-    const mcBadgeHtml    = renderBadge(card.word);
-    const mcTopicLabel   = cardTopic(card);
-    const mcTopicHtml    = mcTopicLabel
-      ? '<span class="word-badge badge-topic">' + mcTopicLabel + '</span>'
-      : '';
-    const mcCombined = mcBadgeHtml + mcTopicHtml;
-    if (mcCombined) {
-      const mcBadge = document.createElement('div');
-      mcBadge.style.cssText = 'margin-top:4px;';
-      mcBadge.innerHTML = mcCombined;
-      prompt.appendChild(mcBadge);
-    }
+    em.style.cssText = "color:var(--gold);font-family:'Playfair Display',serif;font-size:1.5rem"; em.textContent = card.word; prompt.appendChild(em);
+    const mcBadgeHtml  = renderBadge(card.word);
+    const mcTopicLabel = cardTopic(card);
+    const mcTopicHtml  = mcTopicLabel ? '<span class="word-badge badge-topic">' + mcTopicLabel + '</span>' : '';
+    const mcCombined   = mcBadgeHtml + mcTopicHtml;
+    if (mcCombined) { const mcBadge = document.createElement('div'); mcBadge.style.cssText = 'margin-top:4px;'; mcBadge.innerHTML = mcCombined; prompt.appendChild(mcBadge); }
   }
   el.appendChild(prompt);
 
-  // Options grid
-  const grid = document.createElement('div');
-  grid.className = 'mc-options';
-  grid.id = 'mcOptions';
-
-  const feedback = document.createElement('div');
-  feedback.className = 'mc-feedback';
-  feedback.id = 'mcFeedback';
-
-  const nextWrap = document.createElement('div');
-  nextWrap.style.textAlign = 'center';
-  const nextBtn = document.createElement('button');
-  nextBtn.className = 'mc-next-btn';
-  nextBtn.id = 'mcNextBtn';
-  nextBtn.textContent = 'Next →';
-  nextBtn.style.display = 'none';
-  nextBtn.addEventListener('click', advanceFromMC);
-  nextWrap.appendChild(nextBtn);
+  const grid = document.createElement('div'); grid.className = 'mc-options'; grid.id = 'mcOptions';
+  const feedback = document.createElement('div'); feedback.className = 'mc-feedback'; feedback.id = 'mcFeedback';
+  const nextWrap = document.createElement('div'); nextWrap.style.textAlign = 'center';
+  const nextBtn = document.createElement('button'); nextBtn.className = 'mc-next-btn'; nextBtn.id = 'mcNextBtn'; nextBtn.textContent = 'Next →'; nextBtn.style.display = 'none';
+  nextBtn.addEventListener('click', advanceFromMC); nextWrap.appendChild(nextBtn);
 
   options.forEach(function(opt) {
-    const btn = document.createElement('button');
-    btn.className = 'mc-option';
-    btn.textContent = opt;
-    btn.dataset.correct = (opt === correctOption) ? 'true' : 'false';
-
+    const btn = document.createElement('button'); btn.className = 'mc-option'; btn.textContent = opt; btn.dataset.correct = (opt === correctOption) ? 'true' : 'false';
     btn.addEventListener('click', function() {
       if (btn.classList.contains('locked')) return;
-
-      const item = queue[queuePos];
-      const res  = cardResults[item.cardIdx];
-      const dk   = item.direction === 'receptive' ? 'rec' : 'prod';
+      const item = queue[queuePos]; const res = cardResults[item.cardIdx]; const dk = item.direction === 'receptive' ? 'rec' : 'prod';
       totalAttempts++;
-
-      // Lock all options immediately
       grid.querySelectorAll('.mc-option').forEach(b => b.classList.add('locked'));
-
       if (opt === correctOption) {
-        btn.classList.add('correct');
-        correctCount++;
-        res.everCorrect++;
-        res.consecutiveCorrect[dk]++;
-        res.mastered.push(item.direction);
-        setDotState(queuePos, 'mastered');
-        feedback.className = 'mc-feedback correct';
-        feedback.textContent = '✓ Correct!';
-        speakWord(card.word);
+        btn.classList.add('correct'); correctCount++; res.everCorrect++; res.consecutiveCorrect[dk]++; res.mastered.push(item.direction);
+        setDotState(queuePos, 'mastered'); feedback.className = 'mc-feedback correct'; feedback.textContent = '✓ Correct!'; speakWord(card.word);
       } else {
         btn.classList.add('selected-wrong');
-        grid.querySelectorAll('.mc-option').forEach(b => {
-          if (b.dataset.correct === 'true') b.classList.add('correct');
-        });
-        res.wrongCount++;
-        res.consecutiveCorrect[dk] = 0;
+        grid.querySelectorAll('.mc-option').forEach(b => { if (b.dataset.correct === 'true') b.classList.add('correct'); });
+        res.wrongCount++; res.consecutiveCorrect[dk] = 0;
         if (item.pass < 2) queue.splice(queuePos + 2, 0, { ...item, pass: 2 });
-        setDotState(queuePos, 'shaky');
-        feedback.className = 'mc-feedback incorrect';
-        feedback.textContent = '✗ Not quite — the correct answer has been highlighted.';
+        setDotState(queuePos, 'shaky'); feedback.className = 'mc-feedback incorrect'; feedback.textContent = '✗ Not quite — the correct answer has been highlighted.';
       }
-
-      nextBtn.style.display = 'inline-block';
-      updateProgressBar();
+      nextBtn.style.display = 'inline-block'; updateProgressBar();
     });
-
     grid.appendChild(btn);
   });
 
-  el.appendChild(grid);
-  el.appendChild(feedback);
-  el.appendChild(nextWrap);
-  scene.appendChild(el);
+  el.appendChild(grid); el.appendChild(feedback); el.appendChild(nextWrap); scene.appendChild(el);
 }
 
-function selectMCOption() {} // retired — logic now inline in renderMCCard
+function selectMCOption() {}
 
 /* ══════════════════════════════════════════════════════════════════
    CLOZE CARD
 ══════════════════════════════════════════════════════════════════ */
-// Module-level state set by renderClozeCard, read by checkCloze.
-let clozeTargetForm  = '';   // the inflected form found in the sentence
-let clozeAcceptedForms = []; // all accepted forms (headword + inflections)
+let clozeTargetForm    = '';
+let clozeAcceptedForms = [];
 
-// Generates all plausible surface forms of a headword.
-// Used for both gap-finding and answer acceptance.
-// Irregular academic word forms — covers common AWL words where
-// the nominal/adjectival form can't be predicted by suffix rules.
 const IRREGULAR_WORD_FORMS = {
   vary:['varies','varied','varying','variation','variations','variable','variables','variety','varieties'],
   respond:['responds','responded','responding','response','responses','respondent','respondents'],
@@ -1810,85 +1720,56 @@ const IRREGULAR_WORD_FORMS = {
 };
 
 function wordForms(w) {
-  const base  = w.toLowerCase();
-  const forms = [base];
-
-  // ── Irregular forms table (check first) ─────────────────────
-  if (IRREGULAR_WORD_FORMS[base]) {
-    forms.push(...IRREGULAR_WORD_FORMS[base]);
-  }
-
-  // ── Standard verb inflections ────────────────────────────────
-  if (base.endsWith('e')) {
-    forms.push(base+'d', base+'s', base.slice(0,-1)+'ing', base.slice(0,-1)+'ed');
-  } else if (base.endsWith('y')) {
-    forms.push(base.slice(0,-1)+'ies', base.slice(0,-1)+'ied', base+'ing');
-  } else {
-    forms.push(base+'s', base+'ed', base+'ing');
-    const last = base.slice(-1), pen = base.slice(-2,-1);
-    if ('bdgmnprst'.includes(last) && 'aeiou'.includes(pen)) {
-      forms.push(base+last+'ed', base+last+'ing');
-    }
-  }
-
-  // ── Nominal forms common in academic English ─────────────────
-  if (base.endsWith('ain'))  forms.push(base+'t', base+'ts');
-  if (base.endsWith('ute'))  forms.push(base.slice(0,-3)+'ution', base.slice(0,-3)+'utions');
-  if (base.endsWith('ate'))  forms.push(base.slice(0,-3)+'ation', base.slice(0,-3)+'ations');
-  if (base.endsWith('ise') || base.endsWith('ize'))
-                              forms.push(base.slice(0,-1)+'ation', base.slice(0,-1)+'ations');
-  if (base.endsWith('e') && !base.endsWith('ate') && !base.endsWith('ise') && !base.endsWith('ize'))
-                              forms.push(base.slice(0,-1)+'tion',  base.slice(0,-1)+'tions',
-                                         base.slice(0,-1)+'ation', base.slice(0,-1)+'ations');
-  if (!base.endsWith('tion') && !base.endsWith('e'))
-                              forms.push(base+'tion', base+'tions', base+'ation', base+'ations');
-  forms.push(base+'ment', base+'ments');
-  if (base.endsWith('e'))    forms.push(base.slice(0,-1)+'ment', base.slice(0,-1)+'ments');
-  if (!base.endsWith('ly')) {
-    forms.push(base+'ly');
-    if (base.endsWith('e'))  forms.push(base.slice(0,-1)+'ly');
-    if (base.endsWith('ic')) forms.push(base+'ally');
-  }
-  if (base.endsWith('e'))    forms.push(base.slice(0,-1)+'al', base.slice(0,-1)+'als');
-  forms.push(base+'er', base+'ers', base+'or', base+'ors');
-  if (!base.endsWith('s'))   forms.push(base+'s');
-
-  // ── Filter: remove junk forms (must contain a vowel, min length 3,
-  //   and not look like obvious nonsense e.g. triple-consonant endings) ─
-  const hasVowel = /[aeiou]/i;
-  return [...new Set(forms)].filter(f =>
-    f.length >= 3 && hasVowel.test(f) && !/(ttion|tation|ntion|mment)/.test(f)
-  );
+  const base = w.toLowerCase(); const forms = [base];
+  if (IRREGULAR_WORD_FORMS[base]) forms.push(...IRREGULAR_WORD_FORMS[base]);
+  if (base.endsWith('e')) { forms.push(base+'d', base+'s', base.slice(0,-1)+'ing', base.slice(0,-1)+'ed'); }
+  else if (base.endsWith('y')) { forms.push(base.slice(0,-1)+'ies', base.slice(0,-1)+'ied', base+'ing'); }
+  else { forms.push(base+'s', base+'ed', base+'ing'); const last=base.slice(-1),pen=base.slice(-2,-1); if('bdgmnprst'.includes(last)&&'aeiou'.includes(pen)){forms.push(base+last+'ed',base+last+'ing');} }
+  if(base.endsWith('ain'))forms.push(base+'t',base+'ts');
+  if(base.endsWith('ute'))forms.push(base.slice(0,-3)+'ution',base.slice(0,-3)+'utions');
+  if(base.endsWith('ate'))forms.push(base.slice(0,-3)+'ation',base.slice(0,-3)+'ations');
+  if(base.endsWith('ise')||base.endsWith('ize'))forms.push(base.slice(0,-1)+'ation',base.slice(0,-1)+'ations');
+  if(base.endsWith('e')&&!base.endsWith('ate')&&!base.endsWith('ise')&&!base.endsWith('ize'))forms.push(base.slice(0,-1)+'tion',base.slice(0,-1)+'tions',base.slice(0,-1)+'ation',base.slice(0,-1)+'ations');
+  if(!base.endsWith('tion')&&!base.endsWith('e'))forms.push(base+'tion',base+'tions',base+'ation',base+'ations');
+  forms.push(base+'ment',base+'ments');
+  if(base.endsWith('e'))forms.push(base.slice(0,-1)+'ment',base.slice(0,-1)+'ments');
+  if(!base.endsWith('ly')){forms.push(base+'ly');if(base.endsWith('e'))forms.push(base.slice(0,-1)+'ly');if(base.endsWith('ic'))forms.push(base+'ally');}
+  if(base.endsWith('e'))forms.push(base.slice(0,-1)+'al',base.slice(0,-1)+'als');
+  forms.push(base+'er',base+'ers',base+'or',base+'ors');
+  if(!base.endsWith('s'))forms.push(base+'s');
+  const hasVowel=/[aeiou]/i;
+  return [...new Set(forms)].filter(f=>f.length>=3&&hasVowel.test(f)&&!/(ttion|tation|ntion|mment)/.test(f));
 }
 
 function renderClozeCard(card, dir, scene) {
-  // Build accepted forms and gap-finding regex
   const forms   = wordForms(card.word);
   const escaped = forms.map(f => f.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
-  escaped.sort((a, b) => b.length - a.length); // longest first — 'analysed' before 'analyse'
+  escaped.sort((a, b) => b.length - a.length);
   const gapRe   = new RegExp('\\b(' + escaped.join('|') + ')\\b', 'gi');
 
-  // Reset module-level state
-  clozeTargetForm    = card.word; // fallback if no match found in sentence
-  clozeAcceptedForms = forms;     // all forms are accepted answers
+  clozeTargetForm    = card.word;
+  clozeAcceptedForms = forms;
 
-  // Replace the word in the sentence with a blank, capturing the matched form
+  // Replace word in sentence; detect if match occurred
+  let matchFound = false;
   const gapped = card.example.replace(gapRe, function(match) {
-    clozeTargetForm = match; // actual form used in the sentence
+    clozeTargetForm = match;
+    matchFound = true;
     return '<span style="display:inline-block;min-width:80px;border-bottom:2px solid var(--gold);margin:0 2px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>';
   });
 
-  // POS hint
-  // Simplify compound POS labels (e.g. "noun/adjective" → "noun or adjective")
-  const posDisplay = card.pos
-    ? card.pos.replace(/[\/,]/g, ' or ')
-    : '';
+  // Fallback: if word form not found in sentence, render as flip card instead
+  if (!matchFound) {
+    renderFlipCard(card, dir, scene);
+    return;
+  }
+
+  const posDisplay = card.pos ? card.pos.replace(/[\/,]/g, ' or ') : '';
   const posHint = posDisplay
     ? `<p style="font-size:0.75rem;color:var(--muted);margin-bottom:0.5rem;letter-spacing:0.04em;text-align:center;"><em>${esc(posDisplay)}</em> — type any correct form</p>`
     : '';
 
-  const el = document.createElement('div');
-  el.className = 'cloze-card active';
+  const el = document.createElement('div'); el.className = 'cloze-card active';
   el.innerHTML = `
     <span style="font-size:0.68rem;color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;display:block;margin-bottom:1rem;align-self:flex-start">Gap-fill</span>
     <p class="cloze-sentence">${gapped}</p>
@@ -1905,52 +1786,30 @@ function renderClozeCard(card, dir, scene) {
 }
 
 function checkCloze() {
-  const input   = document.getElementById('clozeInput');
+  const input    = document.getElementById('clozeInput');
   const feedback = document.getElementById('clozeFeedback');
   const nextBtn  = document.getElementById('clozeNextBtn');
   if (nextBtn.style.display === 'inline-block') return;
-
-  const item = queue[queuePos];
-  const card = deck[item.cardIdx];
-  const res  = cardResults[item.cardIdx];
-  const dk   = item.direction === 'receptive' ? 'rec' : 'prod';
-  const typed = input.value.trim();
-  if (!typed) return;
-
+  const item = queue[queuePos]; const card = deck[item.cardIdx]; const res = cardResults[item.cardIdx];
+  const dk = item.direction === 'receptive' ? 'rec' : 'prod';
+  const typed = input.value.trim(); if (!typed) return;
   totalAttempts++;
-
-  // Accept if typed matches any accepted form (case-insensitive)
   const typedLower = typed.toLowerCase();
   const correct    = clozeAcceptedForms.some(f => f.toLowerCase() === typedLower);
-
   if (correct) {
-    input.classList.add('correct');
-    correctCount++;
-    res.everCorrect++;
-    res.consecutiveCorrect[dk]++;
-    res.mastered.push(item.direction);
-    setDotState(queuePos, 'mastered');
-    feedback.className = 'cloze-feedback correct';
-    feedback.textContent = '✓ Correct!';
-    speakWord(card.word);
+    input.classList.add('correct'); correctCount++; res.everCorrect++; res.consecutiveCorrect[dk]++; res.mastered.push(item.direction);
+    setDotState(queuePos, 'mastered'); feedback.className = 'cloze-feedback correct'; feedback.textContent = '✓ Correct!'; speakWord(card.word);
   } else {
-    input.classList.add('incorrect');
-    res.wrongCount++;
-    res.consecutiveCorrect[dk] = 0;
+    input.classList.add('incorrect'); res.wrongCount++; res.consecutiveCorrect[dk] = 0;
     if (item.pass < 2) queue.splice(queuePos + 2, 0, { ...item, pass: 2 });
-    setDotState(queuePos, 'shaky');
-    feedback.className = 'cloze-feedback incorrect';
-    // Show the form that appeared in the sentence, not the bare headword
+    setDotState(queuePos, 'shaky'); feedback.className = 'cloze-feedback incorrect';
     feedback.textContent = '\u2717 The answer is: ' + clozeTargetForm;
   }
-  input.disabled = true;
-  nextBtn.style.display = 'inline-block';
-  updateProgressBar();
+  input.disabled = true; nextBtn.style.display = 'inline-block'; updateProgressBar();
 }
 
-function normaliseForCloze(s) { return s.toLowerCase().trim(); } // legacy stub
+function normaliseForCloze(s) { return s.toLowerCase().trim(); }
 function advanceFromMC() { queuePos++; renderCard(); }
-
 function advanceFromCloze() { queuePos++; renderCard(); }
 
 /* ══════════════════════════════════════════════════════════════════
@@ -1970,8 +1829,6 @@ function setDotState(i, state) {
   if (d) { d.classList.remove('current','mastered','shaky'); d.classList.add(state); }
 }
 function updateProgressBar() {
-  // A word counts as mastered for the progress bar if both directions are mastered,
-  // or (for single-card decks) if at least one direction is mastered.
   const mastered = Object.values(cardResults).filter(r =>
     r.mastered.length >= 2 || (deck.length === 1 && r.mastered.length >= 1)
   ).length;
@@ -1998,17 +1855,12 @@ function showSummary() {
   document.getElementById('scoreBandMsg').textContent = bandMsg;
   document.getElementById('summarySubLine').textContent = `${correctCount} correct out of ${totalAttempts} attempts`;
   document.getElementById('scoreCircle').style.background = `conic-gradient(var(--gold) ${pct * 3.6}deg, var(--navy-light) 0deg)`;
-
-  const masteredEl = document.getElementById('masteredList');
-  const shakyEl    = document.getElementById('shakyList');
+  const masteredEl = document.getElementById('masteredList'); const shakyEl = document.getElementById('shakyList');
   masteredEl.innerHTML = ''; shakyEl.innerHTML = '';
   deck.forEach((card, i) => {
-    const res   = cardResults[i];
-    const topic = cardTopic(card);
-    const li    = document.createElement('li');
-    li.innerHTML = `<span class="w">${esc(card.word)}</span>`
-      + (topic ? `<span class="word-badge badge-topic" style="font-size:0.58rem;margin-left:4px;">${esc(topic)}</span>` : '')
-      + `<span class="d">${esc(card.def)}</span>`;
+    const res = cardResults[i]; const topic = cardTopic(card);
+    const li = document.createElement('li');
+    li.innerHTML = `<span class="w">${esc(card.word)}</span>` + (topic ? `<span class="word-badge badge-topic" style="font-size:0.58rem;margin-left:4px;">${esc(topic)}</span>` : '') + `<span class="d">${esc(card.def)}</span>`;
     const mastered = res.everCorrect >= 2 && res.wrongCount === 0 && res.shakyCount === 0;
     if (mastered) masteredEl.appendChild(li);
     else if (res.wrongCount >= 1) shakyEl.appendChild(li.cloneNode(true));
@@ -2023,7 +1875,7 @@ function showSummary() {
 
 function practiceWeak() { startSession(true); }
 function newDeck() {
-  parsedRows = []; manualCards = []; bundledCards = []; bundledMeta = {}; awlCards = [];
+  parsedRows = []; manualCards = []; bundledCards = []; bundledMeta = {}; awlCards = []; thematicCards = [];
   renderPreview(); renderManualList(); updateDeckCount();
   showScreen('screenInput');
   document.getElementById('progressFill').style.width = '0%';
@@ -2035,8 +1887,7 @@ function newDeck() {
 function speakWord(word) {
   if (!('speechSynthesis' in window)) return;
   window.speechSynthesis.cancel();
-  const utt = new SpeechSynthesisUtterance(word);
-  utt.lang  = 'en-GB'; utt.rate = 0.82;
+  const utt = new SpeechSynthesisUtterance(word); utt.lang = 'en-GB'; utt.rate = 0.82;
   const brit = window.speechSynthesis.getVoices().find(v => v.lang === 'en-GB');
   if (brit) utt.voice = brit;
   window.speechSynthesis.speak(utt);
@@ -2055,8 +1906,7 @@ function showScreen(id) {
 }
 function shuffleArray(arr) {
   for (let i = arr.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
+    const j = Math.floor(Math.random() * (i + 1)); [arr[i], arr[j]] = [arr[j], arr[i]];
   }
   return arr;
 }
@@ -2068,29 +1918,15 @@ function esc(str) {
 /* ══════════════════════════════════════════════════════════════════
    INIT
 ══════════════════════════════════════════════════════════════════ */
-/* ── Data loader ─────────────────────────────────────────────────
-   Fetches word list and AWL dataset in parallel from the same
-   tools/ directory. Falls back gracefully if either fetch fails —
-   cards still work, badges just won't appear.
-──────────────────────────────────────────────────────────────── */
 async function loadData() {
-  const base = document.currentScript
-    ? document.currentScript.src.replace(/[^/]+$/, '')
-    : './';
-
-  // Resolve paths relative to this HTML file's location
   const here = window.location.href.replace(/[^/]+$/, '');
-  const wordlistUrl = here + 'bella-wordlist.json';
+  const wordlistUrl = here + 'bella-wordlist-enriched.json';
   const awlUrl      = here + 'awl-dataset.json';
-
   try {
-    const [wlRes, awlRes] = await Promise.all([
-      fetch(wordlistUrl),
-      fetch(awlUrl)
-    ]);
+    const [wlRes, awlRes] = await Promise.all([fetch(wordlistUrl), fetch(awlUrl)]);
     if (wlRes.ok) {
       WORD_LIST = await wlRes.json();
-      console.log('BELLA: word list loaded —', Object.keys(WORD_LIST).length, 'entries');
+      console.log('BELLA: enriched word list loaded —', Object.keys(WORD_LIST).length, 'entries');
     }
     if (awlRes.ok) {
       AWL_DATASET = await awlRes.json();
@@ -2098,7 +1934,7 @@ async function loadData() {
       refreshAwlDeck();
     }
   } catch(e) {
-    console.warn('BELLA: data files could not be loaded. Badges and AWL drill unavailable.', e);
+    console.warn('BELLA: data files could not be loaded.', e);
   }
 }
 
