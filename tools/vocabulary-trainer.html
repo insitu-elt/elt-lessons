@@ -1422,7 +1422,7 @@ function interleave(arr) {
   return result;
 }
 
-function startSession(weakOnly) {
+async function startSession(weakOnly) {
   let cards;
   if (weakOnly) {
     const idxs = Object.entries(cardResults).filter(([,v]) => v.wrongCount >= 2).map(([k]) => +k);
@@ -1431,6 +1431,16 @@ function startSession(weakOnly) {
     cards = getActiveDeck();
   }
   if (!cards.length) return;
+
+  // Show a brief preparing state while AI distractors are pre-fetched
+  const startBtn = document.getElementById('btnStart');
+  const origLabel = startBtn ? startBtn.textContent : '';
+  if (startBtn) { startBtn.disabled = true; startBtn.textContent = 'Preparing session…'; }
+
+  await preGenerateDistractors(cards);
+
+  if (startBtn) { startBtn.disabled = false; startBtn.textContent = origLabel; }
+
   buildQueue(cards);
   queuePos = 0; totalAttempts = 0; correctCount = 0;
   showScreen('screenSession');
@@ -1547,6 +1557,62 @@ function rateCard(rating) {
 }
 
 /* ══════════════════════════════════════════════════════════════════
+   AI DISTRACTOR PRE-GENERATION
+══════════════════════════════════════════════════════════════════ */
+const aiDistractorCache = {}; // keyed by card.word
+
+async function preGenerateDistractors(cards) {
+  // Only request for cards that will plausibly appear as MC
+  // (deck.length >= 3 is the MC gate in renderCard)
+  if (cards.length < 3) return;
+
+  const toFetch = cards.filter(c => !aiDistractorCache[c.word]);
+  if (!toFetch.length) return;
+
+  const payload = toFetch.map(c => ({
+    word: c.word,
+    def:  c.def,
+    pos:  c.pos  || '',
+    cefr: c.cefr || c.badge || ''
+  }));
+
+  const systemPrompt = `You are a vocabulary distractor generator for an English language learning app.
+Given a list of target words (with definition, part of speech, and CEFR level), return exactly 3 distractor words per target.
+Distractors must:
+- Share the same broad part of speech as the target
+- Be plausible to a learner at the same CEFR level — semantically related enough to be genuinely confusing
+- Each have a short, clear definition (max 12 words)
+- NOT be from the same word family as the target
+- NOT be the target word itself
+
+Return ONLY a JSON object. No markdown, no preamble. Format:
+{"word1":[{"word":"d1","def":"def1"},{"word":"d2","def":"def2"},{"word":"d3","def":"def3"}],"word2":[...]}`;
+
+  const userPrompt = `Generate distractors for these words:\n${JSON.stringify(payload)}`;
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        system: systemPrompt,
+        messages: [{ role: 'user', content: userPrompt }]
+      })
+    });
+    if (!res.ok) return;
+    const data = await res.json();
+    const text = (data.content || []).map(b => b.text || '').join('');
+    const clean = text.replace(/```json|```/g, '').trim();
+    const parsed = JSON.parse(clean);
+    Object.assign(aiDistractorCache, parsed);
+  } catch(e) {
+    console.warn('BELLA: AI distractor pre-generation failed, using local tiers.', e);
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════
    DISTRACTOR LOGIC — enriched semantic field matching
 ══════════════════════════════════════════════════════════════════ */
 function buildDistractors(card, isRec) {
@@ -1564,6 +1630,10 @@ function buildDistractors(card, isRec) {
   function cefrRank(level) {
     return {'A1':1,'A2':2,'B1':3,'B2':4,'C1':5,'C2':6}[level] || 0;
   }
+
+  // ── AI cache hit? Use it directly ──────────────────────────────
+  const cached = aiDistractorCache[card.word] || aiDistractorCache[(card.word||'').toLowerCase()];
+  if (cached && cached.length >= 3) return cached.slice(0, 3);
 
   // Always read from WORD_LIST at call time — card fields may be stale if enrichCard ran before loadData
   const targetWord  = (card.word || '').toLowerCase();
@@ -1590,13 +1660,24 @@ function buildDistractors(card, isRec) {
       return true;
     });
 
+    // Semantic fields too broad to be useful for distractor selection —
+    // they catch 300–2600 words spanning unrelated concepts, so SF-matching
+    // within them produces implausible distractors. Skip T1/T2 for these.
+    const OVERLOADED_SF = new Set([
+      'Description & Quality',
+      'Action & Movement',
+      'Academic & Formal',
+      'Society & Culture'
+    ]);
+    const sfUsable = targetSF && !OVERLOADED_SF.has(targetSF);
+
     // Tier 1: same SF + same CEFR — hardest, most plausible
-    const t1 = targetSF && targetCefr
+    const t1 = sfUsable && targetCefr
       ? pool.filter(([, e]) => e.sf === targetSF && (e.cefr || e.badge) === targetCefr)
       : [];
 
     // Tier 2: same SF, ±1 CEFR
-    const t2 = targetSF
+    const t2 = sfUsable
       ? pool.filter(([, e]) => e.sf === targetSF)
       : [];
 
