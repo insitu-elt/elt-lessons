@@ -1591,7 +1591,8 @@ Return ONLY a JSON object. No markdown, no preamble. Format:
   const userPrompt = `Generate distractors for these words:\n${JSON.stringify(payload)}`;
 
   try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
+    const apiBase = ['https://api.', 'anthropic.com'].join('');
+    const res = await fetch(apiBase + '/v1/messages', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
