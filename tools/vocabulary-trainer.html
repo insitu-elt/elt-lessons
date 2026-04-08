@@ -1016,9 +1016,15 @@ function awlCluster(word) {
 }
 
 function enrichCard(card) {
-  if (!card.cluster) {
-    const cluster = awlCluster(card.word);
-    if (cluster) card.cluster = cluster;
+  const e = WORD_LIST[card.word] || WORD_LIST[(card.word || '').toLowerCase()];
+  if (e) {
+    if (!card.cefr)   card.cefr  = e.cefr  || e.badge || '';
+    if (!card.badge)  card.badge = e.badge  || e.cefr  || '';
+    if (!card.sf)     card.sf    = e.sf     || '';
+    if (!card.pos)    card.pos   = e.pos    || '';
+    if (!card.wf)     card.wf    = e.wf     || '';
+    if (!card.def)    card.def   = e.def    || '';
+    if (!card.cluster) card.cluster = e.sf  || '';
   }
   return card;
 }
@@ -1559,63 +1565,88 @@ function buildDistractors(card, isRec) {
     return {'A1':1,'A2':2,'B1':3,'B2':4,'C1':5,'C2':6}[level] || 0;
   }
 
+  // Pull full metadata from WORD_LIST in case card was not enriched
+  const wlEntry     = WORD_LIST[card.word] || WORD_LIST[(card.word||'').toLowerCase()] || {};
   const targetWord  = card.word.toLowerCase();
-  const targetPos   = broadPos(card.pos);
-  const targetSF    = card.sf || card.semantic_field || '';
-  const targetCefr  = card.cefr || card.cefrLevel || card.badge || '';
+  const targetPos   = broadPos(card.pos || wlEntry.pos || '');
+  const targetSF    = card.sf  || wlEntry.sf  || '';
+  const targetCefr  = card.cefr || wlEntry.cefr || wlEntry.badge || '';
   const targetRank  = cefrRank(targetCefr);
-  const minRank     = Math.max(1, targetRank - 1);
+  const targetWF    = card.wf  || wlEntry.wf  || targetWord;
   const deckWords   = new Set(deck.map(d => d.word.toLowerCase()));
 
   if (WORD_LIST && Object.keys(WORD_LIST).length > 100) {
-    const pool = Object.entries(WORD_LIST).filter(([w, e]) =>
-      w !== targetWord &&
-      !deckWords.has(w) &&
-      broadPos(e.pos) === targetPos &&
-      cefrRank(e.cefr || e.badge) >= minRank &&
-      e.def
-    );
 
-    // Tier 1: same semantic field + same CEFR (tightest — hardest distractors)
-    const t1 = targetSF ? pool.filter(([w, e]) => e.sf === targetSF && e.cefr === targetCefr) : [];
-    // Tier 2: same semantic field + within ±1 CEFR
-    const t2 = targetSF ? pool.filter(([w, e]) => e.sf === targetSF && Math.abs(cefrRank(e.cefr) - targetRank) <= 1) : [];
-    // Tier 3: any field + within ±1 CEFR
-    const t3 = pool.filter(([w, e]) => Math.abs(cefrRank(e.cefr || e.badge) - targetRank) <= 1);
-    // Tier 4: any field, any acceptable level
+    // Base pool: correct POS, has a definition, not the target word, not in the current deck,
+    // not from the same word family, and within ±1 CEFR level of the target
+    const pool = Object.entries(WORD_LIST).filter(([w, e]) => {
+      if (w === targetWord)           return false;
+      if (deckWords.has(w))           return false;
+      if (!e.def)                     return false;
+      if (targetPos && broadPos(e.pos) !== targetPos) return false;
+      if (targetWF && (e.wf || w) === targetWF) return false;
+      const rank = cefrRank(e.cefr || e.badge);
+      if (targetRank > 0 && rank > 0 && Math.abs(rank - targetRank) > 1) return false;
+      return true;
+    });
+
+    // Tier 1: same SF + same CEFR — hardest, most plausible
+    const t1 = targetSF && targetCefr
+      ? pool.filter(([, e]) => e.sf === targetSF && (e.cefr || e.badge) === targetCefr)
+      : [];
+
+    // Tier 2: same SF, ±1 CEFR
+    const t2 = targetSF
+      ? pool.filter(([, e]) => e.sf === targetSF)
+      : [];
+
+    // Tier 3: same CEFR, any SF
+    const t3 = targetCefr
+      ? pool.filter(([, e]) => (e.cefr || e.badge) === targetCefr)
+      : [];
+
+    // Tier 4: ±1 CEFR, any SF (already filtered in base pool)
     const t4 = pool;
 
-    const seen = new Set(); const picked = [];
+    const seen = new Set([targetWord]);
+    const picked = [];
+
     for (const arr of [t1, t2, t3, t4]) {
-      const shuffled = [...arr]; shuffleArray(shuffled);
+      const shuffled = [...arr];
+      shuffleArray(shuffled);
       for (const [w, e] of shuffled) {
         if (!seen.has(w)) {
           seen.add(w);
-          picked.push({ word: w, def: e.def || '', pos: e.pos || '' });
-          if (picked.length >= 3) break;
+          picked.push({ word: w, def: e.def, pos: e.pos || '' });
+          if (picked.length >= 3) return picked;
         }
       }
-      if (picked.length >= 3) return picked;
+    }
+    if (picked.length >= 3) return picked;
+
+    // Widen to ±2 CEFR if still short
+    if (picked.length < 3) {
+      const wide = Object.entries(WORD_LIST).filter(([w, e]) =>
+        w !== targetWord && !deckWords.has(w) && !seen.has(w) && e.def &&
+        (!targetPos || broadPos(e.pos) === targetPos) &&
+        (!targetWF || (e.wf || w) !== targetWF)
+      );
+      shuffleArray(wide);
+      for (const [w, e] of wide) {
+        if (!seen.has(w)) {
+          seen.add(w);
+          picked.push({ word: w, def: e.def, pos: e.pos || '' });
+          if (picked.length >= 3) return picked;
+        }
+      }
     }
     if (picked.length > 0) return picked;
   }
 
-  // AWL fallback
-  {
-    const targetSf = card.cluster || card.sf || '';
-    const awlPool = Object.entries(WORD_LIST).filter(([w, e]) =>
-      e.awl && e.def && w.toLowerCase() !== targetWord &&
-      !deckWords.has(w.toLowerCase()) && broadPos(e.pos) === targetPos
-    );
-    let t1 = awlPool.filter(([, e]) => e.sf === targetSf);
-    let t2 = awlPool.filter(([, e]) => e.sf !== targetSf);
-    shuffleArray(t1); shuffleArray(t2);
-    const combined = [...t1, ...t2];
-    if (combined.length >= 3) return combined.slice(0, 3).map(([w, e]) => ({ word: w, def: e.def, pos: e.pos }));
-  }
-
-  // Deck fallback
-  const others = deck.filter(c => c.word !== card.word); shuffleArray(others); return others.slice(0, 3);
+  // Last resort: other cards in the current deck
+  const others = deck.filter(c => c.word !== card.word);
+  shuffleArray(others);
+  return others.slice(0, 3);
 }
 
 /* ══════════════════════════════════════════════════════════════════
