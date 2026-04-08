@@ -1565,14 +1565,14 @@ function buildDistractors(card, isRec) {
     return {'A1':1,'A2':2,'B1':3,'B2':4,'C1':5,'C2':6}[level] || 0;
   }
 
-  // Pull full metadata from WORD_LIST in case card was not enriched
-  const wlEntry     = WORD_LIST[card.word] || WORD_LIST[(card.word||'').toLowerCase()] || {};
-  const targetWord  = card.word.toLowerCase();
-  const targetPos   = broadPos(card.pos || wlEntry.pos || '');
-  const targetSF    = card.sf  || wlEntry.sf  || '';
-  const targetCefr  = card.cefr || wlEntry.cefr || wlEntry.badge || '';
+  // Always read from WORD_LIST at call time — card fields may be stale if enrichCard ran before loadData
+  const targetWord  = (card.word || '').toLowerCase();
+  const wlEntry     = WORD_LIST[targetWord] || WORD_LIST[card.word] || {};
+  const targetPos   = broadPos(wlEntry.pos  || card.pos  || '');
+  const targetSF    = wlEntry.sf   || card.sf   || '';
+  const targetCefr  = wlEntry.cefr || wlEntry.badge || card.cefr || card.badge || '';
   const targetRank  = cefrRank(targetCefr);
-  const targetWF    = card.wf  || wlEntry.wf  || targetWord;
+  const targetWF    = wlEntry.wf   || card.wf   || targetWord;
   const deckWords   = new Set(deck.map(d => d.word.toLowerCase()));
 
   if (WORD_LIST && Object.keys(WORD_LIST).length > 100) {
@@ -1955,6 +1955,9 @@ async function loadData() {
     if (wlRes.ok) {
       WORD_LIST = await wlRes.json();
       console.log('BELLA: enriched word list loaded —', Object.keys(WORD_LIST).length, 'entries');
+      // Re-enrich any cards that were built before WORD_LIST was ready
+      if (bundledCards.length > 0) bundledCards = bundledCards.map(enrichCard);
+      if (parsedRows.length  > 0) parsedRows  = parsedRows.map(enrichCard);
       refreshAwlDeck();
     }
   } catch(e) {
