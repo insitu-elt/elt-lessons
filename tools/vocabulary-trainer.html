@@ -745,21 +745,21 @@ body {
     <div class="tab-panel" id="panelAwl">
       <div class="panel-box">
         <label class="panel-label">Academic Word List — Drill by Sublist or Topic</label>
-        <p style="font-size:0.82rem;color:var(--muted);margin-bottom:1rem;line-height:1.6;">The AWL contains the most important vocabulary for academic English. Sublist 1 words are the most frequent — essential for IELTS Academic. Sessions are capped at 20 words and shuffled each time.</p>
+        <p style="font-size:0.82rem;color:var(--muted);margin-bottom:1rem;line-height:1.6;">The AWL contains the most important vocabulary for academic English. Sublist 1 words are the most frequent — essential for IELTS Academic. All 563 headwords from Coxhead's full AWL are included. Sessions are capped at 20 words and shuffled each time.</p>
 
         <span style="font-size:0.75rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:0.5rem;">By sublist</span>
         <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:0.5rem;margin-bottom:1.2rem;">
-          <button type="button" class="awl-select-btn active" data-mode="sublist" data-sublist="0" onclick="selectAwlSublist(0)">All sublists<br><span style="font-size:0.68rem;opacity:0.7">390 words</span></button>
+          <button type="button" class="awl-select-btn active" data-mode="sublist" data-sublist="0" onclick="selectAwlSublist(0)">All sublists<br><span style="font-size:0.68rem;opacity:0.7">563 words</span></button>
           <button type="button" class="awl-select-btn" data-mode="sublist" data-sublist="1" onclick="selectAwlSublist(1)">Sublist 1<br><span style="font-size:0.68rem;opacity:0.7">60 · most frequent</span></button>
-          <button type="button" class="awl-select-btn" data-mode="sublist" data-sublist="2" onclick="selectAwlSublist(2)">Sublist 2<br><span style="font-size:0.68rem;opacity:0.7">57 words</span></button>
-          <button type="button" class="awl-select-btn" data-mode="sublist" data-sublist="3" onclick="selectAwlSublist(3)">Sublist 3<br><span style="font-size:0.68rem;opacity:0.7">57 words</span></button>
+          <button type="button" class="awl-select-btn" data-mode="sublist" data-sublist="2" onclick="selectAwlSublist(2)">Sublist 2<br><span style="font-size:0.68rem;opacity:0.7">60 words</span></button>
+          <button type="button" class="awl-select-btn" data-mode="sublist" data-sublist="3" onclick="selectAwlSublist(3)">Sublist 3<br><span style="font-size:0.68rem;opacity:0.7">59 words</span></button>
           <button type="button" class="awl-select-btn" data-mode="sublist" data-sublist="4" onclick="selectAwlSublist(4)">Sublist 4<br><span style="font-size:0.68rem;opacity:0.7">60 words</span></button>
-          <button type="button" class="awl-select-btn" data-mode="sublist" data-sublist="5" onclick="selectAwlSublist(5)">Sublist 5<br><span style="font-size:0.68rem;opacity:0.7">58 words</span></button>
-          <button type="button" class="awl-select-btn" data-mode="sublist" data-sublist="6" onclick="selectAwlSublist(6)">Sublist 6<br><span style="font-size:0.68rem;opacity:0.7">30 words</span></button>
-          <button type="button" class="awl-select-btn" data-mode="sublist" data-sublist="7" onclick="selectAwlSublist(7)">Sublist 7<br><span style="font-size:0.68rem;opacity:0.7">22 words</span></button>
-          <button type="button" class="awl-select-btn" data-mode="sublist" data-sublist="8" onclick="selectAwlSublist(8)">Sublist 8<br><span style="font-size:0.68rem;opacity:0.7">21 words</span></button>
-          <button type="button" class="awl-select-btn" data-mode="sublist" data-sublist="9" onclick="selectAwlSublist(9)">Sublist 9<br><span style="font-size:0.68rem;opacity:0.7">11 words</span></button>
-          <button type="button" class="awl-select-btn" data-mode="sublist" data-sublist="10" onclick="selectAwlSublist(10)">Sublist 10<br><span style="font-size:0.68rem;opacity:0.7">14 words</span></button>
+          <button type="button" class="awl-select-btn" data-mode="sublist" data-sublist="5" onclick="selectAwlSublist(5)">Sublist 5<br><span style="font-size:0.68rem;opacity:0.7">57 words</span></button>
+          <button type="button" class="awl-select-btn" data-mode="sublist" data-sublist="6" onclick="selectAwlSublist(6)">Sublist 6<br><span style="font-size:0.68rem;opacity:0.7">59 words</span></button>
+          <button type="button" class="awl-select-btn" data-mode="sublist" data-sublist="7" onclick="selectAwlSublist(7)">Sublist 7<br><span style="font-size:0.68rem;opacity:0.7">60 words</span></button>
+          <button type="button" class="awl-select-btn" data-mode="sublist" data-sublist="8" onclick="selectAwlSublist(8)">Sublist 8<br><span style="font-size:0.68rem;opacity:0.7">60 words</span></button>
+          <button type="button" class="awl-select-btn" data-mode="sublist" data-sublist="9" onclick="selectAwlSublist(9)">Sublist 9<br><span style="font-size:0.68rem;opacity:0.7">59 words</span></button>
+          <button type="button" class="awl-select-btn" data-mode="sublist" data-sublist="10" onclick="selectAwlSublist(10)">Sublist 10<br><span style="font-size:0.68rem;opacity:0.7">29 words</span></button>
         </div>
 
         <span style="font-size:0.75rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:0.5rem;">By topic</span>
@@ -827,22 +827,24 @@ body {
    STATE
 ══════════════════════════════════════════════════════════════════ */
 let WORD_LIST    = {};
-let AWL_DATASET  = null;
 
 function buildAwlDeck(sublist) {
-  if (!AWL_DATASET) return [];
-  const words = sublist === 0
-    ? AWL_DATASET.words
-    : AWL_DATASET.words.filter(w => w.sublist === sublist);
-  return words.map(w => ({
-    word:    w.word,
+  const entries = Object.entries(WORD_LIST).filter(([, e]) =>
+    e.awl && e.def && (sublist === 0 || e.awl === sublist)
+  );
+  shuffleArray(entries);
+  return entries.map(([word, e]) => ({
+    word:    word,
     gprp:    '',
-    pos:     w.pos,
-    def:     w.def,
-    example: w.example,
+    pos:     e.pos || '',
+    def:     e.def,
+    example: e.ex || '',
     l1_def:  '',
-    cluster: w.cluster,
-    sublist: w.sublist,
+    cluster: e.sf || '',
+    sublist: e.awl,
+    cefr:    e.cefr || e.badge || '',
+    badge:   e.badge || e.cefr || '',
+    label:   e.label || '',
   }));
 }
 
@@ -945,38 +947,34 @@ function refreshAwlDeck() {
 
 function populateTopicButtons() {
   const container = document.getElementById('awlTopicBtns');
-  if (!container || !AWL_DATASET) return;
+  if (!container || !Object.keys(WORD_LIST).length) return;
   container.innerHTML = '';
-  const clusterCounts = {};
-  AWL_DATASET.words.forEach(w => {
-    clusterCounts[w.cluster] = (clusterCounts[w.cluster] || 0) + 1;
+  const sfCounts = {};
+  Object.values(WORD_LIST).forEach(e => {
+    if (e.awl && e.sf) sfCounts[e.sf] = (sfCounts[e.sf] || 0) + 1;
   });
-  const clusters = Object.keys(CLUSTER_LABELS).sort((a, b) =>
-    CLUSTER_LABELS[a].localeCompare(CLUSTER_LABELS[b])
-  );
-  clusters.forEach(cluster => {
-    const count = clusterCounts[cluster] || 0;
-    if (count === 0) return;
+  const fields = Object.keys(sfCounts).sort();
+  fields.forEach(field => {
+    const count = sfCounts[field];
     const btn = document.createElement('button');
     btn.className = 'awl-select-btn';
     btn.dataset.mode = 'topic';
-    btn.dataset.cluster = cluster;
-    btn.innerHTML = CLUSTER_LABELS[cluster] +
-      '<br><span style="font-size:0.68rem;opacity:0.7">' + count + ' words</span>';
-    btn.addEventListener('click', function() { selectAwlTopic(cluster); });
+    btn.dataset.cluster = field;
+    btn.innerHTML = field + '<br><span style="font-size:0.68rem;opacity:0.7">' + count + ' words</span>';
+    btn.addEventListener('click', function() { selectAwlTopic(field); });
     container.appendChild(btn);
   });
 }
 
-function selectAwlTopic(cluster) {
+function selectAwlTopic(field) {
   document.querySelectorAll('.awl-select-btn').forEach(b => b.classList.remove('active'));
-  const btn = document.querySelector(`.awl-select-btn[data-cluster="${cluster}"]`);
+  const btn = document.querySelector(`.awl-select-btn[data-cluster="${field}"]`);
   if (btn) btn.classList.add('active');
-  if (!AWL_DATASET) return;
-  const words = AWL_DATASET.words.filter(w => w.cluster === cluster);
-  const cards = words.map(w => ({
-    word: w.word, gprp: '', pos: w.pos, def: w.def,
-    example: w.example, l1_def: '', cluster: w.cluster, sublist: w.sublist,
+  const entries = Object.entries(WORD_LIST).filter(([, e]) => e.awl && e.sf === field && e.def);
+  const cards = entries.map(([word, e]) => ({
+    word: word, gprp: '', pos: e.pos || '', def: e.def,
+    example: e.ex || '', l1_def: '', cluster: e.sf || '', sublist: e.awl,
+    cefr: e.cefr || e.badge || '', badge: e.badge || e.cefr || '', label: e.label || '',
   }));
   shuffleArray(cards);
   awlCards = cards.slice(0, 20);
@@ -1013,9 +1011,8 @@ function cardTopic(card) {
 }
 
 function awlCluster(word) {
-  if (!AWL_DATASET) return '';
-  const entry = AWL_DATASET.words.find(w => w.word.toLowerCase() === word.toLowerCase());
-  return entry ? entry.cluster : '';
+  const e = WORD_LIST[word] || WORD_LIST[word.toLowerCase()];
+  return e ? (e.sf || '') : '';
 }
 
 function enrichCard(card) {
@@ -1604,16 +1601,17 @@ function buildDistractors(card, isRec) {
   }
 
   // AWL fallback
-  if (AWL_DATASET && AWL_DATASET.words) {
-    const targetCluster = card.cluster || '';
-    const awlPool = AWL_DATASET.words.filter(w =>
-      w.word.toLowerCase() !== targetWord && !deckWords.has(w.word.toLowerCase()) && broadPos(w.pos) === targetPos
+  {
+    const targetSf = card.cluster || card.sf || '';
+    const awlPool = Object.entries(WORD_LIST).filter(([w, e]) =>
+      e.awl && e.def && w.toLowerCase() !== targetWord &&
+      !deckWords.has(w.toLowerCase()) && broadPos(e.pos) === targetPos
     );
-    let t1 = awlPool.filter(w => w.cluster === targetCluster);
-    let t2 = awlPool.filter(w => w.cluster !== targetCluster);
+    let t1 = awlPool.filter(([, e]) => e.sf === targetSf);
+    let t2 = awlPool.filter(([, e]) => e.sf !== targetSf);
     shuffleArray(t1); shuffleArray(t2);
     const combined = [...t1, ...t2];
-    if (combined.length >= 3) return combined.slice(0, 3).map(w => ({ word: w.word, def: w.def, pos: w.pos }));
+    if (combined.length >= 3) return combined.slice(0, 3).map(([w, e]) => ({ word: w, def: e.def, pos: e.pos }));
   }
 
   // Deck fallback
@@ -1921,16 +1919,11 @@ function esc(str) {
 async function loadData() {
   const here = window.location.href.replace(/[^/]+$/, '');
   const wordlistUrl = here + 'bella-wordlist-enriched.json';
-  const awlUrl      = here + 'awl-dataset.json';
   try {
-    const [wlRes, awlRes] = await Promise.all([fetch(wordlistUrl), fetch(awlUrl)]);
+    const wlRes = await fetch(wordlistUrl);
     if (wlRes.ok) {
       WORD_LIST = await wlRes.json();
       console.log('BELLA: enriched word list loaded —', Object.keys(WORD_LIST).length, 'entries');
-    }
-    if (awlRes.ok) {
-      AWL_DATASET = await awlRes.json();
-      console.log('BELLA: AWL dataset loaded —', AWL_DATASET.words.length, 'entries');
       refreshAwlDeck();
     }
   } catch(e) {
