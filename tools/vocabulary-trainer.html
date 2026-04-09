@@ -1109,7 +1109,8 @@ function splitWordDef(text) {
 }
 
 const HEADER_WORDS = new Set(['word','meaning','pronunciation','rp','definition',
-  'translation','category','context','sentence','mouth','coach','bre','example']);
+  'translation','category','context','sentence','mouth','coach','bre','example',
+  'register','cefr','sublist','frequency','usage','notes','type','level','source']);
 
 function stripVocabHeader(raw) {
   if (raw.includes('\n')) {
@@ -1466,9 +1467,23 @@ async function startSession(weakOnly) {
   }
   if (!cards.length) return;
 
-  // Show a brief preparing state while AI distractors are pre-fetched
   const startBtn = document.getElementById('btnStart');
   const origLabel = startBtn ? startBtn.textContent : '';
+
+  // If WORD_LIST hasn't finished loading yet, wait briefly before starting
+  if (!WORD_LIST || Object.keys(WORD_LIST).length < 100) {
+    if (startBtn) { startBtn.disabled = true; startBtn.textContent = 'Loading word data…'; }
+    await new Promise(resolve => {
+      const check = setInterval(() => {
+        if (WORD_LIST && Object.keys(WORD_LIST).length >= 100) { clearInterval(check); resolve(); }
+      }, 150);
+      setTimeout(() => { clearInterval(check); resolve(); }, 5000); // 5s safety timeout
+    });
+    // Re-enrich cards now that WORD_LIST is ready
+    cards = cards.map(enrichCard);
+  }
+
+  // Show a brief preparing state while AI distractors are pre-fetched
   if (startBtn) { startBtn.disabled = true; startBtn.textContent = 'Preparing session…'; }
 
   await preGenerateDistractors(cards);
