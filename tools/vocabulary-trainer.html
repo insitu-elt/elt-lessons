@@ -1984,7 +1984,7 @@ function checkCloze() {
   const correct    = clozeAcceptedForms.some(f => f.toLowerCase() === typedLower);
   if (correct) {
     input.classList.add('correct'); correctCount++; res.everCorrect++; res.consecutiveCorrect[dk]++; res.mastered.push(item.direction);
-    setDotState(queuePos, 'mastered'); feedback.className = 'cloze-feedback correct'; feedback.textContent = '✓ Correct!'; speakWord(card.word);
+    setDotState(queuePos, 'mastered'); feedback.className = 'cloze-feedback correct'; feedback.textContent = '✓ Correct!'; speakWord(clozeTargetForm || card.word);
   } else {
     input.classList.add('incorrect'); res.wrongCount++; res.consecutiveCorrect[dk] = 0;
     if (item.pass < 2) queue.splice(queuePos + 2, 0, { ...item, pass: 2 });
@@ -2070,17 +2070,20 @@ function newDeck() {
 /* ══════════════════════════════════════════════════════════════════
    AUDIO
 ══════════════════════════════════════════════════════════════════ */
+let cachedVoices = [];
+if ('speechSynthesis' in window) {
+  const loadVoices = () => { cachedVoices = window.speechSynthesis.getVoices(); };
+  loadVoices();
+  window.speechSynthesis.onvoiceschanged = loadVoices;
+}
+
 function speakWord(word) {
   if (!('speechSynthesis' in window)) return;
   window.speechSynthesis.cancel();
   const utt = new SpeechSynthesisUtterance(word); utt.lang = 'en-GB'; utt.rate = 0.82;
-  const brit = window.speechSynthesis.getVoices().find(v => v.lang === 'en-GB');
+  const brit = cachedVoices.find(v => v.lang === 'en-GB') || window.speechSynthesis.getVoices().find(v => v.lang === 'en-GB');
   if (brit) utt.voice = brit;
   window.speechSynthesis.speak(utt);
-}
-if ('speechSynthesis' in window) {
-  window.speechSynthesis.getVoices();
-  window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
 }
 
 /* ══════════════════════════════════════════════════════════════════
