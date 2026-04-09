@@ -1017,17 +1017,17 @@ function awlCluster(word) {
 
 function enrichCard(card) {
   const e = WORD_LIST[card.word] || WORD_LIST[(card.word || '').toLowerCase()];
+  // Always set badge from parsed cefr first (source metadata takes priority)
+  if (!card.badge && card.cefr) card.badge = card.cefr;
   if (e) {
-    if (!card.cefr)   card.cefr  = e.cefr  || e.badge || '';
-    if (!card.badge)  card.badge = e.badge  || e.cefr  || '';
-    if (!card.sf)     card.sf    = e.sf     || '';
-    if (!card.pos)    card.pos   = e.pos    || '';
-    if (!card.wf)     card.wf    = e.wf     || '';
-    if (!card.def)    card.def   = e.def    || '';
-    if (!card.cluster) card.cluster = e.sf  || '';
-  } else {
-    // Word not in JSON — use parsed metadata from the source format
-    if (!card.badge && card.cefr) card.badge = card.cefr;
+    // Only fill in fields the source didn't provide
+    if (!card.cefr)    card.cefr  = e.cefr  || e.badge || '';
+    if (!card.badge)   card.badge = e.badge  || e.cefr  || '';
+    if (!card.sf)      card.sf    = e.sf     || '';
+    if (!card.pos)     card.pos   = e.pos    || '';
+    if (!card.wf)      card.wf    = e.wf     || '';
+    if (!card.def)     card.def   = e.def    || '';
+    if (!card.cluster) card.cluster = e.sf   || '';
   }
   return card;
 }
@@ -1052,13 +1052,14 @@ function renderBadge(word) {
 }
 
 function renderCardBadge(card) {
-  // Try JSON lookup first; fall back to card's own badge/cefr field
-  const fromJson = renderBadge(card.word);
-  if (fromJson) return fromJson;
+  // If the card has its own badge/cefr (from parser), use that — don't let JSON override
   const b = card.badge || card.cefr || '';
-  if (!b || ['general','core','A1'].includes(b)) return '';
-  const display = 'CEFR ' + b;
-  return '<span class="word-badge badge-' + b + '" title="' + display + '">' + display + '</span>';
+  if (b && !['general','core','A1'].includes(b)) {
+    const display = b.startsWith('CEFR ') ? b : 'CEFR ' + b;
+    return '<span class="word-badge badge-' + b + '" title="' + display + '">' + display + '</span>';
+  }
+  // No parsed badge — fall back to JSON lookup (Thematic/AWL cards)
+  return renderBadge(card.word);
 }
 
 let deck        = [];
