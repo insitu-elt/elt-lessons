@@ -1025,6 +1025,9 @@ function enrichCard(card) {
     if (!card.wf)     card.wf    = e.wf     || '';
     if (!card.def)    card.def   = e.def    || '';
     if (!card.cluster) card.cluster = e.sf  || '';
+  } else {
+    // Word not in JSON — use parsed metadata from the source format
+    if (!card.badge && card.cefr) card.badge = card.cefr;
   }
   return card;
 }
@@ -1046,6 +1049,15 @@ function renderBadge(word) {
   if (hidden.includes(e.badge)) return '';
   const badgeClass = e.badge === 'awl' ? 'awl' : e.badge;
   return '<span class="word-badge badge-' + badgeClass + '" title="' + (e.label || e.badge) + '">' + (e.label || e.badge) + '</span>';
+}
+
+function renderCardBadge(card) {
+  // Try JSON lookup first; fall back to card's own badge/cefr field
+  const fromJson = renderBadge(card.word);
+  if (fromJson) return fromJson;
+  const b = card.badge || card.cefr || '';
+  if (!b || ['general','core','A1'].includes(b)) return '';
+  return '<span class="word-badge badge-' + b + '" title="CEFR ' + b + '">' + b + '</span>';
 }
 
 let deck        = [];
@@ -1215,69 +1227,76 @@ function parseSeparated(raw) {
   return results;
 }
 
-function parseWordLab(raw) {
+function parseWordLabUnified(raw) {
+  // Handles all known Word Lab output variants:
+  //   **WORD** (POS) — CEFR: B2 — Register: Neutral ◆   ← bold ALL-CAPS
+  //   WORD (POS) — CEFR: B2 — Register: Neutral ◆       ← plain ALL-CAPS
+  //   **Word** *(POS)*  ...                              ← original deep dive
+  // Strategy: find every Definition: line, then look backwards for the word.
+
   const results = [];
-  for (const block of raw.split(/\n(?=\*\*[A-Z])/)) {
-    if (!block.trim() || !block.startsWith('**')) continue;
-    const wm = block.match(/^\*\*([A-Za-z][a-zA-Z'\-]*)\*\*/); if (!wm) continue;
-    const word = wm[1];
-    let gprp = '';
-    const gm = block.match(/[•(]([a-zA-Z][a-zA-Z\-]{3,})[)\s•]/);
-    if (gm && isValidGprp(gm[1])) gprp = gm[1];
-    let defn = '';
-    const dm = block.match(/\*\*Definition\*\*:?\s*(.+?)(?:\n|$)/);
-    if (dm) defn = dm[1].trim();
+  const lines = raw.split('\n');
+
+  for (let i = 0; i < lines.length; i++) {
+    // Find a Definition line (with or without bold markers)
+    const defLine = lines[i].replace(/\*\*/g, '').trim();
+    if (!/^Definition\s*:/i.test(defLine)) continue;
+    const defn = defLine.replace(/^Definition\s*:\s*/i, '').trim();
+    if (!defn) continue;
+
+    // Look backwards (up to 4 lines) for a word header
+    let word = '', pos = '', gprp = '', cefr = '';
+    for (let j = i - 1; j >= Math.max(0, i - 4); j--) {
+      const raw_line = lines[j];
+      const line = raw_line.replace(/\*\*/g, '').replace(/\*/g, '').trim();
+      if (!line) continue;
+
+      // Match: WORD (POS) or WORD (POS) — CEFR: B2 ...
+      const hm = line.match(/^([A-Z][A-Z\-']+)\s+\(([^)]+)\)/);
+      if (hm) {
+        const rw = hm[1];
+        word = rw.split('-').map(p => p[0] + p.slice(1).toLowerCase()).join('-');
+        pos  = hm[2].toLowerCase();
+        const cm = line.match(/CEFR:\s*([A-C][12])/);
+        if (cm) cefr = cm[1];
+        break;
+      }
+    }
+    if (!word) continue;
+
+    // Look forwards for GPRP and Example (within next 4 lines)
+    for (let j = i - 1; j >= Math.max(0, i - 4); j--) {
+      const line = lines[j].replace(/\*\*/g, '').replace(/\*/g, '').trim();
+      const gm = line.match(/•\s*\(([^)]+)\)/);
+      if (gm) { gprp = gm[1]; break; }
+    }
     let example = '';
-    const em = block.match(/\*\*Example Sentence[^:]*\*\*:?\s*(.+?)(?:\n|$)/);
-    if (em) example = em[1].trim().replace(/^\*|_|\*$/g,'');
-    if (word && defn) results.push({ word, gprp, def: defn, example });
+    for (let j = i + 1; j < Math.min(lines.length, i + 4); j++) {
+      const exLine = lines[j].replace(/\*\*/g, '').replace(/\*/g, '').trim();
+      if (/^Example\s+Sentence/i.test(exLine)) {
+        example = exLine.replace(/^Example\s+Sentence[^:]*:\s*/i, '').trim();
+        break;
+      }
+    }
+
+    // Avoid duplicates
+    if (!results.find(r => r.word === word)) {
+      results.push({ word, gprp, pos, def: defn, example, cefr });
+    }
   }
   return results;
 }
 
-function parseWordLabLight(raw) {
-  // Handles Word Lab 'light treatment' format:
-  // WORD (POS) — CEFR: X — Register: Y
-  // Pronunciation: /ipa/ • (GPRP)
-  // Definition: …
-  // Example Sentence (BrE): …
-  const results = [];
-  const blocks = raw.split(/\n(?=[A-Z][A-Z\-]+\s+\()/);
-  for (const block of blocks) {
-    const b = block.trim(); if (!b) continue;
-    const header = b.match(/^([A-Z][A-Z\-]+)\s+\(([^)]+)\)/);
-    if (!header) continue;
-    // Capitalise word correctly, handle hyphens (NARROW-MINDED → Narrow-Minded)
-    const word = header[1].split('-').map(p => p[0] + p.slice(1).toLowerCase()).join('-');
-    const pos  = header[2].toLowerCase();
-    const gprpM = b.match(/•\s*\(([^)]+)\)/);
-    const gprp  = gprpM ? gprpM[1] : '';
-    const defM  = b.match(/\*{0,2}Definition\*{0,2}:\s*(.+?)(?:\n|$)/);
-    const defn  = defM ? defM[1].trim() : '';
-    const exM   = b.match(/\*{0,2}Example Sentence[^:]*\*{0,2}:\s*(.+?)(?:\n|$)/);
-    const example = exM ? exM[1].trim() : '';
-    const cefrM = b.match(/CEFR:\s*([A-C][12])/);
-    const cefr  = cefrM ? cefrM[1] : '';
-    if (word && defn) results.push({ word, gprp, pos, def: defn, example, cefr });
-  }
-  return results;
-}
-
-function looksLikeWordLabLight(raw) {
-  // ◆ is unique to Word Lab light treatment headers
-  if (raw.includes('\u25c6') && /^[A-Z]{3,}[\s(]/m.test(raw)) return true;
-  // Em/en dash variant with CEFR label
-  if (/^[A-Z][A-Z\-]+\s+\([A-Za-z ]+\)\s+[\u2014\u2013\-]+\s+CEFR:/m.test(raw)) return true;
-  // Fallback: ALL-CAPS word header + Definition: + Example Sentence on separate lines
-  if (/^[A-Z]{3,}[\s(]/m.test(raw) && raw.includes('Definition:') && raw.includes('Example Sentence')) return true;
-  return false;
+function looksLikeWordLab(raw) {
+  return raw.includes('\u25c6') ||                          // ◆ unique to Word Lab
+    /Definition\s*:/i.test(raw) ||                         // Definition: field
+    /\*\*[A-Z][a-zA-Z\-]+\*\*\s*[\*\(]/.test(raw);       // bold word header
 }
 
 function detectAndParse(raw) {
   if (!raw) return { results: [], mode: 'empty' };
   if (raw.includes('\u2191') || raw.includes('Lexical Ladder')) return { results: [], mode: 'wordsmith' };
-  if (looksLikeWordLabLight(raw))           return { results: parseWordLabLight(raw),  mode: 'word_lab_light' };
-  if (/\*\*[A-Z][a-zA-Z]+\*\*\s*\*?\(/.test(raw)) return { results: parseWordLab(raw), mode: 'word_lab' };
+  if (looksLikeWordLab(raw)) return { results: parseWordLabUnified(raw), mode: 'word_lab' };
   if (looksLikeCsv(raw)) return { results: parseCsv(raw), mode: 'csv' };
   if (raw.includes('|') || raw.includes('\t')) {
     const r = parseSeparated(raw);
@@ -1292,8 +1311,8 @@ function parseGemInput() {
   parsedRows = [];
   const { results, mode } = detectAndParse(raw);
   console.log('BELLA parse mode:', mode, '| results:', results.length, '| first word:', results[0]?.word);
-  console.log('BELLA raw sample:', JSON.stringify(raw.slice(0, 120)));
-  console.log('BELLA has ◆:', raw.includes('\u25c6'), '| has Definition:', raw.includes('Definition:'), '| has Example Sentence:', raw.includes('Example Sentence'));
+  console.log('BELLA has ◆ (u25c6):', raw.includes('\u25c6'), '| looksLikeLight:', raw.includes('\u25c6') || /^[A-Z][A-Z\-]+\s+\([A-Za-z ]+\).*CEFR:/m.test(raw));
+  console.log('BELLA raw[0..150]:', JSON.stringify(raw.slice(0, 150)));
   const wrap  = document.getElementById('pastePreview');
   const title = document.getElementById('previewTitle');
   if (mode === 'wordsmith') {
@@ -1559,7 +1578,7 @@ function renderFlipCard(card, dir, scene) {
   const badge2 = document.createElement('span'); badge2.className = 'card-type-badge'; badge2.textContent = 'Flashcard'; back.appendChild(badge2);
   const bw = document.createElement('p'); bw.className = 'back-word'; bw.textContent = card.word; back.appendChild(bw);
 
-  const bwBadgeHtml    = renderBadge(card.word);
+  const bwBadgeHtml    = renderCardBadge(card);
   const topicLabel     = cardTopic(card);
   const topicBadgeHtml = topicLabel ? '<span class="word-badge badge-topic" title="Topic">' + topicLabel + '</span>' : '';
   const combinedBadges = bwBadgeHtml + topicBadgeHtml;
@@ -1815,7 +1834,7 @@ function renderMCCard(card, dir, scene) {
     lbl.textContent = 'Which definition matches this word?'; prompt.appendChild(lbl);
     const em = document.createElement('em');
     em.style.cssText = "color:var(--gold);font-family:'Playfair Display',serif;font-size:1.5rem"; em.textContent = card.word; prompt.appendChild(em);
-    const mcBadgeHtml  = renderBadge(card.word);
+    const mcBadgeHtml  = renderCardBadge(card);
     const mcTopicLabel = cardTopic(card);
     const mcTopicHtml  = mcTopicLabel ? '<span class="word-badge badge-topic">' + mcTopicLabel + '</span>' : '';
     const mcCombined   = mcBadgeHtml + mcTopicHtml;
@@ -1942,7 +1961,7 @@ function renderClozeCard(card, dir, scene) {
     <span style="font-size:0.68rem;color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;display:block;margin-bottom:1rem;align-self:flex-start">Gap-fill</span>
     <p class="cloze-sentence">${gapped}</p>
     ${posHint}
-    <p style="font-size:0.8rem;color:var(--muted);margin-bottom:0.8rem">${esc(card.def)}${renderBadge(card.word)}${cardTopic(card) ? '<span class="word-badge badge-topic">' + cardTopic(card) + '</span>' : ''}</p>
+    <p style="font-size:0.8rem;color:var(--muted);margin-bottom:0.8rem">${esc(card.def)}${renderCardBadge(card)}${cardTopic(card) ? '<span class="word-badge badge-topic">' + cardTopic(card) + '</span>' : ''}</p>
     <div class="cloze-input-wrap">
       <input class="cloze-input" id="clozeInput" type="text" placeholder="Type the missing word…" onkeydown="if(event.key==='Enter')checkCloze()"/>
       <button type="button" class="btn-check-cloze" onclick="checkCloze()">Check</button>
