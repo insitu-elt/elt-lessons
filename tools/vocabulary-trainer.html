@@ -1264,8 +1264,13 @@ function parseWordLabLight(raw) {
 }
 
 function looksLikeWordLabLight(raw) {
-  // Detect the ALL-CAPS WORD (POS) — CEFR: pattern
-  return /^[A-Z][A-Z\-]+\s+\([A-Za-z ]+\)\s+—\s+CEFR:/m.test(raw);
+  // ◆ is unique to Word Lab light treatment headers — most reliable signal
+  if (raw.includes('\u25c6') && /^[A-Z]{3,}[\s(]/.test(raw)) return true;
+  // Em/en dash variant with CEFR label
+  if (/^[A-Z][A-Z\-]+\s+\([A-Za-z ]+\)\s+[\u2014\u2013\-]+\s+CEFR:/m.test(raw)) return true;
+  // Fallback: ALL-CAPS word header + Definition: + Example Sentence on separate lines
+  if (/^[A-Z]{3,}[\s(]/.test(raw) && raw.includes('Definition:') && raw.includes('Example Sentence')) return true;
+  return false;
 }
 
 function detectAndParse(raw) {
