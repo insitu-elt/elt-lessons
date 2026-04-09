@@ -1252,9 +1252,9 @@ function parseWordLabLight(raw) {
     const pos  = header[2].toLowerCase();
     const gprpM = b.match(/•\s*\(([^)]+)\)/);
     const gprp  = gprpM ? gprpM[1] : '';
-    const defM  = b.match(/Definition:\s*(.+?)(?:\n|$)/);
+    const defM  = b.match(/\*{0,2}Definition\*{0,2}:\s*(.+?)(?:\n|$)/);
     const defn  = defM ? defM[1].trim() : '';
-    const exM   = b.match(/Example Sentence[^:]*:\s*(.+?)(?:\n|$)/);
+    const exM   = b.match(/\*{0,2}Example Sentence[^:]*\*{0,2}:\s*(.+?)(?:\n|$)/);
     const example = exM ? exM[1].trim() : '';
     const cefrM = b.match(/CEFR:\s*([A-C][12])/);
     const cefr  = cefrM ? cefrM[1] : '';
@@ -1264,12 +1264,12 @@ function parseWordLabLight(raw) {
 }
 
 function looksLikeWordLabLight(raw) {
-  // ◆ is unique to Word Lab light treatment headers — most reliable signal
-  if (raw.includes('\u25c6') && /^[A-Z]{3,}[\s(]/.test(raw)) return true;
+  // ◆ is unique to Word Lab light treatment headers
+  if (raw.includes('\u25c6') && /^[A-Z]{3,}[\s(]/m.test(raw)) return true;
   // Em/en dash variant with CEFR label
   if (/^[A-Z][A-Z\-]+\s+\([A-Za-z ]+\)\s+[\u2014\u2013\-]+\s+CEFR:/m.test(raw)) return true;
   // Fallback: ALL-CAPS word header + Definition: + Example Sentence on separate lines
-  if (/^[A-Z]{3,}[\s(]/.test(raw) && raw.includes('Definition:') && raw.includes('Example Sentence')) return true;
+  if (/^[A-Z]{3,}[\s(]/m.test(raw) && raw.includes('Definition:') && raw.includes('Example Sentence')) return true;
   return false;
 }
 
@@ -1291,6 +1291,9 @@ function parseGemInput() {
   if (!raw) return;
   parsedRows = [];
   const { results, mode } = detectAndParse(raw);
+  console.log('BELLA parse mode:', mode, '| results:', results.length, '| first word:', results[0]?.word);
+  console.log('BELLA raw sample:', JSON.stringify(raw.slice(0, 120)));
+  console.log('BELLA has ◆:', raw.includes('\u25c6'), '| has Definition:', raw.includes('Definition:'), '| has Example Sentence:', raw.includes('Example Sentence'));
   const wrap  = document.getElementById('pastePreview');
   const title = document.getElementById('previewTitle');
   if (mode === 'wordsmith') {
