@@ -1234,9 +1234,43 @@ function parseWordLab(raw) {
   return results;
 }
 
+function parseWordLabLight(raw) {
+  // Handles Word Lab 'light treatment' format:
+  // WORD (POS) — CEFR: X — Register: Y
+  // Pronunciation: /ipa/ • (GPRP)
+  // Definition: …
+  // Example Sentence (BrE): …
+  const results = [];
+  const blocks = raw.split(/\n(?=[A-Z][A-Z\-]+\s+\()/);
+  for (const block of blocks) {
+    const b = block.trim(); if (!b) continue;
+    const header = b.match(/^([A-Z][A-Z\-]+)\s+\(([^)]+)\)/);
+    if (!header) continue;
+    // Capitalise word correctly, handle hyphens (NARROW-MINDED → Narrow-Minded)
+    const word = header[1].split('-').map(p => p[0] + p.slice(1).toLowerCase()).join('-');
+    const pos  = header[2].toLowerCase();
+    const gprpM = b.match(/•\s*\(([^)]+)\)/);
+    const gprp  = gprpM ? gprpM[1] : '';
+    const defM  = b.match(/Definition:\s*(.+?)(?:\n|$)/);
+    const defn  = defM ? defM[1].trim() : '';
+    const exM   = b.match(/Example Sentence[^:]*:\s*(.+?)(?:\n|$)/);
+    const example = exM ? exM[1].trim() : '';
+    const cefrM = b.match(/CEFR:\s*([A-C][12])/);
+    const cefr  = cefrM ? cefrM[1] : '';
+    if (word && defn) results.push({ word, gprp, pos, def: defn, example, cefr });
+  }
+  return results;
+}
+
+function looksLikeWordLabLight(raw) {
+  // Detect the ALL-CAPS WORD (POS) — CEFR: pattern
+  return /^[A-Z][A-Z\-]+\s+\([A-Za-z ]+\)\s+—\s+CEFR:/m.test(raw);
+}
+
 function detectAndParse(raw) {
   if (!raw) return { results: [], mode: 'empty' };
   if (raw.includes('\u2191') || raw.includes('Lexical Ladder')) return { results: [], mode: 'wordsmith' };
+  if (looksLikeWordLabLight(raw))           return { results: parseWordLabLight(raw),  mode: 'word_lab_light' };
   if (/\*\*[A-Z][a-zA-Z]+\*\*\s*\*?\(/.test(raw)) return { results: parseWordLab(raw), mode: 'word_lab' };
   if (looksLikeCsv(raw)) return { results: parseCsv(raw), mode: 'csv' };
   if (raw.includes('|') || raw.includes('\t')) {
