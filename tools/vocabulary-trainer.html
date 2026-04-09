@@ -1310,9 +1310,6 @@ function parseGemInput() {
   if (!raw) return;
   parsedRows = [];
   const { results, mode } = detectAndParse(raw);
-  console.log('BELLA parse mode:', mode, '| results:', results.length, '| first word:', results[0]?.word);
-  console.log('BELLA has ◆ (u25c6):', raw.includes('\u25c6'), '| looksLikeLight:', raw.includes('\u25c6') || /^[A-Z][A-Z\-]+\s+\([A-Za-z ]+\).*CEFR:/m.test(raw));
-  console.log('BELLA raw[0..150]:', JSON.stringify(raw.slice(0, 150)));
   const wrap  = document.getElementById('pastePreview');
   const title = document.getElementById('previewTitle');
   if (mode === 'wordsmith') {
@@ -1342,7 +1339,7 @@ function renderPreview() {
   wrap.classList.add('visible');
   parsedRows.forEach((r, i) => {
     const tr = document.createElement('tr');
-    tr.innerHTML = `<td class="word-cell">${esc(r.word)}${renderBadge(r.word)}</td><td class="gprp-cell">${esc(r.gprp)}</td><td>${esc(r.def)}</td><td style="color:var(--muted);font-size:0.78rem;font-style:italic">${esc(r.example)}</td><td><button type="button" class="remove-row-btn" onclick="removeParsedRow(${i})">✕</button></td>`;
+    tr.innerHTML = `<td class="word-cell">${esc(r.word)}${renderCardBadge(r)}</td><td class="gprp-cell">${esc(r.gprp)}</td><td>${esc(r.def)}</td><td style="color:var(--muted);font-size:0.78rem;font-style:italic">${esc(r.example)}</td><td><button type="button" class="remove-row-btn" onclick="removeParsedRow(${i})">✕</button></td>`;
     body.appendChild(tr);
   });
 }
