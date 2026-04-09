@@ -1057,7 +1057,8 @@ function renderCardBadge(card) {
   if (fromJson) return fromJson;
   const b = card.badge || card.cefr || '';
   if (!b || ['general','core','A1'].includes(b)) return '';
-  return '<span class="word-badge badge-' + b + '" title="CEFR ' + b + '">' + b + '</span>';
+  const display = 'CEFR ' + b;
+  return '<span class="word-badge badge-' + b + '" title="' + display + '">' + display + '</span>';
 }
 
 let deck        = [];
@@ -1809,9 +1810,9 @@ function buildDistractors(card, isRec) {
 ══════════════════════════════════════════════════════════════════ */
 function renderMCCard(card, dir, scene) {
   const isRec = dir === 'receptive';
-  const correctOption = isRec ? card.word : card.def;
   const distractors = buildDistractors(card, isRec);
-  let options = isRec ? [card.word, ...distractors.map(d => d.word)] : [card.def, ...distractors.map(d => d.def)];
+  let options = isRec ? [card.word, ...distractors.map(d => d.word)].map(w => w.toLowerCase()) : [card.def, ...distractors.map(d => d.def)];
+  const correctOption = isRec ? card.word.toLowerCase() : card.def;
   shuffleArray(options);
 
   const el = document.createElement('div'); el.className = 'mc-card active';
