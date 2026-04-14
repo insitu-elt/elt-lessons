@@ -1689,22 +1689,45 @@ Return ONLY a JSON object. No markdown, no preamble. Format:
 }
 
 /* ══════════════════════════════════════════════════════════════════
-   DISTRACTOR LOGIC — enriched semantic field matching
+   DISTRACTOR LOGIC
+   Pedagogical principle: distractors must be plausible (same POS,
+   similar CEFR, general vocabulary) but clearly wrong once you know
+   the target word. They must NOT be synonyms or near-synonyms.
+   Strategy: prefer words from DIFFERENT semantic fields so domain
+   knowledge alone cannot eliminate them, while staying close enough
+   in level and register to be believable options.
 ══════════════════════════════════════════════════════════════════ */
 function buildDistractors(card, isRec) {
 
   function broadPos(pos) {
     if (!pos) return '';
-    const p = pos.toLowerCase();
-    if (p.includes('adj')) return 'adj';
-    if (p.includes('adv')) return 'adv';
-    if (p.includes('noun')) return 'noun';
-    if (p.includes('verb')) return 'verb';
+    // Take only the first POS from compound values like "adjective, noun" or "verb/noun"
+    const primary = pos.toLowerCase().split(/[,\/\s]+/)[0];
+    if (primary.startsWith('adj'))  return 'adj';
+    if (primary.startsWith('adv'))  return 'adv';
+    if (primary.startsWith('noun')) return 'noun';
+    if (primary.startsWith('verb')) return 'verb';
     return 'other';
   }
 
   function cefrRank(level) {
     return {'A1':1,'A2':2,'B1':3,'B2':4,'C1':5,'C2':6}[level] || 0;
+  }
+
+  // Topic-specific semantic fields that produce domain-signalling distractors —
+  // a learner can eliminate these by recognising the subject area rather than
+  // by knowing the target word. Excluded from T1–T3.
+  const NICHE_SF = new Set([
+    'Crime & Law', 'Health & Medicine', 'Science & Technology',
+    'Body & Health', 'Food & Drink', 'Family & Relationships',
+    'Travel & Transport', 'Nature & Environment', 'Home & Living',
+    'function_word',
+  ]);
+
+  // A candidate is "niche" if it belongs to a topic-specific SF or carries
+  // an interest-topic tag (it field), which signals specialised vocabulary.
+  function isNiche(e) {
+    return NICHE_SF.has(e.sf || '') || !!(e.it);
   }
 
   // ── AI cache hit? Use it directly ──────────────────────────────
@@ -1719,50 +1742,47 @@ function buildDistractors(card, isRec) {
   const targetCefr  = wlEntry.cefr || wlEntry.badge || card.cefr || card.badge || '';
   const targetRank  = cefrRank(targetCefr);
   const targetWF    = wlEntry.wf   || card.wf   || targetWord;
+  const targetReg   = wlEntry.reg  || card.reg  || '';
   const deckWords   = new Set(deck.map(d => d.word.toLowerCase()));
 
   if (WORD_LIST && Object.keys(WORD_LIST).length > 100) {
 
-    // Base pool: correct POS, has a definition, not the target word, not in the current deck,
-    // not from the same word family, and within ±1 CEFR level of the target
+    // Base pool: same POS, has a definition, not the target word, not in the
+    // current deck, not from the same word family, within ±1 CEFR level.
     const pool = Object.entries(WORD_LIST).filter(([w, e]) => {
-      if (w === targetWord)           return false;
-      if (deckWords.has(w))           return false;
-      if (!e.def)                     return false;
-      if (targetPos && broadPos(e.pos) !== targetPos) return false;
-      if (targetWF && (e.wf || w) === targetWF) return false;
+      if (w === targetWord)                            return false;
+      if (deckWords.has(w))                            return false;
+      if (!e.def)                                      return false;
+      if (targetPos && broadPos(e.pos) !== targetPos)  return false;
+      if (targetWF  && (e.wf || w) === targetWF)       return false;
       const rank = cefrRank(e.cefr || e.badge);
       if (targetRank > 0 && rank > 0 && Math.abs(rank - targetRank) > 1) return false;
       return true;
     });
 
-    // Semantic fields too broad to be useful for distractor selection —
-    // they catch 300–2600 words spanning unrelated concepts, so SF-matching
-    // within them produces implausible distractors. Skip T1/T2 for these.
-    const OVERLOADED_SF = new Set([
-      'Description & Quality',
-      'Action & Movement',
-      'Academic & Formal',
-      'Society & Culture'
-    ]);
-    const sfUsable = targetSF && !OVERLOADED_SF.has(targetSF);
+    // Tier 1: same CEFR + different SF + same register + not niche
+    // Hardest to guess — right level and register, wrong domain.
+    const t1 = pool.filter(([, e]) =>
+      (e.cefr || e.badge) === targetCefr &&
+      (e.sf || '') !== targetSF &&
+      !isNiche(e) &&
+      (!targetReg || (e.reg || '') === targetReg)
+    );
 
-    // Tier 1: same SF + same CEFR — hardest, most plausible
-    const t1 = sfUsable && targetCefr
-      ? pool.filter(([, e]) => e.sf === targetSF && (e.cefr || e.badge) === targetCefr)
-      : [];
+    // Tier 2: same CEFR + different SF + not niche (any register)
+    const t2 = pool.filter(([, e]) =>
+      (e.cefr || e.badge) === targetCefr &&
+      (e.sf || '') !== targetSF &&
+      !isNiche(e)
+    );
 
-    // Tier 2: same SF, ±1 CEFR
-    const t2 = sfUsable
-      ? pool.filter(([, e]) => e.sf === targetSF)
-      : [];
+    // Tier 3: ±1 CEFR + different SF + not niche
+    const t3 = pool.filter(([, e]) =>
+      (e.sf || '') !== targetSF &&
+      !isNiche(e)
+    );
 
-    // Tier 3: same CEFR, any SF
-    const t3 = targetCefr
-      ? pool.filter(([, e]) => (e.cefr || e.badge) === targetCefr)
-      : [];
-
-    // Tier 4: ±1 CEFR, any SF (already filtered in base pool)
+    // Tier 4: full pool — last resort before deck fallback
     const t4 = pool;
 
     const seen = new Set([targetWord]);
@@ -1786,7 +1806,7 @@ function buildDistractors(card, isRec) {
       const wide = Object.entries(WORD_LIST).filter(([w, e]) =>
         w !== targetWord && !deckWords.has(w) && !seen.has(w) && e.def &&
         (!targetPos || broadPos(e.pos) === targetPos) &&
-        (!targetWF || (e.wf || w) !== targetWF)
+        (!targetWF  || (e.wf || w) !== targetWF)
       );
       shuffleArray(wide);
       for (const [w, e] of wide) {
@@ -1800,7 +1820,10 @@ function buildDistractors(card, isRec) {
     if (picked.length > 0) return picked;
   }
 
-  // Last resort: other cards in the current deck
+  // Last resort: other cards in the current deck.
+  // This is a pedagogical failure mode — deck siblings are words the student
+  // is actively learning and should never appear as distractors.
+  console.warn(`BELLA: buildDistractors fell back to deck siblings for "${card.word}". Consider adding this word to the enriched word list or enabling AI distractor pre-generation.`);
   const others = deck.filter(c => c.word !== card.word);
   shuffleArray(others);
   return others.slice(0, 3);
