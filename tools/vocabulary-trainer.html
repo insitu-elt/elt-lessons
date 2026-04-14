@@ -1074,6 +1074,10 @@ let cardResults   = {};
 ══════════════════════════════════════════════════════════════════ */
 let awlSublist = 0;
 let awlCards   = [];
+// 'lesson'   — bundled lesson, paste, or manual deck (cross-SF distractors preferred)
+// 'thematic' — student chose a semantic field; same-SF distractors preferred
+// 'awl'      — Academic Word List drill (treated as lesson mode)
+let deckMode   = 'lesson';
 
 function selectAwlSublist(sl) {
   awlSublist = sl;
@@ -1516,6 +1520,15 @@ async function startSession(weakOnly) {
 
   if (startBtn) { startBtn.disabled = false; startBtn.textContent = origLabel; }
 
+  // Record deck mode so buildDistractors() picks the right SF strategy.
+  // Thematic drill: student chose a domain, so same-SF distractors are preferred.
+  // All other modes: cross-SF distractors preferred to avoid near-synonyms.
+  // On 'Practice weak cards' (weakOnly), keep the mode from the original session.
+  if (!weakOnly) {
+    const p = document.querySelector('.tab-panel.active');
+    deckMode = (p && p.id === 'panelThematic') ? 'thematic' : 'lesson';
+  }
+
   buildQueue(cards);
   queuePos = 0; totalAttempts = 0; correctCount = 0;
   showScreen('screenSession');
@@ -1690,18 +1703,26 @@ Return ONLY a JSON object. No markdown, no preamble. Format:
 
 /* ══════════════════════════════════════════════════════════════════
    DISTRACTOR LOGIC
-   Pedagogical principle: distractors must be plausible (same POS,
-   similar CEFR, general vocabulary) but clearly wrong once you know
-   the target word. They must NOT be synonyms or near-synonyms.
-   Strategy: prefer words from DIFFERENT semantic fields so domain
-   knowledge alone cannot eliminate them, while staying close enough
-   in level and register to be believable options.
+   Two strategies, chosen by deckMode:
+
+   'thematic' — student chose a semantic field (e.g. Food & Drink).
+     Distractors come from the SAME SF so the student must distinguish
+     within the domain. Falls back to cross-SF if the SF is too broad
+     to yield reliable same-SF distractors (OVERLOADED_SF guard).
+
+   'lesson' (default) — bundled lesson, paste, manual, or AWL deck.
+     Student hasn't chosen a domain, so distractors come from a
+     DIFFERENT SF. Same-SF risks near-synonyms; cross-SF at the right
+     level and register is genuinely confusing for the right reasons.
+
+   Both strategies: same POS, ±1 CEFR, exclude same word family,
+   exclude topic-specific SFs (NICHE_SF) from cross-SF pools.
 ══════════════════════════════════════════════════════════════════ */
 function buildDistractors(card, isRec) {
 
   function broadPos(pos) {
     if (!pos) return '';
-    // Take only the first POS from compound values like "adjective, noun" or "verb/noun"
+    // Take only the first POS from compound values like "adjective, noun"
     const primary = pos.toLowerCase().split(/[,\/\s]+/)[0];
     if (primary.startsWith('adj'))  return 'adj';
     if (primary.startsWith('adv'))  return 'adv';
@@ -1714,9 +1735,17 @@ function buildDistractors(card, isRec) {
     return {'A1':1,'A2':2,'B1':3,'B2':4,'C1':5,'C2':6}[level] || 0;
   }
 
-  // Topic-specific semantic fields that produce domain-signalling distractors —
-  // a learner can eliminate these by recognising the subject area rather than
-  // by knowing the target word. Excluded from T1–T3.
+  // Semantic fields too broad for reliable same-SF matching — span thousands
+  // of words with no useful sub-clustering, producing near-synonyms.
+  // Used in thematic mode to decide when to fall back to cross-SF.
+  const OVERLOADED_SF = new Set([
+    'Description & Quality', 'Action & Movement',
+    'Academic & Formal', 'Society & Culture',
+  ]);
+
+  // Topic-specific SFs whose words are immediately domain-recognisable.
+  // Excluded from cross-SF (lesson-mode) pools — a learner eliminates
+  // 'lavatory' for a Food & Drink word without knowing the target at all.
   const NICHE_SF = new Set([
     'Crime & Law', 'Health & Medicine', 'Science & Technology',
     'Body & Health', 'Food & Drink', 'Family & Relationships',
@@ -1724,8 +1753,6 @@ function buildDistractors(card, isRec) {
     'function_word',
   ]);
 
-  // A candidate is "niche" if it belongs to a topic-specific SF or carries
-  // an interest-topic tag (it field), which signals specialised vocabulary.
   function isNiche(e) {
     return NICHE_SF.has(e.sf || '') || !!(e.it);
   }
@@ -1734,7 +1761,6 @@ function buildDistractors(card, isRec) {
   const cached = aiDistractorCache[card.word] || aiDistractorCache[(card.word||'').toLowerCase()];
   if (cached && cached.length >= 3) return cached.slice(0, 3);
 
-  // Always read from WORD_LIST at call time — card fields may be stale if enrichCard ran before loadData
   const targetWord  = (card.word || '').toLowerCase();
   const wlEntry     = WORD_LIST[targetWord] || WORD_LIST[card.word] || {};
   const targetPos   = broadPos(wlEntry.pos  || card.pos  || '');
@@ -1747,8 +1773,7 @@ function buildDistractors(card, isRec) {
 
   if (WORD_LIST && Object.keys(WORD_LIST).length > 100) {
 
-    // Base pool: same POS, has a definition, not the target word, not in the
-    // current deck, not from the same word family, within ±1 CEFR level.
+    // Base pool: same POS, ±1 CEFR, not target, not deck sibling, not same word family
     const pool = Object.entries(WORD_LIST).filter(([w, e]) => {
       if (w === targetWord)                            return false;
       if (deckWords.has(w))                            return false;
@@ -1760,35 +1785,67 @@ function buildDistractors(card, isRec) {
       return true;
     });
 
-    // Tier 1: same CEFR + different SF + same register + not niche
-    // Hardest to guess — right level and register, wrong domain.
-    const t1 = pool.filter(([, e]) =>
-      (e.cefr || e.badge) === targetCefr &&
-      (e.sf || '') !== targetSF &&
-      !isNiche(e) &&
-      (!targetReg || (e.reg || '') === targetReg)
-    );
+    let tiers;
 
-    // Tier 2: same CEFR + different SF + not niche (any register)
-    const t2 = pool.filter(([, e]) =>
-      (e.cefr || e.badge) === targetCefr &&
-      (e.sf || '') !== targetSF &&
-      !isNiche(e)
-    );
+    if (deckMode === 'thematic' && targetSF && !OVERLOADED_SF.has(targetSF)) {
+      // ── THEMATIC MODE: same-SF preferred ─────────────────────
+      // Student is drilling within a chosen domain; distractors should
+      // be plausible within that domain — wrong but domain-appropriate.
+      tiers = [
+        // T1: same SF + same CEFR + same register
+        pool.filter(([, e]) =>
+          e.sf === targetSF &&
+          (e.cefr || e.badge) === targetCefr &&
+          (!targetReg || (e.reg || '') === targetReg)
+        ),
+        // T2: same SF + same CEFR (any register)
+        pool.filter(([, e]) =>
+          e.sf === targetSF &&
+          (e.cefr || e.badge) === targetCefr
+        ),
+        // T3: same SF, ±1 CEFR
+        pool.filter(([, e]) => e.sf === targetSF),
+        // T4: cross-SF fallback when same-SF pool is thin
+        pool.filter(([, e]) =>
+          (e.cefr || e.badge) === targetCefr &&
+          e.sf !== targetSF &&
+          !isNiche(e)
+        ),
+        pool, // T5: safety net
+      ];
 
-    // Tier 3: ±1 CEFR + different SF + not niche
-    const t3 = pool.filter(([, e]) =>
-      (e.sf || '') !== targetSF &&
-      !isNiche(e)
-    );
-
-    // Tier 4: full pool — last resort before deck fallback
-    const t4 = pool;
+    } else {
+      // ── LESSON MODE: cross-SF preferred ──────────────────────
+      // Student hasn't chosen a domain; cross-SF words at the right
+      // level are confusing for the right reason (not near-synonyms).
+      // Also used as thematic fallback when SF is overloaded.
+      tiers = [
+        // T1: different SF + same CEFR + same register + not niche
+        pool.filter(([, e]) =>
+          (e.cefr || e.badge) === targetCefr &&
+          (e.sf || '') !== targetSF &&
+          !isNiche(e) &&
+          (!targetReg || (e.reg || '') === targetReg)
+        ),
+        // T2: different SF + same CEFR + not niche (any register)
+        pool.filter(([, e]) =>
+          (e.cefr || e.badge) === targetCefr &&
+          (e.sf || '') !== targetSF &&
+          !isNiche(e)
+        ),
+        // T3: different SF + ±1 CEFR + not niche
+        pool.filter(([, e]) =>
+          (e.sf || '') !== targetSF &&
+          !isNiche(e)
+        ),
+        pool, // T4: safety net
+      ];
+    }
 
     const seen = new Set([targetWord]);
     const picked = [];
 
-    for (const arr of [t1, t2, t3, t4]) {
+    for (const arr of tiers) {
       const shuffled = [...arr];
       shuffleArray(shuffled);
       for (const [w, e] of shuffled) {
@@ -1821,8 +1878,6 @@ function buildDistractors(card, isRec) {
   }
 
   // Last resort: other cards in the current deck.
-  // This is a pedagogical failure mode — deck siblings are words the student
-  // is actively learning and should never appear as distractors.
   console.warn(`BELLA: buildDistractors fell back to deck siblings for "${card.word}". Consider adding this word to the enriched word list or enabling AI distractor pre-generation.`);
   const others = deck.filter(c => c.word !== card.word);
   shuffleArray(others);
