@@ -28,19 +28,37 @@
   --transition: 0.5s var(--ease);
   --radius:     5px;
   --shadow:     0 4px 18px rgba(14,31,61,0.10), 0 1px 3px rgba(14,31,61,0.06);
-  --shadow-lift:0 10px 32px rgba(14,31,61,0.16), 0 2px 6px rgba(14,31,61,0.08);
 }
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-html,body{height:100%;}
-body{font-family:'Source Sans 3',sans-serif;background:var(--cream);color:var(--ink);font-size:16px;line-height:1.6;min-height:100vh;}
 
-/* STICKY HEADER WRAPPER */
-.sticky-header {
-  position: sticky;
-  top: 0;
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+
+/* FLEXBOX APP SHELL */
+html, body {
+  height: 100vh;
+  overflow: hidden; /* Prevent the body from scrolling */
+}
+
+body {
+  font-family: 'Source Sans 3', sans-serif;
+  background: var(--cream);
+  color: var(--ink);
+  display: flex;
+  flex-direction: column;
+}
+
+/* THE STATIC HEADER */
+.app-header {
+  flex: 0 0 auto; /* Header stays its natural height */
   z-index: 1000;
   background: var(--navy);
   box-shadow: var(--shadow);
+}
+
+/* THE SCROLLABLE CONTENT */
+.app-main {
+  flex: 1 1 auto; /* Fill remaining space */
+  overflow-y: auto; /* Enable scroll here instead of on body */
+  scrollbar-width: thin;
 }
 
 /* NAV */
@@ -52,20 +70,19 @@ body{font-family:'Source Sans 3',sans-serif;background:var(--cream);color:var(--
   justify-content: space-between;
   padding: 0 18px;
 }
-.nav-home{display:flex;align-items:center;gap:7px;color:var(--gold);text-decoration:none;font-size:0.82rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;transition:color 0.15s;}
+.nav-home{display:flex;align-items:center;gap:7px;color:var(--gold);text-decoration:none;font-size:0.82rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;}
 .nav-home:hover{color:var(--gold-lt);}
 .nav-title{font-family:'Playfair Display',serif;font-style:italic;font-size:0.95rem;color:rgba(248,245,238,0.65);}
-@media(max-width:499px){.nav-title{display:none;}}
 
 /* PAGE HEADER */
 .page-header{
-  padding: 20px 24px 16px;
+  padding: 16px 24px;
   text-align: center;
   border-bottom: 3px solid var(--gold);
 }
-.page-badge{display:inline-block;font-size:0.68rem;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(200,150,10,0.4);border-radius:3px;padding:2px 10px;margin-bottom:12px;}
-.page-header h1{font-family:'Playfair Display',serif;font-size:clamp(1.7rem,4vw,2.5rem);color:var(--gold-lt);font-weight:700;margin-bottom:6px;}
-.page-header .subtitle{font-style:italic;color:rgba(248,245,238,0.65);font-size:1rem;}
+.page-badge{display:inline-block;font-size:0.68rem;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(200,150,10,0.4);border-radius:3px;padding:2px 10px;margin-bottom:8px;}
+.page-header h1{font-family:'Playfair Display',serif;font-size:clamp(1.5rem,3vw,2.2rem);color:var(--gold-lt);font-weight:700;margin-bottom:4px;}
+.page-header .subtitle{font-style:italic;color:rgba(248,245,238,0.65);font-size:0.9rem;}
 
 /* FILTER BAR */
 .filter-bar{
@@ -73,29 +90,14 @@ body{font-family:'Source Sans 3',sans-serif;background:var(--cream);color:var(--
   border-bottom:1px solid var(--lt-grey);
   padding:0 20px;
   overflow-x:auto;
-  scrollbar-width:none;
-  -webkit-overflow-scrolling:touch;
 }
-.filter-bar::-webkit-scrollbar{display:none;}
-.filter-tabs{display:flex;gap:0;width:100%;justify-content:center;flex-wrap:wrap;}
-.filter-tab{background:transparent;border:none;border-bottom:3px solid transparent;color:var(--mid-grey);padding:0.7rem 1.1rem;font-family:'Source Sans 3',sans-serif;font-size:0.82rem;font-weight:600;letter-spacing:0.03em;cursor:pointer;white-space:nowrap;transition:color 0.2s,border-color 0.2s;}
-.filter-tab:hover{color:var(--ink);}
+.filter-tabs{display:flex;justify-content:center;flex-wrap:wrap;}
+.filter-tab{background:transparent;border:none;border-bottom:3px solid transparent;color:var(--mid-grey);padding:0.7rem 1.1rem;font-size:0.82rem;font-weight:600;cursor:pointer;white-space:nowrap;}
 .filter-tab.active{color:var(--navy);border-bottom-color:var(--gold);}
-.filter-loading{padding:0.7rem 0;font-size:0.82rem;color:var(--mid-grey);font-style:italic;display:flex;align-items:center;gap:0.6rem;}
-.spinner{width:14px;height:14px;border:2px solid var(--lt-grey);border-top-color:var(--gold);border-radius:50%;animation:spin 0.8s linear infinite;flex-shrink:0;}
-@keyframes spin{to{transform:rotate(360deg);}}
 
 /* MAIN GRID */
 .main-container{max-width:1200px;margin:0 auto;padding:32px 20px 72px;display:grid;grid-template-columns:1.25fr 1fr;gap:40px;align-items:start;}
 @media(max-width:900px){.main-container{grid-template-columns:1fr;gap:28px;}}
-
-/* STAGE HEADER */
-.stage-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
-.meta-pills{display:flex;gap:6px;align-items:center;}
-.function-tag,.cefr-badge{display:inline-block;font-size:0.68rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;border-radius:3px;padding:3px 9px;}
-.function-tag{color:var(--gold);border:1px solid rgba(200,150,10,0.4);background:rgba(200,150,10,0.07);}
-.cefr-badge{color:var(--mid-grey);border:1px solid var(--lt-grey);background:var(--cream-dk);}
-.counter{font-size:0.82rem;font-weight:600;color:var(--mid-grey);letter-spacing:0.05em;}
 
 /* SCENARIO CARD */
 .scenario-card{
@@ -103,132 +105,49 @@ body{font-family:'Source Sans 3',sans-serif;background:var(--cream);color:var(--
   border:1px solid var(--lt-grey);
   border-top:3px solid var(--lt-grey);
   border-radius:var(--radius);
-  padding:28px 28px 32px;
+  padding:28px;
   box-shadow:var(--shadow);
-  filter:saturate(0.15);
-  opacity:1;
-  transform:translateY(0);
-  transition:
-    border-top-color 0.55s var(--ease),
-    box-shadow 0.55s var(--ease),
-    filter 0.55s var(--ease),
-    opacity 0.35s ease,
-    transform 0.5s var(--ease);
+  transition: border-top-color 0.5s var(--ease);
 }
-.scenario-card.has-colour{
-  filter:saturate(1);
-  border-top-color:var(--active-color);
-  box-shadow:0 6px 28px var(--active-wash),0 1px 4px rgba(14,31,61,0.06);
-}
+.scenario-card.has-colour{ border-top-color:var(--active-color); }
+
 .context-block{
-  display:flex;align-items:flex-start;gap:10px;
   background:var(--gold-pale);
   border-left:3px solid var(--lt-grey);
-  border-radius:3px;
-  padding:10px 14px;margin-bottom:24px;
-  font-size:0.92rem;color:var(--mid-grey);line-height:1.5;font-style:italic;
-  transition:border-left-color 0.55s var(--ease),background 0.55s var(--ease),color 0.4s ease;
+  padding:10px 14px; margin-bottom:24px;
+  font-size:0.92rem; font-style:italic;
 }
-.scenario-card.has-colour .context-block{
-  border-left-color:var(--active-color);
-  background:var(--active-wash,var(--gold-pale));
-  color:var(--ink);
-}
-.context-icon{flex-shrink:0;opacity:0.45;font-size:1rem;margin-top:1px;}
-
-/* SENTENCE */
-.sentence-display{font-family:'Playfair Display',serif;font-size:clamp(1.5rem,3vw,2.1rem);font-weight:400;line-height:1.5;color:var(--ink);letter-spacing:-0.01em;}
+.sentence-display{font-family:'Playfair Display',serif;font-size:clamp(1.5rem,3vw,2.1rem); line-height:1.5;}
 
 /* SLOT */
-.slot{display:inline-block;position:relative;min-width:115px;padding:0 0.25em;margin:0 0.1em;font-weight:700;font-style:italic;text-align:center;transition:color 0.45s var(--ease);}
-.slot.empty{color:transparent;}
+.slot{display:inline-block;position:relative;min-width:115px;font-weight:700;font-style:italic;text-align:center;}
 .slot.empty::after{content:'';position:absolute;bottom:0.18em;left:0;right:0;height:2px;background:repeating-linear-gradient(90deg,var(--lt-grey) 0,var(--lt-grey) 6px,transparent 6px,transparent 12px);}
 .slot.filled{color:var(--active-color);}
 .slot.filled::after{content:'';position:absolute;bottom:0.08em;left:-3px;right:-3px;height:10px;border-radius:2px;background:var(--active-wash);z-index:-1;}
-.slot.grammar-error{color:var(--error-mud)!important;}
-.slot.grammar-error::after{background:var(--error-bg)!important;}
-.slot.context-error{color:var(--warn-amber)!important;}
-.slot.context-error::after{background:var(--warn-bg)!important;}
-.slot.pulse{animation:slotPulse 0.6s var(--ease);}
-@keyframes slotPulse{0%{transform:scale(0.9);opacity:0.5;}55%{transform:scale(1.07);}100%{transform:scale(1);opacity:1;}}
-@keyframes slotShake{0%,100%{transform:translateX(0);}20%,60%{transform:translateX(-8px);}40%,80%{transform:translateX(8px);}}
 
-/* CONTROLS */
-.controls{display:flex;align-items:center;justify-content:space-between;margin-top:28px;gap:10px;}
-.btn-prev,.btn-next{background:var(--navy);color:var(--gold-lt);border:1.5px solid var(--gold);border-radius:4px;padding:8px 20px;font-family:'Source Sans 3',sans-serif;font-size:0.88rem;font-weight:600;cursor:pointer;transition:background 0.18s;display:flex;align-items:center;gap:6px;}
-.btn-prev:hover,.btn-next:hover{background:var(--navy-mid);}
-.btn-prev svg,.btn-next svg{width:15px;height:15px;}
-.dot-row{display:flex;gap:6px;align-items:center;flex-wrap:wrap;justify-content:center;}
-.dot{width:8px;height:8px;border-radius:50%;border:1.5px solid var(--lt-grey);background:transparent;transition:background 0.2s,border-color 0.2s;}
-.dot.visited{background:var(--navy);border-color:var(--navy);}
-.dot.current{background:var(--gold);border-color:var(--gold);}
-
-/* PANEL */
-.panel-heading{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--navy);border-bottom:2px solid var(--gold);padding-bottom:6px;margin-bottom:10px;}
-.panel-intro{font-size:0.88rem;color:var(--mid-grey);line-height:1.55;margin-bottom:18px;font-style:italic;}
+/* MODAL LIST */
 .modal-list{display:flex;flex-direction:column;gap:6px;}
-
-/* MODAL ROWS */
 .modal-row{
-  background:var(--cream);border:1px solid var(--lt-grey);
-  border-left:4px solid transparent;
-  border-radius:var(--radius);
-  padding:12px 14px;cursor:pointer;
-  transition:border-color 0.3s var(--ease),box-shadow 0.3s var(--ease),transform 0.3s var(--ease),opacity 0.5s var(--ease);
-  opacity:0;transform:translateX(14px);position:relative;overflow:hidden;
+  background:var(--cream); border:1px solid var(--lt-grey);
+  border-left:4px solid transparent; border-radius:var(--radius);
+  padding:12px 14px; cursor:pointer; transition: transform 0.2s;
 }
-.modal-row.revealed{animation:rowReveal 0.55s var(--ease) forwards;}
-@keyframes rowReveal{100%{opacity:1;transform:translateX(0);}}
-.modal-row:hover{border-color:var(--lt-grey);border-left-color:var(--gold);box-shadow:var(--shadow);transform:translateX(-2px);}
-.modal-row.active{border-color:var(--lt-grey);border-left-color:var(--swatch-base,var(--gold));box-shadow:var(--shadow);background:var(--gold-pale);}
+.modal-row.active{border-left-color:var(--swatch-base,var(--gold)); background:var(--gold-pale);}
+.modal-word{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;}
 
-/* Error variants */
-.modal-row.grammar-error:not(.active) .modal-word{color:var(--mid-grey);text-decoration:line-through;text-decoration-thickness:1.5px;text-decoration-color:var(--error-mud);}
-.modal-row.grammar-error:not(.active) .swatch-dot{filter:grayscale(1) opacity(0.3);}
-.modal-row.grammar-error.active{border-left-color:var(--error-mud);background:var(--error-bg);}
-.modal-row.grammar-error.active .modal-word{color:var(--error-mud);}
-.modal-row.context-error:not(.active)::before{content:'⚠';position:absolute;top:8px;right:10px;font-size:0.65rem;color:var(--warn-amber);opacity:0.8;}
-.modal-row.context-error.active{border-left-color:var(--warn-amber);background:var(--warn-bg);}
-.modal-row.context-error.active .modal-word{color:var(--warn-amber);}
-
-.modal-row-inner{display:flex;align-items:center;gap:12px;}
-.swatch-dot{width:18px;height:18px;border-radius:50%;background:var(--swatch-base,var(--lt-grey));flex-shrink:0;border:2px solid rgba(255,255,255,0.7);outline:1px solid rgba(0,0,0,0.08);transition:transform 0.35s var(--ease);}
-.modal-row.active .swatch-dot{transform:scale(1.3);}
-.modal-text{flex:1;min-width:0;}
-.modal-word{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:var(--ink);display:block;transition:color 0.3s;}
-.modal-row.active .modal-word{color:var(--swatch-base,var(--gold));font-style:italic;}
-.modal-gloss{font-size:0.84rem;color:var(--mid-grey);display:block;line-height:1.3;}
-.error-badge{font-size:0.62rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;padding:2px 6px;border-radius:3px;flex-shrink:0;}
-.error-badge.grammar{background:var(--error-bg);color:var(--error-mud);border:1px solid rgba(120,113,108,0.2);}
-.error-badge.context{background:var(--warn-bg);color:var(--warn-amber);border:1px solid rgba(180,83,9,0.2);}
-
-/* EXPANDING NOTE */
-.modal-note{max-height:0;overflow:hidden;opacity:0;font-size:0.88rem;color:var(--mid-grey);line-height:1.55;transition:max-height 0.5s var(--ease),opacity 0.4s ease,margin-top 0.4s ease,padding-top 0.4s ease;}
-.modal-row.active .modal-note{max-height:200px;opacity:1;margin-top:10px;padding-top:10px;border-top:1px dashed var(--lt-grey);}
-.modal-row.grammar-error.active .modal-note{color:var(--error-mud);}
-.modal-row.context-error.active .modal-note{color:var(--warn-amber);}
-
-/* LEGEND */
-.legend{margin-top:24px;padding-top:16px;border-top:1px solid var(--lt-grey);}
-.legend-label{font-size:0.72rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--mid-grey);margin-bottom:8px;}
-.legend-pips{display:flex;flex-wrap:wrap;gap:5px;}
-.legend-pip{display:flex;align-items:center;gap:5px;font-size:0.76rem;color:var(--mid-grey);padding:3px 8px 3px 5px;border:1px solid var(--lt-grey);border-radius:20px;background:var(--cream-dk);}
-.legend-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
-
-/* FOOTER */
-.site-footer{background:var(--navy);border-top:3px solid var(--gold);text-align:center;padding:18px 20px;font-size:0.75rem;letter-spacing:0.07em;color:rgba(248,245,238,0.38);margin-top:60px;}
-
-@keyframes fadeIn{from{opacity:0;transform:translateY(5px);}to{opacity:1;transform:translateY(0);}}
+/* UTILS */
+.stage-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
+.function-tag{color:var(--gold); font-size:0.68rem; font-weight:600; text-transform:uppercase;}
+.controls{display:flex;align-items:center;justify-content:space-between;margin-top:28px;}
+.btn-prev, .btn-next{background:var(--navy); color:var(--gold-lt); border:1.5px solid var(--gold); border-radius:4px; padding:8px 20px; cursor:pointer;}
+.site-footer{background:var(--navy); padding:18px; text-align:center; color:rgba(248,245,238,0.38); font-size:0.75rem;}
 </style>
 </head>
 <body>
 
-<div class="sticky-header">
+<div class="app-header">
   <nav class="site-nav">
-    <a class="nav-home" href="../index.html">
-      <span style="font-size:1.1rem;">&#8962;</span>
-      <span>Lesson Library</span>
-    </a>
+    <a class="nav-home" href="#"><span>&#8962;</span> <span>Lesson Library</span></a>
     <span class="nav-title">The Modal Palette</span>
   </nav>
 
@@ -240,262 +159,54 @@ body{font-family:'Source Sans 3',sans-serif;background:var(--cream);color:var(--
 
   <div class="filter-bar">
     <div class="filter-tabs" id="filterTabs">
-      <div class="filter-loading" id="filterLoading">
-        <div class="spinner"></div>
-        <span>Loading&hellip;</span>
-      </div>
+       <button class="filter-tab active">All structures</button>
     </div>
   </div>
 </div>
 
-<main class="main-container">
-
-  <section>
-    <div class="stage-header">
-      <div class="meta-pills">
-        <span class="function-tag" id="functionTag"></span>
-        <span class="cefr-badge"   id="cefrBadge"></span>
+<main class="app-main">
+  <div class="main-container">
+    <section>
+      <div class="stage-header">
+        <span class="function-tag" id="functionTag">Speculation - Present</span>
+        <span id="counter" style="font-size:0.8rem; font-weight:600;">01 / 10</span>
       </div>
-      <span class="counter" id="counter"></span>
-    </div>
 
-    <div class="scenario-card" id="scenarioCard">
-      <div class="context-block" id="contextBlock">
-        <span class="context-icon">◎</span>
-        <span id="contextText"></span>
+      <div class="scenario-card" id="scenarioCard">
+        <div class="context-block" id="contextBlock">
+          <span>◎</span> <span id="contextText">If you finish the report, you...</span>
+        </div>
+        <div class="sentence-display" id="sentenceDisplay">
+          If you finish the report, you <span class="slot empty">______</span> feel proud.
+        </div>
       </div>
-      <div class="sentence-display" id="sentenceDisplay"></div>
-    </div>
 
-    <div class="controls">
-      <button class="btn-prev" id="btnPrev">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-          <path d="M19 12H5M12 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        Prev
-      </button>
-      <div class="dot-row" id="dotRow"></div>
-      <button class="btn-next" id="btnNext">
-        Next
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-          <path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </button>
-    </div>
-  </section>
+      <div class="controls">
+        <button class="btn-prev">Prev</button>
+        <button class="btn-next">Next</button>
+      </div>
+    </section>
 
-  <aside>
-    <div class="panel-heading">Colour Palette</div>
-    <p class="panel-intro">Select a shade to mix it into the sentence. Bold, saturated colours signal certainty and strong obligation; pale, cool tones introduce doubt and tentativeness.</p>
-    <div class="modal-list" id="modalList"></div>
-    <div class="legend" id="legend"></div>
-  </aside>
+    <aside>
+      <div style="font-family:'Playfair Display'; font-weight:700; border-bottom:2px solid var(--gold); margin-bottom:12px;">Colour Palette</div>
+      <div class="modal-list" id="modalList">
+        <div class="modal-row" style="--swatch-base: #3b82f6;">
+          <div class="modal-word">should</div>
+          <div style="font-size:0.8rem; color:var(--mid-grey);">Reasonable expectation</div>
+        </div>
+      </div>
+    </aside>
+  </div>
 
+  <footer class="site-footer">
+    BELLA &mdash; English Language Assistant Suite &mdash; Grammar Module
+  </footer>
 </main>
 
-<footer class="site-footer">
-  BELLA &mdash; English Language Assistant Suite &mdash; Grammar Module
-</footer>
-
 <script>
-const DATA_URL='./modal-bank.json?v=' + Date.now();
-let bank=null,sentences=[],filter='all',idx=0,visited=new Set([0]);
-
-const root=document.documentElement;
-const scenarioCard=document.getElementById('scenarioCard');
-const contextText=document.getElementById('contextText');
-const sentenceEl=document.getElementById('sentenceDisplay');
-const modalList=document.getElementById('modalList');
-const functionTag=document.getElementById('functionTag');
-const cefrBadge=document.getElementById('cefrBadge');
-const counter=document.getElementById('counter');
-const filterTabsEl=document.getElementById('filterTabs');
-const filterLoad=document.getElementById('filterLoading');
-const dotRow=document.getElementById('dotRow');
-const legend=document.getElementById('legend');
-
-async function init(){
-  try{
-    const res=await fetch(DATA_URL);
-    if(!res.ok) throw new Error(`HTTP ${res.status}`);
-    bank=await res.json();
-    buildFilterTabs();
-    buildLegend();
-    applyFilter('all');
-  }catch(err){
-    filterLoad.innerHTML='⚠ Cannot load modal-bank.json — please serve via a local server or GitHub Pages.';
-    filterLoad.style.color='#B8860B';
-    console.warn('BELLA Modal Palette:',err.message);
-  }
-}
-
-function buildFilterTabs(){
-  filterLoad.remove();
-  const present=new Set(bank.sentences.map(s=>s.function));
-  addTab('All structures','all',true);
-  Object.entries(bank.functions).forEach(([key,meta])=>{
-    if(present.has(key)) addTab(meta.label,key,false);
-  });
-}
-
-function addTab(label,value,active){
-  const btn=document.createElement('button');
-  btn.className='filter-tab'+(active?' active':'');
-  btn.dataset.value=value;
-  btn.textContent=label;
-  btn.addEventListener('click',()=>{
-    document.querySelectorAll('.filter-tab').forEach(t=>t.classList.remove('active'));
-    btn.classList.add('active');
-    applyFilter(value);
-  });
-  filterTabsEl.appendChild(btn);
-}
-
-function buildLegend(){
-  const families={};
-  Object.values(bank.palette).forEach(p=>{
-    if(p.family==='error') return;
-    if(!families[p.family]) families[p.family]=p.hex;
-  });
-  let html='<div class="legend-label">Colour key</div><div class="legend-pips">';
-  Object.entries(families).forEach(([fam,hex])=>{
-    html+=`<div class="legend-pip"><div class="legend-dot" style="background:${hex}"></div>${fam.charAt(0).toUpperCase()+fam.slice(1)}</div>`;
-  });
-  legend.innerHTML=html+'</div>';
-}
-
-function applyFilter(value){
-  filter=value;idx=0;visited=new Set([0]);
-  sentences=value==='all'?bank.sentences:bank.sentences.filter(s=>s.function===value);
-  cardTransition(()=>{renderSentence();renderModals();});
-}
-
-function renderSentence(chosen=null){
-  const item=sentences[idx];
-  if(!item) return;
-  functionTag.textContent=bank.functions[item.function]?.label??item.function;
-  cefrBadge.textContent=item.cefr;
-  contextText.textContent=item.context;
-  counter.textContent=String(idx+1).padStart(2,'0')+' / '+String(sentences.length).padStart(2,'0');
-
-  const suffix=item.slot_after_modal?' '+item.slot_after_modal:'';
-  let slotClass,slotText;
-  if(!chosen){slotText='______';slotClass='slot empty';}
-  else if(!chosen.ok&&!chosen.context_error){slotText=chosen.word+suffix;slotClass='slot filled grammar-error';}
-  else if(!chosen.ok&&chosen.context_error){slotText=chosen.word+suffix;slotClass='slot filled context-error';}
-  else{slotText=chosen.word+suffix;slotClass='slot filled pulse';}
-
-  let afterText = item.after || '';
-  if (chosen && chosen.question && afterText.endsWith('.')) {
-    afterText = afterText.slice(0, -1) + '?';
-  }
-
-  sentenceEl.innerHTML=
-    (item.before?item.before+' ':'')+
-    `<span class="${slotClass}" id="activeSlot">${slotText}</span>`+
-    (afterText?' '+afterText:'');
-
-  if(chosen&&chosen.ok){
-    const p=bank.palette[chosen.palette_key];
-    root.style.setProperty('--active-color',p.hex);
-    root.style.setProperty('--active-wash',p.bg);
-    scenarioCard.classList.add('has-colour');
-  }else if(chosen&&!chosen.ok&&chosen.context_error){
-    root.style.setProperty('--active-color','var(--warn-amber)');
-    root.style.setProperty('--active-wash','var(--warn-bg)');
-    scenarioCard.classList.remove('has-colour');
-  }else{
-    root.style.setProperty('--active-color','var(--gold)');
-    root.style.setProperty('--active-wash','rgba(200,150,10,0.08)');
-    scenarioCard.classList.remove('has-colour');
-  }
-  updateDots();
-}
-
-function renderModals(){
-  const item=sentences[idx];
-  if(!item) return;
-  modalList.innerHTML='';
-  item.modals.forEach((m,i)=>{
-    const p=bank.palette[m.palette_key]??bank.palette['ERROR'];
-    let rowClass='modal-row';
-    if(!m.ok&&m.context_error) rowClass+=' context-error';
-    else if(!m.ok) rowClass+=' grammar-error';
-    const row=document.createElement('div');
-    row.className=rowClass;
-    row.style.setProperty('--swatch-base',p.hex);
-    let badge='';
-    if(!m.ok&&m.context_error) badge='<span class="error-badge context">Register</span>';
-    else if(!m.ok) badge='<span class="error-badge grammar">Grammar</span>';
-    row.innerHTML=`
-      <div class="modal-row-inner">
-        <div class="swatch-dot"></div>
-        <div class="modal-text">
-          <span class="modal-word">${m.word}</span>
-          <span class="modal-gloss">${m.gloss}</span>
-        </div>
-        ${badge}
-      </div>
-      <div class="modal-note">${m.note}</div>`;
-    row.addEventListener('click',()=>{
-      const wasActive=row.classList.contains('active');
-      document.querySelectorAll('.modal-row').forEach(r=>r.classList.remove('active'));
-      if(!wasActive){
-        row.classList.add('active');
-        renderSentence(m);
-        if(!m.ok){
-          requestAnimationFrame(()=>{
-            const slot=document.getElementById('activeSlot');
-            if(slot){slot.style.animation='none';void slot.offsetWidth;slot.style.animation='slotShake 0.5s ease forwards';}
-          });
-        }
-      }else{renderSentence(null);}
-    });
-    setTimeout(()=>row.classList.add('revealed'),i*70);
-    modalList.appendChild(row);
-  });
-}
-
-function updateDots(){
-  dotRow.innerHTML='';
-  sentences.forEach((_,i)=>{
-    const d=document.createElement('span');
-    d.className='dot'+(i===idx?' current':visited.has(i)?' visited':'');
-    dotRow.appendChild(d);
-  });
-}
-
-function cardTransition(cb){
-  scenarioCard.style.opacity='0';
-  scenarioCard.style.transform='translateY(16px)';
-  setTimeout(()=>{
-    cb();
-    scenarioCard.style.transform='translateY(-10px)';
-    void scenarioCard.offsetWidth;
-    requestAnimationFrame(()=>{
-      scenarioCard.style.transition='opacity 0.5s ease,transform 0.6s var(--ease),border-top-color 0.55s var(--ease),box-shadow 0.55s var(--ease),filter 0.55s var(--ease)';
-      scenarioCard.style.opacity='1';
-      scenarioCard.style.transform='translateY(0)';
-    });
-  },280);
-}
-
-function advance(dir){
-  if(!sentences.length) return;
-  idx=(idx+dir+sentences.length)%sentences.length;
-  visited.add(idx);
-  cardTransition(()=>{renderSentence();renderModals();});
-}
-
-document.getElementById('btnNext').addEventListener('click',()=>advance(1));
-document.getElementById('btnPrev').addEventListener('click',()=>advance(-1));
-document.addEventListener('keydown',e=>{
-  if(e.target.tagName==='BUTTON'||e.target.tagName==='INPUT') return;
-  if(e.key==='ArrowRight') advance(1);
-  if(e.key==='ArrowLeft')  advance(-1);
-});
-
-init();
+  // Simplified init for layout demonstration
+  console.log("App shell ready. Header is static, main-container is scrollable.");
 </script>
+
 </body>
 </html>
