@@ -270,7 +270,7 @@ html{scroll-padding-top:88px;}
 </footer>
 
 <script>
-const DATA_URL='./modal-bank.json';
+const DATA_URL='./modal-bank.json?v=' + Date.now();
 let bank=null,sentences=[],filter='all',idx=0,visited=new Set([0]);
 
 const root=document.documentElement;
