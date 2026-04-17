@@ -1,10 +1,10 @@
 {
   "_schema": "1.0",
   "_notes": [
-    "modal-bank.json — BELLA Modal Nuance Explorer",
+    "modal-bank.json \u2014 BELLA Modal Nuance Explorer",
     "Colours are fixed to MODAL FUNCTION, not individual sentences.",
     "Every modal word maps to a consistent hex/bg pair via the palette below.",
-    "The 'palette' object is the single source of truth — the HTML tool reads it.",
+    "The 'palette' object is the single source of truth \u2014 the HTML tool reads it.",
     "CEFR: A2 | B1 | B2 | C1",
     "Register: neutral | formal | colloquial | written",
     "Families: certainty | possibility | obligation | permission | advice | volition | habit | functional",
@@ -243,11 +243,11 @@
       "cefr_min": "B2"
     },
     "speculation_present": {
-      "label": "Speculation · present",
+      "label": "Speculation \u00b7 present",
       "cefr_min": "B1"
     },
     "speculation_past": {
-      "label": "Speculation · past",
+      "label": "Speculation \u00b7 past",
       "cefr_min": "B2"
     },
     "advice": {
@@ -255,7 +255,7 @@
       "cefr_min": "A2"
     },
     "criticism_past": {
-      "label": "Criticism · past",
+      "label": "Criticism \u00b7 past",
       "cefr_min": "B2"
     },
     "request": {
@@ -294,16 +294,16 @@
         "will/might"
       ],
       "context": "A manager speaking encouragingly to an employee.",
-      "before": "If you finish the report,",
+      "before": "If you finish the report, you",
       "after": "feel proud.",
-      "slot_after_modal": "you",
+      "slot_after_modal": "",
       "modals": [
         {
           "word": "will",
           "palette_key": "will",
           "ok": true,
           "gloss": "Confident prediction",
-          "note": "The most neutral choice — a straightforward promise about the result."
+          "note": "The most neutral choice \u2014 a straightforward promise about the result."
         },
         {
           "word": "should",
@@ -317,7 +317,7 @@
           "palette_key": "might",
           "ok": true,
           "gloss": "Tentative possibility",
-          "note": "Much weaker. The speaker isn't very sure — feelings are unpredictable."
+          "note": "Much weaker. The speaker isn't very sure \u2014 feelings are unpredictable."
         },
         {
           "word": "must",
@@ -345,16 +345,16 @@
         "can/could"
       ],
       "context": "Two friends planning a picnic, looking at the sky.",
-      "before": "If the weather stays fine,",
+      "before": "If the weather stays fine, we",
       "after": "eat outside.",
-      "slot_after_modal": "we",
+      "slot_after_modal": "",
       "modals": [
         {
           "word": "will",
           "palette_key": "will",
           "ok": true,
           "gloss": "Firm plan",
-          "note": "A confident intention — the picnic is on."
+          "note": "A confident intention \u2014 the picnic is on."
         },
         {
           "word": "can",
@@ -368,21 +368,21 @@
           "palette_key": "could",
           "ok": true,
           "gloss": "Softer suggestion",
-          "note": "A gentle proposal — more exploratory than 'can', slightly hypothetical in feel."
+          "note": "A gentle proposal \u2014 more exploratory than 'can', slightly hypothetical in feel."
         },
         {
           "word": "might",
           "palette_key": "might",
           "ok": true,
           "gloss": "Undecided",
-          "note": "The speaker hasn't committed yet — eating outside is one of several options."
+          "note": "The speaker hasn't committed yet \u2014 eating outside is one of several options."
         },
         {
           "word": "should",
           "palette_key": "should",
           "ok": true,
           "gloss": "Recommendation",
-          "note": "Frames eating outside as the right thing to do — almost an obligation to enjoy the weather."
+          "note": "Frames eating outside as the right thing to do \u2014 almost an obligation to enjoy the weather."
         }
       ]
     },
@@ -405,21 +405,21 @@
           "palette_key": "must",
           "ok": true,
           "gloss": "Near-certain deduction",
-          "note": "The visual evidence is strong. You are highly confident — perhaps 95% sure."
+          "note": "The visual evidence is strong. You are highly confident \u2014 perhaps 95% sure."
         },
         {
           "word": "might",
           "palette_key": "might",
           "ok": true,
           "gloss": "One possible reality",
-          "note": "About 50-50 — they might be away, or they might just be out for the evening."
+          "note": "About 50-50 \u2014 they might be away, or they might just be out for the evening."
         },
         {
           "word": "could",
           "palette_key": "could",
           "ok": true,
           "gloss": "Weaker possibility",
-          "note": "Similar to 'might' but slightly more neutral — flagging something as technically possible without committing."
+          "note": "Similar to 'might' but slightly more neutral \u2014 flagging something as technically possible without committing."
         },
         {
           "word": "may",
@@ -449,7 +449,7 @@
       "context": "A colleague didn't come to the meeting. You're guessing why.",
       "before": "She",
       "after": "forgotten about it.",
-      "slot_after_modal": "have",
+      "slot_after_modal": "",
       "modals": [
         {
           "word": "must have",
@@ -477,14 +477,14 @@
           "palette_key": "may have",
           "ok": true,
           "gloss": "Formal past possibility",
-          "note": "The formal equivalent of 'might have' — commonly found in professional writing and news reports."
+          "note": "The formal equivalent of 'might have' \u2014 commonly found in professional writing and news reports."
         },
         {
           "word": "should have",
           "palette_key": "ERROR",
           "ok": false,
           "gloss": "Illogical meaning",
-          "note": "Grammatically correct, but logically wrong. 'Should have forgotten' implies she was supposed to forget — which makes no sense here."
+          "note": "Grammatically correct, but logically wrong. 'Should have forgotten' implies she was supposed to forget \u2014 which makes no sense here."
         }
       ]
     },
@@ -500,7 +500,7 @@
       "context": "A friend is struggling to sleep and asks what to do.",
       "before": "You",
       "after": "drink coffee after 3 p.m.",
-      "slot_after_modal": "not",
+      "slot_after_modal": "",
       "modals": [
         {
           "word": "shouldn't",
@@ -517,25 +517,25 @@
           "note": "Slightly old-fashioned and more formal, but still grammatically correct."
         },
         {
-          "word": "'d better not",
+          "word": "\u2019d better not",
           "palette_key": "'d better not",
           "ok": true,
           "gloss": "Warning tone",
-          "note": "Much stronger — implies guaranteed negative consequences if the advice is ignored."
+          "note": "Much stronger \u2014 implies guaranteed negative consequences if the advice is ignored."
         },
         {
           "word": "mustn't",
           "palette_key": "mustn't",
           "ok": true,
           "gloss": "Strong prohibition",
-          "note": "Very forceful — closer to a strict rule than casual advice. Use when the recommendation is urgent."
+          "note": "Very forceful \u2014 closer to a strict rule than casual advice. Use when the recommendation is urgent."
         },
         {
           "word": "don't have to",
           "palette_key": "ERROR",
           "ok": false,
           "gloss": "Incorrect meaning",
-          "note": "'Don't have to' signals no obligation — the opposite of advice against something. A very common learner error."
+          "note": "'Don't have to' signals no obligation \u2014 the opposite of advice against something. A very common learner error."
         }
       ]
     },
@@ -551,7 +551,7 @@
       "context": "A student missed an important deadline.",
       "before": "You",
       "after": "told me earlier.",
-      "slot_after_modal": "have",
+      "slot_after_modal": "",
       "modals": [
         {
           "word": "should have",
@@ -572,7 +572,7 @@
           "palette_key": "might have",
           "ok": true,
           "gloss": "Very soft reproach",
-          "note": "The gentlest option — phrasing the criticism almost as a subtle hint rather than a direct complaint."
+          "note": "The gentlest option \u2014 phrasing the criticism almost as a subtle hint rather than a direct complaint."
         },
         {
           "word": "ought to have",
@@ -586,7 +586,7 @@
           "palette_key": "must have",
           "ok": false,
           "gloss": "Incorrect meaning",
-          "note": "'Must have told me' shifts the function entirely — it becomes a deduction ('I'm certain you told me'), stripping away the criticism."
+          "note": "'Must have told me' shifts the function entirely \u2014 it becomes a deduction ('I'm certain you told me'), stripping away the criticism."
         }
       ]
     },
@@ -616,7 +616,7 @@
           "palette_key": "could (req)",
           "ok": true,
           "gloss": "Polite and neutral",
-          "note": "The safe all-purpose choice. Slightly more tentative than 'can' — it softens the request without sounding stiff."
+          "note": "The safe all-purpose choice. Slightly more tentative than 'can' \u2014 it softens the request without sounding stiff."
         },
         {
           "word": "Would",
@@ -629,7 +629,7 @@
           "word": "Will",
           "palette_key": "will (req)",
           "ok": true,
-          "gloss": "Direct — slightly impatient",
+          "gloss": "Direct \u2014 slightly impatient",
           "note": "Common in informal speech, but can sound demanding in writing or to someone you don't know well."
         },
         {
@@ -651,9 +651,9 @@
         "could/would"
       ],
       "context": "Emailing a senior colleague you haven't met. You need them to review a document.",
-      "before": "I was wondering if",
+      "before": "",
       "after": "be able to cast an eye over the attached document.",
-      "slot_after_modal": "you might",
+      "slot_after_modal": "",
       "modals": [
         {
           "word": "I was wondering if you might",
@@ -681,14 +681,14 @@
           "palette_key": "can",
           "ok": true,
           "gloss": "Too informal for this context",
-          "note": "Grammatically fine, but register mismatch — 'Can you' reads as casual in a formal email to someone you don't know."
+          "note": "Grammatically fine, but register mismatch \u2014 'Can you' reads as casual in a formal email to someone you don't know."
         },
         {
           "word": "Will you",
           "palette_key": "will (req)",
           "ok": false,
           "gloss": "Sounds demanding here",
-          "note": "'Will you' in a formal email can come across as presumptuous — it implies the other person has already agreed. Avoid in written requests to seniors.",
+          "note": "'Will you' in a formal email can come across as presumptuous \u2014 it implies the other person has already agreed. Avoid in written requests to seniors.",
           "context_error": true
         }
       ]
@@ -726,7 +726,7 @@
           "palette_key": "could (req)",
           "ok": true,
           "gloss": "Tentative offer",
-          "note": "Slightly softer — leaves the guest more room to decline without awkwardness."
+          "note": "Slightly softer \u2014 leaves the guest more room to decline without awkwardness."
         },
         {
           "word": "Would",
@@ -740,7 +740,7 @@
           "word": "Must",
           "palette_key": "ERROR",
           "ok": false,
-          "gloss": "Obligation — not an offer",
+          "gloss": "Obligation \u2014 not an offer",
           "note": "'Must I make you tea?' implies reluctant duty. It would sound very strange and slightly hostile as an offer."
         }
       ]
@@ -780,14 +780,14 @@
           "palette_key": "could",
           "ok": true,
           "gloss": "Tentative proposal",
-          "note": "Frames the idea as one possibility among others — gives everyone room to suggest alternatives."
+          "note": "Frames the idea as one possibility among others \u2014 gives everyone room to suggest alternatives."
         },
         {
           "word": "We should",
           "palette_key": "should",
           "ok": true,
           "gloss": "Mild recommendation",
-          "note": "Slightly stronger than 'could' — the speaker genuinely thinks this is the best option."
+          "note": "Slightly stronger than 'could' \u2014 the speaker genuinely thinks this is the best option."
         },
         {
           "word": "We must",
@@ -817,35 +817,35 @@
           "palette_key": "can't",
           "ok": true,
           "gloss": "Polite inability",
-          "note": "The most socially safe refusal. Blurs the line between 'unable' and 'unwilling' — which is often intentional."
+          "note": "The most socially safe refusal. Blurs the line between 'unable' and 'unwilling' \u2014 which is often intentional."
         },
         {
           "word": "won't",
           "palette_key": "won't",
           "ok": true,
           "gloss": "Direct refusal of will",
-          "note": "Honest, but blunt. Signals a decision, not an inability. Use carefully — it can sound confrontational."
+          "note": "Honest, but blunt. Signals a decision, not an inability. Use carefully \u2014 it can sound confrontational."
         },
         {
           "word": "couldn't",
           "palette_key": "could",
           "ok": true,
           "gloss": "Soft, tentative refusal",
-          "note": "Slightly more hesitant than 'can't' — leaves a small opening, as if circumstances might change."
+          "note": "Slightly more hesitant than 'can't' \u2014 leaves a small opening, as if circumstances might change."
         },
         {
           "word": "wouldn't be able to",
           "palette_key": "wouldn't",
           "ok": true,
           "gloss": "Formal and distanced",
-          "note": "The conditional phrasing adds distance — it sounds considered and formal rather than reactive."
+          "note": "The conditional phrasing adds distance \u2014 it sounds considered and formal rather than reactive."
         },
         {
           "word": "mustn't",
           "palette_key": "ERROR",
           "ok": false,
           "gloss": "Wrong meaning entirely",
-          "note": "'I mustn't do it' means 'I'm not allowed to' — implying a rule is stopping you, not your own choice or schedule. Sounds very unusual here."
+          "note": "'I mustn't do it' means 'I'm not allowed to' \u2014 implying a rule is stopping you, not your own choice or schedule. Sounds very unusual here."
         }
       ]
     },
@@ -882,13 +882,13 @@
           "palette_key": "may",
           "ok": true,
           "gloss": "Formal permission request",
-          "note": "The most traditionally correct form for asking permission. More formal than 'can' or 'could' — very polite."
+          "note": "The most traditionally correct form for asking permission. More formal than 'can' or 'could' \u2014 very polite."
         },
         {
           "word": "Might",
           "palette_key": "might",
           "ok": true,
-          "gloss": "Very tentative — almost hesitant",
+          "gloss": "Very tentative \u2014 almost hesitant",
           "note": "'Might I?' is very formal and somewhat old-fashioned. Still used, but can sound overly deferential in modern speech."
         },
         {
