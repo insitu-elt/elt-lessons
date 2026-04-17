@@ -33,23 +33,49 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html,body{height:100%;}
 body{font-family:'Source Sans 3',sans-serif;background:var(--cream);color:var(--ink);font-size:16px;line-height:1.6;min-height:100vh;}
-html{scroll-padding-top:88px;}
+
+/* STICKY HEADER WRAPPER */
+.sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: var(--navy);
+  box-shadow: var(--shadow);
+}
 
 /* NAV */
-.site-nav{position:fixed;top:0;left:0;right:0;height:44px;background:var(--navy);border-bottom:2px solid var(--gold);box-shadow:0 2px 8px rgba(0,0,0,0.25);display:flex;align-items:center;justify-content:space-between;padding:0 18px;z-index:1000;}
+.site-nav{
+  height: 44px;
+  border-bottom: 2px solid var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 18px;
+}
 .nav-home{display:flex;align-items:center;gap:7px;color:var(--gold);text-decoration:none;font-size:0.82rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;transition:color 0.15s;}
 .nav-home:hover{color:var(--gold-lt);}
 .nav-title{font-family:'Playfair Display',serif;font-style:italic;font-size:0.95rem;color:rgba(248,245,238,0.65);}
 @media(max-width:499px){.nav-title{display:none;}}
 
 /* PAGE HEADER */
-.page-header{position:fixed;top:0;left:0;right:0;z-index:950;background:var(--navy);border-bottom:3px solid var(--gold);padding:20px 24px 16px;text-align:center;}
+.page-header{
+  padding: 20px 24px 16px;
+  text-align: center;
+  border-bottom: 3px solid var(--gold);
+}
 .page-badge{display:inline-block;font-size:0.68rem;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(200,150,10,0.4);border-radius:3px;padding:2px 10px;margin-bottom:12px;}
 .page-header h1{font-family:'Playfair Display',serif;font-size:clamp(1.7rem,4vw,2.5rem);color:var(--gold-lt);font-weight:700;margin-bottom:6px;}
 .page-header .subtitle{font-style:italic;color:rgba(248,245,238,0.65);font-size:1rem;}
 
 /* FILTER BAR */
-.filter-bar{position:fixed;left:0;right:0;z-index:890;background:var(--cream-dk);border-bottom:1px solid var(--lt-grey);padding:0 20px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
+.filter-bar{
+  background:var(--cream-dk);
+  border-bottom:1px solid var(--lt-grey);
+  padding:0 20px;
+  overflow-x:auto;
+  scrollbar-width:none;
+  -webkit-overflow-scrolling:touch;
+}
 .filter-bar::-webkit-scrollbar{display:none;}
 .filter-tabs{display:flex;gap:0;width:100%;justify-content:center;flex-wrap:wrap;}
 .filter-tab{background:transparent;border:none;border-bottom:3px solid transparent;color:var(--mid-grey);padding:0.7rem 1.1rem;font-family:'Source Sans 3',sans-serif;font-size:0.82rem;font-weight:600;letter-spacing:0.03em;cursor:pointer;white-space:nowrap;transition:color 0.2s,border-color 0.2s;}
@@ -197,25 +223,27 @@ html{scroll-padding-top:88px;}
 </head>
 <body>
 
-<nav class="site-nav">
-  <a class="nav-home" href="../index.html">
-    <span style="font-size:1.1rem;">&#8962;</span>
-    <span>Lesson Library</span>
-  </a>
-  <span class="nav-title">The Modal Palette</span>
-</nav>
+<div class="sticky-header">
+  <nav class="site-nav">
+    <a class="nav-home" href="../index.html">
+      <span style="font-size:1.1rem;">&#8962;</span>
+      <span>Lesson Library</span>
+    </a>
+    <span class="nav-title">The Modal Palette</span>
+  </nav>
 
-<header class="page-header">
-  <div class="page-badge">BELLA &middot; Grammar Module</div>
-  <h1>The Modal Palette</h1>
-  <p class="subtitle">Explore how modal verbs shade meaning, certainty and register</p>
-</header>
+  <header class="page-header">
+    <div class="page-badge">BELLA &middot; Grammar Module</div>
+    <h1>The Modal Palette</h1>
+    <p class="subtitle">Explore how modal verbs shade meaning, certainty and register</p>
+  </header>
 
-<div class="filter-bar">
-  <div class="filter-tabs" id="filterTabs">
-    <div class="filter-loading" id="filterLoading">
-      <div class="spinner"></div>
-      <span>Loading&hellip;</span>
+  <div class="filter-bar">
+    <div class="filter-tabs" id="filterTabs">
+      <div class="filter-loading" id="filterLoading">
+        <div class="spinner"></div>
+        <span>Loading&hellip;</span>
+      </div>
     </div>
   </div>
 </div>
@@ -357,9 +385,6 @@ function renderSentence(chosen=null){
   else if(!chosen.ok&&chosen.context_error){slotText=chosen.word+suffix;slotClass='slot filled context-error';}
   else{slotText=chosen.word+suffix;slotClass='slot filled pulse';}
 
-  // Terminal punctuation: sentences store their default punctuation in 'after'.
-  // If a modal has question:true, swap a trailing '.' for '?' (e.g. suggestion forms).
-  // All other punctuation (existing ?, mid-sentence commas) is preserved as-is.
   let afterText = item.after || '';
   if (chosen && chosen.question && afterText.endsWith('.')) {
     afterText = afterText.slice(0, -1) + '?';
@@ -471,27 +496,6 @@ document.addEventListener('keydown',e=>{
 });
 
 init();
-
-// Position fixed chrome and set body padding after fonts load
-function applyLayout() {
-  const nav    = document.querySelector('.site-nav');
-  const header = document.querySelector('.page-header');
-  const bar    = document.querySelector('.filter-bar');
-  const navH   = nav.getBoundingClientRect().height;
-  const headH  = header.getBoundingClientRect().height;
-  const barH   = bar.getBoundingClientRect().height;
-  header.style.top = navH + 'px';
-  bar.style.top    = (navH + headH) + 'px';
-  document.body.style.paddingTop = (navH + headH + barH + 4) + 'px';
-}
-// Run after DOM paint, then again after fonts, then on resize
-requestAnimationFrame(() => {
-  applyLayout();
-  if (document.fonts && document.fonts.ready) {
-    document.fonts.ready.then(applyLayout);
-  }
-});
-window.addEventListener('resize', applyLayout);
 </script>
 </body>
 </html>
