@@ -1,0 +1,901 @@
+{
+  "_schema": "1.0",
+  "_notes": [
+    "modal-bank.json — BELLA Modal Nuance Explorer",
+    "Colours are fixed to MODAL FUNCTION, not individual sentences.",
+    "Every modal word maps to a consistent hex/bg pair via the palette below.",
+    "The 'palette' object is the single source of truth — the HTML tool reads it.",
+    "CEFR: A2 | B1 | B2 | C1",
+    "Register: neutral | formal | colloquial | written",
+    "Families: certainty | possibility | obligation | permission | advice | volition | habit | functional",
+    "Functions: first_conditional | second_conditional | third_conditional |",
+    "           speculation_present | speculation_past |",
+    "           advice | criticism_past |",
+    "           request | offer | suggestion | refusal | invitation | permission_ask",
+    "context_error: true means the modal is grammatically valid but wrong for this register/situation.",
+    "ok: false + no context_error = grammar/logic error (uses ERROR palette key).",
+    "ok: false + context_error: true = register error (keeps real palette colour, different UI treatment possible)."
+  ],
+  "palette": {
+    "must": {
+      "hex": "#e11d48",
+      "bg": "rgba(225,29,72,0.10)",
+      "family": "certainty",
+      "label": "Near-certain / strong obligation"
+    },
+    "must have": {
+      "hex": "#e11d48",
+      "bg": "rgba(225,29,72,0.10)",
+      "family": "certainty",
+      "label": "Near-certain past deduction"
+    },
+    "can't": {
+      "hex": "#be123c",
+      "bg": "rgba(190,18,60,0.10)",
+      "family": "certainty",
+      "label": "Near-certain negative deduction"
+    },
+    "can't have": {
+      "hex": "#be123c",
+      "bg": "rgba(190,18,60,0.10)",
+      "family": "certainty",
+      "label": "Near-certain negative past deduction"
+    },
+    "will": {
+      "hex": "#dc2626",
+      "bg": "rgba(220,38,38,0.09)",
+      "family": "volition",
+      "label": "Confident prediction / volition"
+    },
+    "won't": {
+      "hex": "#dc2626",
+      "bg": "rgba(220,38,38,0.09)",
+      "family": "volition",
+      "label": "Refusal / negative prediction"
+    },
+    "would": {
+      "hex": "#b45309",
+      "bg": "rgba(180,83,9,0.10)",
+      "family": "volition",
+      "label": "Hypothetical / polite volition"
+    },
+    "wouldn't": {
+      "hex": "#b45309",
+      "bg": "rgba(180,83,9,0.10)",
+      "family": "volition",
+      "label": "Hypothetical refusal"
+    },
+    "should": {
+      "hex": "#0ea5e9",
+      "bg": "rgba(14,165,233,0.10)",
+      "family": "advice",
+      "label": "Expectation / mild advice"
+    },
+    "should have": {
+      "hex": "#0369a1",
+      "bg": "rgba(3,105,161,0.10)",
+      "family": "advice",
+      "label": "Past criticism / regret"
+    },
+    "shouldn't": {
+      "hex": "#0ea5e9",
+      "bg": "rgba(14,165,233,0.10)",
+      "family": "advice",
+      "label": "Advice against"
+    },
+    "ought to": {
+      "hex": "#0284c7",
+      "bg": "rgba(2,132,199,0.10)",
+      "family": "advice",
+      "label": "Formal expectation / advice"
+    },
+    "ought to have": {
+      "hex": "#0284c7",
+      "bg": "rgba(2,132,199,0.10)",
+      "family": "advice",
+      "label": "Formal past criticism"
+    },
+    "oughtn't to": {
+      "hex": "#0284c7",
+      "bg": "rgba(2,132,199,0.10)",
+      "family": "advice",
+      "label": "Formal advice against"
+    },
+    "'d better": {
+      "hex": "#f97316",
+      "bg": "rgba(249,115,22,0.10)",
+      "family": "advice",
+      "label": "Strong advice / warning"
+    },
+    "'d better not": {
+      "hex": "#f97316",
+      "bg": "rgba(249,115,22,0.10)",
+      "family": "advice",
+      "label": "Strong warning against"
+    },
+    "might": {
+      "hex": "#8b5cf6",
+      "bg": "rgba(139,92,246,0.10)",
+      "family": "possibility",
+      "label": "Tentative possibility"
+    },
+    "might have": {
+      "hex": "#7c3aed",
+      "bg": "rgba(124,58,237,0.10)",
+      "family": "possibility",
+      "label": "Tentative past possibility"
+    },
+    "may": {
+      "hex": "#6366f1",
+      "bg": "rgba(99,102,241,0.10)",
+      "family": "possibility",
+      "label": "Formal possibility / permission"
+    },
+    "may have": {
+      "hex": "#4f46e5",
+      "bg": "rgba(79,70,229,0.10)",
+      "family": "possibility",
+      "label": "Formal past possibility"
+    },
+    "could": {
+      "hex": "#93c5fd",
+      "bg": "rgba(147,197,253,0.18)",
+      "family": "possibility",
+      "label": "Weak possibility / hypothetical ability"
+    },
+    "could have": {
+      "hex": "#60a5fa",
+      "bg": "rgba(96,165,250,0.15)",
+      "family": "possibility",
+      "label": "Unrealised past possibility"
+    },
+    "mustn't": {
+      "hex": "#dc2626",
+      "bg": "rgba(220,38,38,0.10)",
+      "family": "obligation",
+      "label": "Strong prohibition"
+    },
+    "have to": {
+      "hex": "#ea580c",
+      "bg": "rgba(234,88,12,0.10)",
+      "family": "obligation",
+      "label": "External obligation"
+    },
+    "don't have to": {
+      "hex": "#78716c",
+      "bg": "rgba(120,113,108,0.08)",
+      "family": "obligation",
+      "label": "No obligation"
+    },
+    "need to": {
+      "hex": "#d97706",
+      "bg": "rgba(217,119,6,0.10)",
+      "family": "obligation",
+      "label": "Necessity"
+    },
+    "needn't": {
+      "hex": "#78716c",
+      "bg": "rgba(120,113,108,0.08)",
+      "family": "obligation",
+      "label": "No necessity"
+    },
+    "can": {
+      "hex": "#10b981",
+      "bg": "rgba(16,185,129,0.10)",
+      "family": "permission",
+      "label": "Informal permission / ability"
+    },
+    "can't (perm)": {
+      "hex": "#059669",
+      "bg": "rgba(5,150,105,0.10)",
+      "family": "permission",
+      "label": "Informal refusal of permission"
+    },
+    "could (req)": {
+      "hex": "#34d399",
+      "bg": "rgba(52,211,153,0.13)",
+      "family": "functional",
+      "label": "Polite request"
+    },
+    "would (req)": {
+      "hex": "#f59e0b",
+      "bg": "rgba(245,158,11,0.10)",
+      "family": "functional",
+      "label": "Polite / formal request"
+    },
+    "will (req)": {
+      "hex": "#fbbf24",
+      "bg": "rgba(251,191,36,0.12)",
+      "family": "functional",
+      "label": "Direct / informal request"
+    },
+    "shall (sug)": {
+      "hex": "#a78bfa",
+      "bg": "rgba(167,139,250,0.10)",
+      "family": "functional",
+      "label": "Offer / suggestion (British)"
+    },
+    "shall (off)": {
+      "hex": "#a78bfa",
+      "bg": "rgba(167,139,250,0.10)",
+      "family": "functional",
+      "label": "Offer (British, first person)"
+    },
+    "ERROR": {
+      "hex": "#78716c",
+      "bg": "rgba(120,113,108,0.08)",
+      "family": "error",
+      "label": "Incorrect in this context"
+    }
+  },
+  "functions": {
+    "first_conditional": {
+      "label": "First conditional",
+      "cefr_min": "B1"
+    },
+    "second_conditional": {
+      "label": "Second conditional",
+      "cefr_min": "B1"
+    },
+    "third_conditional": {
+      "label": "Third conditional",
+      "cefr_min": "B2"
+    },
+    "speculation_present": {
+      "label": "Speculation · present",
+      "cefr_min": "B1"
+    },
+    "speculation_past": {
+      "label": "Speculation · past",
+      "cefr_min": "B2"
+    },
+    "advice": {
+      "label": "Advice",
+      "cefr_min": "A2"
+    },
+    "criticism_past": {
+      "label": "Criticism · past",
+      "cefr_min": "B2"
+    },
+    "request": {
+      "label": "Requests",
+      "cefr_min": "A2"
+    },
+    "offer": {
+      "label": "Offers",
+      "cefr_min": "A2"
+    },
+    "suggestion": {
+      "label": "Suggestions",
+      "cefr_min": "B1"
+    },
+    "refusal": {
+      "label": "Refusals",
+      "cefr_min": "B1"
+    },
+    "invitation": {
+      "label": "Invitations",
+      "cefr_min": "A2"
+    },
+    "permission_ask": {
+      "label": "Asking permission",
+      "cefr_min": "A2"
+    }
+  },
+  "sentences": [
+    {
+      "id": "cond-001",
+      "function": "first_conditional",
+      "cefr": "B1",
+      "register": "neutral",
+      "dangerous_pairs": [
+        "will/should",
+        "will/might"
+      ],
+      "context": "A manager speaking encouragingly to an employee.",
+      "before": "If you finish the report,",
+      "after": "feel proud.",
+      "slot_after_modal": "you",
+      "modals": [
+        {
+          "word": "will",
+          "palette_key": "will",
+          "ok": true,
+          "gloss": "Confident prediction",
+          "note": "The most neutral choice — a straightforward promise about the result."
+        },
+        {
+          "word": "should",
+          "palette_key": "should",
+          "ok": true,
+          "gloss": "Reasonable expectation",
+          "note": "Slightly more tentative than 'will'. The outcome is likely but not guaranteed."
+        },
+        {
+          "word": "might",
+          "palette_key": "might",
+          "ok": true,
+          "gloss": "Tentative possibility",
+          "note": "Much weaker. The speaker isn't very sure — feelings are unpredictable."
+        },
+        {
+          "word": "must",
+          "palette_key": "must",
+          "ok": true,
+          "gloss": "Strong inference",
+          "note": "Sounds almost like a logical conclusion: given how hard you worked, pride is the only possible response."
+        },
+        {
+          "word": "shall",
+          "palette_key": "ERROR",
+          "ok": false,
+          "gloss": "Not used in modern neutral English",
+          "note": "'Shall' is archaic or legalistic here. You'd only meet it in very formal or old-fashioned writing."
+        }
+      ]
+    },
+    {
+      "id": "cond-002",
+      "function": "first_conditional",
+      "cefr": "B1",
+      "register": "neutral",
+      "dangerous_pairs": [
+        "will/can",
+        "can/could"
+      ],
+      "context": "Two friends planning a picnic, looking at the sky.",
+      "before": "If the weather stays fine,",
+      "after": "eat outside.",
+      "slot_after_modal": "we",
+      "modals": [
+        {
+          "word": "will",
+          "palette_key": "will",
+          "ok": true,
+          "gloss": "Firm plan",
+          "note": "A confident intention — the picnic is on."
+        },
+        {
+          "word": "can",
+          "palette_key": "can",
+          "ok": true,
+          "gloss": "Possibility opens up",
+          "note": "Frames the fine weather as unlocking an option that isn't currently available."
+        },
+        {
+          "word": "could",
+          "palette_key": "could",
+          "ok": true,
+          "gloss": "Softer suggestion",
+          "note": "A gentle proposal — more exploratory than 'can', slightly hypothetical in feel."
+        },
+        {
+          "word": "might",
+          "palette_key": "might",
+          "ok": true,
+          "gloss": "Undecided",
+          "note": "The speaker hasn't committed yet — eating outside is one of several options."
+        },
+        {
+          "word": "should",
+          "palette_key": "should",
+          "ok": true,
+          "gloss": "Recommendation",
+          "note": "Frames eating outside as the right thing to do — almost an obligation to enjoy the weather."
+        }
+      ]
+    },
+    {
+      "id": "spec-001",
+      "function": "speculation_present",
+      "cefr": "B1",
+      "register": "neutral",
+      "dangerous_pairs": [
+        "must/might",
+        "might/could"
+      ],
+      "context": "Looking at a dark house across the street. No lights, no car in the drive.",
+      "before": "They",
+      "after": "be away on holiday.",
+      "slot_after_modal": "",
+      "modals": [
+        {
+          "word": "must",
+          "palette_key": "must",
+          "ok": true,
+          "gloss": "Near-certain deduction",
+          "note": "The visual evidence is strong. You are highly confident — perhaps 95% sure."
+        },
+        {
+          "word": "might",
+          "palette_key": "might",
+          "ok": true,
+          "gloss": "One possible reality",
+          "note": "About 50-50 — they might be away, or they might just be out for the evening."
+        },
+        {
+          "word": "could",
+          "palette_key": "could",
+          "ok": true,
+          "gloss": "Weaker possibility",
+          "note": "Similar to 'might' but slightly more neutral — flagging something as technically possible without committing."
+        },
+        {
+          "word": "may",
+          "palette_key": "may",
+          "ok": true,
+          "gloss": "Formal possibility",
+          "note": "Very close in meaning to 'might', just a touch more formal in tone."
+        },
+        {
+          "word": "can",
+          "palette_key": "ERROR",
+          "ok": false,
+          "gloss": "Incorrect usage",
+          "note": "'Can' works for general theoretical possibility ('accidents can happen') but is not used for guessing about a specific, current situation."
+        }
+      ]
+    },
+    {
+      "id": "spec-002",
+      "function": "speculation_past",
+      "cefr": "B2",
+      "register": "neutral",
+      "dangerous_pairs": [
+        "must have/might have",
+        "should have/must have"
+      ],
+      "context": "A colleague didn't come to the meeting. You're guessing why.",
+      "before": "She",
+      "after": "forgotten about it.",
+      "slot_after_modal": "have",
+      "modals": [
+        {
+          "word": "must have",
+          "palette_key": "must have",
+          "ok": true,
+          "gloss": "Confident past deduction",
+          "note": "You are almost entirely sure this is the reason. The evidence points strongly here."
+        },
+        {
+          "word": "might have",
+          "palette_key": "might have",
+          "ok": true,
+          "gloss": "Possible past explanation",
+          "note": "A viable possibility, but you acknowledge there are other potential explanations too."
+        },
+        {
+          "word": "could have",
+          "palette_key": "could have",
+          "ok": true,
+          "gloss": "Hypothetical past possibility",
+          "note": "Very close to 'might have'. Both function well here."
+        },
+        {
+          "word": "may have",
+          "palette_key": "may have",
+          "ok": true,
+          "gloss": "Formal past possibility",
+          "note": "The formal equivalent of 'might have' — commonly found in professional writing and news reports."
+        },
+        {
+          "word": "should have",
+          "palette_key": "ERROR",
+          "ok": false,
+          "gloss": "Illogical meaning",
+          "note": "Grammatically correct, but logically wrong. 'Should have forgotten' implies she was supposed to forget — which makes no sense here."
+        }
+      ]
+    },
+    {
+      "id": "adv-001",
+      "function": "advice",
+      "cefr": "B1",
+      "register": "neutral",
+      "dangerous_pairs": [
+        "shouldn't/mustn't",
+        "shouldn't/'d better not"
+      ],
+      "context": "A friend is struggling to sleep and asks what to do.",
+      "before": "You",
+      "after": "drink coffee after 3 p.m.",
+      "slot_after_modal": "not",
+      "modals": [
+        {
+          "word": "shouldn't",
+          "palette_key": "shouldn't",
+          "ok": true,
+          "gloss": "Standard advice",
+          "note": "The everyday, natural choice for offering helpful advice. Warm and direct."
+        },
+        {
+          "word": "oughtn't to",
+          "palette_key": "oughtn't to",
+          "ok": true,
+          "gloss": "Formal advice",
+          "note": "Slightly old-fashioned and more formal, but still grammatically correct."
+        },
+        {
+          "word": "'d better not",
+          "palette_key": "'d better not",
+          "ok": true,
+          "gloss": "Warning tone",
+          "note": "Much stronger — implies guaranteed negative consequences if the advice is ignored."
+        },
+        {
+          "word": "mustn't",
+          "palette_key": "mustn't",
+          "ok": true,
+          "gloss": "Strong prohibition",
+          "note": "Very forceful — closer to a strict rule than casual advice. Use when the recommendation is urgent."
+        },
+        {
+          "word": "don't have to",
+          "palette_key": "ERROR",
+          "ok": false,
+          "gloss": "Incorrect meaning",
+          "note": "'Don't have to' signals no obligation — the opposite of advice against something. A very common learner error."
+        }
+      ]
+    },
+    {
+      "id": "crit-001",
+      "function": "criticism_past",
+      "cefr": "B2",
+      "register": "neutral",
+      "dangerous_pairs": [
+        "should have/could have",
+        "should have/must have"
+      ],
+      "context": "A student missed an important deadline.",
+      "before": "You",
+      "after": "told me earlier.",
+      "slot_after_modal": "have",
+      "modals": [
+        {
+          "word": "should have",
+          "palette_key": "should have",
+          "ok": true,
+          "gloss": "Mild criticism / regret",
+          "note": "The standard choice to point out what someone failed to do but ought to have done."
+        },
+        {
+          "word": "could have",
+          "palette_key": "could have",
+          "ok": true,
+          "gloss": "Missed opportunity",
+          "note": "Softer than 'should have'. It highlights the overlooked possibility rather than the failure itself."
+        },
+        {
+          "word": "might have",
+          "palette_key": "might have",
+          "ok": true,
+          "gloss": "Very soft reproach",
+          "note": "The gentlest option — phrasing the criticism almost as a subtle hint rather than a direct complaint."
+        },
+        {
+          "word": "ought to have",
+          "palette_key": "ought to have",
+          "ok": true,
+          "gloss": "Formal criticism",
+          "note": "Virtually identical in meaning to 'should have', simply more elevated in register."
+        },
+        {
+          "word": "must have",
+          "palette_key": "must have",
+          "ok": false,
+          "gloss": "Incorrect meaning",
+          "note": "'Must have told me' shifts the function entirely — it becomes a deduction ('I'm certain you told me'), stripping away the criticism."
+        }
+      ]
+    },
+    {
+      "id": "req-001",
+      "function": "request",
+      "cefr": "A2",
+      "register": "neutral",
+      "dangerous_pairs": [
+        "can/could",
+        "could/would you mind"
+      ],
+      "context": "In an open-plan office. You want a colleague to lower their voice on a call.",
+      "before": "",
+      "after": "speak a little more quietly, please?",
+      "slot_after_modal": "you",
+      "modals": [
+        {
+          "word": "Can",
+          "palette_key": "can",
+          "ok": true,
+          "gloss": "Direct and informal",
+          "note": "Perfectly acceptable between colleagues. Some speakers consider it slightly blunt, but it is natural and very common."
+        },
+        {
+          "word": "Could",
+          "palette_key": "could (req)",
+          "ok": true,
+          "gloss": "Polite and neutral",
+          "note": "The safe all-purpose choice. Slightly more tentative than 'can' — it softens the request without sounding stiff."
+        },
+        {
+          "word": "Would",
+          "palette_key": "would (req)",
+          "ok": true,
+          "gloss": "Formal and considerate",
+          "note": "More formal than 'could'. Signals real respect for the other person's time or effort."
+        },
+        {
+          "word": "Will",
+          "palette_key": "will (req)",
+          "ok": true,
+          "gloss": "Direct — slightly impatient",
+          "note": "Common in informal speech, but can sound demanding in writing or to someone you don't know well."
+        },
+        {
+          "word": "Shall",
+          "palette_key": "ERROR",
+          "ok": false,
+          "gloss": "Wrong person for a request",
+          "note": "'Shall you' is not used in English. 'Shall' in questions works only with I or we: 'Shall I open a window?'"
+        }
+      ]
+    },
+    {
+      "id": "req-002",
+      "function": "request",
+      "cefr": "B1",
+      "register": "formal",
+      "dangerous_pairs": [
+        "would/will",
+        "could/would"
+      ],
+      "context": "Emailing a senior colleague you haven't met. You need them to review a document.",
+      "before": "I was wondering if",
+      "after": "be able to cast an eye over the attached document.",
+      "slot_after_modal": "you might",
+      "modals": [
+        {
+          "word": "I was wondering if you might",
+          "palette_key": "would (req)",
+          "ok": true,
+          "gloss": "Very polite, indirect",
+          "note": "The double distancing ('was wondering' + 'might') makes this one of the most considerate request structures in English. Ideal for formal written requests."
+        },
+        {
+          "word": "Would you",
+          "palette_key": "would (req)",
+          "ok": true,
+          "gloss": "Formal and respectful",
+          "note": "Clear and professional. Very suitable for written communication with someone senior."
+        },
+        {
+          "word": "Could you",
+          "palette_key": "could (req)",
+          "ok": true,
+          "gloss": "Polite, slightly less formal",
+          "note": "Appropriate here, though marginally less deferential than 'Would you' for a first formal contact."
+        },
+        {
+          "word": "Can you",
+          "palette_key": "can",
+          "ok": true,
+          "gloss": "Too informal for this context",
+          "note": "Grammatically fine, but register mismatch — 'Can you' reads as casual in a formal email to someone you don't know."
+        },
+        {
+          "word": "Will you",
+          "palette_key": "will (req)",
+          "ok": false,
+          "gloss": "Sounds demanding here",
+          "note": "'Will you' in a formal email can come across as presumptuous — it implies the other person has already agreed. Avoid in written requests to seniors.",
+          "context_error": true
+        }
+      ]
+    },
+    {
+      "id": "off-001",
+      "function": "offer",
+      "cefr": "A2",
+      "register": "neutral",
+      "dangerous_pairs": [
+        "shall/will",
+        "shall/would"
+      ],
+      "context": "A guest arrives at your home on a cold evening.",
+      "before": "",
+      "after": "I make you a cup of tea?",
+      "slot_after_modal": "",
+      "modals": [
+        {
+          "word": "Shall",
+          "palette_key": "shall (off)",
+          "ok": true,
+          "gloss": "Natural British English offer",
+          "note": "The classic British structure for first-person offers. Warm, spontaneous, and very natural."
+        },
+        {
+          "word": "Can",
+          "palette_key": "can",
+          "ok": true,
+          "gloss": "Informal offer",
+          "note": "Friendly and common. Slightly less idiomatic than 'shall' for an offer, but perfectly natural."
+        },
+        {
+          "word": "Could",
+          "palette_key": "could (req)",
+          "ok": true,
+          "gloss": "Tentative offer",
+          "note": "Slightly softer — leaves the guest more room to decline without awkwardness."
+        },
+        {
+          "word": "Would",
+          "palette_key": "would (req)",
+          "ok": false,
+          "gloss": "Wrong structure for an offer",
+          "note": "'Would I make you tea?' sounds like a genuine question about your own behaviour, not an offer. 'Would you like me to make tea?' is the correct pattern.",
+          "context_error": true
+        },
+        {
+          "word": "Must",
+          "palette_key": "ERROR",
+          "ok": false,
+          "gloss": "Obligation — not an offer",
+          "note": "'Must I make you tea?' implies reluctant duty. It would sound very strange and slightly hostile as an offer."
+        }
+      ]
+    },
+    {
+      "id": "sug-001",
+      "function": "suggestion",
+      "cefr": "B1",
+      "register": "neutral",
+      "dangerous_pairs": [
+        "shall/should",
+        "why don't we/could"
+      ],
+      "context": "You and a friend are trying to decide where to have lunch.",
+      "before": "",
+      "after": "try that new Italian place on the corner?",
+      "slot_after_modal": "",
+      "modals": [
+        {
+          "word": "Shall we",
+          "palette_key": "shall (sug)",
+          "ok": true,
+          "gloss": "Inclusive suggestion",
+          "note": "Invites agreement from the group. Very natural British English for joint decisions."
+        },
+        {
+          "word": "Why don't we",
+          "palette_key": "could (req)",
+          "ok": true,
+          "gloss": "Casual, friendly suggestion",
+          "note": "Extremely common in spoken English. The question form softens what is actually a proposal."
+        },
+        {
+          "word": "We could",
+          "palette_key": "could",
+          "ok": true,
+          "gloss": "Tentative proposal",
+          "note": "Frames the idea as one possibility among others — gives everyone room to suggest alternatives."
+        },
+        {
+          "word": "We should",
+          "palette_key": "should",
+          "ok": true,
+          "gloss": "Mild recommendation",
+          "note": "Slightly stronger than 'could' — the speaker genuinely thinks this is the best option."
+        },
+        {
+          "word": "We must",
+          "palette_key": "must",
+          "ok": true,
+          "gloss": "Enthusiastic suggestion",
+          "note": "Only works if you're genuinely excited about the idea. Otherwise it sounds pushy."
+        }
+      ]
+    },
+    {
+      "id": "ref-001",
+      "function": "refusal",
+      "cefr": "B1",
+      "register": "neutral",
+      "dangerous_pairs": [
+        "won't/can't",
+        "won't/don't want to"
+      ],
+      "context": "Someone asks you to cover their shift at work at very short notice.",
+      "before": "I'm sorry, but I really",
+      "after": "do it this time.",
+      "slot_after_modal": "",
+      "modals": [
+        {
+          "word": "can't",
+          "palette_key": "can't",
+          "ok": true,
+          "gloss": "Polite inability",
+          "note": "The most socially safe refusal. Blurs the line between 'unable' and 'unwilling' — which is often intentional."
+        },
+        {
+          "word": "won't",
+          "palette_key": "won't",
+          "ok": true,
+          "gloss": "Direct refusal of will",
+          "note": "Honest, but blunt. Signals a decision, not an inability. Use carefully — it can sound confrontational."
+        },
+        {
+          "word": "couldn't",
+          "palette_key": "could",
+          "ok": true,
+          "gloss": "Soft, tentative refusal",
+          "note": "Slightly more hesitant than 'can't' — leaves a small opening, as if circumstances might change."
+        },
+        {
+          "word": "wouldn't be able to",
+          "palette_key": "wouldn't",
+          "ok": true,
+          "gloss": "Formal and distanced",
+          "note": "The conditional phrasing adds distance — it sounds considered and formal rather than reactive."
+        },
+        {
+          "word": "mustn't",
+          "palette_key": "ERROR",
+          "ok": false,
+          "gloss": "Wrong meaning entirely",
+          "note": "'I mustn't do it' means 'I'm not allowed to' — implying a rule is stopping you, not your own choice or schedule. Sounds very unusual here."
+        }
+      ]
+    },
+    {
+      "id": "perm-001",
+      "function": "permission_ask",
+      "cefr": "A2",
+      "register": "neutral",
+      "dangerous_pairs": [
+        "can/may",
+        "could/might"
+      ],
+      "context": "In a library. You want to use your laptop but aren't sure if it's allowed.",
+      "before": "",
+      "after": "use my laptop in here?",
+      "slot_after_modal": "I",
+      "modals": [
+        {
+          "word": "Can",
+          "palette_key": "can",
+          "ok": true,
+          "gloss": "Informal permission request",
+          "note": "Very common in everyday speech. Prescriptive grammarians once objected, but 'Can I?' is now fully standard."
+        },
+        {
+          "word": "Could",
+          "palette_key": "could (req)",
+          "ok": true,
+          "gloss": "Polite permission request",
+          "note": "Slightly more tentative and respectful than 'Can I'. A safe choice in any context."
+        },
+        {
+          "word": "May",
+          "palette_key": "may",
+          "ok": true,
+          "gloss": "Formal permission request",
+          "note": "The most traditionally correct form for asking permission. More formal than 'can' or 'could' — very polite."
+        },
+        {
+          "word": "Might",
+          "palette_key": "might",
+          "ok": true,
+          "gloss": "Very tentative — almost hesitant",
+          "note": "'Might I?' is very formal and somewhat old-fashioned. Still used, but can sound overly deferential in modern speech."
+        },
+        {
+          "word": "Shall",
+          "palette_key": "ERROR",
+          "ok": false,
+          "gloss": "Not used for asking permission",
+          "note": "'Shall I?' offers to do something for someone else, it doesn't ask permission for yourself. Wrong function here."
+        }
+      ]
+    }
+  ]
+}
