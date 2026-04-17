@@ -14,7 +14,8 @@
     "           request | offer | suggestion | refusal | invitation | permission_ask",
     "context_error: true means the modal is grammatically valid but wrong for this register/situation.",
     "ok: false + no context_error = grammar/logic error (uses ERROR palette key).",
-    "ok: false + context_error: true = register error (keeps real palette colour, different UI treatment possible)."
+    "ok: false + context_error: true = register error (keeps real palette colour, different UI treatment possible).",
+    "question: true on a modal = append ? to the rendered sentence. Omit for statement-form suggestions."
   ],
   "palette": {
     "must": {
@@ -755,7 +756,7 @@
       ],
       "context": "You and a friend are trying to decide where to have lunch.",
       "before": "",
-      "after": "try that new Italian place on the corner?",
+      "after": "try that new Italian place on the corner.",
       "slot_after_modal": "",
       "modals": [
         {
@@ -763,14 +764,16 @@
           "palette_key": "shall (sug)",
           "ok": true,
           "gloss": "Inclusive suggestion",
-          "note": "Invites agreement from the group. Very natural British English for joint decisions."
+          "note": "Invites agreement from the group. Very natural British English for joint decisions.",
+          "question": true
         },
         {
           "word": "Why don't we",
           "palette_key": "could (req)",
           "ok": true,
           "gloss": "Casual, friendly suggestion",
-          "note": "Extremely common in spoken English. The question form softens what is actually a proposal."
+          "note": "Extremely common in spoken English. The question form softens what is actually a proposal.",
+          "question": true
         },
         {
           "word": "We could",
