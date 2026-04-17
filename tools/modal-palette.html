@@ -51,7 +51,7 @@ html{scroll-padding-top:88px;}
 /* FILTER BAR */
 .filter-bar{position:fixed;left:0;right:0;z-index:890;background:var(--cream-dk);border-bottom:1px solid var(--lt-grey);padding:0 20px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
 .filter-bar::-webkit-scrollbar{display:none;}
-.filter-tabs{display:flex;gap:0;width:max-content;min-width:100%;}
+.filter-tabs{display:flex;gap:0;width:100%;justify-content:center;flex-wrap:wrap;}
 .filter-tab{background:transparent;border:none;border-bottom:3px solid transparent;color:var(--mid-grey);padding:0.7rem 1.1rem;font-family:'Source Sans 3',sans-serif;font-size:0.82rem;font-weight:600;letter-spacing:0.03em;cursor:pointer;white-space:nowrap;transition:color 0.2s,border-color 0.2s;}
 .filter-tab:hover{color:var(--ink);}
 .filter-tab.active{color:var(--navy);border-bottom-color:var(--gold);}
@@ -472,20 +472,24 @@ document.addEventListener('keydown',e=>{
 
 init();
 
-// Measure fixed chrome height and set body padding-top accordingly
+// Set body padding after fonts load so measurements are accurate
 function setBodyPadding() {
   const nav    = document.querySelector('.site-nav');
   const header = document.querySelector('.page-header');
   const bar    = document.querySelector('.filter-bar');
-  const navH   = nav    ? nav.offsetHeight    : 44;
-  const headH  = header ? header.offsetHeight : 100;
-  const barH   = bar    ? bar.offsetHeight    : 44;
-  // Position filter-bar directly below page-header
+  const navH   = nav    ? nav.getBoundingClientRect().height : 44;
+  const headH  = header ? header.getBoundingClientRect().height : 100;
+  const barH   = bar    ? bar.getBoundingClientRect().height  : 44;
   if (bar) bar.style.top = (navH + headH) + 'px';
-  // Body padding = all three stacked
-  document.body.style.paddingTop = (navH + headH + barH) + 'px';
+  document.body.style.paddingTop = (navH + headH + barH + 8) + 'px';
 }
+// Run once immediately, again after fonts, again on resize
 setBodyPadding();
+if (document.fonts && document.fonts.ready) {
+  document.fonts.ready.then(() => {
+    setBodyPadding();
+  });
+}
 window.addEventListener('resize', setBodyPadding);
 </script>
 </body>
