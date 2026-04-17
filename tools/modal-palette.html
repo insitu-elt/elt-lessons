@@ -43,7 +43,7 @@ html{scroll-padding-top:88px;}
 @media(max-width:499px){.nav-title{display:none;}}
 
 /* PAGE HEADER */
-.page-header{position:fixed;top:44px;left:0;right:0;z-index:950;background:var(--navy);border-bottom:3px solid var(--gold);padding:20px 24px 16px;text-align:center;}
+.page-header{position:fixed;top:0;left:0;right:0;z-index:950;background:var(--navy);border-bottom:3px solid var(--gold);padding:20px 24px 16px;text-align:center;}
 .page-badge{display:inline-block;font-size:0.68rem;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(200,150,10,0.4);border-radius:3px;padding:2px 10px;margin-bottom:12px;}
 .page-header h1{font-family:'Playfair Display',serif;font-size:clamp(1.7rem,4vw,2.5rem);color:var(--gold-lt);font-weight:700;margin-bottom:6px;}
 .page-header .subtitle{font-style:italic;color:rgba(248,245,238,0.65);font-size:1rem;}
@@ -472,25 +472,26 @@ document.addEventListener('keydown',e=>{
 
 init();
 
-// Set body padding after fonts load so measurements are accurate
-function setBodyPadding() {
+// Position fixed chrome and set body padding after fonts load
+function applyLayout() {
   const nav    = document.querySelector('.site-nav');
   const header = document.querySelector('.page-header');
   const bar    = document.querySelector('.filter-bar');
-  const navH   = nav    ? nav.getBoundingClientRect().height : 44;
-  const headH  = header ? header.getBoundingClientRect().height : 100;
-  const barH   = bar    ? bar.getBoundingClientRect().height  : 44;
-  if (bar) bar.style.top = (navH + headH) + 'px';
-  document.body.style.paddingTop = (navH + headH + barH + 8) + 'px';
+  const navH   = nav.getBoundingClientRect().height;
+  const headH  = header.getBoundingClientRect().height;
+  const barH   = bar.getBoundingClientRect().height;
+  header.style.top = navH + 'px';
+  bar.style.top    = (navH + headH) + 'px';
+  document.body.style.paddingTop = (navH + headH + barH + 4) + 'px';
 }
-// Run once immediately, again after fonts, again on resize
-setBodyPadding();
-if (document.fonts && document.fonts.ready) {
-  document.fonts.ready.then(() => {
-    setBodyPadding();
-  });
-}
-window.addEventListener('resize', setBodyPadding);
+// Run after DOM paint, then again after fonts, then on resize
+requestAnimationFrame(() => {
+  applyLayout();
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(applyLayout);
+  }
+});
+window.addEventListener('resize', applyLayout);
 </script>
 </body>
 </html>
