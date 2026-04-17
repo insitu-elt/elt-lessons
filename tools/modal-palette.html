@@ -56,10 +56,9 @@ body {
 /* Scrollable content area */
 .app-main {
   flex: 1 1 auto;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-  /* Prevents content touching the very top on load */
-  scroll-padding-top: 16px;
+  overflow: hidden;        /* app-main itself does not scroll */
+  display: flex;
+  flex-direction: column;
 }
 
 /* ── Nav ── */
@@ -104,8 +103,41 @@ body {
 @keyframes spin { to { transform:rotate(360deg); } }
 
 /* ── Content grid ── */
-.main-container { max-width:1200px; margin:0 auto; padding:28px 20px 60px; display:grid; grid-template-columns:1.25fr 1fr; gap:40px; align-items:start; }
-@media(max-width:900px) { .main-container { grid-template-columns:1fr; gap:28px; } }
+.main-container {
+  flex: 1 1 auto;          /* fills remaining height inside app-main */
+  overflow: hidden;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 28px 20px 0;
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  gap: 40px;
+  align-items: start;
+}
+/* Each column scrolls independently */
+.main-container > section,
+.main-container > aside {
+  height: 100%;
+  overflow-y: auto;
+  padding-bottom: 40px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: var(--lt-grey) transparent;
+}
+@media(max-width:900px) {
+  .main-container {
+    grid-template-columns: 1fr;
+    gap: 0;
+    overflow-y: auto;      /* single column: whole container scrolls */
+  }
+  .main-container > section,
+  .main-container > aside {
+    height: auto;
+    overflow-y: visible;
+    padding-bottom: 28px;
+  }
+}
 
 /* ── Stage header ── */
 .stage-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; }
@@ -243,6 +275,9 @@ body {
       </div>
     </div>
   </div>
+  <footer class="site-footer">
+    BELLA &mdash; English Language Assistant Suite &mdash; Grammar Module
+  </footer>
 </div>
 
 <!-- Scrollable content -->
@@ -286,9 +321,7 @@ body {
 
   </div>
 
-  <footer class="site-footer">
-    BELLA &mdash; English Language Assistant Suite &mdash; Grammar Module
-  </footer>
+
 </main>
 
 <script>
