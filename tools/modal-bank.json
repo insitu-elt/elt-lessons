@@ -19,14 +19,14 @@
   ],
   "palette": {
     "must": {
-      "hex": "#e11d48",
-      "bg": "rgba(225,29,72,0.10)",
+      "hex": "#c0152a",
+      "bg": "rgba(192,21,42,0.10)",
       "family": "certainty",
       "label": "Near-certain / strong obligation"
     },
     "must have": {
-      "hex": "#e11d48",
-      "bg": "rgba(225,29,72,0.10)",
+      "hex": "#9f1239",
+      "bg": "rgba(159,18,57,0.10)",
       "family": "certainty",
       "label": "Near-certain past deduction"
     },
@@ -37,86 +37,86 @@
       "label": "Near-certain negative deduction"
     },
     "can't have": {
-      "hex": "#be123c",
-      "bg": "rgba(190,18,60,0.10)",
+      "hex": "#9f1239",
+      "bg": "rgba(159,18,57,0.10)",
       "family": "certainty",
       "label": "Near-certain negative past deduction"
     },
     "will": {
-      "hex": "#dc2626",
-      "bg": "rgba(220,38,38,0.09)",
+      "hex": "#0f766e",
+      "bg": "rgba(15,118,110,0.10)",
       "family": "volition",
       "label": "Confident prediction / volition"
     },
     "won't": {
-      "hex": "#dc2626",
-      "bg": "rgba(220,38,38,0.09)",
+      "hex": "#0f766e",
+      "bg": "rgba(15,118,110,0.10)",
       "family": "volition",
       "label": "Refusal / negative prediction"
     },
     "would": {
-      "hex": "#b45309",
-      "bg": "rgba(180,83,9,0.10)",
+      "hex": "#0d9488",
+      "bg": "rgba(13,148,136,0.10)",
       "family": "volition",
       "label": "Hypothetical / polite volition"
     },
     "wouldn't": {
-      "hex": "#b45309",
-      "bg": "rgba(180,83,9,0.10)",
+      "hex": "#0d9488",
+      "bg": "rgba(13,148,136,0.10)",
       "family": "volition",
       "label": "Hypothetical refusal"
     },
     "should": {
-      "hex": "#0ea5e9",
-      "bg": "rgba(14,165,233,0.10)",
+      "hex": "#1e40af",
+      "bg": "rgba(30,64,175,0.10)",
       "family": "advice",
       "label": "Expectation / mild advice"
     },
     "should have": {
-      "hex": "#0369a1",
-      "bg": "rgba(3,105,161,0.10)",
+      "hex": "#1e3a8a",
+      "bg": "rgba(30,58,138,0.10)",
       "family": "advice",
       "label": "Past criticism / regret"
     },
     "shouldn't": {
-      "hex": "#0ea5e9",
-      "bg": "rgba(14,165,233,0.10)",
+      "hex": "#1e40af",
+      "bg": "rgba(30,64,175,0.10)",
       "family": "advice",
       "label": "Advice against"
     },
     "ought to": {
-      "hex": "#0284c7",
-      "bg": "rgba(2,132,199,0.10)",
+      "hex": "#1d4ed8",
+      "bg": "rgba(29,78,216,0.10)",
       "family": "advice",
       "label": "Formal expectation / advice"
     },
     "ought to have": {
-      "hex": "#0284c7",
-      "bg": "rgba(2,132,199,0.10)",
+      "hex": "#1e3a8a",
+      "bg": "rgba(30,58,138,0.10)",
       "family": "advice",
       "label": "Formal past criticism"
     },
     "oughtn't to": {
-      "hex": "#0284c7",
-      "bg": "rgba(2,132,199,0.10)",
+      "hex": "#1d4ed8",
+      "bg": "rgba(29,78,216,0.10)",
       "family": "advice",
       "label": "Formal advice against"
     },
     "'d better": {
-      "hex": "#f97316",
-      "bg": "rgba(249,115,22,0.10)",
+      "hex": "#c2410c",
+      "bg": "rgba(194,65,12,0.10)",
       "family": "advice",
       "label": "Strong advice / warning"
     },
     "'d better not": {
-      "hex": "#f97316",
-      "bg": "rgba(249,115,22,0.10)",
+      "hex": "#c2410c",
+      "bg": "rgba(194,65,12,0.10)",
       "family": "advice",
       "label": "Strong warning against"
     },
     "might": {
-      "hex": "#8b5cf6",
-      "bg": "rgba(139,92,246,0.10)",
+      "hex": "#7c3aed",
+      "bg": "rgba(124,58,237,0.10)",
       "family": "possibility",
       "label": "Tentative possibility"
     },
@@ -127,38 +127,38 @@
       "label": "Tentative past possibility"
     },
     "may": {
-      "hex": "#6366f1",
-      "bg": "rgba(99,102,241,0.10)",
+      "hex": "#6d28d9",
+      "bg": "rgba(109,40,217,0.10)",
       "family": "possibility",
       "label": "Formal possibility / permission"
     },
     "may have": {
-      "hex": "#4f46e5",
-      "bg": "rgba(79,70,229,0.10)",
+      "hex": "#6d28d9",
+      "bg": "rgba(109,40,217,0.10)",
       "family": "possibility",
       "label": "Formal past possibility"
     },
     "could": {
-      "hex": "#93c5fd",
-      "bg": "rgba(147,197,253,0.18)",
+      "hex": "#a78bfa",
+      "bg": "rgba(167,139,250,0.15)",
       "family": "possibility",
       "label": "Weak possibility / hypothetical ability"
     },
     "could have": {
-      "hex": "#60a5fa",
-      "bg": "rgba(96,165,250,0.15)",
+      "hex": "#a78bfa",
+      "bg": "rgba(167,139,250,0.15)",
       "family": "possibility",
       "label": "Unrealised past possibility"
     },
     "mustn't": {
-      "hex": "#dc2626",
-      "bg": "rgba(220,38,38,0.10)",
+      "hex": "#b91c1c",
+      "bg": "rgba(185,28,28,0.10)",
       "family": "obligation",
       "label": "Strong prohibition"
     },
     "have to": {
-      "hex": "#ea580c",
-      "bg": "rgba(234,88,12,0.10)",
+      "hex": "#c2410c",
+      "bg": "rgba(194,65,12,0.10)",
       "family": "obligation",
       "label": "External obligation"
     },
@@ -169,8 +169,8 @@
       "label": "No obligation"
     },
     "need to": {
-      "hex": "#d97706",
-      "bg": "rgba(217,119,6,0.10)",
+      "hex": "#c2410c",
+      "bg": "rgba(194,65,12,0.10)",
       "family": "obligation",
       "label": "Necessity"
     },
@@ -181,44 +181,44 @@
       "label": "No necessity"
     },
     "can": {
-      "hex": "#10b981",
-      "bg": "rgba(16,185,129,0.10)",
+      "hex": "#16a34a",
+      "bg": "rgba(22,163,74,0.10)",
       "family": "permission",
       "label": "Informal permission / ability"
     },
     "can't (perm)": {
-      "hex": "#059669",
-      "bg": "rgba(5,150,105,0.10)",
+      "hex": "#15803d",
+      "bg": "rgba(21,128,61,0.10)",
       "family": "permission",
       "label": "Informal refusal of permission"
     },
     "could (req)": {
-      "hex": "#34d399",
-      "bg": "rgba(52,211,153,0.13)",
+      "hex": "#b45309",
+      "bg": "rgba(180,83,9,0.10)",
       "family": "functional",
       "label": "Polite request"
     },
     "would (req)": {
-      "hex": "#f59e0b",
-      "bg": "rgba(245,158,11,0.10)",
+      "hex": "#92400e",
+      "bg": "rgba(146,64,14,0.10)",
       "family": "functional",
       "label": "Polite / formal request"
     },
     "will (req)": {
-      "hex": "#fbbf24",
-      "bg": "rgba(251,191,36,0.12)",
+      "hex": "#d97706",
+      "bg": "rgba(217,119,6,0.10)",
       "family": "functional",
       "label": "Direct / informal request"
     },
     "shall (sug)": {
-      "hex": "#a78bfa",
-      "bg": "rgba(167,139,250,0.10)",
+      "hex": "#ca8a04",
+      "bg": "rgba(202,138,4,0.10)",
       "family": "functional",
       "label": "Offer / suggestion (British)"
     },
     "shall (off)": {
-      "hex": "#a78bfa",
-      "bg": "rgba(167,139,250,0.10)",
+      "hex": "#ca8a04",
+      "bg": "rgba(202,138,4,0.10)",
       "family": "functional",
       "label": "Offer (British, first person)"
     },
