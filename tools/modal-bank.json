@@ -227,6 +227,12 @@
       "bg": "rgba(120,113,108,0.08)",
       "family": "error",
       "label": "Incorrect in this context"
+    },
+    "would have": {
+      "hex": "#0f766e",
+      "bg": "rgba(15,118,110,0.10)",
+      "family": "volition",
+      "label": "Hypothetical past outcome"
     }
   },
   "functions": {
@@ -281,6 +287,18 @@
     "permission_ask": {
       "label": "Asking permission",
       "cefr_min": "A2"
+    },
+    "deduction_present": {
+      "label": "Deduction \u00b7 present",
+      "cefr_min": "B1"
+    },
+    "deduction_past": {
+      "label": "Deduction \u00b7 past",
+      "cefr_min": "B2"
+    },
+    "obligation": {
+      "label": "Obligation",
+      "cefr_min": "B1"
     }
   },
   "sentences": [
@@ -388,7 +406,7 @@
     },
     {
       "id": "spec-001",
-      "function": "speculation_present",
+      "function": "deduction_present",
       "cefr": "B1",
       "register": "neutral",
       "dangerous_pairs": [
@@ -446,7 +464,7 @@
         "must have/might have",
         "should have/must have"
       ],
-      "context": "A colleague didn't come to the meeting. You're guessing why.",
+      "context": "A colleague didn't come to the meeting. You have no idea why \u2014 she gave no warning.",
       "before": "She",
       "after": "forgotten about it.",
       "slot_after_modal": "",
@@ -897,6 +915,567 @@
           "ok": false,
           "gloss": "Not used for asking permission",
           "note": "'Shall I?' offers to do something for someone else, it doesn't ask permission for yourself. Wrong function here."
+        }
+      ]
+    },
+    {
+      "id": "ded-001",
+      "function": "deduction_present",
+      "cefr": "B1",
+      "register": "neutral",
+      "dangerous_pairs": [
+        "must/might",
+        "must/could"
+      ],
+      "context": "You knock on your neighbour's door. Music is playing inside and you can see a light on.",
+      "before": "Someone",
+      "after": "be in.",
+      "slot_after_modal": "",
+      "modals": [
+        {
+          "word": "must",
+          "palette_key": "must",
+          "ok": true,
+          "gloss": "Logical deduction from evidence",
+          "note": "The music and the light are evidence. 'Must' signals that you are reasoning from what you can see \u2014 it's not a guess, it's a conclusion."
+        },
+        {
+          "word": "can't",
+          "palette_key": "can't",
+          "ok": true,
+          "gloss": "Negative deduction",
+          "note": "If you said 'Someone can't be in' you would be reasoning to the opposite conclusion \u2014 perhaps because the car is gone and it's very quiet."
+        },
+        {
+          "word": "might",
+          "palette_key": "might",
+          "ok": true,
+          "gloss": "Open possibility \u2014 not a deduction",
+          "note": "'Might' doesn't use the evidence \u2014 it just flags a possibility. Weaker and less precise than 'must' when you have clear evidence."
+        },
+        {
+          "word": "could",
+          "palette_key": "could",
+          "ok": true,
+          "gloss": "Weaker possibility",
+          "note": "Even more tentative than 'might'. Fine if you're uncertain, but misses the strength of the evidence in front of you."
+        },
+        {
+          "word": "should",
+          "palette_key": "should",
+          "ok": false,
+          "gloss": "Wrong function here",
+          "note": "'Should be in' means you expect them to be in \u2014 perhaps because they promised to stay home. It's about expectation, not deduction from evidence."
+        }
+      ]
+    },
+    {
+      "id": "ded-002",
+      "function": "deduction_present",
+      "cefr": "B1",
+      "register": "neutral",
+      "dangerous_pairs": [
+        "must/should",
+        "can't/mustn't"
+      ],
+      "context": "Your friend ordered a pizza forty minutes ago. The delivery app says it left the restaurant thirty-five minutes ago.",
+      "before": "It",
+      "after": "arrive very soon.",
+      "slot_after_modal": "",
+      "modals": [
+        {
+          "word": "should",
+          "palette_key": "should",
+          "ok": true,
+          "gloss": "Confident expectation based on reasoning",
+          "note": "The timing is the evidence. 'Should' here means 'I expect it to, based on what I know' \u2014 a softer deduction than 'must'."
+        },
+        {
+          "word": "must",
+          "palette_key": "must",
+          "ok": true,
+          "gloss": "Strong deduction",
+          "note": "Stronger than 'should' \u2014 you're very confident based on the evidence. Both work, but 'must' leaves less room for doubt."
+        },
+        {
+          "word": "might",
+          "palette_key": "might",
+          "ok": true,
+          "gloss": "Weaker \u2014 ignores the evidence",
+          "note": "'Might' is fine but doesn't use the timing information. It treats arrival as a mere possibility rather than a near-certain conclusion."
+        },
+        {
+          "word": "can't",
+          "palette_key": "can't",
+          "ok": false,
+          "gloss": "Contradicts the evidence",
+          "note": "'It can't arrive soon' would mean the evidence points the other way \u2014 perhaps it only left two minutes ago. Here the evidence says the opposite."
+        },
+        {
+          "word": "mustn't",
+          "palette_key": "mustn't",
+          "ok": false,
+          "gloss": "Prohibition \u2014 not deduction",
+          "note": "'Mustn't arrive' would mean you're forbidding the pizza from coming \u2014 which makes no sense. 'Mustn't' is never used for deduction."
+        }
+      ]
+    },
+    {
+      "id": "ded-003",
+      "function": "deduction_past",
+      "cefr": "B2",
+      "register": "neutral",
+      "dangerous_pairs": [
+        "must have/might have",
+        "must have/should have"
+      ],
+      "context": "You get home and find the front door unlocked. Your flatmate's coat and keys are on the hook.",
+      "before": "My flatmate",
+      "after": "come home while I was out.",
+      "slot_after_modal": "",
+      "modals": [
+        {
+          "word": "must have",
+          "palette_key": "must have",
+          "ok": true,
+          "gloss": "Past deduction from evidence",
+          "note": "The coat and keys are physical evidence. 'Must have' signals a confident past conclusion \u2014 you're not guessing, you're reasoning."
+        },
+        {
+          "word": "might have",
+          "palette_key": "might have",
+          "ok": true,
+          "gloss": "Past possibility \u2014 weaker than the evidence warrants",
+          "note": "Grammatically fine, but with this much evidence 'might have' undersells the conclusion. Use it when evidence is thin or ambiguous."
+        },
+        {
+          "word": "could have",
+          "palette_key": "could have",
+          "ok": true,
+          "gloss": "Hypothetical past \u2014 even more tentative",
+          "note": "The weakest of the three. Appropriate when you're genuinely unsure, less so when the evidence is as clear as this."
+        },
+        {
+          "word": "can't have",
+          "palette_key": "can't have",
+          "ok": false,
+          "gloss": "Negative deduction \u2014 contradicts the evidence",
+          "note": "'Can't have come home' would mean the evidence points the other way. Here it directly contradicts what you can see."
+        },
+        {
+          "word": "should have",
+          "palette_key": "should have",
+          "ok": false,
+          "gloss": "Criticism \u2014 completely different meaning",
+          "note": "'Should have come home' is a criticism \u2014 implying they were supposed to but perhaps didn't. It has nothing to do with deduction from evidence."
+        }
+      ]
+    },
+    {
+      "id": "spec-003",
+      "function": "speculation_present",
+      "cefr": "B1",
+      "register": "neutral",
+      "dangerous_pairs": [
+        "might/must",
+        "could/might"
+      ],
+      "context": "A friend hasn't replied to your message for two days. You have no idea why.",
+      "before": "She",
+      "after": "be busy, I suppose.",
+      "slot_after_modal": "",
+      "modals": [
+        {
+          "word": "might",
+          "palette_key": "might",
+          "ok": true,
+          "gloss": "Open speculation \u2014 no evidence",
+          "note": "You're not reasoning from clues \u2014 you're just floating a possibility. 'Might' is the natural choice when you genuinely don't know."
+        },
+        {
+          "word": "could",
+          "palette_key": "could",
+          "ok": true,
+          "gloss": "Alternative possibility",
+          "note": "Very close to 'might' here. 'Could' sometimes implies one of several possibilities \u2014 'she could be busy, or she could have lost her phone.'"
+        },
+        {
+          "word": "may",
+          "palette_key": "may",
+          "ok": true,
+          "gloss": "Slightly more formal speculation",
+          "note": "Essentially the same meaning as 'might' but a touch more formal in tone."
+        },
+        {
+          "word": "must",
+          "palette_key": "must",
+          "ok": false,
+          "gloss": "Too strong \u2014 implies evidence you don't have",
+          "note": "'Must be busy' claims a level of certainty that isn't justified. You'd use 'must' if you had clear evidence \u2014 not when you're guessing."
+        },
+        {
+          "word": "will",
+          "palette_key": "will",
+          "ok": false,
+          "gloss": "Assertion \u2014 not speculation",
+          "note": "'She will be busy' states it as a fact. That's too confident when you genuinely have no idea why she hasn't replied."
+        }
+      ]
+    },
+    {
+      "id": "spec-004",
+      "function": "speculation_past",
+      "cefr": "B2",
+      "register": "neutral",
+      "dangerous_pairs": [
+        "might have/must have",
+        "could have/might have"
+      ],
+      "context": "Your colleague left the office early yesterday without saying anything. You don't know why.",
+      "before": "He",
+      "after": "had an appointment, I imagine.",
+      "slot_after_modal": "",
+      "modals": [
+        {
+          "word": "might have",
+          "palette_key": "might have",
+          "ok": true,
+          "gloss": "Open past speculation",
+          "note": "You're imagining possibilities without any real evidence. 'Might have' is honest about that uncertainty."
+        },
+        {
+          "word": "could have",
+          "palette_key": "could have",
+          "ok": true,
+          "gloss": "One of several possibilities",
+          "note": "Similar to 'might have'. 'Could have' sometimes carries a slightly more exploratory feel \u2014 one option among others."
+        },
+        {
+          "word": "may have",
+          "palette_key": "may have",
+          "ok": true,
+          "gloss": "Formal past speculation",
+          "note": "The formal equivalent of 'might have'. Common in written English and professional speech."
+        },
+        {
+          "word": "must have",
+          "palette_key": "must have",
+          "ok": false,
+          "gloss": "Claims evidence you don't have",
+          "note": "'Must have had an appointment' implies you're reasoning from evidence. But the context says you have no idea \u2014 so 'must have' overclaims your certainty."
+        },
+        {
+          "word": "should have",
+          "palette_key": "should have",
+          "ok": false,
+          "gloss": "Criticism \u2014 not speculation",
+          "note": "'Should have had an appointment' implies he was supposed to but perhaps didn't. It's a completely different function \u2014 criticism or unfulfilled expectation."
+        }
+      ]
+    },
+    {
+      "id": "cond-003",
+      "function": "second_conditional",
+      "cefr": "B1",
+      "register": "neutral",
+      "dangerous_pairs": [
+        "would/could",
+        "would/might"
+      ],
+      "context": "Imagining a hypothetical situation \u2014 you don't actually have a million pounds.",
+      "before": "If I had a million pounds, I",
+      "after": "travel the world.",
+      "slot_after_modal": "",
+      "modals": [
+        {
+          "word": "would",
+          "palette_key": "would",
+          "ok": true,
+          "gloss": "Confident hypothetical intention",
+          "note": "The classic second conditional main clause. 'Would' presents the outcome as a firm intention \u2014 what you'd definitely do."
+        },
+        {
+          "word": "could",
+          "palette_key": "could",
+          "ok": true,
+          "gloss": "Hypothetical ability \u2014 opens a possibility",
+          "note": "'Could' shifts the meaning slightly \u2014 it's no longer about intention but about what would become possible. 'I'd have the means to travel.'"
+        },
+        {
+          "word": "might",
+          "palette_key": "might",
+          "ok": true,
+          "gloss": "Tentative hypothetical \u2014 not fully committed",
+          "note": "'Might' suggests you're not even sure what you'd do. More honest than 'would' if you genuinely haven't decided."
+        },
+        {
+          "word": "should",
+          "palette_key": "should",
+          "ok": false,
+          "gloss": "Wrong meaning in this context",
+          "note": "'I should travel the world' reads as obligation or advice \u2014 not a hypothetical outcome. It doesn't function as a second conditional consequent here."
+        },
+        {
+          "word": "will",
+          "palette_key": "will",
+          "ok": false,
+          "gloss": "Wrong tense \u2014 makes it first conditional",
+          "note": "'If I had a million pounds, I will travel' mixes tenses incorrectly. 'Will' belongs in the first conditional where the situation is real and possible."
+        }
+      ]
+    },
+    {
+      "id": "cond-004",
+      "function": "second_conditional",
+      "cefr": "B1",
+      "register": "neutral",
+      "dangerous_pairs": [
+        "would/could",
+        "were/was"
+      ],
+      "context": "Giving advice to a friend who is unhappy in their job. You are imagining yourself in their position.",
+      "before": "If I were you, I",
+      "after": "look for a new job.",
+      "slot_after_modal": "",
+      "modals": [
+        {
+          "word": "would",
+          "palette_key": "would",
+          "ok": true,
+          "gloss": "Standard hypothetical advice",
+          "note": "'If I were you, I would...' is the classic advice structure in English. Warm and direct without being bossy."
+        },
+        {
+          "word": "might",
+          "palette_key": "might",
+          "ok": true,
+          "gloss": "Softer, more tentative advice",
+          "note": "Gentler than 'would' \u2014 leaves the decision entirely with your friend. Very polite."
+        },
+        {
+          "word": "could",
+          "palette_key": "could",
+          "ok": true,
+          "gloss": "Presenting it as an option",
+          "note": "'Could' frames job-hunting as one possibility among others \u2014 less directive than 'would'."
+        },
+        {
+          "word": "should",
+          "palette_key": "should",
+          "ok": true,
+          "gloss": "Stronger recommendation",
+          "note": "Stronger than 'would' \u2014 closer to direct advice than a hypothetical. 'If I were you, I should' is slightly old-fashioned but still used."
+        },
+        {
+          "word": "must",
+          "palette_key": "must",
+          "ok": false,
+          "gloss": "Too forceful for this structure",
+          "note": "'If I were you, I must look for a new job' sounds unnatural \u2014 'must' doesn't fit comfortably in second conditional main clauses."
+        }
+      ]
+    },
+    {
+      "id": "cond-005",
+      "function": "third_conditional",
+      "cefr": "B2",
+      "register": "neutral",
+      "dangerous_pairs": [
+        "would have/could have",
+        "would have/might have"
+      ],
+      "context": "You missed the bus and arrived late for an important meeting. Looking back now.",
+      "before": "If I had left ten minutes earlier, I",
+      "after": "caught the bus.",
+      "slot_after_modal": "",
+      "modals": [
+        {
+          "word": "would have",
+          "palette_key": "would",
+          "ok": true,
+          "gloss": "Certain past counterfactual outcome",
+          "note": "The classic third conditional. You're certain that leaving earlier would have changed the outcome. No doubt about the connection."
+        },
+        {
+          "word": "could have",
+          "palette_key": "could have",
+          "ok": true,
+          "gloss": "Past possibility \u2014 less certain",
+          "note": "'Could have caught' means it would have been possible \u2014 but perhaps not guaranteed. Maybe the bus was already pulling away."
+        },
+        {
+          "word": "might have",
+          "palette_key": "might have",
+          "ok": true,
+          "gloss": "Tentative past counterfactual",
+          "note": "The weakest of the three. 'Might have' leaves real doubt \u2014 even leaving earlier might not have been enough."
+        },
+        {
+          "word": "should have",
+          "palette_key": "should have",
+          "ok": false,
+          "gloss": "Criticism \u2014 not a conditional outcome",
+          "note": "'Should have caught the bus' is a criticism of yourself \u2014 implying you were supposed to catch it. It doesn't function as a conditional consequent."
+        },
+        {
+          "word": "must have",
+          "palette_key": "must have",
+          "ok": false,
+          "gloss": "Deduction \u2014 not a hypothetical",
+          "note": "'Must have caught the bus' would be a deduction about what actually happened \u2014 not a hypothetical about what would have happened."
+        }
+      ]
+    },
+    {
+      "id": "cond-006",
+      "function": "third_conditional",
+      "cefr": "B2",
+      "register": "neutral",
+      "dangerous_pairs": [
+        "would have/could have",
+        "should have/would have"
+      ],
+      "context": "A colleague didn't read the project brief carefully. The presentation went badly. Reflecting afterwards.",
+      "before": "If she had read the brief properly, the presentation",
+      "after": "gone much better.",
+      "slot_after_modal": "",
+      "modals": [
+        {
+          "word": "would have",
+          "palette_key": "would",
+          "ok": true,
+          "gloss": "Confident counterfactual outcome",
+          "note": "You're certain the outcome would have been different. The link between cause and effect is clear."
+        },
+        {
+          "word": "could have",
+          "palette_key": "could have",
+          "ok": true,
+          "gloss": "It would have been possible",
+          "note": "'Could have gone better' \u2014 the potential was there. Slightly more cautious than 'would have'."
+        },
+        {
+          "word": "might have",
+          "palette_key": "might have",
+          "ok": true,
+          "gloss": "A real possibility, but not certain",
+          "note": "Leaves room for doubt \u2014 maybe other factors would still have caused problems."
+        },
+        {
+          "word": "should have",
+          "palette_key": "should have",
+          "ok": false,
+          "gloss": "Expectation \u2014 not a conditional outcome",
+          "note": "'The presentation should have gone better' is a separate statement of expectation or regret, not a conditional consequence. It doesn't complete the if-clause."
+        },
+        {
+          "word": "must have",
+          "palette_key": "must have",
+          "ok": false,
+          "gloss": "Deduction about the past \u2014 wrong function",
+          "note": "'Must have gone better' would be a deduction about what actually happened. Here we're talking about a hypothetical \u2014 what would have happened under different circumstances."
+        }
+      ]
+    },
+    {
+      "id": "obl-001",
+      "function": "obligation",
+      "cefr": "B1",
+      "register": "neutral",
+      "dangerous_pairs": [
+        "must/have to",
+        "must/need to"
+      ],
+      "context": "A doctor is speaking to a patient with high blood pressure.",
+      "before": "You",
+      "after": "reduce your salt intake.",
+      "slot_after_modal": "",
+      "modals": [
+        {
+          "word": "must",
+          "palette_key": "must",
+          "ok": true,
+          "gloss": "Strong internal obligation \u2014 the speaker's authority",
+          "note": "'Must' here comes from the doctor's professional judgement. It's a personal instruction \u2014 strong and direct."
+        },
+        {
+          "word": "have to",
+          "palette_key": "have to",
+          "ok": true,
+          "gloss": "External obligation \u2014 the medical facts require it",
+          "note": "'Have to' shifts the source of obligation outward \u2014 it's not just the doctor's opinion, it's what the medical evidence demands."
+        },
+        {
+          "word": "need to",
+          "palette_key": "need to",
+          "ok": true,
+          "gloss": "Necessity \u2014 slightly softer than must",
+          "note": "Very close to 'have to' in meaning. 'Need to' often feels slightly warmer and less authoritative than 'must'."
+        },
+        {
+          "word": "should",
+          "palette_key": "should",
+          "ok": true,
+          "gloss": "Recommendation \u2014 weaker than obligation",
+          "note": "'Should' is advice, not a requirement. For a doctor dealing with high blood pressure, 'should' may understate the urgency."
+        },
+        {
+          "word": "needn't",
+          "palette_key": "needn't",
+          "ok": false,
+          "gloss": "No necessity \u2014 opposite meaning",
+          "note": "'Needn't reduce your salt intake' tells the patient it isn't necessary \u2014 the exact opposite of the intended advice."
+        }
+      ]
+    },
+    {
+      "id": "obl-002",
+      "function": "obligation",
+      "cefr": "B1",
+      "register": "neutral",
+      "dangerous_pairs": [
+        "don't have to/mustn't",
+        "needn't/mustn't"
+      ],
+      "context": "A colleague asks if they need to submit a timesheet this week \u2014 the system is being updated.",
+      "before": "You",
+      "after": "submit one this week \u2014 the system is down.",
+      "slot_after_modal": "",
+      "modals": [
+        {
+          "word": "don't have to",
+          "palette_key": "don't have to",
+          "ok": true,
+          "gloss": "No obligation \u2014 it's not required",
+          "note": "The system being down removes the requirement. 'Don't have to' correctly signals that submission is optional this week."
+        },
+        {
+          "word": "needn't",
+          "palette_key": "needn't",
+          "ok": true,
+          "gloss": "No necessity \u2014 slightly more formal",
+          "note": "Means the same as 'don't have to' but sounds more formal or old-fashioned. Still perfectly correct."
+        },
+        {
+          "word": "mustn't",
+          "palette_key": "mustn't",
+          "ok": false,
+          "gloss": "Prohibition \u2014 dangerously wrong here",
+          "note": "This is the classic learner error. 'Mustn't submit' means it's forbidden \u2014 as if submitting would cause a problem. 'Don't have to' means it simply isn't required. Very different."
+        },
+        {
+          "word": "shouldn't",
+          "palette_key": "shouldn't",
+          "ok": false,
+          "gloss": "Advice against \u2014 also misleading",
+          "note": "'Shouldn't submit' implies it would be a bad idea to do so. 'Don't have to' simply removes the obligation without discouraging submission."
+        },
+        {
+          "word": "can't",
+          "palette_key": "can't",
+          "ok": false,
+          "gloss": "Inability \u2014 implies the system blocks submission",
+          "note": "'Can't submit' suggests the system prevents it. That may be true, but the intended message is about obligation, not ability."
         }
       ]
     }
