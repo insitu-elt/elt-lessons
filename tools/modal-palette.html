@@ -22,6 +22,10 @@
   --error-bg:  rgba(120,113,108,0.10);
   --warn-amber:#b45309;
   --warn-bg:   rgba(180,83,9,0.09);
+  --correct:   #15803d;
+  --correct-bg:rgba(21,128,61,0.10);
+  --wrong:     #b91c1c;
+  --wrong-bg:  rgba(185,28,28,0.08);
   --active-color: var(--gold);
   --active-wash:  rgba(200,150,10,0.08);
   --ease:       cubic-bezier(0.16, 1, 0.3, 1);
@@ -30,188 +34,110 @@
   --shadow:     0 4px 18px rgba(14,31,61,0.10), 0 1px 3px rgba(14,31,61,0.06);
 }
 
-*,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+*,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+html, body { height:100%; overflow:hidden; }
+body { font-family:'Source Sans 3',sans-serif; background:var(--cream); color:var(--ink); display:flex; flex-direction:column; }
 
-/* ── App shell: fixed header, scrolling body ── */
-html, body {
-  height: 100%;
-  overflow: hidden;
-}
-body {
-  font-family: 'Source Sans 3', sans-serif;
-  background: var(--cream);
-  color: var(--ink);
-  display: flex;
-  flex-direction: column;
-}
+.app-header { flex:0 0 auto; z-index:100; background:var(--navy); box-shadow:0 2px 12px rgba(0,0,0,0.25); }
+.app-main   { flex:1 1 auto; overflow:hidden; display:flex; flex-direction:column; }
 
-/* Header block — never moves */
-.app-header {
-  flex: 0 0 auto;
-  z-index: 100;
-  background: var(--navy);
-  box-shadow: 0 2px 12px rgba(0,0,0,0.25);
-}
-
-/* Scrollable content area */
-.app-main {
-  flex: 1 1 auto;
-  overflow: hidden;        /* app-main itself does not scroll */
-  display: flex;
-  flex-direction: column;
-}
-
-/* ── Nav ── */
-.site-nav {
-  height: 44px;
-  border-bottom: 2px solid var(--gold);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 18px;
-}
+/* Nav */
+.site-nav { height:44px; border-bottom:2px solid var(--gold); display:flex; align-items:center; justify-content:space-between; padding:0 18px; }
 .nav-home { display:flex; align-items:center; gap:7px; color:var(--gold); text-decoration:none; font-size:0.82rem; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; transition:color 0.15s; }
 .nav-home:hover { color:var(--gold-lt); }
 .nav-title { font-family:'Playfair Display',serif; font-style:italic; font-size:0.95rem; color:rgba(248,245,238,0.65); }
 @media(max-width:499px){ .nav-title { display:none; } }
 
-/* ── Page header ── */
-.page-header {
-  padding: 20px 24px 16px;
-  text-align: center;
-  border-bottom: 3px solid var(--gold);
-}
-.page-badge { display:inline-block; font-size:0.68rem; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; color:var(--gold); border:1px solid rgba(200,150,10,0.4); border-radius:3px; padding:2px 10px; margin-bottom:10px; }
-.page-header h1 { font-family:'Playfair Display',serif; font-size:clamp(1.5rem,3.5vw,2.2rem); color:var(--gold-lt); font-weight:700; margin-bottom:4px; }
-.page-header .subtitle { font-style:italic; color:rgba(248,245,238,0.65); font-size:0.95rem; }
+/* Page header */
+.page-header { padding:16px 24px 12px; text-align:center; border-bottom:3px solid var(--gold); }
+.page-badge { display:inline-block; font-size:0.68rem; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; color:var(--gold); border:1px solid rgba(200,150,10,0.4); border-radius:3px; padding:2px 10px; margin-bottom:8px; }
+.page-header h1 { font-family:'Playfair Display',serif; font-size:clamp(1.3rem,3vw,2rem); color:var(--gold-lt); font-weight:700; margin-bottom:3px; }
+.page-header .subtitle { font-style:italic; color:rgba(248,245,238,0.65); font-size:0.9rem; }
 
-/* ── Filter bar ── */
-.filter-bar {
-  background: var(--cream-dk);
-  border-bottom: 1px solid var(--lt-grey);
-  padding: 0 20px;
-  overflow-x: auto;
-  scrollbar-width: none;
-}
+/* Mode toggle */
+.mode-bar { background:var(--navy-mid); border-bottom:1px solid rgba(200,150,10,0.25); display:flex; align-items:center; justify-content:center; gap:0; }
+.mode-btn { background:transparent; border:none; border-bottom:3px solid transparent; color:rgba(248,245,238,0.5); padding:0.5rem 1.5rem; font-family:'Source Sans 3',sans-serif; font-size:0.8rem; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; cursor:pointer; transition:color 0.2s, border-color 0.2s; }
+.mode-btn:hover { color:rgba(248,245,238,0.85); }
+.mode-btn.active { color:var(--gold-lt); border-bottom-color:var(--gold); }
+
+/* Filter bar */
+.filter-bar { background:var(--cream-dk); border-bottom:1px solid var(--lt-grey); padding:0 20px; overflow-x:auto; scrollbar-width:none; }
 .filter-bar::-webkit-scrollbar { display:none; }
 .filter-tabs { display:flex; width:100%; justify-content:center; flex-wrap:wrap; }
-.filter-tab { background:transparent; border:none; border-bottom:3px solid transparent; color:var(--mid-grey); padding:0.65rem 1rem; font-family:'Source Sans 3',sans-serif; font-size:0.82rem; font-weight:600; letter-spacing:0.03em; cursor:pointer; white-space:nowrap; transition:color 0.2s, border-color 0.2s; }
+.filter-tab { background:transparent; border:none; border-bottom:3px solid transparent; color:var(--mid-grey); padding:0.6rem 0.9rem; font-family:'Source Sans 3',sans-serif; font-size:0.8rem; font-weight:600; letter-spacing:0.03em; cursor:pointer; white-space:nowrap; transition:color 0.2s, border-color 0.2s; }
 .filter-tab:hover { color:var(--ink); }
 .filter-tab.active { color:var(--navy); border-bottom-color:var(--gold); }
-.filter-loading { padding:0.65rem 0; font-size:0.82rem; color:var(--mid-grey); font-style:italic; display:flex; align-items:center; gap:0.6rem; }
+.filter-loading { padding:0.6rem 0; font-size:0.82rem; color:var(--mid-grey); font-style:italic; display:flex; align-items:center; gap:0.6rem; }
 .spinner { width:14px; height:14px; border:2px solid var(--lt-grey); border-top-color:var(--gold); border-radius:50%; animation:spin 0.8s linear infinite; }
 @keyframes spin { to { transform:rotate(360deg); } }
 
-/* ── Content grid ── */
-.main-container {
-  flex: 1 1 auto;          /* fills remaining height inside app-main */
-  overflow: hidden;
-  max-width: 1200px;
-  width: 100%;
-  margin: 0 auto;
-  padding: 28px 20px 0;
-  display: grid;
-  grid-template-columns: 1.25fr 1fr;
-  gap: 40px;
-  align-items: start;
-}
-/* Each column scrolls independently */
-.main-container > section,
-.main-container > aside {
-  height: 100%;
-  overflow-y: auto;
-  padding-bottom: 40px;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: thin;
-  scrollbar-color: var(--lt-grey) transparent;
-}
+/* Grid */
+.main-container { flex:1 1 auto; overflow:hidden; max-width:1200px; width:100%; margin:0 auto; padding:24px 20px 0; display:grid; grid-template-columns:1.25fr 1fr; gap:40px; align-items:start; }
+.main-container > section, .main-container > aside { height:100%; overflow-y:auto; padding-bottom:40px; -webkit-overflow-scrolling:touch; scrollbar-width:thin; scrollbar-color:var(--lt-grey) transparent; }
 @media(max-width:900px) {
-  .main-container {
-    grid-template-columns: 1fr;
-    gap: 0;
-    overflow-y: auto;      /* single column: whole container scrolls */
-  }
-  .main-container > section,
-  .main-container > aside {
-    height: auto;
-    overflow-y: visible;
-    padding-bottom: 28px;
-  }
+  .main-container { grid-template-columns:1fr; gap:0; overflow-y:auto; }
+  .main-container > section, .main-container > aside { height:auto; overflow-y:visible; padding-bottom:28px; }
 }
 
-/* ── Stage header ── */
+/* Stage header */
 .stage-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; }
 .function-tag, .cefr-badge { font-size:0.68rem; font-weight:600; text-transform:uppercase; border-radius:3px; padding:3px 9px; letter-spacing:0.12em; }
 .function-tag { color:var(--gold); border:1px solid rgba(200,150,10,0.4); background:rgba(200,150,10,0.07); }
 .cefr-badge { color:var(--mid-grey); border:1px solid var(--lt-grey); background:var(--cream-dk); }
 .counter { font-size:0.82rem; font-weight:600; color:var(--mid-grey); }
+.score-display { display:none; gap:10px; align-items:center; font-size:0.82rem; font-weight:600; }
+.score-display.visible { display:flex; }
+.score-correct { color:var(--correct); }
+.score-wrong   { color:var(--wrong); }
 
-/* ── Scenario card ── */
-.scenario-card {
-  background: var(--cream);
-  border: 1px solid var(--lt-grey);
-  border-top: 3px solid var(--lt-grey);
-  border-radius: var(--radius);
-  padding: 28px;
-  box-shadow: var(--shadow);
-  filter: saturate(0.15);
-  transition: border-top-color 0.55s var(--ease), box-shadow 0.55s var(--ease), filter 0.55s var(--ease), opacity 0.35s ease, transform 0.5s var(--ease);
-}
-.scenario-card.has-colour {
-  filter: saturate(1);
-  border-top-color: var(--active-color);
-  box-shadow: 0 6px 28px var(--active-wash), 0 1px 4px rgba(14,31,61,0.06);
-}
-.context-block {
-  display:flex; align-items:flex-start; gap:10px;
-  background:var(--gold-pale); border-left:3px solid var(--lt-grey); border-radius:3px;
-  padding:10px 14px; margin-bottom:24px;
-  font-size:0.92rem; color:var(--mid-grey); line-height:1.5; font-style:italic;
-  transition: border-left-color 0.55s var(--ease), background 0.55s var(--ease), color 0.4s ease;
-}
-.scenario-card.has-colour .context-block {
-  border-left-color: var(--active-color);
-  background: var(--active-wash, var(--gold-pale));
-  color: var(--ink);
-}
+/* Scenario card */
+.scenario-card { background:var(--cream); border:1px solid var(--lt-grey); border-top:3px solid var(--lt-grey); border-radius:var(--radius); padding:28px; box-shadow:var(--shadow); filter:saturate(0.15); transition:border-top-color 0.55s var(--ease), box-shadow 0.55s var(--ease), filter 0.55s var(--ease), opacity 0.35s ease, transform 0.5s var(--ease); }
+.scenario-card.has-colour { filter:saturate(1); border-top-color:var(--active-color); box-shadow:0 6px 28px var(--active-wash),0 1px 4px rgba(14,31,61,0.06); }
+.scenario-card.t-correct { filter:saturate(1) !important; border-top-color:var(--correct) !important; box-shadow:0 6px 28px var(--correct-bg),0 1px 4px rgba(14,31,61,0.06) !important; }
+.scenario-card.t-wrong   { filter:saturate(1) !important; border-top-color:var(--wrong)   !important; box-shadow:0 6px 28px var(--wrong-bg),  0 1px 4px rgba(14,31,61,0.06) !important; }
+
+.context-block { display:flex; align-items:flex-start; gap:10px; background:var(--gold-pale); border-left:3px solid var(--lt-grey); border-radius:3px; padding:10px 14px; margin-bottom:24px; font-size:0.92rem; color:var(--mid-grey); line-height:1.5; font-style:italic; transition:border-left-color 0.55s var(--ease), background 0.55s var(--ease), color 0.4s ease; }
+.scenario-card.has-colour .context-block { border-left-color:var(--active-color); background:var(--active-wash,var(--gold-pale)); color:var(--ink); }
+.scenario-card.t-correct .context-block  { border-left-color:var(--correct); background:var(--correct-bg); color:var(--ink); }
+.scenario-card.t-wrong   .context-block  { border-left-color:var(--wrong);   background:var(--wrong-bg);   color:var(--ink); }
 .context-icon { flex-shrink:0; opacity:0.45; font-size:1rem; margin-top:1px; }
-.sentence-display { font-family:'Playfair Display',serif; font-size:clamp(1.5rem,3vw,2.1rem); font-weight:400; line-height:1.5; color:var(--ink); }
+.sentence-display { font-family:'Playfair Display',serif; font-size:clamp(1.4rem,2.8vw,2rem); font-weight:400; line-height:1.5; color:var(--ink); }
 
-/* ── Slot ── */
+/* Slot */
 .slot { display:inline-block; position:relative; min-width:115px; padding:0 0.25em; margin:0 0.1em; font-weight:700; font-style:italic; text-align:center; transition:color 0.45s var(--ease); }
 .slot.empty { color:transparent; }
 .slot.empty::after { content:''; position:absolute; bottom:0.18em; left:0; right:0; height:2px; background:repeating-linear-gradient(90deg,var(--lt-grey) 0,var(--lt-grey) 6px,transparent 6px,transparent 12px); }
 .slot.filled { color:var(--active-color); }
 .slot.filled::after { content:''; position:absolute; bottom:0.08em; left:-3px; right:-3px; height:10px; border-radius:2px; background:var(--active-wash); z-index:-1; }
-.slot.grammar-error { color:var(--error-mud) !important; }
-.slot.grammar-error::after { background:var(--error-bg) !important; }
-.slot.context-error { color:var(--warn-amber) !important; }
-.slot.context-error::after { background:var(--warn-bg) !important; }
+.slot.grammar-error { color:var(--error-mud)!important; }
+.slot.grammar-error::after { background:var(--error-bg)!important; }
+.slot.context-error { color:var(--warn-amber)!important; }
+.slot.context-error::after { background:var(--warn-bg)!important; }
+.slot.t-correct { color:var(--correct)!important; }
+.slot.t-correct::after { background:var(--correct-bg)!important; }
+.slot.t-wrong   { color:var(--wrong)!important; }
+.slot.t-wrong::after { background:var(--wrong-bg)!important; }
 .slot.pulse { animation:slotPulse 0.6s var(--ease); }
 @keyframes slotPulse { 0%{transform:scale(0.9);opacity:0.5;} 55%{transform:scale(1.07);} 100%{transform:scale(1);opacity:1;} }
 @keyframes slotShake { 0%,100%{transform:translateX(0);} 20%,60%{transform:translateX(-8px);} 40%,80%{transform:translateX(8px);} }
 
-/* ── Controls ── */
-.controls { display:flex; align-items:center; justify-content:space-between; margin-top:28px; gap:10px; }
-.btn-prev, .btn-next { background:var(--navy); color:var(--gold-lt); border:1.5px solid var(--gold); border-radius:4px; padding:8px 20px; font-family:'Source Sans 3',sans-serif; font-size:0.88rem; font-weight:600; cursor:pointer; transition:background 0.18s; display:flex; align-items:center; gap:6px; }
+/* Controls */
+.controls { display:flex; align-items:center; justify-content:space-between; margin-top:24px; gap:10px; }
+.btn-prev, .btn-next { background:var(--navy); color:var(--gold-lt); border:1.5px solid var(--gold); border-radius:4px; padding:8px 20px; font-family:'Source Sans 3',sans-serif; font-size:0.88rem; font-weight:600; cursor:pointer; transition:background 0.18s; }
 .btn-prev:hover, .btn-next:hover { background:var(--navy-mid); }
-.dot-row { display:flex; gap:6px; align-items:center; flex-wrap:wrap; justify-content:center; }
+.dot-row { display:flex; gap:5px; align-items:center; flex-wrap:wrap; justify-content:center; }
 .dot { width:8px; height:8px; border-radius:50%; border:1.5px solid var(--lt-grey); background:transparent; transition:background 0.2s, border-color 0.2s; }
-.dot.visited { background:var(--navy); border-color:var(--navy); }
-.dot.current { background:var(--gold); border-color:var(--gold); }
+.dot.visited   { background:var(--navy);    border-color:var(--navy); }
+.dot.current   { background:var(--gold);    border-color:var(--gold); }
+.dot.t-correct { background:var(--correct); border-color:var(--correct); }
+.dot.t-wrong   { background:var(--wrong);   border-color:var(--wrong); }
 
-/* ── Panel ── */
+/* Explore panel */
 .panel-heading { font-family:'Playfair Display',serif; font-size:1.05rem; font-weight:700; color:var(--navy); border-bottom:2px solid var(--gold); padding-bottom:6px; margin-bottom:10px; }
-.panel-intro { font-size:0.88rem; color:var(--mid-grey); line-height:1.55; margin-bottom:18px; font-style:italic; }
-.modal-list { display:flex; flex-direction:column; gap:6px; }
+.panel-intro   { font-size:0.88rem; color:var(--mid-grey); line-height:1.55; margin-bottom:18px; font-style:italic; }
+.modal-list    { display:flex; flex-direction:column; gap:6px; }
 
-/* ── Modal rows ── */
-.modal-row {
-  background:var(--cream); border:1px solid var(--lt-grey); border-left:4px solid transparent;
-  border-radius:var(--radius); padding:12px 14px; cursor:pointer;
-  opacity:0; transform:translateX(14px); position:relative; overflow:hidden;
-  transition:border-color 0.3s var(--ease), box-shadow 0.3s var(--ease), transform 0.3s var(--ease);
-}
+.modal-row { background:var(--cream); border:1px solid var(--lt-grey); border-left:4px solid transparent; border-radius:var(--radius); padding:12px 14px; cursor:pointer; opacity:0; transform:translateX(14px); position:relative; overflow:hidden; transition:border-color 0.3s var(--ease), box-shadow 0.3s var(--ease), transform 0.3s var(--ease); }
 .modal-row.revealed { animation:rowReveal 0.55s var(--ease) forwards; }
 @keyframes rowReveal { 100%{ opacity:1; transform:translateX(0); } }
 .modal-row:hover { border-left-color:var(--gold); transform:translateX(-2px); box-shadow:var(--shadow); }
@@ -227,7 +153,7 @@ body {
 .swatch-dot { width:18px; height:18px; border-radius:50%; background:var(--swatch-base,var(--lt-grey)); flex-shrink:0; border:2px solid rgba(255,255,255,0.7); outline:1px solid rgba(0,0,0,0.08); transition:transform 0.35s var(--ease); }
 .modal-row.active .swatch-dot { transform:scale(1.3); }
 .modal-text { flex:1; min-width:0; }
-.modal-word { font-family:'Playfair Display',serif; font-size:1.2rem; font-weight:700; color:var(--ink); display:block; transition:color 0.3s; }
+.modal-word  { font-family:'Playfair Display',serif; font-size:1.2rem; font-weight:700; color:var(--ink); display:block; transition:color 0.3s; }
 .modal-row.active .modal-word { color:var(--swatch-base,var(--gold)); font-style:italic; }
 .modal-gloss { font-size:0.84rem; color:var(--mid-grey); display:block; line-height:1.3; }
 .error-badge { font-size:0.62rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; padding:2px 6px; border-radius:3px; flex-shrink:0; }
@@ -238,20 +164,84 @@ body {
 .modal-row.grammar-error.active .modal-note { color:var(--error-mud); }
 .modal-row.context-error.active .modal-note { color:var(--warn-amber); }
 
-/* ── Legend ── */
+/* Legend */
 .legend { margin-top:24px; padding-top:16px; border-top:1px solid var(--lt-grey); }
 .legend-label { font-size:0.72rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--mid-grey); margin-bottom:8px; }
 .legend-pips { display:flex; flex-wrap:wrap; gap:5px; }
 .legend-pip { display:flex; align-items:center; gap:5px; font-size:0.76rem; color:var(--mid-grey); padding:3px 8px 3px 5px; border:1px solid var(--lt-grey); border-radius:20px; background:var(--cream-dk); }
 .legend-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
 
-/* ── Footer ── */
-.site-footer { background:var(--navy); border-top:3px solid var(--gold); text-align:center; padding:18px 20px; font-size:0.75rem; letter-spacing:0.07em; color:rgba(248,245,238,0.38); }
+/* Panel visibility */
+.explore-panel { display:block; }
+.explore-panel.hidden { display:none; }
+.test-panel { display:none; }
+.test-panel.visible { display:block; }
+
+/* Test panel */
+.test-heading     { font-family:'Playfair Display',serif; font-size:1.05rem; font-weight:700; color:var(--navy); border-bottom:2px solid var(--gold); padding-bottom:6px; margin-bottom:10px; }
+.test-instruction { font-size:0.88rem; color:var(--mid-grey); font-style:italic; margin-bottom:18px; line-height:1.5; }
+.test-options     { display:flex; flex-direction:column; gap:8px; }
+
+.test-option {
+  background:var(--cream);
+  border:1.5px solid var(--lt-grey);
+  border-radius:var(--radius);
+  padding:13px 16px;
+  cursor:pointer;
+  font-family:'Playfair Display',serif;
+  font-size:1.1rem;
+  font-weight:700;
+  color:var(--ink);
+  text-align:left;
+  width:100%;
+  display:flex;
+  align-items:center;
+  gap:11px;
+  opacity:0;
+  transform:translateX(12px);
+  transition:border-color 0.25s, background 0.25s, transform 0.25s, box-shadow 0.25s;
+}
+.test-option.revealed { animation:rowReveal 0.45s var(--ease) forwards; }
+.test-option:hover:not(:disabled) { border-color:var(--gold); transform:translateX(-2px); box-shadow:var(--shadow); }
+.test-option:disabled { cursor:default; }
+.option-dot { width:16px; height:16px; border-radius:50%; background:var(--swatch-base,var(--lt-grey)); flex-shrink:0; border:2px solid rgba(255,255,255,0.7); outline:1px solid rgba(0,0,0,0.08); }
+.test-option.t-correct { border-color:var(--correct); background:var(--correct-bg); color:var(--correct); }
+.test-option.t-wrong   { border-color:var(--wrong);   background:var(--wrong-bg);   color:var(--wrong); opacity:0.85; }
+.test-option.t-missed  { border-color:var(--correct); border-style:dashed; color:var(--correct); }
+.option-badge { margin-left:auto; font-family:'Source Sans 3',sans-serif; font-size:0.62rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; padding:2px 7px; border-radius:3px; flex-shrink:0; }
+.badge-correct { background:var(--correct); color:#fff; }
+.badge-wrong   { background:var(--wrong);   color:#fff; }
+.badge-missed  { color:var(--correct); border:1px solid var(--correct); }
+
+/* Feedback */
+.test-feedback { margin-top:0; padding:0 16px; border-radius:var(--radius); font-size:0.88rem; line-height:1.55; opacity:0; max-height:0; overflow:hidden; transition:opacity 0.4s ease, max-height 0.5s var(--ease), margin-top 0.4s ease, padding 0.4s ease; }
+.test-feedback.visible { opacity:1; max-height:280px; margin-top:14px; padding:14px 16px; }
+.test-feedback.fb-correct { background:var(--correct-bg); border-left:3px solid var(--correct); }
+.test-feedback.fb-wrong   { background:var(--wrong-bg);   border-left:3px solid var(--wrong); }
+.feedback-label { font-family:'Playfair Display',serif; font-weight:700; font-size:0.95rem; margin-bottom:5px; }
+.fb-correct .feedback-label { color:var(--correct); }
+.fb-wrong   .feedback-label { color:var(--wrong); }
+.feedback-text { color:var(--mid-grey); }
+
+.btn-continue { display:none; margin-top:14px; background:var(--navy); color:var(--gold-lt); border:1.5px solid var(--gold); border-radius:4px; padding:9px 22px; font-family:'Source Sans 3',sans-serif; font-size:0.88rem; font-weight:600; cursor:pointer; transition:background 0.18s; width:100%; }
+.btn-continue:hover { background:var(--navy-mid); }
+.btn-continue.visible { display:block; }
+
+/* Session complete */
+.session-complete { display:none; text-align:center; padding:28px 16px; }
+.session-complete.visible { display:block; }
+.session-complete h3 { font-family:'Playfair Display',serif; font-size:1.3rem; color:var(--navy); margin-bottom:6px; }
+.score-big   { font-family:'Playfair Display',serif; font-size:3rem; font-weight:700; color:var(--gold); margin:14px 0 6px; line-height:1; }
+.score-label { font-size:0.88rem; color:var(--mid-grey); margin-bottom:22px; }
+.btn-restart { background:var(--navy); color:var(--gold-lt); border:1.5px solid var(--gold); border-radius:4px; padding:9px 26px; font-family:'Source Sans 3',sans-serif; font-size:0.88rem; font-weight:600; cursor:pointer; transition:background 0.18s; }
+.btn-restart:hover { background:var(--navy-mid); }
+
+/* Footer */
+.site-footer { background:var(--navy); border-top:3px solid var(--gold); text-align:center; padding:14px 20px; font-size:0.75rem; letter-spacing:0.07em; color:rgba(248,245,238,0.38); }
 </style>
 </head>
 <body>
 
-<!-- Fixed header block — never scrolls -->
 <div class="app-header">
   <nav class="site-nav">
     <a class="nav-home" href="../index.html">
@@ -264,8 +254,13 @@ body {
   <header class="page-header">
     <div class="page-badge">BELLA &middot; Grammar Module</div>
     <h1>The Modal Palette</h1>
-    <p class="subtitle">Explore how modal verbs shade meaning, certainty and register</p>
+    <p class="subtitle" id="pageSubtitle">Explore how modal verbs shade meaning, certainty and register</p>
   </header>
+
+  <div class="mode-bar">
+    <button class="mode-btn active" id="btnExplore">&#9670; Explore</button>
+    <button class="mode-btn"        id="btnTest">&#9670; Test yourself</button>
+  </div>
 
   <div class="filter-bar">
     <div class="filter-tabs" id="filterTabs">
@@ -275,12 +270,12 @@ body {
       </div>
     </div>
   </div>
+
   <footer class="site-footer">
     BELLA &mdash; English Language Assistant Suite &mdash; Grammar Module
   </footer>
 </div>
 
-<!-- Scrollable content -->
 <main class="app-main">
   <div class="main-container">
 
@@ -290,11 +285,17 @@ body {
           <span class="function-tag" id="functionTag"></span>
           <span class="cefr-badge"   id="cefrBadge"></span>
         </div>
-        <span class="counter" id="counter"></span>
+        <div style="display:flex;gap:12px;align-items:center;">
+          <div class="score-display" id="scoreDisplay">
+            <span class="score-correct" id="scoreCorrect">0 ✓</span>
+            <span class="score-wrong"   id="scoreWrong">0 ✗</span>
+          </div>
+          <span class="counter" id="counter"></span>
+        </div>
       </div>
 
       <div class="scenario-card" id="scenarioCard">
-        <div class="context-block" id="contextBlock">
+        <div class="context-block">
           <span class="context-icon">◎</span>
           <span id="contextText"></span>
         </div>
@@ -302,46 +303,79 @@ body {
       </div>
 
       <div class="controls">
-        <button class="btn-prev" id="btnPrev">
-          &#8592; Prev
-        </button>
+        <button class="btn-prev" id="btnPrev">&#8592; Prev</button>
         <div class="dot-row" id="dotRow"></div>
-        <button class="btn-next" id="btnNext">
-          Next &#8594;
-        </button>
+        <button class="btn-next" id="btnNext">Next &#8594;</button>
       </div>
     </section>
 
     <aside>
-      <div class="panel-heading">Colour Palette</div>
-      <p class="panel-intro">Select a shade to mix it into the sentence. Bold, saturated colours signal certainty and strong obligation; pale, cool tones introduce doubt and tentativeness.</p>
-      <div class="modal-list" id="modalList"></div>
-      <div class="legend" id="legend"></div>
+
+      <!-- EXPLORE -->
+      <div class="explore-panel" id="explorePanel">
+        <div class="panel-heading">Colour Palette</div>
+        <p class="panel-intro">Select a shade to mix it into the sentence. Bold, saturated colours signal certainty and strong obligation; pale, cool tones introduce doubt and tentativeness.</p>
+        <div class="modal-list" id="modalList"></div>
+        <div class="legend" id="legend"></div>
+      </div>
+
+      <!-- TEST -->
+      <div class="test-panel" id="testPanel">
+        <div class="test-heading">Test Yourself</div>
+        <p class="test-instruction">Which modal best fits this context?</p>
+        <div class="test-options" id="testOptions"></div>
+        <div class="test-feedback" id="testFeedback">
+          <div class="feedback-label" id="feedbackLabel"></div>
+          <div class="feedback-text"  id="feedbackText"></div>
+        </div>
+        <button class="btn-continue" id="btnContinue">Next question &#8594;</button>
+        <div class="session-complete" id="sessionComplete">
+          <h3>Session complete</h3>
+          <div class="score-big"   id="scoreBig"></div>
+          <div class="score-label" id="scoreLabel"></div>
+          <button class="btn-restart" id="btnRestart">Try again</button>
+        </div>
+      </div>
+
     </aside>
-
   </div>
-
-
 </main>
 
 <script>
 const DATA_URL = './modal-bank.json?v=' + Date.now();
+
 let bank = null, sentences = [], filter = 'all', idx = 0, visited = new Set([0]);
+let appMode = 'explore';
+let testQueue = [], testPos = 0, testAnswered = false;
+let scoreCorrect = 0, scoreWrong = 0, dotResults = [];
 
-const root         = document.documentElement;
-const scenarioCard = document.getElementById('scenarioCard');
-const contextText  = document.getElementById('contextText');
-const sentenceEl   = document.getElementById('sentenceDisplay');
-const modalList    = document.getElementById('modalList');
-const functionTag  = document.getElementById('functionTag');
-const cefrBadge    = document.getElementById('cefrBadge');
-const counter      = document.getElementById('counter');
-const filterTabsEl = document.getElementById('filterTabs');
-const filterLoad   = document.getElementById('filterLoading');
-const dotRow       = document.getElementById('dotRow');
-const legend       = document.getElementById('legend');
+const root           = document.documentElement;
+const scenarioCard   = document.getElementById('scenarioCard');
+const contextText    = document.getElementById('contextText');
+const sentenceEl     = document.getElementById('sentenceDisplay');
+const modalList      = document.getElementById('modalList');
+const functionTag    = document.getElementById('functionTag');
+const cefrBadge      = document.getElementById('cefrBadge');
+const counter        = document.getElementById('counter');
+const filterTabsEl   = document.getElementById('filterTabs');
+const filterLoad     = document.getElementById('filterLoading');
+const dotRow         = document.getElementById('dotRow');
+const legend         = document.getElementById('legend');
+const explorePanel   = document.getElementById('explorePanel');
+const testPanel      = document.getElementById('testPanel');
+const testOptions    = document.getElementById('testOptions');
+const testFeedback   = document.getElementById('testFeedback');
+const feedbackLabel  = document.getElementById('feedbackLabel');
+const feedbackText   = document.getElementById('feedbackText');
+const btnContinue    = document.getElementById('btnContinue');
+const sessionComplete= document.getElementById('sessionComplete');
+const scoreBig       = document.getElementById('scoreBig');
+const scoreLabel     = document.getElementById('scoreLabel');
+const scoreDisplay   = document.getElementById('scoreDisplay');
+const scoreCorrectEl = document.getElementById('scoreCorrect');
+const scoreWrongEl   = document.getElementById('scoreWrong');
 
-// ── Data ────────────────────────────────────────────────
+// ── Init ─────────────────────────────────────────────────
 async function init() {
   try {
     const res = await fetch(DATA_URL);
@@ -351,12 +385,12 @@ async function init() {
     buildLegend();
     applyFilter('all');
   } catch(err) {
-    if (filterLoad) filterLoad.innerHTML = '⚠ Cannot load modal-bank.json — serve via a local server or GitHub Pages.';
-    console.warn('BELLA Modal Palette:', err.message);
+    if (filterLoad) filterLoad.innerHTML = '⚠ Cannot load modal-bank.json.';
+    console.warn(err);
   }
 }
 
-// ── Filter tabs ──────────────────────────────────────────
+// ── Tabs ─────────────────────────────────────────────────
 function buildFilterTabs() {
   if (filterLoad) filterLoad.remove();
   const present = new Set(bank.sentences.map(s => s.function));
@@ -365,7 +399,6 @@ function buildFilterTabs() {
     if (present.has(key)) addTab(meta.label, key, false);
   });
 }
-
 function addTab(label, value, active) {
   const btn = document.createElement('button');
   btn.className = 'filter-tab' + (active ? ' active' : '');
@@ -378,7 +411,7 @@ function addTab(label, value, active) {
   filterTabsEl.appendChild(btn);
 }
 
-// ── Legend ───────────────────────────────────────────────
+// ── Legend ────────────────────────────────────────────────
 function buildLegend() {
   const families = {};
   Object.values(bank.palette).forEach(p => {
@@ -391,108 +424,112 @@ function buildLegend() {
   legend.innerHTML = html + '</div>';
 }
 
-// ── Filter ───────────────────────────────────────────────
-function applyFilter(value) {
-  filter    = value;
-  idx       = 0;
-  visited   = new Set([0]);
-  sentences = value === 'all' ? bank.sentences : bank.sentences.filter(s => s.function === value);
-  cardTransition(() => { renderSentence(); renderModals(); });
+// ── Mode ──────────────────────────────────────────────────
+document.getElementById('btnExplore').addEventListener('click', () => setMode('explore'));
+document.getElementById('btnTest').addEventListener('click',    () => setMode('test'));
+
+function setMode(mode) {
+  appMode = mode;
+  document.getElementById('btnExplore').classList.toggle('active', mode === 'explore');
+  document.getElementById('btnTest').classList.toggle('active',    mode === 'test');
+
+  if (mode === 'explore') {
+    explorePanel.classList.remove('hidden');
+    testPanel.classList.remove('visible');
+    scoreDisplay.classList.remove('visible');
+    document.getElementById('pageSubtitle').textContent = 'Explore how modal verbs shade meaning, certainty and register';
+    document.getElementById('btnPrev').style.display = '';
+    document.getElementById('btnNext').style.display = '';
+    scenarioCard.classList.remove('t-correct','t-wrong');
+    cardTransition(() => { renderSentence(); renderModals(); });
+  } else {
+    explorePanel.classList.add('hidden');
+    testPanel.classList.add('visible');
+    scoreDisplay.classList.add('visible');
+    document.getElementById('pageSubtitle').textContent = 'Choose the modal that best fits the context';
+    document.getElementById('btnPrev').style.display = 'none';
+    document.getElementById('btnNext').style.display = 'none';
+    startTest();
+  }
 }
 
-// ── Sentence ─────────────────────────────────────────────
+// ── Filter ────────────────────────────────────────────────
+function applyFilter(value) {
+  filter = value; idx = 0; visited = new Set([0]);
+  sentences = value === 'all' ? bank.sentences : bank.sentences.filter(s => s.function === value);
+  if (appMode === 'test') startTest();
+  else cardTransition(() => { renderSentence(); renderModals(); });
+}
+
+// ══════════════════════════════════════════════════════════
+//  EXPLORE
+// ══════════════════════════════════════════════════════════
+
 function renderSentence(chosen = null) {
   const item = sentences[idx];
   if (!item) return;
-
   functionTag.textContent = bank.functions[item.function]?.label ?? item.function;
   cefrBadge.textContent   = item.cefr;
   contextText.textContent = item.context;
-  counter.textContent =
-    String(idx + 1).padStart(2, '0') + ' / ' +
-    String(sentences.length).padStart(2, '0');
+  counter.textContent = String(idx+1).padStart(2,'0')+' / '+String(sentences.length).padStart(2,'0');
 
-  // Slot text and class
   let slotClass, slotText;
-  if (!chosen) {
-    slotText  = '______';
-    slotClass = 'slot empty';
-  } else if (!chosen.ok && !chosen.context_error) {
-    slotText  = chosen.word;
-    slotClass = 'slot filled grammar-error';
-  } else if (!chosen.ok && chosen.context_error) {
-    slotText  = chosen.word;
-    slotClass = 'slot filled context-error';
-  } else {
-    slotText  = chosen.word;
-    slotClass = 'slot filled pulse';
-  }
+  if (!chosen) { slotText='______'; slotClass='slot empty'; }
+  else if (!chosen.ok && !chosen.context_error) { slotText=chosen.word; slotClass='slot filled grammar-error'; }
+  else if (!chosen.ok &&  chosen.context_error) { slotText=chosen.word; slotClass='slot filled context-error'; }
+  else { slotText=chosen.word; slotClass='slot filled pulse'; }
 
-  // Terminal punctuation
   let afterText = item.after || '';
-  if (chosen && chosen.question && afterText.endsWith('.')) {
-    afterText = afterText.slice(0, -1) + '?';
-  }
-
-  const suffix = item.slot_after_modal ? ' ' + item.slot_after_modal : '';
+  if (chosen && chosen.question && afterText.endsWith('.')) afterText = afterText.slice(0,-1)+'?';
+  const suffix = item.slot_after_modal ? ' '+item.slot_after_modal : '';
   if (chosen) slotText += suffix;
 
   sentenceEl.innerHTML =
-    (item.before ? item.before + ' ' : '') +
-    `<span class="${slotClass}" id="activeSlot">${slotText}</span>` +
-    (afterText ? ' ' + afterText : '');
+    (item.before ? item.before+' ' : '')+
+    `<span class="${slotClass}" id="activeSlot">${slotText}</span>`+
+    (afterText ? ' '+afterText : '');
 
-  // Card colour
   if (chosen && chosen.ok) {
     const p = bank.palette[chosen.palette_key];
     root.style.setProperty('--active-color', p.hex);
     root.style.setProperty('--active-wash',  p.bg);
     scenarioCard.classList.add('has-colour');
   } else if (chosen && !chosen.ok && chosen.context_error) {
-    root.style.setProperty('--active-color', 'var(--warn-amber)');
-    root.style.setProperty('--active-wash',  'var(--warn-bg)');
+    root.style.setProperty('--active-color','var(--warn-amber)');
+    root.style.setProperty('--active-wash', 'var(--warn-bg)');
     scenarioCard.classList.remove('has-colour');
   } else {
-    root.style.setProperty('--active-color', 'var(--gold)');
-    root.style.setProperty('--active-wash',  'rgba(200,150,10,0.08)');
+    root.style.setProperty('--active-color','var(--gold)');
+    root.style.setProperty('--active-wash', 'rgba(200,150,10,0.08)');
     scenarioCard.classList.remove('has-colour');
   }
-
   updateDots();
 }
 
-// ── Modals ───────────────────────────────────────────────
 function renderModals() {
   const item = sentences[idx];
   if (!item) return;
   modalList.innerHTML = '';
-
   item.modals.forEach((m, i) => {
     const p = bank.palette[m.palette_key] ?? bank.palette['ERROR'];
-
     let rowClass = 'modal-row';
     if (!m.ok && m.context_error) rowClass += ' context-error';
     else if (!m.ok)               rowClass += ' grammar-error';
-
     const row = document.createElement('div');
     row.className = rowClass;
     row.style.setProperty('--swatch-base', p.hex);
-
     let badge = '';
     if (!m.ok && m.context_error) badge = '<span class="error-badge context">Register</span>';
     else if (!m.ok)               badge = '<span class="error-badge grammar">Grammar</span>';
-
     row.innerHTML = `
       <div class="modal-row-inner">
         <div class="swatch-dot"></div>
         <div class="modal-text">
           <span class="modal-word">${m.word}</span>
           <span class="modal-gloss">${m.gloss}</span>
-        </div>
-        ${badge}
+        </div>${badge}
       </div>
       <div class="modal-note">${m.note}</div>`;
-
     row.addEventListener('click', () => {
       const wasActive = row.classList.contains('active');
       document.querySelectorAll('.modal-row').forEach(r => r.classList.remove('active'));
@@ -502,30 +539,191 @@ function renderModals() {
         if (!m.ok) {
           requestAnimationFrame(() => {
             const slot = document.getElementById('activeSlot');
-            if (slot) { slot.style.animation = 'none'; void slot.offsetWidth; slot.style.animation = 'slotShake 0.5s ease forwards'; }
+            if (slot) { slot.style.animation='none'; void slot.offsetWidth; slot.style.animation='slotShake 0.5s ease forwards'; }
           });
         }
-      } else {
-        renderSentence(null);
-      }
+      } else { renderSentence(null); }
     });
-
-    setTimeout(() => row.classList.add('revealed'), i * 70);
+    setTimeout(() => row.classList.add('revealed'), i*70);
     modalList.appendChild(row);
   });
 }
 
-// ── Dots ─────────────────────────────────────────────────
-function updateDots() {
+// ══════════════════════════════════════════════════════════
+//  TEST
+// ══════════════════════════════════════════════════════════
+
+function startTest() {
+  scoreCorrect = 0; scoreWrong = 0; testPos = 0; testAnswered = false;
+  dotResults = sentences.map(() => null);
+  scoreCorrectEl.textContent = '0 ✓';
+  scoreWrongEl.textContent   = '0 ✗';
+  sessionComplete.classList.remove('visible');
+  btnContinue.classList.remove('visible');
+  testFeedback.classList.remove('visible','fb-correct','fb-wrong');
+  // Shuffle
+  testQueue = sentences.map((_,i) => i);
+  for (let i = testQueue.length-1; i > 0; i--) {
+    const j = Math.floor(Math.random()*(i+1));
+    [testQueue[i],testQueue[j]] = [testQueue[j],testQueue[i]];
+  }
+  renderTestQ();
+}
+
+function renderTestQ() {
+  if (testPos >= testQueue.length) { showComplete(); return; }
+  idx = testQueue[testPos];
+  testAnswered = false;
+  scenarioCard.classList.remove('t-correct','t-wrong','has-colour');
+  root.style.setProperty('--active-color','var(--gold)');
+  root.style.setProperty('--active-wash', 'rgba(200,150,10,0.08)');
+
+  const item = sentences[idx];
+  functionTag.textContent = bank.functions[item.function]?.label ?? item.function;
+  cefrBadge.textContent   = item.cefr;
+  contextText.textContent = item.context;
+  counter.textContent = String(testPos+1).padStart(2,'0')+' / '+String(testQueue.length).padStart(2,'0');
+
+  sentenceEl.innerHTML =
+    (item.before ? item.before+' ' : '')+
+    `<span class="slot empty" id="activeSlot">______</span>`+
+    (item.after ? ' '+item.after : '');
+
+  updateTestDots();
+  btnContinue.classList.remove('visible');
+  testFeedback.classList.remove('visible','fb-correct','fb-wrong');
+  buildOptions(item);
+}
+
+function buildOptions(item) {
+  testOptions.innerHTML = '';
+  const correct = item.modals.find(m => m.ok);
+
+  // Pool of distractors: wrong modals from this sentence first
+  let pool = item.modals.filter(m => !m.ok).map(m => ({...m, _src:'local'}));
+  // Then modals from other sentences (ok or not), deduplicated by word
+  sentences.forEach((s, si) => {
+    if (si === idx) return;
+    s.modals.forEach(m => {
+      if (!pool.find(p => p.word === m.word) && m.word !== correct.word) {
+        pool.push({...m, _src:'remote'});
+      }
+    });
+  });
+  pool.sort(() => Math.random()-0.5);
+  const distractors = pool.slice(0, 3);
+
+  const options = [correct, ...distractors].sort(() => Math.random()-0.5);
+
+  options.forEach((m, i) => {
+    const p = bank.palette[m.palette_key] ?? bank.palette['ERROR'];
+    const btn = document.createElement('button');
+    btn.className = 'test-option';
+    btn.style.setProperty('--swatch-base', p.hex);
+    btn.dataset.correct = m === correct ? '1' : '0';
+    btn.innerHTML = `<div class="option-dot"></div><span>${m.word}</span>`;
+    btn.addEventListener('click', () => handleAnswer(btn, m, correct, item));
+    setTimeout(() => btn.classList.add('revealed'), i*55);
+    testOptions.appendChild(btn);
+  });
+}
+
+function handleAnswer(btn, chosen, correct, item) {
+  if (testAnswered) return;
+  testAnswered = true;
+  const isCorrect = chosen === correct;
+
+  // Fill slot
+  const suffix = item.slot_after_modal ? ' '+item.slot_after_modal : '';
+  let afterText = item.after || '';
+  if (chosen.question && afterText.endsWith('.')) afterText = afterText.slice(0,-1)+'?';
+  sentenceEl.innerHTML =
+    (item.before ? item.before+' ' : '')+
+    `<span class="slot filled ${isCorrect?'t-correct pulse':'t-wrong'}" id="activeSlot">${chosen.word+suffix}</span>`+
+    (afterText ? ' '+afterText : '');
+
+  if (!isCorrect) {
+    requestAnimationFrame(() => {
+      const s = document.getElementById('activeSlot');
+      if (s) { s.style.animation='none'; void s.offsetWidth; s.style.animation='slotShake 0.5s ease forwards'; }
+    });
+  }
+
+  // Card colour
+  scenarioCard.classList.add(isCorrect ? 't-correct' : 't-wrong');
+
+  // Mark options
+  document.querySelectorAll('.test-option').forEach(b => {
+    b.disabled = true;
+    const isChosen  = b === btn;
+    const bCorrect  = b.dataset.correct === '1';
+    if (isChosen && isCorrect)  { b.classList.add('t-correct'); b.querySelector('span:last-child').insertAdjacentHTML('afterend','<span class="option-badge badge-correct">Correct ✓</span>'); }
+    else if (isChosen)          { b.classList.add('t-wrong');   b.querySelector('span:last-child').insertAdjacentHTML('afterend','<span class="option-badge badge-wrong">Incorrect ✗</span>'); }
+    else if (bCorrect && !isCorrect) { b.classList.add('t-missed'); b.querySelector('span:last-child').insertAdjacentHTML('afterend','<span class="option-badge badge-missed">Best answer</span>'); }
+  });
+
+  // Feedback
+  testFeedback.classList.add('visible', isCorrect ? 'fb-correct' : 'fb-wrong');
+  feedbackLabel.textContent = isCorrect ? '✓ Well done' : '✗ Not quite';
+  feedbackText.textContent  = isCorrect
+    ? correct.note
+    : `"${correct.word}" is the best fit here: ${correct.note}`;
+
+  // Score & dots
+  if (isCorrect) scoreCorrect++; else scoreWrong++;
+  dotResults[testPos] = isCorrect ? 'correct' : 'wrong';
+  scoreCorrectEl.textContent = scoreCorrect+' ✓';
+  scoreWrongEl.textContent   = scoreWrong+' ✗';
+  updateTestDots();
+  btnContinue.classList.add('visible');
+}
+
+function updateTestDots() {
   dotRow.innerHTML = '';
-  sentences.forEach((_, i) => {
+  testQueue.forEach((_, i) => {
     const d = document.createElement('span');
-    d.className = 'dot' + (i === idx ? ' current' : visited.has(i) ? ' visited' : '');
+    const r = dotResults[i];
+    d.className = 'dot'+(r==='correct'?' t-correct':r==='wrong'?' t-wrong':i===testPos?' current':'');
     dotRow.appendChild(d);
   });
 }
 
-// ── Card transition ───────────────────────────────────────
+function showComplete() {
+  const total = testQueue.length;
+  const pct   = total ? Math.round(scoreCorrect/total*100) : 0;
+  scoreBig.textContent   = `${scoreCorrect} / ${total}`;
+  scoreLabel.textContent = `${pct}% correct`;
+  sessionComplete.classList.add('visible');
+  testOptions.innerHTML  = '';
+  sentenceEl.innerHTML   = '';
+  contextText.textContent = '';
+  functionTag.textContent = '';
+  cefrBadge.textContent   = '';
+  counter.textContent     = '';
+  btnContinue.classList.remove('visible');
+  dotRow.innerHTML = '';
+  scenarioCard.classList.remove('t-correct','t-wrong','has-colour');
+}
+
+document.getElementById('btnRestart').addEventListener('click', startTest);
+
+btnContinue.addEventListener('click', () => {
+  testPos++;
+  scenarioCard.classList.remove('t-correct','t-wrong');
+  testFeedback.classList.remove('visible','fb-correct','fb-wrong');
+  cardTransition(renderTestQ);
+});
+
+// ── Shared nav ────────────────────────────────────────────
+function updateDots() {
+  dotRow.innerHTML = '';
+  sentences.forEach((_, i) => {
+    const d = document.createElement('span');
+    d.className = 'dot'+(i===idx?' current':visited.has(i)?' visited':'');
+    dotRow.appendChild(d);
+  });
+}
+
 function cardTransition(cb) {
   scenarioCard.style.opacity   = '0';
   scenarioCard.style.transform = 'translateY(16px)';
@@ -541,10 +739,9 @@ function cardTransition(cb) {
   }, 280);
 }
 
-// ── Navigation ────────────────────────────────────────────
 function advance(dir) {
-  if (!sentences.length) return;
-  idx = (idx + dir + sentences.length) % sentences.length;
+  if (!sentences.length || appMode==='test') return;
+  idx = (idx+dir+sentences.length)%sentences.length;
   visited.add(idx);
   cardTransition(() => { renderSentence(); renderModals(); });
 }
@@ -553,9 +750,13 @@ document.getElementById('btnNext').addEventListener('click', () => advance(1));
 document.getElementById('btnPrev').addEventListener('click', () => advance(-1));
 
 document.addEventListener('keydown', e => {
-  if (e.target.tagName === 'BUTTON' || e.target.tagName === 'INPUT') return;
-  if (e.key === 'ArrowRight') advance(1);
-  if (e.key === 'ArrowLeft')  advance(-1);
+  if (e.target.tagName==='BUTTON') return;
+  if (appMode==='explore') {
+    if (e.key==='ArrowRight') advance(1);
+    if (e.key==='ArrowLeft')  advance(-1);
+  } else if (appMode==='test' && testAnswered) {
+    if (e.key==='Enter') btnContinue.click();
+  }
 });
 
 init();
