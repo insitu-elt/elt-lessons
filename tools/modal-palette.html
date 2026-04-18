@@ -434,6 +434,9 @@ function renderSentence(chosen = null) {
     afterText = afterText.slice(0, -1) + '?';
   }
 
+  const suffix = item.slot_after_modal ? ' ' + item.slot_after_modal : '';
+  if (chosen) slotText += suffix;
+
   sentenceEl.innerHTML =
     (item.before ? item.before + ' ' : '') +
     `<span class="${slotClass}" id="activeSlot">${slotText}</span>` +
