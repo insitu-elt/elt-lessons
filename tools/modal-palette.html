@@ -598,18 +598,40 @@ function renderTestQ() {
 function buildOptions(item) {
   testOptions.innerHTML = '';
   const correct = item.modals.find(m => m.ok);
+  const targetType = item.sentence_type || 'declarative';
 
-  // Pool of distractors: wrong modals from this sentence first
-  let pool = item.modals.filter(m => !m.ok).map(m => ({...m, _src:'local'}));
-  // Then modals from other sentences (ok or not), deduplicated by word
+  // Helper: is a modal word structurally compatible with the target sentence?
+  function isCompatible(word) {
+    // Embedded-subject modals (e.g. "Can you", "We must", "Why don't we")
+    // are only compatible with question-type sentences
+    const hasEmbeddedSubject = /^(Can you|Could you|Would you|Will you|Shall you|We |Why don't we|I was wondering|Can I|Could I|May I|Might I|Shall I)/i.test(word);
+    if (hasEmbeddedSubject && targetType === 'declarative') return false;
+    return true;
+  }
+
+  // Helper: get stem (first word) to avoid near-identical distractors
+  function stem(word) { return word.split(' ')[0].toLowerCase(); }
+  const correctStem = stem(correct.word);
+
+  // Pool of distractors: wrong modals from this sentence first (if compatible)
+  let pool = item.modals
+    .filter(m => !m.ok && isCompatible(m.word))
+    .map(m => ({...m, _src:'local'}));
+
+  // Then modals from other sentences, deduplicated by word and stem
   sentences.forEach((s, si) => {
     if (si === idx) return;
     s.modals.forEach(m => {
-      if (!pool.find(p => p.word === m.word) && m.word !== correct.word) {
-        pool.push({...m, _src:'remote'});
-      }
+      const word = m.word;
+      if (!isCompatible(word)) return;
+      if (word === correct.word) return;
+      if (pool.find(p => p.word === word)) return;
+      // Avoid distractors too similar to correct answer (same stem)
+      if (stem(word) === correctStem && word !== correct.word) return;
+      pool.push({...m, _src:'remote'});
     });
   });
+
   pool.sort(() => Math.random()-0.5);
   const distractors = pool.slice(0, 3);
 
@@ -621,7 +643,9 @@ function buildOptions(item) {
     btn.className = 'test-option';
     btn.style.setProperty('--swatch-base', p.hex);
     btn.dataset.correct = m === correct ? '1' : '0';
-    btn.innerHTML = `<div class="option-dot"></div><span>${m.word}</span>`;
+    // Lowercase display in test mode for consistency
+    const display = m.word.charAt(0).toLowerCase() + m.word.slice(1);
+    btn.innerHTML = `<div class="option-dot"></div><span>${display}</span>`;
     btn.addEventListener('click', () => handleAnswer(btn, m, correct, item));
     setTimeout(() => btn.classList.add('revealed'), i*55);
     testOptions.appendChild(btn);

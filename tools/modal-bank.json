@@ -351,7 +351,8 @@
           "gloss": "Not used in modern neutral English",
           "note": "'Shall' is archaic or legalistic here. You'd only meet it in very formal or old-fashioned writing."
         }
-      ]
+      ],
+      "sentence_type": "declarative"
     },
     {
       "id": "cond-002",
@@ -402,7 +403,8 @@
           "gloss": "Recommendation",
           "note": "Frames eating outside as the right thing to do \u2014 almost an obligation to enjoy the weather."
         }
-      ]
+      ],
+      "sentence_type": "declarative"
     },
     {
       "id": "spec-001",
@@ -453,7 +455,8 @@
           "gloss": "Incorrect usage",
           "note": "'Can' works for general theoretical possibility ('accidents can happen') but is not used for guessing about a specific, current situation."
         }
-      ]
+      ],
+      "sentence_type": "declarative"
     },
     {
       "id": "spec-002",
@@ -504,7 +507,8 @@
           "gloss": "Illogical meaning",
           "note": "Grammatically correct, but logically wrong. 'Should have forgotten' implies she was supposed to forget \u2014 which makes no sense here."
         }
-      ]
+      ],
+      "sentence_type": "declarative"
     },
     {
       "id": "adv-001",
@@ -555,7 +559,8 @@
           "gloss": "Incorrect meaning",
           "note": "'Don't have to' signals no obligation \u2014 the opposite of advice against something. A very common learner error."
         }
-      ]
+      ],
+      "sentence_type": "declarative"
     },
     {
       "id": "crit-001",
@@ -606,7 +611,8 @@
           "gloss": "Incorrect meaning",
           "note": "'Must have told me' shifts the function entirely \u2014 it becomes a deduction ('I'm certain you told me'), stripping away the criticism."
         }
-      ]
+      ],
+      "sentence_type": "declarative"
     },
     {
       "id": "req-001",
@@ -657,7 +663,8 @@
           "gloss": "Wrong person for a request",
           "note": "'Shall you' is not used in English. 'Shall' in questions works only with I or we: 'Shall I open a window?'"
         }
-      ]
+      ],
+      "sentence_type": "question"
     },
     {
       "id": "req-002",
@@ -709,7 +716,8 @@
           "note": "'Will you' in a formal email can come across as presumptuous \u2014 it implies the other person has already agreed. Avoid in written requests to seniors.",
           "context_error": true
         }
-      ]
+      ],
+      "sentence_type": "question"
     },
     {
       "id": "off-001",
@@ -761,7 +769,8 @@
           "gloss": "Obligation \u2014 not an offer",
           "note": "'Must I make you tea?' implies reluctant duty. It would sound very strange and slightly hostile as an offer."
         }
-      ]
+      ],
+      "sentence_type": "question"
     },
     {
       "id": "sug-001",
@@ -814,7 +823,8 @@
           "gloss": "Enthusiastic suggestion",
           "note": "Only works if you're genuinely excited about the idea. Otherwise it sounds pushy."
         }
-      ]
+      ],
+      "sentence_type": "question"
     },
     {
       "id": "ref-001",
@@ -865,7 +875,8 @@
           "gloss": "Wrong meaning entirely",
           "note": "'I mustn't do it' means 'I'm not allowed to' \u2014 implying a rule is stopping you, not your own choice or schedule. Sounds very unusual here."
         }
-      ]
+      ],
+      "sentence_type": "declarative"
     },
     {
       "id": "perm-001",
@@ -916,7 +927,8 @@
           "gloss": "Not used for asking permission",
           "note": "'Shall I?' offers to do something for someone else, it doesn't ask permission for yourself. Wrong function here."
         }
-      ]
+      ],
+      "sentence_type": "question"
     },
     {
       "id": "ded-001",
@@ -967,7 +979,8 @@
           "gloss": "Wrong function here",
           "note": "'Should be in' means you expect them to be in \u2014 perhaps because they promised to stay home. It's about expectation, not deduction from evidence."
         }
-      ]
+      ],
+      "sentence_type": "declarative"
     },
     {
       "id": "ded-002",
@@ -1018,7 +1031,8 @@
           "gloss": "Prohibition \u2014 not deduction",
           "note": "'Mustn't arrive' would mean you're forbidding the pizza from coming \u2014 which makes no sense. 'Mustn't' is never used for deduction."
         }
-      ]
+      ],
+      "sentence_type": "declarative"
     },
     {
       "id": "ded-003",
@@ -1069,7 +1083,8 @@
           "gloss": "Criticism \u2014 completely different meaning",
           "note": "'Should have come home' is a criticism \u2014 implying they were supposed to but perhaps didn't. It has nothing to do with deduction from evidence."
         }
-      ]
+      ],
+      "sentence_type": "declarative"
     },
     {
       "id": "spec-003",
@@ -1120,7 +1135,8 @@
           "gloss": "Assertion \u2014 not speculation",
           "note": "'She will be busy' states it as a fact. That's too confident when you genuinely have no idea why she hasn't replied."
         }
-      ]
+      ],
+      "sentence_type": "declarative"
     },
     {
       "id": "spec-004",
@@ -1171,7 +1187,8 @@
           "gloss": "Criticism \u2014 not speculation",
           "note": "'Should have had an appointment' implies he was supposed to but perhaps didn't. It's a completely different function \u2014 criticism or unfulfilled expectation."
         }
-      ]
+      ],
+      "sentence_type": "declarative"
     },
     {
       "id": "cond-003",
@@ -1222,7 +1239,8 @@
           "gloss": "Wrong tense \u2014 makes it first conditional",
           "note": "'If I had a million pounds, I will travel' mixes tenses incorrectly. 'Will' belongs in the first conditional where the situation is real and possible."
         }
-      ]
+      ],
+      "sentence_type": "declarative"
     },
     {
       "id": "cond-004",
@@ -1273,7 +1291,8 @@
           "gloss": "Too forceful for this structure",
           "note": "'If I were you, I must look for a new job' sounds unnatural \u2014 'must' doesn't fit comfortably in second conditional main clauses."
         }
-      ]
+      ],
+      "sentence_type": "declarative"
     },
     {
       "id": "cond-005",
@@ -1324,7 +1343,8 @@
           "gloss": "Deduction \u2014 not a hypothetical",
           "note": "'Must have caught the bus' would be a deduction about what actually happened \u2014 not a hypothetical about what would have happened."
         }
-      ]
+      ],
+      "sentence_type": "declarative"
     },
     {
       "id": "cond-006",
@@ -1375,7 +1395,8 @@
           "gloss": "Deduction about the past \u2014 wrong function",
           "note": "'Must have gone better' would be a deduction about what actually happened. Here we're talking about a hypothetical \u2014 what would have happened under different circumstances."
         }
-      ]
+      ],
+      "sentence_type": "declarative"
     },
     {
       "id": "obl-001",
@@ -1426,7 +1447,8 @@
           "gloss": "No necessity \u2014 opposite meaning",
           "note": "'Needn't reduce your salt intake' tells the patient it isn't necessary \u2014 the exact opposite of the intended advice."
         }
-      ]
+      ],
+      "sentence_type": "declarative"
     },
     {
       "id": "obl-002",
@@ -1477,7 +1499,8 @@
           "gloss": "Inability \u2014 implies the system blocks submission",
           "note": "'Can't submit' suggests the system prevents it. That may be true, but the intended message is about obligation, not ability."
         }
-      ]
+      ],
+      "sentence_type": "declarative"
     }
   ]
 }
