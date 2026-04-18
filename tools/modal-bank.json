@@ -352,7 +352,14 @@
           "note": "'Shall' is archaic or legalistic here. You'd only meet it in very formal or old-fashioned writing."
         }
       ],
-      "sentence_type": "declarative"
+      "sentence_type": "declarative",
+      "distractors": [
+        "should",
+        "might",
+        "must"
+      ],
+      "feedback_correct": "'Will' is the natural choice in a first conditional (an 'if\u2026' sentence about a real future possibility) when the speaker is making a confident prediction about the result. It signals that the speaker genuinely believes the outcome will follow from the condition.",
+      "feedback_wrong": "In a first conditional, the main clause normally uses 'will' to express a confident prediction about what follows from the condition. 'Should' suggests expectation, 'might' introduces doubt, and 'must' implies obligation rather than prediction \u2014 none of these fit a straightforward encouraging statement as well as 'will'."
     },
     {
       "id": "cond-002",
@@ -404,7 +411,14 @@
           "note": "Frames eating outside as the right thing to do \u2014 almost an obligation to enjoy the weather."
         }
       ],
-      "sentence_type": "declarative"
+      "sentence_type": "declarative",
+      "distractors": [
+        "should",
+        "might",
+        "could"
+      ],
+      "feedback_correct": "'Will' expresses a firm, confident plan \u2014 the picnic is definitely on if the weather holds. In a first conditional, 'will' in the main clause signals that the speaker is treating the result as a near-certain outcome of the condition being met.",
+      "feedback_wrong": "While 'could' and 'might' are possible here, they introduce unnecessary doubt \u2014 as if the friends are unsure what they'll do even if the weather is fine. 'Should' implies the speaker thinks eating outside is the right thing to do. 'Will' is the most natural choice for a firm, straightforward plan."
     },
     {
       "id": "spec-001",
@@ -456,7 +470,14 @@
           "note": "'Can' works for general theoretical possibility ('accidents can happen') but is not used for guessing about a specific, current situation."
         }
       ],
-      "sentence_type": "declarative"
+      "sentence_type": "declarative",
+      "distractors": [
+        "might",
+        "should",
+        "could"
+      ],
+      "feedback_correct": "'Must' is used for deduction (a conclusion you reach from the evidence in front of you). The dark house, no lights, and no car all point strongly to one conclusion \u2014 'must' reflects that confidence in the reasoning.",
+      "feedback_wrong": "When you have clear visual evidence and reason to a confident conclusion, 'must' is the right choice. 'Might' and 'could' are used for open speculation (guessing without much evidence), which is weaker than the situation warrants. 'Should' expresses expectation rather than deduction from evidence."
     },
     {
       "id": "spec-002",
@@ -508,7 +529,14 @@
           "note": "Grammatically correct, but logically wrong. 'Should have forgotten' implies she was supposed to forget \u2014 which makes no sense here."
         }
       ],
-      "sentence_type": "declarative"
+      "sentence_type": "declarative",
+      "distractors": [
+        "could have",
+        "may have",
+        "would have"
+      ],
+      "feedback_correct": "'Might have' is the best choice for past speculation (guessing about what happened) when you have no evidence to go on. The context says you have no idea why she didn't come \u2014 so you're simply floating a possibility, not reasoning from facts.",
+      "feedback_wrong": "Without any evidence to reason from, 'must have' would overclaim \u2014 it implies you're confident based on clues you don't have. 'Would have' refers to a hypothetical result in a conditional (an 'if\u2026' sentence), not speculation. 'Might have' honestly signals that you're guessing."
     },
     {
       "id": "adv-001",
@@ -560,7 +588,14 @@
           "note": "'Don't have to' signals no obligation \u2014 the opposite of advice against something. A very common learner error."
         }
       ],
-      "sentence_type": "declarative"
+      "sentence_type": "declarative",
+      "distractors": [
+        "don't have to",
+        "needn't",
+        "wouldn't"
+      ],
+      "feedback_correct": "'Shouldn't' is the standard way to advise someone against doing something \u2014 it signals that the action is inadvisable. Here it tells your friend that drinking coffee late in the day is the likely cause of their sleep problem.",
+      "feedback_wrong": "Both 'don't have to' and 'needn't' signal absence of obligation (meaning there is no rule or requirement \u2014 you can do it, but you don't have to). They would tell your friend that coffee is optional, not that it's a bad idea. 'Shouldn't' correctly expresses advice against an action."
     },
     {
       "id": "crit-001",
@@ -612,7 +647,14 @@
           "note": "'Must have told me' shifts the function entirely \u2014 it becomes a deduction ('I'm certain you told me'), stripping away the criticism."
         }
       ],
-      "sentence_type": "declarative"
+      "sentence_type": "declarative",
+      "distractors": [
+        "could have",
+        "might have",
+        "ought to have"
+      ],
+      "feedback_correct": "'Should have' is the standard structure for mild criticism of a past action \u2014 it points out what someone failed to do but ought to have done. It's the most direct and common way to express this kind of regret or reproach in English.",
+      "feedback_wrong": "While 'could have' and 'might have' are possible (and softer in tone), they emphasise missed opportunity rather than a clear expectation that was not met. 'Ought to have' is correct but more formal. 'Should have' is the most natural and direct choice for everyday criticism of a past action."
     },
     {
       "id": "req-001",
@@ -664,7 +706,14 @@
           "note": "'Shall you' is not used in English. 'Shall' in questions works only with I or we: 'Shall I open a window?'"
         }
       ],
-      "sentence_type": "question"
+      "sentence_type": "question",
+      "distractors": [
+        "Could you",
+        "Would you",
+        "Will you"
+      ],
+      "feedback_correct": "'Can you' is perfectly natural for an informal request between colleagues. Despite what some older grammar books say, 'Can you?' is now fully standard in spoken British English for everyday requests.",
+      "feedback_wrong": "All four options are possible for requests, but they differ in politeness and formality. 'Could you' and 'Would you' are more formal \u2014 better suited to emails or requests to people you don't know well. 'Will you' can sound slightly impatient. In a relaxed open-plan office among colleagues, 'Can you' is the most natural choice."
     },
     {
       "id": "req-002",
@@ -717,7 +766,14 @@
           "context_error": true
         }
       ],
-      "sentence_type": "question"
+      "sentence_type": "question",
+      "distractors": [
+        "Would you",
+        "Could you",
+        "Can you"
+      ],
+      "feedback_correct": "'I was wondering if you might' is the most considerate structure for a formal written request to someone senior you haven't met. The double distancing \u2014 'was wondering' (past tense) and 'might' (tentative possibility) \u2014 makes the request feel respectful rather than presumptuous.",
+      "feedback_wrong": "'Would you' and 'Could you' are appropriately formal, but still direct. In a first email to a senior colleague you've never met, a more indirect structure signals greater respect. 'Can you' is too casual for this register (the level of formality required). The indirect 'I was wondering if you might' best suits the context."
     },
     {
       "id": "off-001",
@@ -770,7 +826,14 @@
           "note": "'Must I make you tea?' implies reluctant duty. It would sound very strange and slightly hostile as an offer."
         }
       ],
-      "sentence_type": "question"
+      "sentence_type": "question",
+      "distractors": [
+        "Can",
+        "Could",
+        "Will"
+      ],
+      "feedback_correct": "'Shall I' is the classic British English structure for a first-person offer. It invites the guest to accept or decline and sounds warm and natural. 'Shall I make you a cup of tea?' is a very common and idiomatic offer in British English.",
+      "feedback_wrong": "'Can I' and 'Could I' work better for asking permission than for making an offer. 'Will I' sounds like a genuine question about the future rather than a polite offer. 'Shall I' is the most idiomatic choice in British English when offering to do something for someone."
     },
     {
       "id": "sug-001",
@@ -824,7 +887,14 @@
           "note": "Only works if you're genuinely excited about the idea. Otherwise it sounds pushy."
         }
       ],
-      "sentence_type": "question"
+      "sentence_type": "question",
+      "distractors": [
+        "Why don't we",
+        "We should",
+        "We could"
+      ],
+      "feedback_correct": "'Shall we' is a natural, inclusive suggestion in British English \u2014 it invites agreement from the other person and works perfectly for a joint decision about where to eat. It is question-form, so it needs a question mark.",
+      "feedback_wrong": "'Why don't we' is also natural but slightly more casual. 'We should' is a mild recommendation rather than an open suggestion. 'We could' frames it as one option among many. 'Shall we' is the most idiomatic inclusive suggestion in British English for a joint decision."
     },
     {
       "id": "ref-001",
@@ -876,7 +946,14 @@
           "note": "'I mustn't do it' means 'I'm not allowed to' \u2014 implying a rule is stopping you, not your own choice or schedule. Sounds very unusual here."
         }
       ],
-      "sentence_type": "declarative"
+      "sentence_type": "declarative",
+      "distractors": [
+        "won't",
+        "couldn't",
+        "wouldn't be able to"
+      ],
+      "feedback_correct": "'Can't' is the safest and most natural refusal \u2014 it blurs the line between inability and unwillingness, which makes it polite and face-saving. Saying 'I can't do it' is much softer than 'I won't do it', even if the real reason is a choice rather than an inability.",
+      "feedback_wrong": "'Won't' is honest but blunt \u2014 it signals a decision, which can sound confrontational. 'Couldn't' is slightly tentative, as if circumstances might change. 'Wouldn't be able to' is more formal and distanced. 'Can't' is the most natural and socially smooth refusal in everyday spoken English."
     },
     {
       "id": "perm-001",
@@ -928,7 +1005,14 @@
           "note": "'Shall I?' offers to do something for someone else, it doesn't ask permission for yourself. Wrong function here."
         }
       ],
-      "sentence_type": "question"
+      "sentence_type": "question",
+      "distractors": [
+        "Could",
+        "May",
+        "Might"
+      ],
+      "feedback_correct": "'Can I' is the most common way to ask for permission in everyday spoken English. Prescriptive grammarians once objected that 'can' was about ability, not permission \u2014 but 'Can I?' is now fully standard and natural in both speech and informal writing.",
+      "feedback_wrong": "All four options ask for permission, but they differ in formality (the level of politeness). 'May I' is the most formal \u2014 very polite, used in professional or public settings. 'Could I' is polite and neutral. 'Might I' is old-fashioned and very deferential. 'Can I' is the most natural choice in an everyday situation like a library."
     },
     {
       "id": "ded-001",
@@ -980,7 +1064,14 @@
           "note": "'Should be in' means you expect them to be in \u2014 perhaps because they promised to stay home. It's about expectation, not deduction from evidence."
         }
       ],
-      "sentence_type": "declarative"
+      "sentence_type": "declarative",
+      "distractors": [
+        "might",
+        "should",
+        "could"
+      ],
+      "feedback_correct": "'Must' is used for deduction (a conclusion you reach from the evidence in front of you). Music playing and a light on are strong clues \u2014 you're not guessing, you're reasoning. 'Must' signals that confidence in the conclusion.",
+      "feedback_wrong": "'Might' and 'could' are used for speculation (guessing when you have little or no evidence) \u2014 they're too weak when the evidence is clear. 'Should' expresses expectation, not deduction from observed facts. When the evidence points strongly to a conclusion, 'must' is the right choice."
     },
     {
       "id": "ded-002",
@@ -1032,7 +1123,14 @@
           "note": "'Mustn't arrive' would mean you're forbidding the pizza from coming \u2014 which makes no sense. 'Mustn't' is never used for deduction."
         }
       ],
-      "sentence_type": "declarative"
+      "sentence_type": "declarative",
+      "distractors": [
+        "must",
+        "might",
+        "could"
+      ],
+      "feedback_correct": "'Should' here expresses a confident expectation based on reasoning \u2014 you know when the pizza left and how long delivery takes, so arrival very soon is the logical conclusion. 'Should' is slightly softer than 'must' and works well when the evidence is strong but not absolutely certain.",
+      "feedback_wrong": "'Must' would be too strong here \u2014 it implies near-certainty, but a pizza delivery could be delayed. 'Might' and 'could' introduce too much doubt when the timing evidence is fairly clear. 'Should' strikes the right balance between confidence and openness to the unexpected."
     },
     {
       "id": "ded-003",
@@ -1084,7 +1182,14 @@
           "note": "'Should have come home' is a criticism \u2014 implying they were supposed to but perhaps didn't. It has nothing to do with deduction from evidence."
         }
       ],
-      "sentence_type": "declarative"
+      "sentence_type": "declarative",
+      "distractors": [
+        "might have",
+        "could have",
+        "should have"
+      ],
+      "feedback_correct": "'Must have' expresses a confident past deduction (a conclusion you reach by reasoning from evidence you can see). The coat and keys on the hook are physical proof \u2014 you're not guessing, you're concluding. 'Must have' reflects that confidence.",
+      "feedback_wrong": "'Might have' and 'could have' signal open speculation (guessing without much evidence) \u2014 too weak when the physical evidence is right in front of you. 'Should have' expresses past criticism or unfulfilled expectation, which is a completely different meaning. 'Must have' is the right choice when evidence points strongly to a past conclusion."
     },
     {
       "id": "spec-003",
@@ -1136,7 +1241,14 @@
           "note": "'She will be busy' states it as a fact. That's too confident when you genuinely have no idea why she hasn't replied."
         }
       ],
-      "sentence_type": "declarative"
+      "sentence_type": "declarative",
+      "distractors": [
+        "must",
+        "could",
+        "may"
+      ],
+      "feedback_correct": "'Might' is the best choice for open speculation (guessing when you have no evidence at all). The context says you have no idea why your friend hasn't replied \u2014 so you're simply considering a possibility, not reasoning from facts. 'Might' honestly reflects that uncertainty.",
+      "feedback_wrong": "'Must' would imply you're reasoning from evidence to a confident conclusion \u2014 but the context says you have no idea, so 'must' overclaims your certainty. 'Could' and 'may' are also possible but 'might' is the most natural choice when genuinely guessing with no supporting evidence."
     },
     {
       "id": "spec-004",
@@ -1188,7 +1300,14 @@
           "note": "'Should have had an appointment' implies he was supposed to but perhaps didn't. It's a completely different function \u2014 criticism or unfulfilled expectation."
         }
       ],
-      "sentence_type": "declarative"
+      "sentence_type": "declarative",
+      "distractors": [
+        "could have",
+        "may have",
+        "should have"
+      ],
+      "feedback_correct": "'Might have' is the right choice for past speculation when you have no evidence \u2014 you're imagining possibilities rather than reasoning from clues. 'I imagine' in the sentence reinforces that this is pure guesswork.",
+      "feedback_wrong": "'Must have' implies confident past deduction from evidence \u2014 but the context says your colleague left without explanation, so you have no basis for confidence. 'Should have' expresses past criticism or unfulfilled expectation. 'Might have' honestly signals that you're speculating without facts."
     },
     {
       "id": "cond-003",
@@ -1240,7 +1359,14 @@
           "note": "'If I had a million pounds, I will travel' mixes tenses incorrectly. 'Will' belongs in the first conditional where the situation is real and possible."
         }
       ],
-      "sentence_type": "declarative"
+      "sentence_type": "declarative",
+      "distractors": [
+        "could",
+        "might",
+        "will"
+      ],
+      "feedback_correct": "'Would' is the standard choice for the main clause of a second conditional (a hypothetical 'if\u2026' sentence about something that isn't real). 'If I had a million pounds' signals that you don't \u2014 so the consequence belongs in the hypothetical world of 'would'.",
+      "feedback_wrong": "'Could' and 'might' are possible in second conditionals but change the meaning \u2014 'could travel' means it would become possible, 'might travel' suggests uncertainty about what you'd do. 'Will' belongs in first conditionals about real, possible situations \u2014 not hypothetical ones like this. 'Would' is the most direct and natural choice."
     },
     {
       "id": "cond-004",
@@ -1292,7 +1418,14 @@
           "note": "'If I were you, I must look for a new job' sounds unnatural \u2014 'must' doesn't fit comfortably in second conditional main clauses."
         }
       ],
-      "sentence_type": "declarative"
+      "sentence_type": "declarative",
+      "distractors": [
+        "should",
+        "could",
+        "might"
+      ],
+      "feedback_correct": "'Would' in 'If I were you, I would\u2026' is the classic advice structure in English. It presents the action as a firm hypothetical intention \u2014 what the speaker would definitely do in the other person's situation.",
+      "feedback_wrong": "'Should' is slightly stronger and can sound more prescriptive. 'Could' and 'might' are softer \u2014 they present the action as one option rather than a clear recommendation. 'Would' strikes the right balance: confident but hypothetical (imagining something that isn't real), which is exactly what advice using 'If I were you' requires."
     },
     {
       "id": "cond-005",
@@ -1344,7 +1477,14 @@
           "note": "'Must have caught the bus' would be a deduction about what actually happened \u2014 not a hypothetical about what would have happened."
         }
       ],
-      "sentence_type": "declarative"
+      "sentence_type": "declarative",
+      "distractors": [
+        "could have",
+        "might have",
+        "should have"
+      ],
+      "feedback_correct": "'Would have' is the standard main clause for a third conditional (imagining a different past outcome). The sentence describes what would have happened if things had been different \u2014 you didn't leave earlier, so you didn't catch the bus. 'Would have' expresses that certain counterfactual (imagined) result.",
+      "feedback_wrong": "'Could have' suggests the outcome would have been possible but not certain. 'Might have' introduces even more doubt. 'Should have' shifts the meaning entirely \u2014 it expresses past criticism (implying you were supposed to catch the bus), not a hypothetical outcome. 'Would have' is the correct choice for a confident counterfactual result."
     },
     {
       "id": "cond-006",
@@ -1396,7 +1536,14 @@
           "note": "'Must have gone better' would be a deduction about what actually happened. Here we're talking about a hypothetical \u2014 what would have happened under different circumstances."
         }
       ],
-      "sentence_type": "declarative"
+      "sentence_type": "declarative",
+      "distractors": [
+        "could have",
+        "might have",
+        "should have"
+      ],
+      "feedback_correct": "'Would have' is the correct main clause for a third conditional \u2014 it describes the certain outcome that would have followed if the condition had been met. Reading the brief properly would definitely have changed the result: 'would have gone better' expresses that direct counterfactual (imagined past) link.",
+      "feedback_wrong": "'Could have gone better' suggests it would merely have been possible for things to improve \u2014 weaker than the situation warrants. 'Might have' introduces even more uncertainty. 'Should have gone better' expresses expectation or criticism, not a hypothetical result. 'Would have' correctly signals a confident counterfactual outcome."
     },
     {
       "id": "obl-001",
@@ -1448,7 +1595,14 @@
           "note": "'Needn't reduce your salt intake' tells the patient it isn't necessary \u2014 the exact opposite of the intended advice."
         }
       ],
-      "sentence_type": "declarative"
+      "sentence_type": "declarative",
+      "distractors": [
+        "should",
+        "need to",
+        "have to"
+      ],
+      "feedback_correct": "'Must' here comes from the doctor's own professional authority \u2014 it's a direct, personal instruction. In medical advice, 'must' signals that this is not optional: the doctor's judgement requires it. It is the strongest and most appropriate choice when a professional is giving an urgent health instruction.",
+      "feedback_wrong": "'Should' is a recommendation \u2014 weaker than the situation demands for a doctor advising a patient with high blood pressure. 'Need to' and 'have to' both express necessity but shift the source of obligation outward, as if external rules require it rather than the doctor's direct instruction. 'Must' best reflects the doctor's personal authority."
     },
     {
       "id": "obl-002",
@@ -1500,7 +1654,14 @@
           "note": "'Can't submit' suggests the system prevents it. That may be true, but the intended message is about obligation, not ability."
         }
       ],
-      "sentence_type": "declarative"
+      "sentence_type": "declarative",
+      "distractors": [
+        "mustn't",
+        "needn't",
+        "shouldn't"
+      ],
+      "feedback_correct": "'Don't have to' signals absence of obligation (meaning there is no rule or requirement \u2014 you can submit, but you don't have to). The system being down removes the requirement for this week \u2014 the colleague is free to skip it without any negative consequence.",
+      "feedback_wrong": "This is one of the most important distinctions in English grammar. 'Mustn't' means it is forbidden \u2014 which would wrongly imply that submitting a timesheet would cause a problem. 'Needn't' means the same as 'don't have to' but sounds more formal. 'Shouldn't' advises against it, implying it would be a bad idea to submit. Only 'don't have to' correctly removes the obligation without adding prohibition."
     }
   ]
 }

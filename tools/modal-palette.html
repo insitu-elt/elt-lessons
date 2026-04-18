@@ -598,44 +598,26 @@ function renderTestQ() {
 function buildOptions(item) {
   testOptions.innerHTML = '';
   const correct = item.modals.find(m => m.ok);
-  const targetType = item.sentence_type || 'declarative';
 
-  // Helper: is a modal word structurally compatible with the target sentence?
-  function isCompatible(word) {
-    // Embedded-subject modals (e.g. "Can you", "We must", "Why don't we")
-    // are only compatible with question-type sentences
-    const hasEmbeddedSubject = /^(Can you|Could you|Would you|Will you|Shall you|We |Why don't we|I was wondering|Can I|Could I|May I|Might I|Shall I)/i.test(word);
-    if (hasEmbeddedSubject && targetType === 'declarative') return false;
-    return true;
-  }
+  // Use curated distractors from the bank — fall back to algorithmic only if absent
+  let distractorWords = item.distractors || [];
 
-  // Helper: get stem (first word) to avoid near-identical distractors
-  function stem(word) { return word.split(' ')[0].toLowerCase(); }
-  const correctStem = stem(correct.word);
-
-  // Pool of distractors: wrong modals from this sentence first (if compatible)
-  let pool = item.modals
-    .filter(m => !m.ok && isCompatible(m.word))
-    .map(m => ({...m, _src:'local'}));
-
-  // Then modals from other sentences, deduplicated by word and stem
-  sentences.forEach((s, si) => {
-    if (si === idx) return;
-    s.modals.forEach(m => {
-      const word = m.word;
-      if (!isCompatible(word)) return;
-      if (word === correct.word) return;
-      if (pool.find(p => p.word === word)) return;
-      // Avoid distractors too similar to correct answer (same stem)
-      if (stem(word) === correctStem && word !== correct.word) return;
-      pool.push({...m, _src:'remote'});
-    });
+  // Build distractor objects: look up palette from bank modals or use ERROR
+  const distractorObjs = distractorWords.map(word => {
+    // Try to find this word in the sentence's own modals first
+    const found = item.modals.find(m => m.word.toLowerCase() === word.toLowerCase());
+    if (found) return found;
+    // Otherwise build a minimal object for display
+    // Find palette key by matching word to any modal in the full bank
+    let paletteKey = 'ERROR';
+    for (const s of bank.sentences) {
+      const match = s.modals.find(m => m.word.toLowerCase() === word.toLowerCase());
+      if (match) { paletteKey = match.palette_key; break; }
+    }
+    return { word, palette_key: paletteKey, ok: false };
   });
 
-  pool.sort(() => Math.random()-0.5);
-  const distractors = pool.slice(0, 3);
-
-  const options = [correct, ...distractors].sort(() => Math.random()-0.5);
+  const options = [correct, ...distractorObjs].sort(() => Math.random() - 0.5);
 
   options.forEach((m, i) => {
     const p = bank.palette[m.palette_key] ?? bank.palette['ERROR'];
@@ -643,11 +625,10 @@ function buildOptions(item) {
     btn.className = 'test-option';
     btn.style.setProperty('--swatch-base', p.hex);
     btn.dataset.correct = m === correct ? '1' : '0';
-    // Lowercase display in test mode for consistency
     const display = m.word.charAt(0).toLowerCase() + m.word.slice(1);
     btn.innerHTML = `<div class="option-dot"></div><span>${display}</span>`;
     btn.addEventListener('click', () => handleAnswer(btn, m, correct, item));
-    setTimeout(() => btn.classList.add('revealed'), i*55);
+    setTimeout(() => btn.classList.add('revealed'), i * 55);
     testOptions.appendChild(btn);
   });
 }
@@ -690,8 +671,8 @@ function handleAnswer(btn, chosen, correct, item) {
   testFeedback.classList.add('visible', isCorrect ? 'fb-correct' : 'fb-wrong');
   feedbackLabel.textContent = isCorrect ? '✓ Well done' : '✗ Not quite';
   feedbackText.textContent  = isCorrect
-    ? correct.note
-    : `"${correct.word}" is the best fit here: ${correct.note}`;
+    ? (item.feedback_correct || correct.note)
+    : (item.feedback_wrong   || `"${correct.word}" is the best fit here: ${correct.note}`);
 
   // Score & dots
   if (isCorrect) scoreCorrect++; else scoreWrong++;
