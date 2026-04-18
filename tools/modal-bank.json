@@ -472,9 +472,9 @@
         {
           "word": "must have",
           "palette_key": "must have",
-          "ok": true,
-          "gloss": "Confident past deduction",
-          "note": "You are almost entirely sure this is the reason. The evidence points strongly here."
+          "ok": false,
+          "gloss": "Claims certainty you do not have",
+          "note": "Without clear evidence, 'must have' overclaims. You're guessing \u2014 not reasoning from facts. In speculation, 'might have' or 'could have' are more honest choices."
         },
         {
           "word": "might have",
